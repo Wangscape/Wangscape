@@ -1,0 +1,41 @@
+{
+  "TileFormat": {
+    "Resolution": 32,
+    "Colours": "RGB",
+    "BitDepth": 24,
+    "FileType": "PNG"
+  },
+  "OutputDirectory": "output",
+  "Terrains": {
+    "0": {
+      "FullName": "grass",
+      "ShortName": "g",
+      "FileName": "grass.png",
+      "OffsetX": 0,
+      "OffsetY": 0
+    },
+    "1": {
+      "FullName": "sea",
+      "ShortName": "s",
+      "FileName": "sea.png",
+      "OffsetX": 0,
+      "OffsetY": 0
+    }
+  },
+  "Cliques": [
+    [
+      "0",
+      "1"
+    ]
+  ],
+  "BorderOffsets": {
+    "0 1": {
+      "Horizontal": -4,
+      "Vertical": 5
+    },
+    "1 0": {
+      "Horizontal": 3,
+      "Vertical": -2
+    }
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "Wangscape options schema",
+  "description": "Specifies how Wangscape should convert a set of terrain tiles into corner Wang tilesets.",
+  "properties": {
+    "TileFormat": {
+      "type": "object",
+      "title": "Tile format schema",
+      "description": "Specifies the format of Wangscape's input and output tiles.",
+      "additionalValues": false,
+      "properties": {
+        "Resolution": {
+          "type": "integer",
+          "title": "Tile resolution",
+          "description": "Specifies the width and height of the square tiles Wangscape will operate on.",
+          "multipleOf": 1,
+          "maximum": 512,
+          "minimum": 8
+        },
+        "Colours": {
+          "type": "string",
+          "title": "Tile colours schema",
+          "description": "Specifies whether a schema uses RGB or greyscale tiles.",
+          "default": "RGB",
+          "enum": [
+            "RGB",
+            "Greyscale"
+          ]
+        },
+        "BitDepth": {
+          "type": "integer",
+          "title": "Bit depth schema",
+          "description": "Specifies the bit depth of Wangscape's input and output tiles.",
+          "multipleOf": 1,
+          "maximum": 32,
+          "minimum": 1,
+          "default": 24
+        },
+        "FileType": {
+          "type": "string",
+          "title": "File type schema",
+          "description": "Specifies the file type of Wangscape's input and output tiles.",
+          "default": "PNG",
+          "enum": [
+            "PNG",
+            "JPEG",
+            "TIFF"
+          ]
+        }
+      },
+      "required": [
+        "Resolution"
+      ]
+    },
+    "OutputDirectory": {
+      "type": "string",
+      "title": "Output directory schema.",
+      "description": "Specifies the directory where Wangscape should write the output tiles (may be wiped first!)",
+      "minLength": 1
+    },
+    "Terrains": {
+      "type": "object",
+      "title": "Terrains schema",
+      "description": "Specifies the names and textures of Wangscape's input terrain tiles.",
+      "minProperties": 2,
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[0-9a-zA-Z_-]+$": {
+          "type": "object",
+          "title": "Terrain schema",
+          "description": "Specifies the name and texture of one of Wangscape's input terrain tiles.",
+          "additionalProperties": false,
+          "properties": {
+            "FullName": {
+              "type": "string",
+              "title": "Full name schema",
+              "description": "Specifies the full name of one of Wangscape's input terrain tiles.",
+              "minLength": 1
+            },
+            "ShortName": {
+              "type": "string",
+              "title": "Short name schema",
+              "description": "Specifies the short name of one of Wangscape's input terrain tiles.",
+              "minLength": 1
+            },
+            "FileName": {
+              "type": "string",
+              "title": "File name schema",
+              "description": "Specifies the file in which the texture of one of Wangscape's input terrain tiles can be found.",
+              "minLength": 1
+            },
+            "OffsetX": {
+              "type": "integer",
+              "title": "X offset schema",
+              "description": "Specifies the horizontal offset of the terrain tile's texture in the input image, divided by the tile resolution.",
+              "multipleOf": 1,
+              "minimum": 0,
+              "maximum": 512,
+              "default": 0
+            },
+            "OffsetY": {
+              "type": "integer",
+              "title": "Y offset schema",
+              "description": "Specifies the vertical offset of the terrain tile's texture in the input image, divided by the tile resolution.",
+              "multipleOf": 1,
+              "minimum": 0,
+              "maximum": 512,
+              "default": 0
+            }
+          },
+          "required": [
+            "FullName",
+            "ShortName",
+            "FileName"
+          ]
+        }
+      }
+    },
+    "Cliques": {
+      "type": "array",
+      "title": "Cliques schema",
+      "description": "Specifies terrain type sets for which corner Wang tilesets will be generated.",
+      "uniqueItems": true,
+      "minItems": 1,
+      "items": {
+        "type": "array",
+        "title": "Clique schema",
+        "description": "Specifies a set of 2-4 terrain types for which a corner Wang tileset will be generated.",
+        "uniqueItems": true,
+        "minItems": 2,
+        "maxItems": 4,
+        "items": {
+          "type": "string",
+          "minLength": 1,
+          "title": "Clique item schema",
+          "description": "Specifies a terrain type by its key in the Terrains property.",
+          "pattern": ".+"
+        }
+      }
+    },
+    "BorderOffsets": {
+      "type": "object",
+      "title": "Border offsets schema",
+      "description": "Lists border offsets for pairs of terrain types that can neighbour each other.",
+      "minProperties": 2,
+      "additionalProperties": false,
+      "patternProperties": {
+        "^[0-9a-zA-Z_-]+ [0-9a-zA-Z_-]+$": {
+          "type": "object",
+          "title": "Border offset schema",
+          "description": "Specifies the horizontal and vertical border offsets for a pair of terrain types that can neighbour each other.",
+          "additionalProperties": false,
+          "properties": {
+            "Horizontal": {
+              "type": "integer",
+              "multipleOf": 1,
+              "maximum": 512,
+              "minimum": 0,
+              "title": "Horizontal offset schema",
+              "description": "Specifies a horizontal border offset."
+            },
+            "Vertical": {
+              "type": "integer",
+              "multipleOf": 1,
+              "maximum": 512,
+              "minimum": 0,
+              "title": "Vertical offset schema",
+              "description": "Specifies a vertical border offset."
+            }
+          },
+          "required": [
+            "Horizontal",
+            "Vertical"
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "TileFormat",
+    "OutputDirectory",
+    "Terrains",
+    "Cliques",
+    "BorderOffsets"
+  ]
+}
