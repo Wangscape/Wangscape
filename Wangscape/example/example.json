@@ -1,0 +1,15 @@
+{
+  "Terrains": [
+    {
+      "filename": "grass.png",
+      "name": "grass",
+      "shortname": "g"
+    },
+    {
+      "filename": "sea.png",
+      "name": "sea",
+      "shortname": "s"
+    }
+  "OutputDir": "output"
+  ]
+}
