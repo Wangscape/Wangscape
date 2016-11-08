@@ -124,7 +124,6 @@
     <ClInclude Include="Curve.h" />
     <ClInclude Include="Interval.h" />
     <ClInclude Include="Main.h" />
-    <ClInclude Include="RandomSpline.h" />
     <ClInclude Include="Spline.h" />
     <ClInclude Include="Polynomial.h" />
     <ClInclude Include="Vector.h" />
