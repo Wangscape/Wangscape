@@ -38,5 +38,6 @@ int main(int argc, char** argv)
         //    std::cout << tg.getError().c_str();
         //}
         Options options(options_document);
+        std::cout << "parsed without dying yay!";
     }
 }

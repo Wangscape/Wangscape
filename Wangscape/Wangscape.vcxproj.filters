@@ -46,7 +46,7 @@
     <ClInclude Include="Options.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BorderOffsets.h">
+    <ClInclude Include="BorderOffsetSpec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
