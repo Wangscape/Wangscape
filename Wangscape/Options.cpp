@@ -1,4 +1,5 @@
 #include "Options.h"
+#include <iostream>
 
 Options::Options(const rapidjson::Document& d)
 {
@@ -11,6 +12,10 @@ Options::Options(const rapidjson::Document& d)
         auto it = doc_tile_format.FindMember("Colours");
         if (it != doc_tile_format.end())
             colours = it->value.GetString();
+        // Be kind
+        auto it = doc_tile_format.FindMember("Colors");
+        if (it != doc_tile_format.end())
+            std::cout << "Found #/TileFormat/Colors in options, did you mean ""Colours""?";
 
         it = doc_tile_format.FindMember("BitDepth");
         if (it != doc_tile_format.end())
