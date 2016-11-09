@@ -145,6 +145,7 @@
     <ClInclude Include="Spline.h" />
     <ClInclude Include="Polynomial.h" />
     <ClInclude Include="TerrainSpec.h" />
+    <ClInclude Include="TilesetGenerator.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +153,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Options.cpp" />
     <ClCompile Include="Polynomial.cpp" />
+    <ClCompile Include="TilesetGenerator.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -5,6 +5,7 @@
 #include <fstream>
 #include <istream>
 #include "Options.h"
+#include "TilesetGenerator.h"
 
 int main(int argc, char** argv)
 {
@@ -38,6 +39,6 @@ int main(int argc, char** argv)
         //    std::cout << tg.getError().c_str();
         //}
         Options options(options_document);
-        std::cout << "parsed without dying yay!";
+        TilesetGenerator tg(options);
     }
 }
