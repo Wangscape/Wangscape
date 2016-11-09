@@ -155,16 +155,16 @@
             "Horizontal": {
               "type": "integer",
               "multipleOf": 1,
-              "maximum": 512,
-              "minimum": 0,
+              "maximum": 256,
+              "minimum": -256,
               "title": "Horizontal offset schema",
               "description": "Specifies a horizontal border offset."
             },
             "Vertical": {
               "type": "integer",
               "multipleOf": 1,
-              "maximum": 512,
-              "minimum": 0,
+              "maximum": 256,
+              "minimum": -256,
               "title": "Vertical offset schema",
               "description": "Specifies a vertical border offset."
             }
