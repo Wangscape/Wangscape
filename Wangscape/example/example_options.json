@@ -28,14 +28,16 @@
       "1"
     ]
   ],
-  "BorderOffsets": {
-    "0 1": {
+  "BorderOffsets": [
+    {
+      "Terrains": ["0", "1"],
       "Horizontal": -4,
       "Vertical": 5
     },
-    "1 0": {
+    {
+      "Terrains": ["1", "0"],
       "Horizontal": 3,
       "Vertical": -2
     }
-  }
+  ]
 }
