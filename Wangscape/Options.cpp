@@ -13,7 +13,7 @@ Options::Options(const rapidjson::Document& d)
         if (it != doc_tile_format.end())
             colours = it->value.GetString();
         // Be kind
-        auto it = doc_tile_format.FindMember("Colors");
+        it = doc_tile_format.FindMember("Colors");
         if (it != doc_tile_format.end())
             std::cout << "Found #/TileFormat/Colors in options, did you mean ""Colours""?";
 
