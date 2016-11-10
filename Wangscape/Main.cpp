@@ -32,13 +32,13 @@ int main(int argc, char** argv)
             std::cout << GetParseError_En(options_document.GetParseError()) << "\n";
         }
         // At present *no* validation is performed!
-        //OptionsValidator tg(&options);
-        //if (tg.hasError())
+        //OptionsValidator ov(&options_document);
+        //if (ov.hasError())
         //{
         //    std::cout << "Could not generate tileset.\n";
-        //    std::cout << tg.getError().c_str();
+        //    std::cout << ov.getError().c_str();
         //}
-        Options options(options_document);
+        const Options options(options_document);
         TilesetGenerator tg(options);
     }
 }
