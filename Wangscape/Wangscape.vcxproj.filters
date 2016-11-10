@@ -52,6 +52,12 @@
     <ClInclude Include="TilesetGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TilePartition.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TileGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -67,6 +73,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TilesetGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TilePartition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TileGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

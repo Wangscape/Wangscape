@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "CppUnitTestAssert.h"
+#include <rapidjson/rapidjson.h>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
