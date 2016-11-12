@@ -1,12 +1,13 @@
 #pragma once
 #include "common.h"
+#include <utility>
 
 /// Represents a closed Real interval [a, b].
 /// a must always be less than or equal to b.
 class Interval
 {
 public:
-	Interval(Real a_, Real b_);
+	Interval(Real a, Real b);
 	Real a;
 	Real b;
     /// Returns the distance between a and b.
@@ -19,5 +20,7 @@ public:
 	Real middle() const;
     /// Provides a total order on intervals, comparing by a then b.
 	bool operator<(const Interval& x) const;
+    /// Returns a pair of intervals [a, middle()], [middle(), b].
+    std::pair<Interval, Interval> split() const;
 };
 

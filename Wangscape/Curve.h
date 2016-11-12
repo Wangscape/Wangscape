@@ -31,15 +31,16 @@ public:
     void alterStart(Real new_start_t, const KnotValueDerivative& new_start);
     void alterEnd(Real new_end_t, const KnotValueDerivative& new_end);
     bool valid(Real max_relative_error = 0.000001) const;
-    static int const MATRIX_SIZE = 4;
+    bool hasIntersection(const Curve& c) const;
 private:
+    static int const MATRIX_SIZE = 4;
     typedef Eigen::Matrix<Real, MATRIX_SIZE, MATRIX_SIZE> PolynomialMatrix;
     //typedef Eigen::Matrix<Real, 1, MATRIX_SIZE> PolynomialRow;
     typedef Eigen::Matrix<Real, MATRIX_SIZE, 1> PolynomialColumn;
     Interval mI;
     KnotValueDerivative mStart;
     KnotValueDerivative mEnd;
-    std::array<Polynomial, N> mPolynomials;
+    std::array<PolynomialAugmented, N> mPolynomials;
 
     Vector<N> evaluateInexact(Real t) const;
     Vector<N> derivativeInexact(Real t, size_t order = 1) const;
@@ -168,7 +169,7 @@ inline Vector<N> Curve<N>::evaluateInexact(Real t) const
     Vector<N> r;
     for (int i = 0; i < N; i++)
     {
-        r[i] = mPolynomials[i].evaluate(t);
+        r[i] = mPolynomials[i].polynomial().evaluate(t);
     }
     return r;
 }
@@ -179,7 +180,7 @@ inline Vector<N> Curve<N>::derivativeInexact(Real t, size_t order) const
     Vector<N> r;
     for (int i = 0; i < N; i++)
     {
-        r[i] = mPolynomials[i].derivative(order).evaluate(t);
+        r[i] = mPolynomials[i].derivative().evaluate(t);
     }
     return r;
 }

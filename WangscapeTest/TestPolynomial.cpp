@@ -43,7 +43,7 @@ namespace WangscapeTest
 		TEST_METHOD(TestDerivative)
 		{
 			Polynomial p({ 2,3,5,7 });
-			Polynomial d = p.derivative();
+			Polynomial d = p.makeDerivative();
 			Assert::AreEqual((Real)3.f, d[0], (Real)0.0f);
 			Assert::AreEqual((Real)10.f, d[1], (Real)0.0f);
 			Assert::AreEqual((Real)21.f, d[2], (Real)0.0f);

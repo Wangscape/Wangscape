@@ -1,15 +1,18 @@
 #include "Interval.h"
 #include <limits>
-#include <assert.h>
-#include <iostream>
+#include <string>
 
-Interval::Interval(Real a_, Real b_):
-	a(a_), b(b_)
+Interval::Interval(Real a, Real b):
+	a(a), b(b)
 {
 	if (a > b)
 	{
-		std::cerr << "Tried to construct an Interval object with a (" << a << ") greater than or equal to b (" << b << ")";
-		exit(1);
+        throw std::range_error(
+            "Tried to construct an Interval object with a (" +
+            std::to_string(a) +
+            ") greater than or equal to b (" +
+            std::to_string(b) +
+        ")");
 	}
 }
 
@@ -38,4 +41,9 @@ bool Interval::operator<(const Interval& x) const
 	if (a == x.a)
 		return b < x.b;
 	return a < x.a;
+}
+
+std::pair<Interval, Interval> Interval::split() const
+{
+    return std::make_pair(Interval(a, middle()), Interval(middle(), b));
 }
