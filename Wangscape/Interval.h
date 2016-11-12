@@ -1,4 +1,5 @@
 #pragma once
+#include <limits>
 #include "common.h"
 
 /// Represents a closed Real interval [a, b].
@@ -6,9 +7,11 @@
 class Interval
 {
 public:
+    Interval();
+    Interval(const Interval& I);
 	Interval(Real a_, Real b_);
-	Real a;
-	Real b;
+	const Real a;
+	const Real b;
     /// Returns the distance between a and b.
 	Real length() const;
     /// Returns true iff t is equal to a or b, or lies between them.
@@ -21,3 +24,6 @@ public:
 	bool operator<(const Interval& x) const;
 };
 
+const static Interval Reals = Interval();
+const static Interval NonNegatives = { (Real)0., std::numeric_limits<Real>::infinity() };
+const static Interval NonPositives = { -std::numeric_limits<Real>::infinity(), (Real)0. };
