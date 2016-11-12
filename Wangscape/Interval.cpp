@@ -2,29 +2,15 @@
 #include <limits>
 #include <assert.h>
 #include <iostream>
-#include <string>
 
-Interval::Interval():
-    a(-std::numeric_limits<Real>::infinity()),
-    b(std::numeric_limits<Real>::infinity())
+Interval::Interval(Real a_, Real b_):
+	a(a_), b(b_)
 {
-}
-
-Interval::Interval(Real a, Real b):
-	a(a), b(b)
-{
-    if (a > b)
-        throw std::range_error(
-            "Tried to construct an Interval object with a(" +
-            std::to_string(a) +
-            ") greater than or equal to b (" +
-            std::to_string(b) +
-            ")");
-}
-
-Interval::Interval(const Interval& I) :
-    a(I.a), b(I.b)
-{
+	if (a > b)
+	{
+		std::cerr << "Tried to construct an Interval object with a (" << a << ") greater than or equal to b (" << b << ")";
+		exit(1);
+	}
 }
 
 Real Interval::length() const
