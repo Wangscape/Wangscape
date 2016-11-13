@@ -75,19 +75,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\Users\Serin\Documents\Visual Studio 2015\Projects\Wangscape\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionPath)\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\Users\Serin\Documents\Visual Studio 2015\Projects\Wangscape\Debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionPath)\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\Users\Serin\Documents\Visual Studio 2015\Projects\Wangscape\Release;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionPath)\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\Users\Serin\Documents\Visual Studio 2015\Projects\Wangscape\Release;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionPath)\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
