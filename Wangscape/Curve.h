@@ -191,15 +191,6 @@ inline void Curve<N>::findIntersections(const Curve & c,
             BB2b = c.makeRange(split2.second);
             bool possibleIntersectionFound = false;
             stopPath = false;
-            //inline void processBoxes(const BoundingBox& BB1,
-            //                         const BoundingBox& BB2,
-            //                         Interval& I1,
-            //                         Interval& I2,
-            //                         bool& possibleIntersectionFound,
-            //                         bool& stopPath,
-            //                         std::deque<IntervalPair>& dq,
-            //                         IntervalPair& Is,
-            //                         std::vector<std::pair<Real, Real>>& intersections)
             auto processBoxes = [&](const BoundingBoxN& BB1, const BoundingBoxN& BB2,
                                     const Interval& I1, const Interval& I2)
             {
@@ -244,6 +235,8 @@ inline void Curve<N>::findIntersections(const Curve & c,
                          split1.second, split2.first);
             processBoxes(BB1b, BB2b,
                          split1.second, split2.second);
+            if (!possibleIntersectionFound)
+                stopPath = true;
         }
         dq.pop_front();
     }
