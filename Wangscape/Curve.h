@@ -199,7 +199,7 @@ inline void Curve<N>::findIntersections(const Curve & c,
                     {
                         // intersection found.
                         bool alreadyFound = false;
-                        for (const auto it : intersections)
+                        for (const auto& it : intersections)
                         {
                             if ((distanceMax(BB1, it.first.second) <= tolerance) &&
                                 (distanceMax(BB2, it.second.second) <= tolerance))
@@ -250,9 +250,25 @@ template<int N>
 inline typename Curve<N>::BoundingBoxN Curve<N>::makeRange(const Interval & I) const
 {
     BoundingBoxN bb;
+    // doesn't work because makeRange isn't aware of knot values
+    //for (int i = 0; i < N; i++)
+    //{
+    //    bb[i] = mPolynomials[i].makeRange(I);
+    //}
+    Vector<N> v1 = evaluate(I.a);
+    Vector<N> v2 = evaluate(I.b);
     for (int i = 0; i < N; i++)
     {
-        bb[i] = mPolynomials[i].makeRange(I);
+        bb[i].a = std::min(v1[i], v2[i]);
+        bb[i].b = std::max(v1[i], v2[i]);
+        for (const auto& it : mPolynomials[i].extrema())
+        {
+            if (I.contains(it.first))
+            {
+                bb[i].a = std::min(bb[i].a, it.second);
+                bb[i].b = std::max(bb[i].b, it.second);
+            }
+        }
     }
     return bb;
 }
