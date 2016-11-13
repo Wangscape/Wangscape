@@ -187,8 +187,8 @@ inline void Curve<N>::findIntersections(const Curve & c,
             std::pair<Interval, Interval> split2 = Is.second.split();
             BB1a = makeRange(split1.first);
             BB1b = makeRange(split1.second);
-            BB2a = makeRange(split2.first);
-            BB2b = makeRange(split2.second);
+            BB2a = c.makeRange(split2.first);
+            BB2b = c.makeRange(split2.second);
             bool possibleIntersectionFound = false;
             stopPath = false;
             //inline void processBoxes(const BoundingBox& BB1,
@@ -209,9 +209,15 @@ inline void Curve<N>::findIntersections(const Curve & c,
                     for (int i = 0; i < N; i++)
                     {
                         if (BB1[i].length() >= tolerance)
-                            withinTolerance = true;
+                        {
+                            withinTolerance = false;
+                            break;
+                        }
                         if (BB2[i].length() >= tolerance)
-                            withinTolerance = true;
+                        {
+                            withinTolerance = false;
+                            break;
+                        }
                     }
                     if (withinTolerance)
                     {
@@ -256,7 +262,7 @@ inline typename Curve<N>::BoundingBoxN Curve<N>::makeRange(const Interval & I) c
     BoundingBoxN bb;
     for (int i = 0; i < N; i++)
     {
-        bb[i] = mPolynomials[i].makeRange(mI);
+        bb[i] = mPolynomials[i].makeRange(I);
     }
     return bb;
 }
