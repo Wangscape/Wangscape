@@ -54,5 +54,37 @@ namespace WangscapeTest
             Polynomial d = p.makeDerivative();
             Assert::IsTrue(d.is_zero());
         }
+        TEST_METHOD(TestLinearSolutions)
+        {
+            Polynomial p({ 3,-4 });
+            auto s = p.makeSolutions();
+            Assert::AreEqual((size_t)1, s.size());
+            Assert::AreEqual(0.75, s[0]);
+        }
+        TEST_METHOD(TestQuadraticSolutions)
+        {
+            Polynomial p1({ { 3., -4., 1. } });
+            auto s = p1.makeSolutions();
+            Assert::AreEqual((size_t)2, s.size());
+            Real s1 = std::min(s[0],s[1]);
+            Real s2 = std::max(s[0],s[1]);
+            Assert::AreEqual(1.0, s1, 0.000001);
+            Assert::AreEqual(3.0, s2, 0.000001);
+            Polynomial p2({ { -3., -4., -1. } });
+            s = p2.makeSolutions();
+            Assert::AreEqual((size_t)2, s.size());
+            s1 = std::min(s[0], s[1]);
+            s2 = std::max(s[0], s[1]);
+            Assert::AreEqual(-3.0, s1, 0.000001);
+            Assert::AreEqual(-1.0, s2, 0.000001);
+        }
+        TEST_METHOD(TestQuadraticSolutionsAwkward)
+        {
+            Polynomial p({ 0.0001,1.,0.0001 });
+            auto s = p.makeSolutions();
+            Assert::AreEqual((size_t)2, s.size());
+            Assert::AreEqual(0., p.evaluate(s[0]), 0.0001);
+            Assert::AreEqual(0., p.evaluate(s[1]), 0.0001);
+        }
 	};
 }

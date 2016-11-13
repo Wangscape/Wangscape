@@ -46,7 +46,7 @@ bool Interval::contains(const Interval & x) const
 
 bool Interval::intersects(const Interval & x) const
 {
-    return std::max(a, x.a) > std::min(b, x.b);
+    return std::max(a, x.a) <= std::min(b, x.b);
 }
 
 bool Interval::operator<(const Interval& x) const
@@ -58,5 +58,11 @@ bool Interval::operator<(const Interval& x) const
 
 std::pair<Interval, Interval> Interval::split() const
 {
-    return std::make_pair(Interval(a, middle()), Interval(middle(), b));
+    return Interval::split(middle());
 }
+
+std::pair<Interval, Interval> Interval::split(Real x) const
+{
+    return std::make_pair(Interval(a, x), Interval(x, b));
+}
+

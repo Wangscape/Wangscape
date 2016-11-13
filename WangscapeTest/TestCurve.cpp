@@ -37,6 +37,17 @@ namespace WangscapeTest
         {
             Assert::IsTrue(c.valid());
         }
+        TEST_METHOD(TestCurveLinear)
+        {
+            Curve<2> axis(Interval(-2, 2),
+                          { { -2,0 },{ 1,0 } },
+                          { {  2,0 },{ 1,0 } });
+            Curve<2>::BoundingBox bb = axis.boundingBox();
+            Assert::AreEqual(-2., bb[0].a, 0.000001);
+            Assert::AreEqual(2., bb[0].b, 0.000001);
+            Assert::AreEqual(0., bb[1].a, 0.000001);
+            Assert::AreEqual(0., bb[1].b, 0.000001);
+        }
         TEST_METHOD(TestCurveGetInterval)
         {
             Assert::AreEqual(start, c.getInterval().a);
@@ -127,6 +138,30 @@ namespace WangscapeTest
             Assert::AreEqual(5., c.derivative(-0.5)[1], 0.0000001);
             Assert::AreEqual(5., c.derivative(0.)[1], 0.0000001);
             Assert::AreEqual(5., c.derivative(0.5)[1], 0.0000001);
+        }
+        TEST_METHOD(TestCurveRange)
+        {
+            Curve<2> cubic(Interval(-2, 2),
+                           { {-2,-6}, {1,11} },
+                           { { 2, 6}, {1,11} });
+            Curve<2>::BoundingBox bb = cubic.boundingBox();
+            Assert::AreEqual(-2., bb[0].a, 0.000001);
+            Assert::AreEqual(2., bb[0].b, 0.000001);
+            Assert::AreEqual(-6., bb[1].a, 0.000001);
+            Assert::AreEqual(6., bb[1].b, 0.000001);
+            Assert::IsTrue(cubic.boxesIntersect(bb, bb));
+        }
+        TEST_METHOD(TestCurveIntersection)
+        {
+            Curve<2> cubic(Interval(-2, 2),
+                           { { -2,-6 },{ 1,11 } },
+                           { { 2, 6 },{ 1,11 } });
+            std::vector<std::pair<Real, Real>> intersections;
+            Curve<2> axis(Interval(-2,2),
+                          { { -2,0 },{ 1,0 } },
+                          { {  2,0 },{ 1,0 } });
+            cubic.findIntersections(axis, intersections, 10, 0.001);
+
         }
     private:
 	};

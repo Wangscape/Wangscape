@@ -11,6 +11,7 @@ public:
     using PolynomialBase::polynomial;
     Polynomial makeDerivative(size_t order = 1) const;
     Solutions makeSolutions() const;
+    Real evaluate(Real t) const;
 };
 
 class PolynomialAugmented
@@ -18,7 +19,7 @@ class PolynomialAugmented
 public:
     typedef std::pair<Real, Real> Extremum;
     typedef std::vector<Extremum> Extrema;
-    // 
+
     PolynomialAugmented() = default;
     PolynomialAugmented(const Polynomial& p);
     const Polynomial& polynomial() const;

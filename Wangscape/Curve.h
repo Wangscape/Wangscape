@@ -16,6 +16,7 @@ class Curve
 public:
     typedef std::pair<Vector<N>, Vector<N>> KnotValueDerivative;
     typedef std::array<Interval, N> BoundingBox;
+    typedef std::vector<std::pair<Real, Real>> Intersections;
     /// Constructs a new curve defined on the interval I , starting and ending with the given values and derivatives.
     /// I must have nonzero length.
     Curve(Interval I, const KnotValueDerivative& start, const KnotValueDerivative& end);
@@ -30,11 +31,14 @@ public:
     /// Returns the derivative of the curve at the given time.
     Vector<N> derivative(Real t, size_t order = 1) const;
 
+    const PolynomialAugmented& polynomial(int i) const;
+    const Interval& interval() const;
     void alterStart(Real new_start_t, const KnotValueDerivative& new_start);
     void alterEnd(Real new_end_t, const KnotValueDerivative& new_end);
     bool valid(Real max_relative_error = 0.000001) const;
-    //bool hasExcessIntersections(const Curve& c, int max) const;
+    void findIntersections(const Curve& c, Intersections& intersections, size_t max, Real tolerance) const;
     const BoundingBox& boundingBox() const;
+    BoundingBox makeRange(const Interval& I) const;
     static bool boxesIntersect(const BoundingBox& x, const BoundingBox& y);
 private:
     static int const MATRIX_SIZE = 4;
@@ -104,6 +108,18 @@ Vector<N> Curve<N>::derivative(Real t, size_t order) const
 }
 
 template<int N>
+inline const PolynomialAugmented & Curve<N>::polynomial(int i) const
+{
+    return mPolynomials[i];
+}
+
+template<int N>
+inline const Interval & Curve<N>::interval() const
+{
+    return mI;
+}
+
+template<int N>
 inline void Curve<N>::alterStart(Real new_start_t, const KnotValueDerivative & new_start)
 {
     mI = Interval(new_start_t, mI.b);
@@ -152,14 +168,112 @@ inline bool Curve<N>::boxesIntersect(const BoundingBox & x, const BoundingBox & 
     {
         if (!x[i].intersects(y[i]))
             return false;
-        return true;
     }
+    return true;
+}
+
+template<int N>
+inline void Curve<N>::findIntersections(const Curve & c,
+                                        std::vector<std::pair<Real, Real>>& intersections,
+                                        size_t max,
+                                        Real tolerance) const
+{
+    if (max < 0)
+        return;
+    if (!boxesIntersect(mBoundingBox, c.boundingBox()))
+        return;
+    typedef std::pair<Interval, Interval> IntervalPair;
+    std::deque<IntervalPair> dq;
+    dq.push_back({ interval(), c.interval() });
+    BoundingBox BB1a;
+    BoundingBox BB1b;
+    BoundingBox BB2a;
+    BoundingBox BB2b;
+    while (intersections.size() < max && dq.size() > 0)
+    {
+        IntervalPair Is = dq.front();
+        bool stopPath = false;
+        while (!stopPath)
+        {
+            std::pair<Interval, Interval> split1 = Is.first.split();
+            std::pair<Interval, Interval> split2 = Is.second.split();
+            for (int i = 0; i < N; i++)
+            {
+                BB1a = makeRange(split1.first);
+                BB1b = makeRange(split1.second);
+                BB2a = makeRange(split2.first);
+                BB2b = makeRange(split2.second);
+            }
+            bool possibleIntersectionFound = false;
+            stopPath = false;
+            //inline void processBoxes(const BoundingBox& BB1,
+            //                         const BoundingBox& BB2,
+            //                         Interval& I1,
+            //                         Interval& I2,
+            //                         bool& possibleIntersectionFound,
+            //                         bool& stopPath,
+            //                         std::deque<IntervalPair>& dq,
+            //                         IntervalPair& Is,
+            //                         std::vector<std::pair<Real, Real>>& intersections)
+            auto processBoxes = [&](const BoundingBox& BB1, const BoundingBox& BB2,
+                                    const Interval& I1, const Interval& I2)
+            {
+                if (boxesIntersect(BB1, BB2))
+                {
+                    bool withinTolerance = true;
+                    for (int i = 0; i < N; i++)
+                    {
+                        if (BB1[i].length() >= tolerance)
+                            withinTolerance = true;
+                        if (BB2[i].length() >= tolerance)
+                            withinTolerance = true;
+                    }
+                    if (withinTolerance)
+                    {
+                        // intersection found.
+                        // TODO check that there isn't an intersection overly close to this one already found?
+                        intersections.push_back(std::make_pair(I1.middle(), I2.middle()));
+                        stopPath = true;
+                        return;
+                    }
+                    if (possibleIntersectionFound)
+                        dq.push_back(std::make_pair(I1, I2));
+                    else
+                    {
+                        Is = std::make_pair(I1, I2);
+                        possibleIntersectionFound = true;
+                    }
+                }
+            };
+            processBoxes(BB1a, BB2a,
+                         split1.first, split2.first);
+            processBoxes(BB1a, BB2b,
+                         split1.first, split2.second);
+            processBoxes(BB1b, BB2a,
+                         split1.second, split2.first);
+            processBoxes(BB1b, BB2b,
+                         split1.second, split2.second);
+        }
+        dq.pop_front();
+    }
+    return;
 }
 
 template<int N>
 inline const typename Curve<N>::BoundingBox & Curve<N>::boundingBox() const
 {
     return mBoundingBox;
+}
+
+template<int N>
+inline typename Curve<N>::BoundingBox Curve<N>::makeRange(const Interval & I) const
+{
+    BoundingBox bb;
+    for (int i = 0; i < N; i++)
+    {
+        bb[i] = mPolynomials[i].makeRange(mI);
+    }
+    return bb;
 }
 
 template<int N>
@@ -170,8 +284,8 @@ inline void Curve<N>::update()
         mPolynomials[i] = findPoly(mI.a, mI.b,
                                    mStart.first[i], mStart.second[i],
                                    mEnd.first[i], mEnd.second[i]);
-        mBoundingBox[i] = mPolynomials[i].makeRange(mI);
     }
+    mBoundingBox = makeRange(mI);
 }
 
 template<int N>
@@ -183,6 +297,12 @@ inline Polynomial Curve<N>::findPoly(Real lower, Real upper,
     Curve<N>::PolynomialColumn v;
     v << start, end, start_deriv, end_deriv;
     Curve<N>::PolynomialColumn solution = mat.colPivHouseholderQr().solve(v);
+    for (int i = 0; i < MATRIX_SIZE; i++)
+    {
+        if (abs(solution[i]) < COEFFICIENT_THRESHOLD)
+            solution[i] = 0.;
+
+    }
     return Polynomial(solution.data(), MATRIX_SIZE - 1);
 }
 

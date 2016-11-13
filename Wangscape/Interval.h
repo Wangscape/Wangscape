@@ -25,5 +25,7 @@ public:
 	bool operator<(const Interval& x) const;
     /// Returns a pair of intervals [a, middle()], [middle(), b].
     std::pair<Interval, Interval> split() const;
+    /// Returns a pair of intervals [a, middle()], [middle(), b].
+    std::pair<Interval, Interval> split(Real x) const;
 };
 
