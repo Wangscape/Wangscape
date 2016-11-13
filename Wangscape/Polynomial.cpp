@@ -38,13 +38,9 @@ Polynomial::Solutions Polynomial::makeSolutions() const
                                (-d[1] + det_root) / divisor });
         }
     }
-    else if (p.degree() == 3)
-    {
-        throw (std::domain_error("TODO: implement cubic solutions"));
-    }
     else
     {
-        throw(std::domain_error("Solutions to quartic and higher polynomials are not implemented"));
+        throw(std::domain_error("Solutions to cubic and higher polynomials are not implemented"));
     }
 }
 
