@@ -42,6 +42,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TestInterval.cpp">
+    <ClCompile Include="TestOptions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
