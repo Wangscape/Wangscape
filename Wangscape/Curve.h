@@ -2,6 +2,7 @@
 #include <Eigen/Dense>
 #include <array>
 #include <iostream>
+#include <deque>
 #include <utility>
 #include "common.h"
 #include "Interval.h"
@@ -14,6 +15,10 @@ class Curve
 {
 public:
     typedef std::pair<Vector<N>, Vector<N>> KnotValueDerivative;
+    typedef BoundingBox<N> BoundingBoxN;
+    typedef std::pair<Interval, BoundingBoxN> Frame;
+    typedef std::pair<Frame, Frame> FramePair;
+    typedef std::vector<FramePair> Intersections;
     /// Constructs a new curve defined on the interval I , starting and ending with the given values and derivatives.
     /// I must have nonzero length.
     Curve(Interval I, const KnotValueDerivative& start, const KnotValueDerivative& end);
@@ -28,18 +33,24 @@ public:
     /// Returns the derivative of the curve at the given time.
     Vector<N> derivative(Real t, size_t order = 1) const;
 
+    const PolynomialAugmented& polynomial(int i) const;
+    const Interval& interval() const;
     void alterStart(Real new_start_t, const KnotValueDerivative& new_start);
     void alterEnd(Real new_end_t, const KnotValueDerivative& new_end);
     bool valid(Real max_relative_error = 0.000001) const;
-    static int const MATRIX_SIZE = 4;
+    void findIntersections(const Curve& c, Intersections& intersections, size_t max, Real tolerance) const;
+    const BoundingBoxN& boundingBox() const;
+    BoundingBoxN makeRange(const Interval& I) const;
 private:
+    static int const MATRIX_SIZE = 4;
     typedef Eigen::Matrix<Real, MATRIX_SIZE, MATRIX_SIZE> PolynomialMatrix;
     //typedef Eigen::Matrix<Real, 1, MATRIX_SIZE> PolynomialRow;
     typedef Eigen::Matrix<Real, MATRIX_SIZE, 1> PolynomialColumn;
     Interval mI;
     KnotValueDerivative mStart;
     KnotValueDerivative mEnd;
-    std::array<Polynomial, N> mPolynomials;
+    std::array<PolynomialAugmented, N> mPolynomials;
+    BoundingBoxN mBoundingBox;
 
     Vector<N> evaluateInexact(Real t) const;
     Vector<N> derivativeInexact(Real t, size_t order = 1) const;
@@ -98,6 +109,18 @@ Vector<N> Curve<N>::derivative(Real t, size_t order) const
 }
 
 template<int N>
+inline const PolynomialAugmented & Curve<N>::polynomial(int i) const
+{
+    return mPolynomials[i];
+}
+
+template<int N>
+inline const Interval & Curve<N>::interval() const
+{
+    return mI;
+}
+
+template<int N>
 inline void Curve<N>::alterStart(Real new_start_t, const KnotValueDerivative & new_start)
 {
     mI = Interval(new_start_t, mI.b);
@@ -140,6 +163,117 @@ inline bool Curve<N>::valid(Real max_relative_error) const
 }
 
 template<int N>
+inline void Curve<N>::findIntersections(const Curve & c,
+                                        Intersections& intersections,
+                                        size_t max,
+                                        Real tolerance) const
+{
+    if (max < 0)
+        return;
+    if (!boxesIntersect(mBoundingBox, c.boundingBox()))
+        return;
+    std::deque<FramePair> dq;
+    dq.push_back({ {interval(),makeRange(interval())},
+                   {c.interval(), c.makeRange(c.interval())}});
+    while (intersections.size() <= max && dq.size() > 0)
+    {
+        FramePair Fs = dq.front();
+        bool stopPath = false;
+        while (!stopPath)
+        {
+            std::pair<Interval, Interval> split1 = Fs.first.first.split();
+            std::pair<Interval, Interval> split2 = Fs.second.first.split();
+            BoundingBoxN BB1a = makeRange(split1.first);
+            BoundingBoxN BB1b = makeRange(split1.second);
+            BoundingBoxN BB2a = c.makeRange(split2.first);
+            BoundingBoxN BB2b = c.makeRange(split2.second);
+            bool possibleIntersectionFound = false;
+            stopPath = false;
+            auto processBoxes = [&](const BoundingBoxN& BB1, const BoundingBoxN& BB2,
+                                    const Interval& I1, const Interval& I2)
+            {
+                if (boxesIntersect(BB1, BB2))
+                {
+                    if(!hasDimensionGreaterEqual(BB1, tolerance) &&
+                       !hasDimensionGreaterEqual(BB2, tolerance))
+                    {
+                        // intersection found.
+                        bool alreadyFound = false;
+                        for (const auto& it : intersections)
+                        {
+                            if ((distanceMax(BB1, it.first.second) <= tolerance) &&
+                                (distanceMax(BB2, it.second.second) <= tolerance))
+                            {
+                                alreadyFound = true;
+                                break;
+                            }
+                        }
+                        if (!alreadyFound)
+                        {
+                            intersections.push_back({ { I1, BB1 },{ I2, BB2 } });
+                        }
+                        stopPath = true;
+                        return;
+                    }
+                    if (possibleIntersectionFound)
+                        dq.push_back({ {I1, BB1}, {I2, BB2} });
+                    else
+                    {
+                        Fs = { {I1,BB1},{I2,BB2} };
+                        possibleIntersectionFound = true;
+                    }
+                }
+            };
+            processBoxes(BB1a, BB2a,
+                         split1.first, split2.first);
+            processBoxes(BB1a, BB2b,
+                         split1.first, split2.second);
+            processBoxes(BB1b, BB2a,
+                         split1.second, split2.first);
+            processBoxes(BB1b, BB2b,
+                         split1.second, split2.second);
+            if (!possibleIntersectionFound)
+                stopPath = true;
+        }
+        dq.pop_front();
+    }
+    return;
+}
+
+template<int N>
+inline const typename Curve<N>::BoundingBoxN & Curve<N>::boundingBox() const
+{
+    return mBoundingBox;
+}
+
+template<int N>
+inline typename Curve<N>::BoundingBoxN Curve<N>::makeRange(const Interval & I) const
+{
+    BoundingBoxN bb;
+    // doesn't work because makeRange isn't aware of knot values
+    //for (int i = 0; i < N; i++)
+    //{
+    //    bb[i] = mPolynomials[i].makeRange(I);
+    //}
+    Vector<N> v1 = evaluate(I.a);
+    Vector<N> v2 = evaluate(I.b);
+    for (int i = 0; i < N; i++)
+    {
+        bb[i].a = std::min(v1[i], v2[i]);
+        bb[i].b = std::max(v1[i], v2[i]);
+        for (const auto& it : mPolynomials[i].extrema())
+        {
+            if (I.contains(it.first))
+            {
+                bb[i].a = std::min(bb[i].a, it.second);
+                bb[i].b = std::max(bb[i].b, it.second);
+            }
+        }
+    }
+    return bb;
+}
+
+template<int N>
 inline void Curve<N>::update()
 {
     for (int i = 0; i < N; i++)
@@ -148,6 +282,7 @@ inline void Curve<N>::update()
                                    mStart.first[i], mStart.second[i],
                                    mEnd.first[i], mEnd.second[i]);
     }
+    mBoundingBox = makeRange(mI);
 }
 
 template<int N>
@@ -159,6 +294,12 @@ inline Polynomial Curve<N>::findPoly(Real lower, Real upper,
     Curve<N>::PolynomialColumn v;
     v << start, end, start_deriv, end_deriv;
     Curve<N>::PolynomialColumn solution = mat.colPivHouseholderQr().solve(v);
+    for (int i = 0; i < MATRIX_SIZE; i++)
+    {
+        if (abs(solution[i]) < COEFFICIENT_THRESHOLD)
+            solution[i] = 0.;
+
+    }
     return Polynomial(solution.data(), MATRIX_SIZE - 1);
 }
 
@@ -168,7 +309,7 @@ inline Vector<N> Curve<N>::evaluateInexact(Real t) const
     Vector<N> r;
     for (int i = 0; i < N; i++)
     {
-        r[i] = mPolynomials[i].evaluate(t);
+        r[i] = mPolynomials[i].polynomial().evaluate(t);
     }
     return r;
 }
@@ -179,7 +320,7 @@ inline Vector<N> Curve<N>::derivativeInexact(Real t, size_t order) const
     Vector<N> r;
     for (int i = 0; i < N; i++)
     {
-        r[i] = mPolynomials[i].derivative(order).evaluate(t);
+        r[i] = mPolynomials[i].derivative().evaluate(t);
     }
     return r;
 }

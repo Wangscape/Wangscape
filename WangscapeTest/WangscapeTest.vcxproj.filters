@@ -38,6 +38,12 @@
     <ClCompile Include="TestSpline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestPolynomialAugmented.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestInterval.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="TestOptions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

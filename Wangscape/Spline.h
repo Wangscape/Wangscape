@@ -10,6 +10,8 @@
 template<int N> class Spline
 {
 public:
+    typedef std::map<Interval, Curve<N> > Map;
+    typedef typename Map::const_iterator MapConstIter;
     /// Initialises the spline with a single curve.
     /// The curve will have S(lower) = start, S(upper) = end, S'(lower) = start_deriv, S'(upper) = end_deriv.
     Spline(Real lower, Real upper,
@@ -50,13 +52,13 @@ public:
     /// * The spline is continuously differentiable at all knots.
     bool valid(Real max_relative_error=0.000001) const;
     ///// Returns a constant iterator 
-    //MapConstIter cbegin() const;
-    //MapConstIter cend() const;
+    MapConstIter cbegin() const;
+    MapConstIter cend() const;
     //MapConstIter crbegin() const;
     //MapConstIter crend() const;
+    void findIntersections(const Curve<N>& c, typename Curve<N>::Intersections& intersections, size_t max, Real tolerance) const;
+    void findIntersections(const Spline<N>& s, typename Curve<N>::Intersections& intersections, size_t max, Real tolerance) const;
 protected:
-    typedef std::map<Interval, Curve<N> > Map;
-    typedef typename Map::const_iterator MapConstIter;
     typedef typename Map::iterator MapIter;
 
     Map mData;
@@ -81,8 +83,8 @@ inline Spline<N>::Spline(Real lower, Real upper,
                          Vector<N> start_deriv, Vector<N> end_deriv)
 {
     mData.insert(std::make_pair(Interval(lower, upper), Curve<2>(Interval(lower, upper),
-                                             { start, end },
-                                             { start_deriv, end_deriv })));
+                                             { start, start_deriv },
+                                             { end, end_deriv })));
 }
 
 template<int N>
@@ -260,6 +262,36 @@ inline bool Spline<N>::valid(Real max_relative_error) const
         ++jt;
     }
     return true;
+}
+
+template<int N>
+inline typename Spline<N>::MapConstIter Spline<N>::cbegin() const
+{
+    return mData.cbegin();
+}
+
+template<int N>
+inline typename Spline<N>::MapConstIter Spline<N>::cend() const
+{
+    return mData.cend();
+}
+
+template<int N>
+inline void Spline<N>::findIntersections(const Curve<N>& c, typename Curve<N>::Intersections & intersections, size_t max, Real tolerance) const
+{
+    for (auto it : mData)
+    {
+        it.second.findIntersections(c, intersections, max, tolerance);
+    }
+}
+
+template<int N>
+inline void Spline<N>::findIntersections(const Spline<N>& s, typename Curve<N>::Intersections & intersections, size_t max, Real tolerance) const
+{
+    for (auto it = s.cbegin(); it != s.cend(); ++it)
+    {
+        findIntersections((*it).second, intersections, max, tolerance);
+    }
 }
 
 template<int N>

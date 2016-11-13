@@ -32,12 +32,16 @@
     {
       "Terrains": ["0", "1"],
       "Horizontal": -4,
-      "Vertical": 5
+      "Vertical": 5,
+      "HorizontalAngle": -21.3,
+      "VerticalAngle": 52
     },
     {
       "Terrains": ["1", "0"],
       "Horizontal": 3,
-      "Vertical": -2
+      "Vertical": -2,
+      "HorizontalAngle": -63.2,
+      "VerticalAngle": 11.1
     }
   ]
 }

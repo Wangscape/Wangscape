@@ -142,12 +142,12 @@
     "BorderOffsets": {
       "type": "array",
       "title": "Border offsets schema",
-      "description": "Lists border offsets for ordered pairs of terrain types that can neighbour each other.",
+      "description": "Lists border offsets and angles for ordered pairs of terrain types that can neighbour each other.",
       "minItems": 2,
       "items": {
         "type": "object",
         "title": "Border offset schema",
-        "description": "Specifies an ordered pair of terrain types that can neighbour each other and the corresponding horizontal and vertical border offsets.",
+        "description": "Specifies an ordered pair of terrain types that can neighbour each other and the corresponding horizontal and vertical border offsets and angles.",
         "additionalProperties":false,
         "properties": {
           "Terrains": {
@@ -178,12 +178,28 @@
             "minimum": -256,
             "title": "Vertical offset schema",
             "description": "Specifies a vertical border offset."
+          },
+          "HorizontalAngle": {
+            "type": "number",
+            "maximum": 90,
+            "minimum": -90,
+            "title": "Horizontal angle schema",
+            "description": "Specifies the angle of entry of a horizontal border."
+          },
+          "VerticalAngle": {
+            "type": "number",
+            "maximum": 90,
+            "minimum": -90,
+            "title": "Vertical angle schema",
+            "description": "Specifies the angle of entry of a vertical border."
           }
         },
         "required": [
           "Terrains",
           "Horizontal",
-          "Vertical"
+          "Vertical",
+          "HorizontalAngle",
+          "VerticalAngle"
         ]
       }
     }

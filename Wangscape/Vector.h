@@ -5,6 +5,8 @@
 template<int N>
 using Vector = std::array<Real, N>;
 
+typedef Vector<2> Vector2;
+
 template<int N>
 bool withinErrorBounds(const Vector<N>& expected, const Vector<N>& actual, Real max_relative_error=0.000001)
 {
