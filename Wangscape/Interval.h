@@ -7,6 +7,7 @@
 class Interval
 {
 public:
+    Interval();
 	Interval(Real a, Real b);
 	Real a;
 	Real b;
@@ -16,6 +17,8 @@ public:
 	bool contains(Real t) const;
     /// Returns true iff x is a proper subset of this interval.
 	bool contains(const Interval& x) const;
+    /// Returns true iff the intervals have nonempty intersection.
+    bool intersects(const Interval& x) const;
     /// Returns the midpoint of the interval.
 	Real middle() const;
     /// Provides a total order on intervals, comparing by a then b.

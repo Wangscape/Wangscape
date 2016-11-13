@@ -1,6 +1,14 @@
 #include "Interval.h"
 #include <limits>
 #include <string>
+#include <algorithm>
+
+Interval::Interval() :
+    a(-std::numeric_limits<Real>::infinity()),
+    b(std::numeric_limits<Real>::infinity())
+{
+
+}
 
 Interval::Interval(Real a, Real b):
 	a(a), b(b)
@@ -34,6 +42,11 @@ bool Interval::contains(Real t) const
 bool Interval::contains(const Interval & x) const
 {
 	return a <= x.a && b >= x.b;
+}
+
+bool Interval::intersects(const Interval & x) const
+{
+    return std::max(a, x.a) > std::min(b, x.b);
 }
 
 bool Interval::operator<(const Interval& x) const

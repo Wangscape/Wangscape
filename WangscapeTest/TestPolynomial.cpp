@@ -48,5 +48,11 @@ namespace WangscapeTest
 			Assert::AreEqual((Real)10.f, d[1], (Real)0.0f);
 			Assert::AreEqual((Real)21.f, d[2], (Real)0.0f);
 		}
+        TEST_METHOD(TestZeroDerivative)
+        {
+            Polynomial p({ 2 });
+            Polynomial d = p.makeDerivative();
+            Assert::IsTrue(d.is_zero());
+        }
 	};
 }

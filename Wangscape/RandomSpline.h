@@ -2,8 +2,9 @@
 #include <random>
 #include "Spline.h"
 
-class RandomSpline : public Spline2
+class TilePartitionSplines
 {
 public:
-    using Spline2::Spline;
+    TilePartitionSplines();
+
 };

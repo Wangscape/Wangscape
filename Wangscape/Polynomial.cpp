@@ -50,7 +50,8 @@ Polynomial::Solutions Polynomial::makeSolutions() const
 
 PolynomialAugmented::PolynomialAugmented(const Polynomial & p):
     mPolynomial(p),
-    mDerivative(p.makeDerivative())
+    mDerivative(p.makeDerivative()),
+    mExtrema(makeExtrema())
 {
 }
 
@@ -79,12 +80,12 @@ Interval PolynomialAugmented::makeRange(const Interval & domain, const Extrema &
     Real min = mPolynomial.evaluate(domain.a);
     Real max = min;
     min = std::min(min, mPolynomial.evaluate(domain.b));
-    max = std::max(min, mPolynomial.evaluate(domain.b));
+    max = std::max(max, mPolynomial.evaluate(domain.b));
     for (auto it : restricted_extrema)
     {
         if (domain.contains(it.first)) {
             min = std::min(min, it.second);
-            max = std::max(min, it.second);
+            max = std::max(max, it.second);
         }
     }
     return Interval(min, max);

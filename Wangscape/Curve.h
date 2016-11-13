@@ -2,6 +2,7 @@
 #include <Eigen/Dense>
 #include <array>
 #include <iostream>
+#include <deque>
 #include <utility>
 #include "common.h"
 #include "Interval.h"
@@ -14,6 +15,7 @@ class Curve
 {
 public:
     typedef std::pair<Vector<N>, Vector<N>> KnotValueDerivative;
+    typedef std::array<Interval, N> BoundingBox;
     /// Constructs a new curve defined on the interval I , starting and ending with the given values and derivatives.
     /// I must have nonzero length.
     Curve(Interval I, const KnotValueDerivative& start, const KnotValueDerivative& end);
@@ -31,7 +33,9 @@ public:
     void alterStart(Real new_start_t, const KnotValueDerivative& new_start);
     void alterEnd(Real new_end_t, const KnotValueDerivative& new_end);
     bool valid(Real max_relative_error = 0.000001) const;
-    bool hasIntersection(const Curve& c) const;
+    //bool hasExcessIntersections(const Curve& c, int max) const;
+    const BoundingBox& boundingBox() const;
+    static bool boxesIntersect(const BoundingBox& x, const BoundingBox& y);
 private:
     static int const MATRIX_SIZE = 4;
     typedef Eigen::Matrix<Real, MATRIX_SIZE, MATRIX_SIZE> PolynomialMatrix;
@@ -41,6 +45,7 @@ private:
     KnotValueDerivative mStart;
     KnotValueDerivative mEnd;
     std::array<PolynomialAugmented, N> mPolynomials;
+    BoundingBox mBoundingBox;
 
     Vector<N> evaluateInexact(Real t) const;
     Vector<N> derivativeInexact(Real t, size_t order = 1) const;
@@ -141,6 +146,23 @@ inline bool Curve<N>::valid(Real max_relative_error) const
 }
 
 template<int N>
+inline bool Curve<N>::boxesIntersect(const BoundingBox & x, const BoundingBox & y)
+{
+    for (int i = 0; i < N; i++)
+    {
+        if (!x[i].intersects(y[i]))
+            return false;
+        return true;
+    }
+}
+
+template<int N>
+inline const typename Curve<N>::BoundingBox & Curve<N>::boundingBox() const
+{
+    return mBoundingBox;
+}
+
+template<int N>
 inline void Curve<N>::update()
 {
     for (int i = 0; i < N; i++)
@@ -148,6 +170,7 @@ inline void Curve<N>::update()
         mPolynomials[i] = findPoly(mI.a, mI.b,
                                    mStart.first[i], mStart.second[i],
                                    mEnd.first[i], mEnd.second[i]);
+        mBoundingBox[i] = mPolynomials[i].makeRange(mI);
     }
 }
 

@@ -165,6 +165,7 @@
     <ClCompile Include="TestCase.cpp" />
     <ClCompile Include="TestCurve.cpp" />
     <ClCompile Include="TestPolynomial.cpp" />
+    <ClCompile Include="TestPolynomialAugmented.cpp" />
     <ClCompile Include="TestSpline.cpp" />
   </ItemGroup>
   <ItemGroup>
