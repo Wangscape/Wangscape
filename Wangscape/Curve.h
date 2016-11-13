@@ -213,8 +213,17 @@ inline void Curve<N>::findIntersections(const Curve & c,
                     if (withinTolerance)
                     {
                         // intersection found.
-                        // TODO check that there isn't an intersection overly close to this one already found?
-                        intersections.push_back(std::make_pair(I1.middle(), I2.middle()));
+                        Real t1 = I1.middle();
+                        Real t2 = I2.middle();
+                        bool alreadyFound = false;
+                        for (const auto it : intersections)
+                        {// don't use tolerance to compare t differences, tolerance works on the space scale.
+                            if (abs(t1 - it.first) < tolerance &&
+                                abs(t2 - it.second) < tolerance)
+                                alreadyFound = true;
+                        }
+                        if(!alreadyFound)
+                            intersections.push_back(std::make_pair(t1, t2));
                         stopPath = true;
                         return;
                     }

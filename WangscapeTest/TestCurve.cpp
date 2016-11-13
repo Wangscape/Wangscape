@@ -169,6 +169,24 @@ namespace WangscapeTest
                 Assert::AreEqual(v1[1], v2[1], 0.01);
             }
         }
+        TEST_METHOD(TestLinearIntersection)
+        {
+            Curve<2> positive(Interval(-2.2, 2.7),
+            { { -2.2,-4.4 },{ 1.,2. } },
+            { {  2.7, 5.4 },{ 1.,2. } });
+            Curve<2> negative(Interval(-3.4, 2.1),
+            { { -3.4, 6.8 },{ 1.,-2. } },
+            { { 2.1, -4.2 },{ 1.,-2. } });
+            std::vector<std::pair<Real, Real>> intersections;
+            positive.findIntersections(negative, intersections, 10, 0.01);
+            for (auto it : intersections)
+            {
+                auto v1 = positive.evaluate(it.first);
+                auto v2 = negative.evaluate(it.second);
+                Assert::AreEqual(v1[0], v2[0], 0.01);
+                Assert::AreEqual(v1[1], v2[1], 0.01);
+            }
+        }
     private:
 	};
     Real TestCurve::start;
