@@ -41,6 +41,9 @@
     <ClCompile Include="TestPolynomialAugmented.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestInterval.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

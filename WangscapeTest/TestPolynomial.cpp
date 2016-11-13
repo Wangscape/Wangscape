@@ -53,6 +53,7 @@ namespace WangscapeTest
             Polynomial p({ 2 });
             Polynomial d = p.makeDerivative();
             Assert::IsTrue(d.is_zero());
+            Assert::AreEqual(0., d.evaluate(234.76));
         }
         TEST_METHOD(TestLinearSolutions)
         {

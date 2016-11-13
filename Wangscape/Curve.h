@@ -15,8 +15,8 @@ class Curve
 {
 public:
     typedef std::pair<Vector<N>, Vector<N>> KnotValueDerivative;
-    typedef std::array<Interval, N> BoundingBox;
     typedef std::vector<std::pair<Real, Real>> Intersections;
+    typedef BoundingBox<N> BoundingBoxN;
     /// Constructs a new curve defined on the interval I , starting and ending with the given values and derivatives.
     /// I must have nonzero length.
     Curve(Interval I, const KnotValueDerivative& start, const KnotValueDerivative& end);
@@ -37,9 +37,8 @@ public:
     void alterEnd(Real new_end_t, const KnotValueDerivative& new_end);
     bool valid(Real max_relative_error = 0.000001) const;
     void findIntersections(const Curve& c, Intersections& intersections, size_t max, Real tolerance) const;
-    const BoundingBox& boundingBox() const;
-    BoundingBox makeRange(const Interval& I) const;
-    static bool boxesIntersect(const BoundingBox& x, const BoundingBox& y);
+    const BoundingBoxN& boundingBox() const;
+    BoundingBoxN makeRange(const Interval& I) const;
 private:
     static int const MATRIX_SIZE = 4;
     typedef Eigen::Matrix<Real, MATRIX_SIZE, MATRIX_SIZE> PolynomialMatrix;
@@ -49,7 +48,7 @@ private:
     KnotValueDerivative mStart;
     KnotValueDerivative mEnd;
     std::array<PolynomialAugmented, N> mPolynomials;
-    BoundingBox mBoundingBox;
+    BoundingBoxN mBoundingBox;
 
     Vector<N> evaluateInexact(Real t) const;
     Vector<N> derivativeInexact(Real t, size_t order = 1) const;
@@ -162,17 +161,6 @@ inline bool Curve<N>::valid(Real max_relative_error) const
 }
 
 template<int N>
-inline bool Curve<N>::boxesIntersect(const BoundingBox & x, const BoundingBox & y)
-{
-    for (int i = 0; i < N; i++)
-    {
-        if (!x[i].intersects(y[i]))
-            return false;
-    }
-    return true;
-}
-
-template<int N>
 inline void Curve<N>::findIntersections(const Curve & c,
                                         std::vector<std::pair<Real, Real>>& intersections,
                                         size_t max,
@@ -185,11 +173,11 @@ inline void Curve<N>::findIntersections(const Curve & c,
     typedef std::pair<Interval, Interval> IntervalPair;
     std::deque<IntervalPair> dq;
     dq.push_back({ interval(), c.interval() });
-    BoundingBox BB1a;
-    BoundingBox BB1b;
-    BoundingBox BB2a;
-    BoundingBox BB2b;
-    while (intersections.size() < max && dq.size() > 0)
+    BoundingBoxN BB1a;
+    BoundingBoxN BB1b;
+    BoundingBoxN BB2a;
+    BoundingBoxN BB2b;
+    while (intersections.size() <= max && dq.size() > 0)
     {
         IntervalPair Is = dq.front();
         bool stopPath = false;
@@ -197,13 +185,10 @@ inline void Curve<N>::findIntersections(const Curve & c,
         {
             std::pair<Interval, Interval> split1 = Is.first.split();
             std::pair<Interval, Interval> split2 = Is.second.split();
-            for (int i = 0; i < N; i++)
-            {
-                BB1a = makeRange(split1.first);
-                BB1b = makeRange(split1.second);
-                BB2a = makeRange(split2.first);
-                BB2b = makeRange(split2.second);
-            }
+            BB1a = makeRange(split1.first);
+            BB1b = makeRange(split1.second);
+            BB2a = makeRange(split2.first);
+            BB2b = makeRange(split2.second);
             bool possibleIntersectionFound = false;
             stopPath = false;
             //inline void processBoxes(const BoundingBox& BB1,
@@ -215,7 +200,7 @@ inline void Curve<N>::findIntersections(const Curve & c,
             //                         std::deque<IntervalPair>& dq,
             //                         IntervalPair& Is,
             //                         std::vector<std::pair<Real, Real>>& intersections)
-            auto processBoxes = [&](const BoundingBox& BB1, const BoundingBox& BB2,
+            auto processBoxes = [&](const BoundingBoxN& BB1, const BoundingBoxN& BB2,
                                     const Interval& I1, const Interval& I2)
             {
                 if (boxesIntersect(BB1, BB2))
@@ -260,15 +245,15 @@ inline void Curve<N>::findIntersections(const Curve & c,
 }
 
 template<int N>
-inline const typename Curve<N>::BoundingBox & Curve<N>::boundingBox() const
+inline const typename Curve<N>::BoundingBoxN & Curve<N>::boundingBox() const
 {
     return mBoundingBox;
 }
 
 template<int N>
-inline typename Curve<N>::BoundingBox Curve<N>::makeRange(const Interval & I) const
+inline typename Curve<N>::BoundingBoxN Curve<N>::makeRange(const Interval & I) const
 {
-    BoundingBox bb;
+    BoundingBoxN bb;
     for (int i = 0; i < N; i++)
     {
         bb[i] = mPolynomials[i].makeRange(mI);

@@ -65,4 +65,3 @@ std::pair<Interval, Interval> Interval::split(Real x) const
 {
     return std::make_pair(Interval(a, x), Interval(x, b));
 }
-

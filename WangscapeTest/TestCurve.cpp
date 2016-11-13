@@ -42,7 +42,7 @@ namespace WangscapeTest
             Curve<2> axis(Interval(-2, 2),
                           { { -2,0 },{ 1,0 } },
                           { {  2,0 },{ 1,0 } });
-            Curve<2>::BoundingBox bb = axis.boundingBox();
+            Curve<2>::BoundingBoxN bb = axis.boundingBox();
             Assert::AreEqual(-2., bb[0].a, 0.000001);
             Assert::AreEqual(2., bb[0].b, 0.000001);
             Assert::AreEqual(0., bb[1].a, 0.000001);
@@ -144,12 +144,12 @@ namespace WangscapeTest
             Curve<2> cubic(Interval(-2, 2),
                            { {-2,-6}, {1,11} },
                            { { 2, 6}, {1,11} });
-            Curve<2>::BoundingBox bb = cubic.boundingBox();
+            Curve<2>::BoundingBoxN bb = cubic.boundingBox();
             Assert::AreEqual(-2., bb[0].a, 0.000001);
             Assert::AreEqual(2., bb[0].b, 0.000001);
             Assert::AreEqual(-6., bb[1].a, 0.000001);
             Assert::AreEqual(6., bb[1].b, 0.000001);
-            Assert::IsTrue(cubic.boxesIntersect(bb, bb));
+            Assert::IsTrue(boxesIntersect(bb, bb));
         }
         TEST_METHOD(TestCurveIntersection)
         {
@@ -161,7 +161,13 @@ namespace WangscapeTest
                           { { -2,0 },{ 1,0 } },
                           { {  2,0 },{ 1,0 } });
             cubic.findIntersections(axis, intersections, 10, 0.001);
-
+            for (auto it : intersections)
+            {
+                auto v1 = cubic.evaluate(it.first);
+                auto v2 = axis.evaluate(it.second);
+                Assert::AreEqual(v1[0], v2[0], 0.01);
+                Assert::AreEqual(v1[1], v2[1], 0.01);
+            }
         }
     private:
 	};

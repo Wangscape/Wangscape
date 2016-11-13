@@ -1,6 +1,7 @@
 #pragma once
 #include "common.h"
 #include <utility>
+#include <array>
 
 /// Represents a closed Real interval [a, b].
 /// a must always be less than or equal to b.
@@ -29,3 +30,18 @@ public:
     std::pair<Interval, Interval> split(Real x) const;
 };
 
+template<int N>
+using BoundingBox = std::array<Interval, N>;
+template<int N>
+bool boxesIntersect(const BoundingBox<N>& x, const BoundingBox<N>& y);
+
+template<int N>
+inline bool boxesIntersect(const BoundingBox<N> & x, const BoundingBox<N> & y)
+{
+    for (int i = 0; i < N; i++)
+    {
+        if (!(x[i].intersects(y[i])))
+            return false;
+    }
+    return true;
+}
