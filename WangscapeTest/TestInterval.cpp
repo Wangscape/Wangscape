@@ -65,6 +65,22 @@ namespace WangscapeTest
             Assert::AreEqual(0.5, Interval(-1., 1.).split(0.5).second.a, 0.000001);
             Assert::AreEqual(1., Interval(-1., 1.).split(0.5).second.b);
         }
+        TEST_METHOD(TestIntervalPointDistance)
+        {
+            Assert::AreEqual(0., Interval(0., 1.).distance(1.));
+            Assert::AreEqual(0., Interval(1., 2.).distance(1.5));
+            Assert::AreEqual(0., Interval(1., 2.).distance(2.));
+            Assert::AreEqual(1., Interval(1., 2.).distance(3.), 0.000001);
+            Assert::AreEqual(1., Interval(1., 2.).distance(0.), 0.000001);
+        }
+        TEST_METHOD(TestIntervalIntervalDistance)
+        {
+            Assert::AreEqual(0., Interval(0., 1.).distance(Interval(1., 2.)));
+            Assert::AreEqual(0., Interval(1., 2.).distance(Interval(0., 1.)));
+            Assert::AreEqual(0., Interval(1., 2.).distance(Interval(0., 1.)));
+            Assert::AreEqual(1., Interval(1., 2.).distance(Interval(3., 4.)), 0.000001);
+            Assert::AreEqual(1., Interval(1., 2.).distance(Interval(-1., 0.)), 0.000001);
+        }
         TEST_METHOD(TestBoundingBox)
         {
             BoundingBox<2> bb0({ Interval{ 0,0 }, Interval{ 0,0 } });
@@ -73,9 +89,21 @@ namespace WangscapeTest
             Assert::IsTrue(boxesIntersect<2>(bb0, bb0));
             Assert::IsTrue(boxesIntersect<2>(bb1, bb1));
             Assert::IsTrue(boxesIntersect<2>(bb2, bb2));
-            Assert::IsTrue(boxesIntersect<2>(bb0,bb1));
+            Assert::IsTrue(boxesIntersect<2>(bb0, bb1));
             Assert::IsTrue(boxesIntersect<2>(bb1, bb2));
             Assert::IsFalse(boxesIntersect<2>(bb0, bb2));
+        }
+        TEST_METHOD(TestBoundingBoxDistance)
+        {
+            BoundingBox<2> bb0({ Interval{ 0,0 }, Interval{ 0,0 } });
+            BoundingBox<2> bb1({ Interval{ 0,1 }, Interval{ 0,1 } });
+            BoundingBox<2> bb2({ Interval{ 1,2 }, Interval{ 1,2 } });
+            Assert::AreEqual(0., distanceMax(bb0, bb0));
+            Assert::AreEqual(0., distanceMax(bb1, bb1));
+            Assert::AreEqual(0., distanceMax(bb2, bb2));
+            Assert::AreEqual(0., distanceMax(bb0, bb1));
+            Assert::AreEqual(0., distanceMax(bb1, bb2));
+            Assert::AreEqual(1., distanceMax(bb0, bb2), 0.000001);
         }
     };
 }

@@ -22,6 +22,10 @@ public:
     bool intersects(const Interval& x) const;
     /// Returns the midpoint of the interval.
 	Real middle() const;
+    /// Returns the minimum distance between t and a member of this interval.
+    Real distance(Real t) const;
+    /// Returns the minimum distance between any members of x and this interval.
+    Real distance(const Interval& x) const;
     /// Provides a total order on intervals, comparing by a then b.
 	bool operator<(const Interval& x) const;
     /// Returns a pair of intervals [a, middle()], [middle(), b].
@@ -44,4 +48,26 @@ inline bool boxesIntersect(const BoundingBox<N> & x, const BoundingBox<N> & y)
             return false;
     }
     return true;
+}
+
+template<int N>
+inline Real distanceMax(const BoundingBox<N>& x, const BoundingBox<N>& y)
+{
+    Real d = 0.;
+    for (int i = 0; i < N; i++)
+    {
+        d = std::max(d, x[i].distance(y[i]));
+    }
+    return d;
+}
+
+template<int N>
+inline bool hasDimensionGreaterEqual(const BoundingBox<N>& x, Real y)
+{
+    for (int i = 0; i < N; i++)
+    {
+        if (x[i].length() >= y)
+            return true;
+    }
+    return false;
 }

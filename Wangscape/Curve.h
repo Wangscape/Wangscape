@@ -15,8 +15,10 @@ class Curve
 {
 public:
     typedef std::pair<Vector<N>, Vector<N>> KnotValueDerivative;
-    typedef std::vector<std::pair<Real, Real>> Intersections;
     typedef BoundingBox<N> BoundingBoxN;
+    typedef std::pair<Interval, BoundingBoxN> Frame;
+    typedef std::pair<Frame, Frame> FramePair;
+    typedef std::vector<FramePair> Intersections;
     /// Constructs a new curve defined on the interval I , starting and ending with the given values and derivatives.
     /// I must have nonzero length.
     Curve(Interval I, const KnotValueDerivative& start, const KnotValueDerivative& end);
@@ -162,7 +164,7 @@ inline bool Curve<N>::valid(Real max_relative_error) const
 
 template<int N>
 inline void Curve<N>::findIntersections(const Curve & c,
-                                        std::vector<std::pair<Real, Real>>& intersections,
+                                        Intersections& intersections,
                                         size_t max,
                                         Real tolerance) const
 {
@@ -170,25 +172,21 @@ inline void Curve<N>::findIntersections(const Curve & c,
         return;
     if (!boxesIntersect(mBoundingBox, c.boundingBox()))
         return;
-    typedef std::pair<Interval, Interval> IntervalPair;
-    std::deque<IntervalPair> dq;
-    dq.push_back({ interval(), c.interval() });
-    BoundingBoxN BB1a;
-    BoundingBoxN BB1b;
-    BoundingBoxN BB2a;
-    BoundingBoxN BB2b;
+    std::deque<FramePair> dq;
+    dq.push_back({ {interval(),makeRange(interval())},
+                   {c.interval(), c.makeRange(c.interval())}});
     while (intersections.size() <= max && dq.size() > 0)
     {
-        IntervalPair Is = dq.front();
+        FramePair Fs = dq.front();
         bool stopPath = false;
         while (!stopPath)
         {
-            std::pair<Interval, Interval> split1 = Is.first.split();
-            std::pair<Interval, Interval> split2 = Is.second.split();
-            BB1a = makeRange(split1.first);
-            BB1b = makeRange(split1.second);
-            BB2a = c.makeRange(split2.first);
-            BB2b = c.makeRange(split2.second);
+            std::pair<Interval, Interval> split1 = Fs.first.first.split();
+            std::pair<Interval, Interval> split2 = Fs.second.first.split();
+            BoundingBoxN BB1a = makeRange(split1.first);
+            BoundingBoxN BB1b = makeRange(split1.second);
+            BoundingBoxN BB2a = c.makeRange(split2.first);
+            BoundingBoxN BB2b = c.makeRange(split2.second);
             bool possibleIntersectionFound = false;
             stopPath = false;
             auto processBoxes = [&](const BoundingBoxN& BB1, const BoundingBoxN& BB2,
@@ -196,42 +194,32 @@ inline void Curve<N>::findIntersections(const Curve & c,
             {
                 if (boxesIntersect(BB1, BB2))
                 {
-                    bool withinTolerance = true;
-                    for (int i = 0; i < N; i++)
-                    {
-                        if (BB1[i].length() >= tolerance)
-                        {
-                            withinTolerance = false;
-                            break;
-                        }
-                        if (BB2[i].length() >= tolerance)
-                        {
-                            withinTolerance = false;
-                            break;
-                        }
-                    }
-                    if (withinTolerance)
+                    if(!hasDimensionGreaterEqual(BB1, tolerance) &&
+                       !hasDimensionGreaterEqual(BB2, tolerance))
                     {
                         // intersection found.
-                        Real t1 = I1.middle();
-                        Real t2 = I2.middle();
                         bool alreadyFound = false;
                         for (const auto it : intersections)
-                        {// don't use tolerance to compare t differences, tolerance works on the space scale.
-                            if (abs(t1 - it.first) < tolerance &&
-                                abs(t2 - it.second) < tolerance)
+                        {
+                            if ((distanceMax(BB1, it.first.second) <= tolerance) &&
+                                (distanceMax(BB2, it.second.second) <= tolerance))
+                            {
                                 alreadyFound = true;
+                                break;
+                            }
                         }
-                        if(!alreadyFound)
-                            intersections.push_back(std::make_pair(t1, t2));
+                        if (!alreadyFound)
+                        {
+                            intersections.push_back({ { I1, BB1 },{ I2, BB2 } });
+                        }
                         stopPath = true;
                         return;
                     }
                     if (possibleIntersectionFound)
-                        dq.push_back(std::make_pair(I1, I2));
+                        dq.push_back({ {I1, BB1}, {I2, BB2} });
                     else
                     {
-                        Is = std::make_pair(I1, I2);
+                        Fs = { {I1,BB1},{I2,BB2} };
                         possibleIntersectionFound = true;
                     }
                 }

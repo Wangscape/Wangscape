@@ -34,6 +34,20 @@ Real Interval::middle() const
 	return (a + b) / (Real)2;
 }
 
+Real Interval::distance(Real t) const
+{
+    if (contains(t))
+        return 0.;
+    return std::min(abs(t - a), abs(t - b));
+}
+
+Real Interval::distance(const Interval & x) const
+{
+    if (intersects(x))
+        return 0;
+    return std::min(distance(x.a), distance(x.b));
+}
+
 bool Interval::contains(Real t) const
 {
 	return (t >= a && t <= b);
