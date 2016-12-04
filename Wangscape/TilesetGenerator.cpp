@@ -1,6 +1,9 @@
 #include "TilesetGenerator.h"
 #include "TileGenerator.h"
+#pragma warning(push)
+#pragma warning(disable: 4996)
 #include <boost/gil/extension/io/png_dynamic_io.hpp>
+#pragma warning(pop)
 
 TilesetGenerator::TilesetGenerator()
 {
@@ -11,7 +14,7 @@ TilesetGenerator::~TilesetGenerator()
 {
 }
 
-bool TilesetGenerator::generate(const Options& options)
+void TilesetGenerator::generate(const Options& options)
 {
     // read all input tiles/tilesets
 
