@@ -6,6 +6,6 @@ class TilesetGenerator
 public:
     TilesetGenerator();
     ~TilesetGenerator();
-    bool generate(const Options& options);
+    static bool generate(const Options& options);
 };
 
