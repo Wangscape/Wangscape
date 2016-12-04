@@ -32,10 +32,15 @@ public:
     Vector<N> evaluate(Real t) const;
     /// Returns the derivative of the curve at the given time.
     Vector<N> derivative(Real t, size_t order = 1) const;
-
+    /// Returns a const reference to the AugmentedPolynomial describing this Curve's component in dimension i.
     const PolynomialAugmented& polynomial(int i) const;
+    /// Returns a const reference to the Interval on which this Curve can be evaluated. 
     const Interval& interval() const;
+    /// Alters the t-value, position, and derivative of the Curve's start point,
+    /// updating the polynomials to match.
     void alterStart(Real new_start_t, const KnotValueDerivative& new_start);
+    /// Alters the t-value, position, and derivative of the Curve's end point,
+    /// updating the polynomials to match.
     void alterEnd(Real new_end_t, const KnotValueDerivative& new_end);
     bool valid(Real max_relative_error = 0.000001) const;
     void findIntersections(const Curve& c, Intersections& intersections, size_t max, Real tolerance) const;
@@ -173,8 +178,8 @@ inline void Curve<N>::findIntersections(const Curve & c,
     if (!boxesIntersect(mBoundingBox, c.boundingBox()))
         return;
     std::deque<FramePair> dq;
-    dq.push_back({ {interval(),makeRange(interval())},
-                   {c.interval(), c.makeRange(c.interval())}});
+    dq.push_back({ { interval(),makeRange(interval()) },
+    { c.interval(), c.makeRange(c.interval()) } });
     while (intersections.size() <= max && dq.size() > 0)
     {
         FramePair Fs = dq.front();
@@ -194,8 +199,8 @@ inline void Curve<N>::findIntersections(const Curve & c,
             {
                 if (boxesIntersect(BB1, BB2))
                 {
-                    if(!hasDimensionGreaterEqual(BB1, tolerance) &&
-                       !hasDimensionGreaterEqual(BB2, tolerance))
+                    if (!hasDimensionGreaterEqual(BB1, tolerance) &&
+                        !hasDimensionGreaterEqual(BB2, tolerance))
                     {
                         // intersection found.
                         bool alreadyFound = false;
@@ -216,10 +221,10 @@ inline void Curve<N>::findIntersections(const Curve & c,
                         return;
                     }
                     if (possibleIntersectionFound)
-                        dq.push_back({ {I1, BB1}, {I2, BB2} });
+                        dq.push_back({ { I1, BB1 },{ I2, BB2 } });
                     else
                     {
-                        Fs = { {I1,BB1},{I2,BB2} };
+                        Fs = { { I1,BB1 },{ I2,BB2 } };
                         possibleIntersectionFound = true;
                     }
                 }
