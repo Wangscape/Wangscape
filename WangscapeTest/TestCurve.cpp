@@ -37,6 +37,17 @@ namespace WangscapeTest
         {
             Assert::IsTrue(c.valid());
         }
+        TEST_METHOD(TestCurveLinear)
+        {
+            Curve<2> axis(Interval(-2, 2),
+                          { { -2,0 },{ 1,0 } },
+                          { {  2,0 },{ 1,0 } });
+            Curve<2>::BoundingBoxN bb = axis.boundingBox();
+            Assert::AreEqual(-2., bb[0].a, 0.000001);
+            Assert::AreEqual(2., bb[0].b, 0.000001);
+            Assert::AreEqual(0., bb[1].a, 0.000001);
+            Assert::AreEqual(0., bb[1].b, 0.000001);
+        }
         TEST_METHOD(TestCurveGetInterval)
         {
             Assert::AreEqual(start, c.getInterval().a);
@@ -127,6 +138,84 @@ namespace WangscapeTest
             Assert::AreEqual(5., c.derivative(-0.5)[1], 0.0000001);
             Assert::AreEqual(5., c.derivative(0.)[1], 0.0000001);
             Assert::AreEqual(5., c.derivative(0.5)[1], 0.0000001);
+        }
+        TEST_METHOD(TestCurveRange)
+        {
+            Curve<2> cubic(Interval(-2, 2),
+                           { {-2,-6}, {1,11} },
+                           { { 2, 6}, {1,11} });
+            Curve<2>::BoundingBoxN bb = cubic.boundingBox();
+            Assert::AreEqual(-2., bb[0].a, 0.000001);
+            Assert::AreEqual(2., bb[0].b, 0.000001);
+            Assert::AreEqual(-6., bb[1].a, 0.000001);
+            Assert::AreEqual(6., bb[1].b, 0.000001);
+            Assert::IsTrue(boxesIntersect(bb, bb));
+        }
+        TEST_METHOD(TestCurveIntersection)
+        {
+            Curve<2> cubic(Interval(-2, 2),
+                           { { -2,-6 },{ 1,11 } },
+                           { { 2, 6 },{ 1,11 } });
+            std::vector<Curve<2>::FramePair> intersections;
+            Curve<2> axis(Interval(-2,2),
+                          { { -2,0 },{ 1,0 } },
+                          { {  2,0 },{ 1,0 } });
+            cubic.findIntersections(axis, intersections, 10, 0.001);
+            for (auto it : intersections)
+            {
+                Assert::IsTrue(boxesIntersect(it.first.second, it.second.second), L"Allegedly intersecting frames do not intersect");
+                BoundingBox<2> bb1 = cubic.makeRange(it.first.first);
+                BoundingBox<2> bb2 = axis.makeRange(it.second.first);
+                Assert::AreEqual(bb1[0].a, it.first.second[0].a, L"Left intersection bbox does not match tval interval: lower bound of dimension 0");
+                Assert::AreEqual(bb1[0].b, it.first.second[0].b, L"Left intersection bbox does not match tval interval: upper bound of dimension 0");
+                Assert::AreEqual(bb2[0].a, it.second.second[0].a, L"Right intersection bbox does not match tval interval: lower bound of dimension 0");
+                Assert::AreEqual(bb2[0].b, it.second.second[0].b, L"Right intersection bbox does not match tval interval: upper bound of dimension 0");
+                Assert::AreEqual(bb1[1].a, it.first.second[1].a, L"Left intersection bbox does not match tval interval: lower bound of dimension 1");
+                Assert::AreEqual(bb1[1].b, it.first.second[1].b, L"Left intersection bbox does not match tval interval: upper bound of dimension 1");
+                Assert::AreEqual(bb2[1].a, it.second.second[1].a, L"Right intersection bbox does not match tval interval: lower bound of dimension 1");
+                Assert::AreEqual(bb2[1].b, it.second.second[1].b, L"Right intersection bbox does not match tval interval: upper bound of dimension 1");
+            }
+            Assert::AreEqual((size_t)3, intersections.size(), L"Incorrect number of solutions found");
+            std::sort(intersections.begin(),intersections.end() );
+            Assert::IsTrue((boxesIntersect<2>(intersections[0].first.second, { Interval(-1.,-1.), Interval(0.,0.) }) ||
+                            boxesIntersect<2>(intersections[0].second.second, { Interval(-1.,-1.), Interval(0.,0.) })),
+                           L"Neither left nor right intersection bbox contains true first solution");
+            Assert::IsTrue((boxesIntersect<2>(intersections[1].first.second, { Interval(0.,0.), Interval(0.,0.) }) ||
+                            boxesIntersect<2>(intersections[1].second.second, { Interval(0.,0.), Interval(0.,0.) })),
+                           L"Neither left nor right intersection bbox contains true second solution");
+            Assert::IsTrue((boxesIntersect<2>(intersections[2].first.second, { Interval(1.,1.), Interval(0.,0.) }) ||
+                            boxesIntersect<2>(intersections[2].second.second, { Interval(1.,1.), Interval(0.,0.) })),
+                           L"Neither left nor right intersection bbox contains true third solution");
+
+        }
+        TEST_METHOD(TestLinearIntersection)
+        {
+            Curve<2> positive(Interval(-2.2, 2.7),
+            { { -2.2,-4.4 },{ 1.,2. } },
+            { {  2.7, 5.4 },{ 1.,2. } });
+            Curve<2> negative(Interval(-3.4, 2.1),
+            { { -3.4, 6.8 },{ 1.,-2. } },
+            { { 2.1, -4.2 },{ 1.,-2. } });
+            std::vector<Curve<2>::FramePair> intersections;
+            positive.findIntersections(negative, intersections, 10, 0.01);
+            for (auto it : intersections)
+            {
+                Assert::IsTrue(boxesIntersect(it.first.second, it.second.second), L"Allegedly intersecting frames do not intersect");
+                BoundingBox<2> bb1 = positive.makeRange(it.first.first);
+                BoundingBox<2> bb2 = negative.makeRange(it.second.first);
+                Assert::AreEqual(bb1[0].a, it.first.second[0].a, L"Left intersection bbox does not match tval interval: lower bound of dimension 0");
+                Assert::AreEqual(bb1[0].b, it.first.second[0].b, L"Left intersection bbox does not match tval interval: upper bound of dimension 0");
+                Assert::AreEqual(bb2[0].a, it.second.second[0].a, L"Right intersection bbox does not match tval interval: lower bound of dimension 0");
+                Assert::AreEqual(bb2[0].b, it.second.second[0].b, L"Right intersection bbox does not match tval interval: upper bound of dimension 0");
+                Assert::AreEqual(bb1[1].a, it.first.second[1].a, L"Left intersection bbox does not match tval interval: lower bound of dimension 1");
+                Assert::AreEqual(bb1[1].b, it.first.second[1].b, L"Left intersection bbox does not match tval interval: upper bound of dimension 1");
+                Assert::AreEqual(bb2[1].a, it.second.second[1].a, L"Right intersection bbox does not match tval interval: lower bound of dimension 1");
+                Assert::AreEqual(bb2[1].b, it.second.second[1].b, L"Right intersection bbox does not match tval interval: upper bound of dimension 1");
+            }
+            Assert::AreEqual((size_t)1, intersections.size(), L"Incorrect number of solutions found");
+            Assert::IsTrue((boxesIntersect<2>(intersections[0].first.second, { Interval(0.,0.), Interval(0.,0.) }) ||
+                            boxesIntersect<2>(intersections[0].second.second, { Interval(0.,0.), Interval(0.,0.) })),
+                            L"Neither left nor right intersection bbox contains true solution");
         }
     private:
 	};
