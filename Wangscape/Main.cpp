@@ -6,6 +6,7 @@
 #include <istream>
 #include "Options.h"
 #include "TilesetGenerator.h"
+#include "TileGenerator.h"
 
 int main(int argc, char** argv)
 {
@@ -40,6 +41,6 @@ int main(int argc, char** argv)
         //}
         const Options options(options_document);
         TilesetGenerator tg;
-        tg.generate(options);
+        tg.generate(options,TileGenerator::generate);
     }
 }
