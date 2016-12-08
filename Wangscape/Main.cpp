@@ -1,9 +1,4 @@
 #include <iostream>
-#include <rapidjson/istreamwrapper.h>
-#include <rapidjson/document.h>
-#include <rapidjson/error/en.h>
-#include <fstream>
-#include <istream>
 #include "Options.h"
 #include "TilesetGenerator.h"
 #include "TileGenerator.h"

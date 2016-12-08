@@ -2,12 +2,6 @@
 #include "CppUnitTest.h"
 #include "CppUnitTestAssert.h"
 
-#include <rapidjson/istreamwrapper.h>
-#include <rapidjson/document.h>
-#include <rapidjson/error/en.h>
-#include <fstream>
-#include <sstream>
-#include <istream>
 #include <SFML/Graphics.hpp>
 
 #include "../Wangscape/Options.h"
@@ -56,6 +50,7 @@ namespace WangscapeTest
                 }
             }
         }
+
         TEST_METHOD(TestGenerateTilesets)
         {
             std::string filename("../Wangscape/example/example_options.json");
@@ -72,7 +67,6 @@ namespace WangscapeTest
                     }
                 }
             });
-
         }
     };
 }
