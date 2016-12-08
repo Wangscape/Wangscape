@@ -32,7 +32,8 @@ public:
 
     BorderOffsetMap borderOffsets;
 
-    Options(const rapidjson::Document& d, std::string filename);
+    Options(std::string filename);
+    void initialise(const rapidjson::Document& d);
     ~Options();
 };
 

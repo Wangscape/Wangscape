@@ -1,8 +1,38 @@
 #include "Options.h"
 #include <iostream>
-
-Options::Options(const rapidjson::Document& d, std::string filename):
+#include <fstream>
+#include <istream>
+#include <rapidjson/istreamwrapper.h>
+#include <rapidjson/document.h>
+#include <stdexcept>
+Options::Options(std::string filename):
     filename(filename)
+{
+    std::ifstream ifs(filename);
+    if (!ifs.good())
+    {
+        throw std::runtime_error("Could not read options file");
+    }
+    rapidjson::IStreamWrapper isw(ifs);
+    rapidjson::Document options_document;
+    options_document.ParseStream(isw);
+    if (options_document.HasParseError())
+    {
+        throw std::runtime_error("Could not parse options file");
+        //std::cout << "Options document has parse error at offset " << (unsigned)options_document.GetErrorOffset() << ":\n";
+        //std::cout << GetParseError_En(options_document.GetParseError()) << "\n";
+    }
+    // At present *no* validation is performed!
+    //OptionsValidator ov(&options_document);
+    //if (ov.hasError())
+    //{
+    //    std::cout << "Could not generate tileset.\n";
+    //    std::cout << ov.getError().c_str();
+    //}
+    initialise(options_document);
+}
+
+void Options::initialise(const rapidjson::Document& d)
 {
     auto& o = d.GetObject();
     {

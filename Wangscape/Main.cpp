@@ -18,29 +18,13 @@ int main(int argc, char** argv)
     else
     {
         std::string filename(argv[1]);
-        std::ifstream ifs(filename);
-        if (!ifs.good())
-        {
-            std::cout << "Could not read file: " << filename.c_str() << "\n";
-            exit(1);
-        }
-        rapidjson::IStreamWrapper isw(ifs);
-        rapidjson::Document options_document;
-        options_document.ParseStream(isw);
-        if (options_document.HasParseError())
-        {
-            std::cout << "Options document has parse error at offset "<< (unsigned)options_document.GetErrorOffset() <<":\n";
-            std::cout << GetParseError_En(options_document.GetParseError()) << "\n";
-        }
-        // At present *no* validation is performed!
-        //OptionsValidator ov(&options_document);
-        //if (ov.hasError())
-        //{
-        //    std::cout << "Could not generate tileset.\n";
-        //    std::cout << ov.getError().c_str();
-        //}
-        const Options options(options_document,filename);
+
+        const Options options(filename);
         TilesetGenerator tg(options);
-        tg.generate();
+        tg.generate([](const sf::Texture& output, std::string filename)
+        {
+            if (!output.copyToImage().saveToFile(filename))
+                throw std::runtime_error("Couldn't write image");
+        });
     }
 }
