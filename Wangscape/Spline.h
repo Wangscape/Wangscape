@@ -352,13 +352,13 @@ inline void Spline<N>::addInternalKnot(Real t, MapIter hint, Vector<N> new_value
     Real b = (*hint).first.b;
     if (t == a || t == b)
     {
-        throw std::runtime_error("Tried to add a new internal knot, but t is equal to one of the extremes of the interval")
+        throw std::runtime_error("Tried to add a new internal knot, but t is equal to one of the extremes of the interval");
         //std::cerr << "Tried to add a new internal knot with t = " << t << ", but t is equal to one of the extremes of the interval [" << (*hint).first.a << "," << (*hint).first.b << "]";
         //exit(1);
     }
     if (!(*hint).first.contains(t))
     {
-        throw std::runtime_error("Tried to add a new internal knot, but t not contained in the hint interval")
+        throw std::runtime_error("Tried to add a new internal knot, but t not contained in the hint interval");
         //std::cerr << "Tried to add a new internal knot with t = " << t << ", but t is not contained in the hint interval [" << (*hint).first.a << "," << (*hint).first.b << "]";
         //exit(1);
     }
