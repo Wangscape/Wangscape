@@ -56,6 +56,10 @@ namespace WangscapeTest
             {
                 Assert::AreEqual(corner.c_str(), "0", L"Incorrect corners in first tile");
             }
+            const auto& last_tile = tiles.at({ 3,3 });
+            {
+                Assert::AreEqual(corner.c_str(), "1", L"Incorrect corners in last tile");
+            }
             for (size_t x = 0; x < 4; x++)
             {
                 for (size_t y = 0; y < 4; y++)
