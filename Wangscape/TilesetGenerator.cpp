@@ -47,7 +47,7 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
         {
             ss << terrain << ".";
         }
-        ss << "png";
+        ss << options.fileType;
         std::string filename = ss.str();
         boost::filesystem::path p(options.filename);
         p.remove_filename();

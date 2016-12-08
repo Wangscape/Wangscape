@@ -20,9 +20,7 @@ public:
     const std::string filename;
 
     unsigned int resolution;
-    std::string colours = "RGB";
-    unsigned int bitDepth = 24;
-    std::string fileType = "PNG";
+    std::string fileType = "png";
 
     std::string outputDirectory;
 

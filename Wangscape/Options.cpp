@@ -40,19 +40,7 @@ void Options::initialise(const rapidjson::Document& d)
 
         resolution = doc_tile_format.FindMember("Resolution")->value.GetInt();
 
-        auto it = doc_tile_format.FindMember("Colours");
-        if (it != doc_tile_format.end())
-            colours = it->value.GetString();
-        // Be kind
-        it = doc_tile_format.FindMember("Colors");
-        if (it != doc_tile_format.end())
-            std::cout << "Found #/TileFormat/Colors in options, did you mean ""Colours""?";
-
-        it = doc_tile_format.FindMember("BitDepth");
-        if (it != doc_tile_format.end())
-            bitDepth = it->value.GetInt();
-
-        it = doc_tile_format.FindMember("FileType");
+        auto it = doc_tile_format.FindMember("FileType");
         if (it != doc_tile_format.end())
             fileType = it->value.GetString();
     }
