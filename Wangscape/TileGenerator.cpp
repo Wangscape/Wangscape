@@ -23,7 +23,7 @@ void TileGenerator::generate(sf::RenderTexture& image, size_t x, size_t y,
     {
         sf::Sprite s(images.terrain_textures.at(corners[corner]),
                      sf::IntRect({ left,top }, quarter_tile));
-        s.setPosition((float)(x+left), (float)(y+left));
+        s.setPosition((float)(x+left), (float)(y+top));
         image.draw(s);
     };
     draw_corner(0, 0, 0);
