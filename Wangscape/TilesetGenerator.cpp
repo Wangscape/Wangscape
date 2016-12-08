@@ -6,11 +6,23 @@
 TilesetGenerator::TilesetGenerator(const Options& options) :
     options(options)
 {
-    // read all input tiles/tilesets
-    //for (auto& it : options.terrains)
-    //{
-
-    //}
+    for (auto& terrain : options.terrains)
+    {
+        std::string filename = terrain.second.fileName;
+        auto it = terrain_images.find(filename);
+        if (it == terrain_images.end())
+        {
+            sf::Image img;
+            img.loadFromFile(filename);
+            it = terrain_images.insert({ filename, img }).first;
+        }
+        sf::Texture tex;
+        sf::Vector2i offset(terrain.second.offsetX, terrain.second.offsetY);
+        sf::Vector2i box(options.resolution, options.resolution);
+        offset *= (int)options.resolution;
+        tex.loadFromImage((*it).second, sf::IntRect(offset,box));
+        terrain_image_views.insert({ terrain.first, sf::Texture() });
+    }
 }
 
 
