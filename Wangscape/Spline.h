@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <stdexcept>
 #include <array>
 #include "common.h"
 #include "Polynomial.h"
@@ -112,12 +113,15 @@ inline typename Vector<N> Spline<N>::evaluate(Real t, MapConstIter hint) const
     if ((*hint).first.contains(t))
         return (*hint).second.evaluate(t);
     else if (t < tMin())
-        std::cerr << "Spline<N>::evaluate(t, hint) called with t (" << t << ") less than Spline<N>::tMin() (" << tMin() << ")";
+        throw std::runtime_error("Spline<N>::evaluate(t, hint) called with t less than Spline<N>::tMin()");
+        //std::cerr << "Spline<N>::evaluate(t, hint) called with t (" << t << ") less than Spline<N>::tMin() (" << tMin() << ")";
     else if (t > tMax())
-        std::cerr << "Spline<N>::evaluate(t, hint) called with t (" << t << ") greater than Spline<N>::tMax() (" << tMax() << ")";
-    else 
-        std::cerr << "Incorrect hint with interval [" << (*hint).first.a << "," << (*hint).first.b << "] passed to Spline<N>::evaluate(t, hint) (t = " << t << ")";
-    exit(1);
+        throw std::runtime_error("Spline<N>::evaluate(t, hint) called with t greater than Spline<N>::tMax()");
+        //std::cerr << "Spline<N>::evaluate(t, hint) called with t (" << t << ") greater than Spline<N>::tMax() (" << tMax() << ")";
+    else
+        throw std::runtime_error("Incorrect hint passed to Spline<N>::evaluate(t, hint)");
+        //std::cerr << "Incorrect hint with interval [" << (*hint).first.a << "," << (*hint).first.b << "] passed to Spline<N>::evaluate(t, hint) (t = " << t << ")";
+    //exit(1);
 }
 
 template<int N>
@@ -133,12 +137,15 @@ inline typename Vector<N> Spline<N>::derivative(Real t, MapConstIter hint, int o
     if ((*hint).first.contains(t))
         return (*hint).second.derivative(t, order);
     else if (t < tMin())
-        std::cerr << "Spline<N>::derivative(t, hint) called with t (" << t << ") less than Spline<N>::tMin() (" << tMin() << ")";
+        throw std::runtime_error("Spline<N>::derivative(t, hint) called with t less than Spline<N>::tMin()");
+        //std::cerr << "Spline<N>::derivative(t, hint) called with t (" << t << ") less than Spline<N>::tMin() (" << tMin() << ")";
     else if (t > tMax())
-        std::cerr << "Spline<N>::derivative(t, hint) called with t (" << t << ") greater than Spline<N>::tMax() (" << tMax() << ")";
+        throw std::runtime_error("Spline<N>::derivative(t, hint) called with t greater than Spline<N>::tMax()");
+        //std::cerr << "Spline<N>::derivative(t, hint) called with t (" << t << ") greater than Spline<N>::tMax() (" << tMax() << ")";
     else
-        std::cerr << "Incorrect hint with interval [" << (*hint).first.a << "," << (*hint).first.b << "] passed to Spline<N>::derivative(t, hint) (t = " << t << ")";
-    exit(1);
+        throw std::runtime_error("Incorrect hint passed to Spline<N>::derivative(t, hint)");
+        //std::cerr << "Incorrect hint with interval [" << (*hint).first.a << "," << (*hint).first.b << "] passed to Spline<N>::derivative(t, hint) (t = " << t << ")";
+    //exit(1);
 }
 
 template<int N>
@@ -221,8 +228,9 @@ inline void Spline<N>::removeKnot(Real t)
     }
     else
     {
-        std::cerr << "Tried to remove knot at t = " << t << " using hint interval [" << (*it).first.a << "," << (*it).first.b << "]";
-        exit(1);
+        throw std::runtime_error("Tried to remove knot using hint interval that doesn't contain it");
+        //std::cerr << "Tried to remove knot at t = " << t << " using hint interval [" << (*it).first.a << "," << (*it).first.b << "]";
+        //exit(1);
     }
     MapIter jt = it;
     if (go_left)
@@ -331,8 +339,9 @@ inline void Spline<N>::alterKnot(Real t, MapIter hint, Vector<N> new_value, Vect
     }
     else
     {
-        std::cerr << "Tried to alter a knot with t = " << t << " using an incorrect hint with interval [" << (*hint).first.a << "," << (*hint).first.b << "]";
-        exit(1);
+        throw std::runtime_error("Tried to alter a knot using an incorrect hint");
+        //std::cerr << "Tried to alter a knot with t = " << t << " using an incorrect hint with interval [" << (*hint).first.a << "," << (*hint).first.b << "]";
+        //exit(1);
     }
 }
 
@@ -343,13 +352,15 @@ inline void Spline<N>::addInternalKnot(Real t, MapIter hint, Vector<N> new_value
     Real b = (*hint).first.b;
     if (t == a || t == b)
     {
-        std::cerr << "Tried to add a new internal knot with t = " << t << ", but t is equal to one of the extremes of the interval [" << (*hint).first.a << "," << (*hint).first.b << "]";
-        exit(1);
+        throw std::runtime_error("Tried to add a new internal knot, but t is equal to one of the extremes of the interval")
+        //std::cerr << "Tried to add a new internal knot with t = " << t << ", but t is equal to one of the extremes of the interval [" << (*hint).first.a << "," << (*hint).first.b << "]";
+        //exit(1);
     }
     if (!(*hint).first.contains(t))
     {
-        std::cerr << "Tried to add a new internal knot with t = " << t << ", but t is not contained in the hint interval [" << (*hint).first.a << "," << (*hint).first.b << "]";
-        exit(1);
+        throw std::runtime_error("Tried to add a new internal knot, but t not contained in the hint interval")
+        //std::cerr << "Tried to add a new internal knot with t = " << t << ", but t is not contained in the hint interval [" << (*hint).first.a << "," << (*hint).first.b << "]";
+        //exit(1);
     }
 
     Curve<N>::KnotValueDerivative start = (*hint).second.getStart();
