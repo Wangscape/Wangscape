@@ -18,12 +18,11 @@ TilesetGenerator::TilesetGenerator(const Options& options) :
     }
 }
 
-
 TilesetGenerator::~TilesetGenerator()
 {
 }
 
-void TilesetGenerator::generate()
+void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::string)> callback)
 {
     for (const auto& clique : options.cliques)
     {
@@ -39,14 +38,16 @@ void TilesetGenerator::generate()
         // prepare a blank image of size res_x*res_y
         sf::RenderTexture output;
         output.create(res_x, res_y);
+        output.clear(sf::Color(255,255,255,0));
         generateClique(clique, output, TileGenerator::generate);
         output.display();
+
         std::stringstream ss;
         for (auto terrain : clique)
         {
             ss << terrain << ".";
         }
-        ss << "png";
+        ss << options.fileType;
         std::string filename = ss.str();
         boost::filesystem::path p(options.filename);
         p.remove_filename();
@@ -54,8 +55,7 @@ void TilesetGenerator::generate()
         boost::filesystem::create_directories(p);
         p.append(filename);
         filename = p.string();
-        if(!output.getTexture().copyToImage().saveToFile(filename))
-            throw std::runtime_error("Couldn't write image");
+        callback(output.getTexture(), filename);
     }
 }
 

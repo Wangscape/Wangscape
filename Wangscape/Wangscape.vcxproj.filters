@@ -61,6 +61,9 @@
     <ClInclude Include="TerrainImages.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TilePartitionSquares.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -78,13 +81,13 @@
     <ClCompile Include="TilesetGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TilePartition.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TileGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TerrainImages.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TilePartitionSquares.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

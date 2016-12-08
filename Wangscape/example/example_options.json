@@ -1,9 +1,7 @@
 {
   "TileFormat": {
     "Resolution": 32,
-    "Colours": "RGB",
-    "BitDepth": 24,
-    "FileType": "PNG"
+    "FileType": "png"
   },
   "OutputDirectory": "output",
   "Terrains": {

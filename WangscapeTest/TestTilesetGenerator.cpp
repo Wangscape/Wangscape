@@ -2,12 +2,6 @@
 #include "CppUnitTest.h"
 #include "CppUnitTestAssert.h"
 
-#include <rapidjson/istreamwrapper.h>
-#include <rapidjson/document.h>
-#include <rapidjson/error/en.h>
-#include <fstream>
-#include <sstream>
-#include <istream>
 #include <SFML/Graphics.hpp>
 
 #include "../Wangscape/Options.h"
@@ -24,21 +18,8 @@ namespace WangscapeTest
 
         TEST_METHOD(TestGenerateClique)
         {
-
             std::string filename("../Wangscape/example/example_options.json");
-            std::ifstream ifs(filename);
-            Assert::IsTrue(ifs.good(),L"Couldn't open example json options");
-            rapidjson::IStreamWrapper isw(ifs);
-            rapidjson::Document options_document;
-            options_document.ParseStream(isw);
-            if (options_document.HasParseError())
-            {
-                std::wstringstream ss;
-                ss << "Options document has parse error at offset " << (unsigned)options_document.GetErrorOffset() << ":\n";
-                ss << GetParseError_En(options_document.GetParseError()) << "\n";
-                Assert::IsFalse(options_document.HasParseError(), ss.str().c_str());
-            }
-            const Options options(options_document, filename);
+            const Options options(filename);
             TilesetGenerator tg(options);
             std::map<std::pair<size_t, size_t>, std::vector<Options::TerrainID>> tiles;
             const auto& clique = options.cliques[0];
@@ -70,5 +51,22 @@ namespace WangscapeTest
             }
         }
 
+        TEST_METHOD(TestGenerateTilesets)
+        {
+            std::string filename("../Wangscape/example/example_options.json");
+            const Options options(filename);
+            TilesetGenerator tg(options);
+            tg.generate([&](const sf::Texture& output, std::string filename)
+            {
+                sf::Image img = output.copyToImage();
+                for (size_t x = 0; x < img.getSize().x; x++)
+                {
+                    for (size_t y = 0; y < img.getSize().y; y++)
+                    {
+                        Assert::AreEqual(img.getPixel(x, y).a, (sf::Uint8)255);
+                    }
+                }
+            });
+        }
     };
 }
