@@ -1,8 +1,14 @@
 #pragma once
+#include <vector>
+#include <SFML/Graphics.hpp>
+#include "TerrainImages.h"
+#include "Options.h"
 class TilePartition
 {
 public:
-    TilePartition();
+    std::vector<std::pair<sf::Texture, Options::TerrainID>> regions;
+    TilePartition(std::vector<Options::TerrainID> corners, size_t resolution);
     ~TilePartition();
+protected:
 };
 
