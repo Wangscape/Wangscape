@@ -18,34 +18,16 @@
           "maximum": 512,
           "minimum": 8
         },
-        "Colours": {
-          "type": "string",
-          "title": "Tile colours schema",
-          "description": "Specifies whether a schema uses RGB or greyscale tiles.",
-          "default": "RGB",
-          "enum": [
-            "RGB",
-            "Greyscale"
-          ]
-        },
-        "BitDepth": {
-          "type": "integer",
-          "title": "Bit depth schema",
-          "description": "Specifies the bit depth of Wangscape's input and output tiles.",
-          "multipleOf": 1,
-          "maximum": 32,
-          "minimum": 1,
-          "default": 24
-        },
         "FileType": {
           "type": "string",
           "title": "File type schema",
-          "description": "Specifies the file type of Wangscape's input and output tiles.",
-          "default": "PNG",
+          "description": "Specifies the file type of Wangscape's output tiles.",
+          "default": "png",
           "enum": [
-            "PNG",
-            "JPEG",
-            "TIFF"
+            "bmp",
+            "png",
+            "tga",
+            "jpg"
           ]
         }
       },
