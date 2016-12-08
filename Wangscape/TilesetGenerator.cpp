@@ -50,6 +50,7 @@ void TilesetGenerator::generate()
         {
             size_t& res_z = x_dimension ? res_x : res_y;
             res_z *= clique.size();
+            x_dimension = !x_dimension;
         }
         // prepare a blank image of size res_x*res_y
         sf::Image output;
