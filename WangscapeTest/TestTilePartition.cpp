@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "CppUnitTestAssert.h"
-#include "../Wangscape/TilePartition.h"
+#include "../Wangscape/TilePartitionSquares.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -13,7 +13,9 @@ namespace WangscapeTest
 
         TEST_METHOD(TestSquarePartition)
         {
-            TilePartition tp({ "0","0","1","1" },32);
+            std::string filename("../Wangscape/example/example_options.json");
+            const Options options(filename);
+            TilePartitionSquares tp({ "0","0","1","1" },options);
             sf::Image mask = tp.regions[0].first.copyToImage();
             //mask.saveToFile("temp.png");
             Assert::IsTrue(mask.getPixel(0, 0) == sf::Color(255, 255, 255, 255),

@@ -1,5 +1,5 @@
 #include "TileGenerator.h"
-#include "TilePartition.h"
+#include "TilePartitionSquares.h"
 
 
 
@@ -17,7 +17,7 @@ void TileGenerator::generate(sf::RenderTexture& image, size_t x, size_t y,
                              const TerrainImages& images,
                              const Options& options)
 {
-    const TilePartition tp(corners, options.resolution);
+    const TilePartitionSquares tp(corners, options);
     sf::RenderTexture temp;
     temp.create(options.resolution, options.resolution);
     for (auto it : tp.regions)
