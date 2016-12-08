@@ -4,6 +4,8 @@
 #include <stdexcept>
 #include <sstream>
 #include <boost/filesystem.hpp>
+#include <boost/iterator/zip_iterator.hpp>
+#include <boost/range.hpp>
 #include "common.h"
 
 TilesetGenerator::TilesetGenerator(const Options& options) :
@@ -75,16 +77,24 @@ void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderT
         }
         callback(image, x, y, corner_terrains, images, options);
         stop = true;
-        for (auto& i : corner_clique_indices)
+        auto zip_begin = boost::make_zip_iterator(boost::make_tuple(corner_terrains.begin(),
+                                                                    corner_clique_indices.begin()));
+        auto zip_end = boost::make_zip_iterator(boost::make_tuple(corner_terrains.end(),
+                                                                  corner_clique_indices.end()));
+        for (auto it : boost::make_iterator_range(zip_begin,zip_end))
         {
+            size_t& i = it.tail.head;
+            Options::TerrainID& t = it.head;
             i++;
             if (i >= clique.size())
             {
                 i = 0;
+                t = clique[i];
             }
             else
             {
                 stop = false;
+                t = clique[i];
                 break;
             }
         }
