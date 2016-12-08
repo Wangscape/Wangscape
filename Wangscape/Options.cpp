@@ -1,7 +1,8 @@
 #include "Options.h"
 #include <iostream>
 
-Options::Options(const rapidjson::Document& d)
+Options::Options(const rapidjson::Document& d, std::string filename):
+    filename(filename)
 {
     auto& o = d.GetObject();
     {
@@ -62,7 +63,7 @@ Options::Options(const rapidjson::Document& d)
             const auto& doc_bos = it.GetObject();
             const auto& doc_terrain_pair = doc_bos.FindMember("Terrains")->value.GetArray();
             borderOffsets.insert(std::make_pair(
-                TerrainNamePair(
+                TerrainIDPair(
                     doc_terrain_pair.Begin()->GetString(),
                     (doc_terrain_pair.Begin()+1)->GetString()),
                 BorderOffsetSpec(

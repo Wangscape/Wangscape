@@ -1,11 +1,17 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 #include "Options.h"
-#include <boost/gil/gil_all.hpp>
+#include "TileGenerator.h"
+#include "TerrainImages.h"
 class TilesetGenerator
 {
 public:
-    TilesetGenerator();
+    TilesetGenerator(const Options& options);
     ~TilesetGenerator();
-    static void generate(const Options& options);
+    void generate();
+    void generateClique(const Options::Clique& clique, sf::RenderTexture& image,
+                        TileGenerator::TileGenerateFunction callback);
+    const Options& options;
+    TerrainImages images;
 };
 

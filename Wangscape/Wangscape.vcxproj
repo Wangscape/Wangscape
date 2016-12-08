@@ -144,6 +144,7 @@
     <ClInclude Include="Options.h" />
     <ClInclude Include="Spline.h" />
     <ClInclude Include="Polynomial.h" />
+    <ClInclude Include="TerrainImages.h" />
     <ClInclude Include="TerrainSpec.h" />
     <ClInclude Include="TileGenerator.h" />
     <ClInclude Include="TilePartition.h" />
@@ -155,6 +156,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Options.cpp" />
     <ClCompile Include="Polynomial.cpp" />
+    <ClCompile Include="TerrainImages.cpp" />
     <ClCompile Include="TileGenerator.cpp" />
     <ClCompile Include="TilePartition.cpp" />
     <ClCompile Include="TilesetGenerator.cpp" />
@@ -171,10 +173,6 @@
     <Import Project="..\packages\boost.1.62.0.0\build\native\boost.targets" Condition="Exists('..\packages\boost.1.62.0.0\build\native\boost.targets')" />
     <Import Project="..\packages\boost_filesystem-vc140.1.62.0.0\build\native\boost_filesystem-vc140.targets" Condition="Exists('..\packages\boost_filesystem-vc140.1.62.0.0\build\native\boost_filesystem-vc140.targets')" />
     <Import Project="..\packages\boost_system-vc140.1.62.0.0\build\native\boost_system-vc140.targets" Condition="Exists('..\packages\boost_system-vc140.1.62.0.0\build\native\boost_system-vc140.targets')" />
-    <Import Project="..\packages\libpng.redist.1.6.26.1\build\native\libpng.redist.targets" Condition="Exists('..\packages\libpng.redist.1.6.26.1\build\native\libpng.redist.targets')" />
-    <Import Project="..\packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('..\packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets')" />
-    <Import Project="..\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets" Condition="Exists('..\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" />
-    <Import Project="..\packages\libpng.1.6.26.1\build\native\libpng.targets" Condition="Exists('..\packages\libpng.1.6.26.1\build\native\libpng.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -190,9 +188,5 @@
     <Error Condition="!Exists('..\packages\boost.1.62.0.0\build\native\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost.1.62.0.0\build\native\boost.targets'))" />
     <Error Condition="!Exists('..\packages\boost_filesystem-vc140.1.62.0.0\build\native\boost_filesystem-vc140.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost_filesystem-vc140.1.62.0.0\build\native\boost_filesystem-vc140.targets'))" />
     <Error Condition="!Exists('..\packages\boost_system-vc140.1.62.0.0\build\native\boost_system-vc140.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost_system-vc140.1.62.0.0\build\native\boost_system-vc140.targets'))" />
-    <Error Condition="!Exists('..\packages\libpng.redist.1.6.26.1\build\native\libpng.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\libpng.redist.1.6.26.1\build\native\libpng.redist.targets'))" />
-    <Error Condition="!Exists('..\packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v120.windesktop.msvcstl.dyn.rt-dyn.targets'))" />
-    <Error Condition="!Exists('..\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.1.2.8.8\build\native\zlib.v140.windesktop.msvcstl.dyn.rt-dyn.targets'))" />
-    <Error Condition="!Exists('..\packages\libpng.1.6.26.1\build\native\libpng.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\libpng.1.6.26.1\build\native\libpng.targets'))" />
   </Target>
 </Project>

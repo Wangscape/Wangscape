@@ -1,11 +1,21 @@
 #pragma once
 #include "Options.h"
+#include "TerrainImages.h"
+#include <functional>
+#include <SFML/Graphics.hpp>
 class TileGenerator
 {
 public:
     TileGenerator();
     ~TileGenerator();
-    static void generate(void* image, size_t x, size_t y,
-                         std::vector<std::string> terrains, const Options& options);
+    typedef std::function<void(sf::RenderTexture&, size_t, size_t,
+                               std::vector<Options::TerrainID>,
+                               const TerrainImages&,
+                               const Options&)>
+        TileGenerateFunction;
+    static void generate(sf::RenderTexture& image, size_t x, size_t y,
+                         std::vector<Options::TerrainID> corners,
+                         const TerrainImages& images,
+                         const Options& options);
 };
 

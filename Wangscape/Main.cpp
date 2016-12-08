@@ -6,6 +6,7 @@
 #include <istream>
 #include "Options.h"
 #include "TilesetGenerator.h"
+#include "TileGenerator.h"
 
 int main(int argc, char** argv)
 {
@@ -38,8 +39,8 @@ int main(int argc, char** argv)
         //    std::cout << "Could not generate tileset.\n";
         //    std::cout << ov.getError().c_str();
         //}
-        const Options options(options_document);
-        TilesetGenerator tg;
-        tg.generate(options);
+        const Options options(options_document,filename);
+        TilesetGenerator tg(options);
+        tg.generate();
     }
 }
