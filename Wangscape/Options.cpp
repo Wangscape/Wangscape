@@ -1,7 +1,8 @@
 #include "Options.h"
 #include <iostream>
 
-Options::Options(const rapidjson::Document& d)
+Options::Options(const rapidjson::Document& d, std::string filename):
+    filename(filename)
 {
     auto& o = d.GetObject();
     {

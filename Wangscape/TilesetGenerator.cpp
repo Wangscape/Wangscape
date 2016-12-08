@@ -1,6 +1,8 @@
 #include "TilesetGenerator.h"
 #include "TileGenerator.h"
 #include <functional>
+#include <stdexcept>
+#include <boost/filesystem.hpp>
 #include "common.h"
 
 TilesetGenerator::TilesetGenerator(const Options& options) :
@@ -9,18 +11,24 @@ TilesetGenerator::TilesetGenerator(const Options& options) :
     for (auto& terrain : options.terrains)
     {
         std::string filename = terrain.second.fileName;
+        boost::filesystem::path p(options.filename);
+        p.remove_filename();
+        p.append(filename);
+        filename = p.string();
         auto it = terrain_images.find(filename);
         if (it == terrain_images.end())
         {
             sf::Image img;
-            img.loadFromFile(filename);
+            if(!img.loadFromFile(filename))
+                throw std::runtime_error("Couldn't read image");
             it = terrain_images.insert({ filename, img }).first;
         }
-        sf::Texture tex;
         sf::Vector2i offset(terrain.second.offsetX, terrain.second.offsetY);
         sf::Vector2i box(options.resolution, options.resolution);
         offset *= (int)options.resolution;
-        tex.loadFromImage((*it).second, sf::IntRect(offset,box));
+        sf::Texture tex;
+        if(!tex.loadFromImage((*it).second, sf::IntRect(offset,box)))
+            throw std::runtime_error("Couldn't make texture from image");
         terrain_image_views.insert({ terrain.first, sf::Texture() });
     }
 }

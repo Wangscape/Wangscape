@@ -22,7 +22,8 @@ namespace WangscapeTest
         }
         TEST_METHOD(TestOptionsParse)
         {
-            std::ifstream ifs("../Wangscape/example/example_options.json");
+            std::string filename("../Wangscape/example/example_options.json");
+            std::ifstream ifs(filename);
             Assert::IsTrue(ifs.good(),L"Couldn't open example json options");
             rapidjson::IStreamWrapper isw(ifs);
             rapidjson::Document options_document;
@@ -34,7 +35,7 @@ namespace WangscapeTest
                 ss << GetParseError_En(options_document.GetParseError()) << "\n";
                 Assert::IsFalse(options_document.HasParseError(), ss.str().c_str());
             }
-            const Options options(options_document);
+            const Options options(options_document, filename);
         }
         // JSON validation with schemas in C++ is a complete mess.
         // rapidjson crashes when using valid schemas to validate conforming documents.

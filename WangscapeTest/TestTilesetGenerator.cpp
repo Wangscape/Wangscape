@@ -23,12 +23,13 @@ namespace WangscapeTest
 
         TEST_METHOD(TestGenerateClique)
         {
-            std::ifstream ifs("../Wangscape/example/example_options.json");
-            Assert::IsTrue(ifs.good(), L"Couldn't open example json options");
+
+            std::string filename("../Wangscape/example/example_options.json");
+            std::ifstream ifs(filename);
+            Assert::IsTrue(ifs.good(),L"Couldn't open example json options");
             rapidjson::IStreamWrapper isw(ifs);
             rapidjson::Document options_document;
             options_document.ParseStream(isw);
-            ifs.close();
             if (options_document.HasParseError())
             {
                 std::wstringstream ss;
@@ -36,9 +37,8 @@ namespace WangscapeTest
                 ss << GetParseError_En(options_document.GetParseError()) << "\n";
                 Assert::IsFalse(options_document.HasParseError(), ss.str().c_str());
             }
-            const Options options(options_document);
+            const Options options(options_document, filename);
             TilesetGenerator tg(options);
-            //assertions
             std::map<std::pair<size_t, size_t>, std::vector<Options::TerrainID>> tiles;
             const auto& clique = options.cliques[0];
             tg.generateClique(clique, nullptr,

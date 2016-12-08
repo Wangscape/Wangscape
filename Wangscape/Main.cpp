@@ -39,7 +39,7 @@ int main(int argc, char** argv)
         //    std::cout << "Could not generate tileset.\n";
         //    std::cout << ov.getError().c_str();
         //}
-        const Options options(options_document);
+        const Options options(options_document,filename);
         TilesetGenerator tg(options);
         tg.generate();
     }

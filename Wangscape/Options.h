@@ -17,6 +17,8 @@ public:
     typedef std::pair<TerrainID, TerrainID> TerrainIDPair;
     typedef std::map<TerrainIDPair, BorderOffsetSpec> BorderOffsetMap;
 
+    const std::string filename;
+
     unsigned int resolution;
     std::string colours = "RGB";
     unsigned int bitDepth = 24;
@@ -30,7 +32,7 @@ public:
 
     BorderOffsetMap borderOffsets;
 
-    Options(const rapidjson::Document& d);
+    Options(const rapidjson::Document& d, std::string filename);
     ~Options();
 };
 
