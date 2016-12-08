@@ -2,17 +2,16 @@
 #include <SFML/Graphics.hpp>
 #include "Options.h"
 #include "TileGenerator.h"
+#include "TerrainImages.h"
 class TilesetGenerator
 {
 public:
     TilesetGenerator(const Options& options);
     ~TilesetGenerator();
     void generate();
-    void generateClique(const Options::Clique& clique,
-                        sf::Image& image, TileGenerator::TileGenerateFunction callback);
+    void generateClique(const Options::Clique& clique, sf::RenderTexture& image,
+                        TileGenerator::TileGenerateFunction callback);
     const Options& options;
-protected:
-    std::map<std::string, sf::Image> terrain_images;
-    std::map<Options::TerrainID, sf::Texture> terrain_image_views;
+    TerrainImages images;
 };
 

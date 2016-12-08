@@ -144,6 +144,7 @@
     <ClInclude Include="Options.h" />
     <ClInclude Include="Spline.h" />
     <ClInclude Include="Polynomial.h" />
+    <ClInclude Include="TerrainImages.h" />
     <ClInclude Include="TerrainSpec.h" />
     <ClInclude Include="TileGenerator.h" />
     <ClInclude Include="TilePartition.h" />
@@ -155,6 +156,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Options.cpp" />
     <ClCompile Include="Polynomial.cpp" />
+    <ClCompile Include="TerrainImages.cpp" />
     <ClCompile Include="TileGenerator.cpp" />
     <ClCompile Include="TilePartition.cpp" />
     <ClCompile Include="TilesetGenerator.cpp" />

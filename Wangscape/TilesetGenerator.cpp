@@ -11,26 +11,8 @@ TilesetGenerator::TilesetGenerator(const Options& options) :
 {
     for (auto& terrain : options.terrains)
     {
-        std::string filename = terrain.second.fileName;
-        boost::filesystem::path p(options.filename);
-        p.remove_filename();
-        p.append(filename);
-        filename = p.string();
-        auto it = terrain_images.find(filename);
-        if (it == terrain_images.end())
-        {
-            sf::Image img;
-            if(!img.loadFromFile(filename))
-                throw std::runtime_error("Couldn't read image");
-            it = terrain_images.insert({ filename, img }).first;
-        }
-        sf::Vector2i offset(terrain.second.offsetX, terrain.second.offsetY);
-        sf::Vector2i box(options.resolution, options.resolution);
-        offset *= (int)options.resolution;
-        sf::Texture tex;
-        if(!tex.loadFromImage((*it).second, sf::IntRect(offset,box)))
-            throw std::runtime_error("Couldn't make texture from image");
-        terrain_image_views.insert({ terrain.first, sf::Texture() });
+        images.addTerrain(terrain.first, terrain.second.fileName, options.filename,
+                          terrain.second.offsetX, terrain.second.offsetY, options.resolution);
     }
 }
 
@@ -53,7 +35,7 @@ void TilesetGenerator::generate()
             x_dimension = !x_dimension;
         }
         // prepare a blank image of size res_x*res_y
-        sf::Image output;
+        sf::RenderTexture output;
         output.create(res_x, res_y);
         generateClique(clique, output, TileGenerator::generate);
         std::stringstream ss;
@@ -69,13 +51,13 @@ void TilesetGenerator::generate()
         boost::filesystem::create_directories(p);
         p.append(filename);
         filename = p.string();
-        if(!output.saveToFile(filename))
+        if(!output.getTexture().copyToImage().saveToFile(filename))
             throw std::runtime_error("Couldn't write image");
     }
 }
 
-void TilesetGenerator::generateClique(const Options::Clique& clique,
-                                      sf::Image& image, TileGenerator::TileGenerateFunction callback)
+void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderTexture& image,
+                                      TileGenerator::TileGenerateFunction callback)
 {
     std::vector<Options::TerrainID> corner_terrains(CORNERS, clique[0]);
     std::vector<size_t> corner_clique_indices(CORNERS, 0);
@@ -91,7 +73,7 @@ void TilesetGenerator::generateClique(const Options::Clique& clique,
             z += i;
             x_dimension = !x_dimension;
         }
-        callback(image, x, y, corner_terrains, options);
+        callback(image, x, y, corner_terrains, images, options);
         stop = true;
         for (auto& i : corner_clique_indices)
         {

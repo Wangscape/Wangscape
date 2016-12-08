@@ -11,8 +11,9 @@ TileGenerator::~TileGenerator()
 {
 }
 
-void TileGenerator::generate(sf::Image& image, size_t x, size_t y,
+void TileGenerator::generate(sf::RenderTexture& image, size_t x, size_t y,
                              std::vector<Options::TerrainID> corners,
+                             const TerrainImages& images,
                              const Options& options)
 {
 }

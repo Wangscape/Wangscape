@@ -42,10 +42,11 @@ namespace WangscapeTest
             TilesetGenerator tg(options);
             std::map<std::pair<size_t, size_t>, std::vector<Options::TerrainID>> tiles;
             const auto& clique = options.cliques[0];
-            sf::Image image;
+            sf::RenderTexture image;
             tg.generateClique(clique, image,
-                              [&](sf::Image& image, size_t x, size_t y,
+                              [&](sf::RenderTexture& image, size_t x, size_t y,
                                   std::vector<Options::TerrainID> terrains,
+                                  const TerrainImages& images,
                                   const Options& options)
             {
                 tiles.insert({ {x,y}, terrains });
