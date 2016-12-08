@@ -59,13 +59,17 @@ void TilesetGenerator::generateClique(const Options& options, const Options::Cli
             x_dimension = !x_dimension;
         }
         callback(nullptr, x, y, corner_terrains, options);
+        stop = true;
         for (auto& i : corner_clique_indices)
         {
             i++;
             if (i >= clique.size())
                 i = 0;
             else
+            {
                 break;
+                stop = false;
+            }
         }
     }
 }
