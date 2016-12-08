@@ -2,6 +2,7 @@
 #include "TileGenerator.h"
 #include <functional>
 #include <stdexcept>
+#include <sstream>
 #include <boost/filesystem.hpp>
 #include "common.h"
 
@@ -54,7 +55,21 @@ void TilesetGenerator::generate()
         sf::Image output;
         output.create(res_x, res_y);
         generateClique(clique, output, TileGenerator::generate);
-        // write tileset image to disk
+        std::stringstream ss;
+        for (auto terrain : clique)
+        {
+            ss << terrain << ".";
+        }
+        ss << "png";
+        std::string filename = ss.str();
+        boost::filesystem::path p(options.filename);
+        p.remove_filename();
+        p.append(options.outputDirectory);
+        boost::filesystem::create_directories(p);
+        p.append(filename);
+        filename = p.string();
+        if(!output.saveToFile(filename))
+            throw std::runtime_error("Couldn't write image");
     }
 }
 
