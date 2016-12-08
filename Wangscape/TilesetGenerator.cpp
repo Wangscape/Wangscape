@@ -40,6 +40,7 @@ void TilesetGenerator::generate()
         sf::RenderTexture output;
         output.create(res_x, res_y);
         generateClique(clique, output, TileGenerator::generate);
+        output.display();
         std::stringstream ss;
         for (auto terrain : clique)
         {
