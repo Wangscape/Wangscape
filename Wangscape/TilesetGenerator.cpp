@@ -51,13 +51,15 @@ void TilesetGenerator::generate()
             res_z *= clique.size();
         }
         // prepare a blank image of size res_x*res_y
-        generateClique(clique, nullptr, TileGenerator::generate);
+        sf::Image output;
+        output.create(res_x, res_y);
+        generateClique(clique, output, TileGenerator::generate);
         // write tileset image to disk
     }
 }
 
 void TilesetGenerator::generateClique(const Options::Clique& clique,
-                                      void* image, TileGenerator::TileGenerateFunction callback)
+                                      sf::Image& image, TileGenerator::TileGenerateFunction callback)
 {
     std::vector<Options::TerrainID> corner_terrains(CORNERS, clique[0]);
     std::vector<size_t> corner_clique_indices(CORNERS, 0);
@@ -73,7 +75,7 @@ void TilesetGenerator::generateClique(const Options::Clique& clique,
             z += i;
             x_dimension = !x_dimension;
         }
-        callback(nullptr, x, y, corner_terrains, options);
+        callback(image, x, y, corner_terrains, options);
         stop = true;
         for (auto& i : corner_clique_indices)
         {

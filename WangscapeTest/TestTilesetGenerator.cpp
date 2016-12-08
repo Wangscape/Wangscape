@@ -8,6 +8,7 @@
 #include <fstream>
 #include <sstream>
 #include <istream>
+#include <SFML/Graphics.hpp>
 
 #include "../Wangscape/Options.h"
 #include "../Wangscape/TileGenerator.h"
@@ -41,8 +42,9 @@ namespace WangscapeTest
             TilesetGenerator tg(options);
             std::map<std::pair<size_t, size_t>, std::vector<Options::TerrainID>> tiles;
             const auto& clique = options.cliques[0];
-            tg.generateClique(clique, nullptr,
-                              [&](void* image, size_t x, size_t y,
+            sf::Image image;
+            tg.generateClique(clique, image,
+                              [&](sf::Image& image, size_t x, size_t y,
                                   std::vector<Options::TerrainID> terrains,
                                   const Options& options)
             {

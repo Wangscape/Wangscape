@@ -9,7 +9,7 @@ public:
     ~TilesetGenerator();
     void generate();
     void generateClique(const Options::Clique& clique,
-                               void* image, TileGenerator::TileGenerateFunction callback);
+                        sf::Image& image, TileGenerator::TileGenerateFunction callback);
     const Options& options;
 protected:
     std::map<std::string, sf::Image> terrain_images;
