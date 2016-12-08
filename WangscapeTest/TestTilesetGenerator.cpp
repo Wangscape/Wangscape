@@ -37,13 +37,14 @@ namespace WangscapeTest
                 Assert::IsFalse(options_document.HasParseError(), ss.str().c_str());
             }
             const Options options(options_document);
+            TilesetGenerator tg(options);
             //assertions
             std::map<std::pair<size_t, size_t>, std::vector<Options::TerrainID>> tiles;
             const auto& clique = options.cliques[0];
-            TilesetGenerator::generateClique(options, clique, nullptr,
-                                                [&](void* image, size_t x, size_t y,
-                                                    std::vector<Options::TerrainID> terrains,
-                                                    const Options& options)
+            tg.generateClique(clique, nullptr,
+                              [&](void* image, size_t x, size_t y,
+                                  std::vector<Options::TerrainID> terrains,
+                                  const Options& options)
             {
                 tiles.insert({ {x,y}, terrains });
             });

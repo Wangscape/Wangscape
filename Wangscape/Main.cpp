@@ -40,6 +40,7 @@ int main(int argc, char** argv)
         //    std::cout << ov.getError().c_str();
         //}
         const Options options(options_document);
-        TilesetGenerator::generate(options);
+        TilesetGenerator tg(options);
+        tg.generate();
     }
 }

@@ -1,14 +1,17 @@
 #pragma once
 #include "Options.h"
 #include "TileGenerator.h"
-#include <boost/gil/gil_all.hpp>
 class TilesetGenerator
 {
 public:
-    TilesetGenerator();
+    TilesetGenerator(const Options& options);
     ~TilesetGenerator();
-    static void generate(const Options& options);
-    static void generateClique(const Options& options, const Options::Clique& clique,
+    void generate();
+    void generateClique(const Options::Clique& clique,
                                void* image, TileGenerator::TileGenerateFunction callback);
+    const Options& options;
+protected:
+    std::map<std::string, void*> terrain_images;
+    std::map<Options::TerrainID, void*> terrain_image_views;
 };
 
