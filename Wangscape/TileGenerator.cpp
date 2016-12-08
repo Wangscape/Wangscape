@@ -17,10 +17,11 @@ void TileGenerator::generate(sf::RenderTexture& image, size_t x, size_t y,
                              const TerrainImages& images,
                              const Options& options)
 {
-    const TilePartitionSquares tp(corners, options);
+    TilePartition tp;
+    tile_partition_squares(tp, corners, options);
     sf::RenderTexture temp;
     temp.create(options.resolution, options.resolution);
-    for (auto it : tp.regions)
+    for (const auto& it : tp)
     {
         sf::Sprite tex(images.terrain_textures.at(it.second));
         temp.draw(tex, sf::RenderStates(sf::BlendNone));

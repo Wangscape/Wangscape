@@ -81,9 +81,6 @@
     <ClCompile Include="TilesetGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TilePartition.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TileGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -1,12 +1,8 @@
 #include "TilePartitionSquares.h"
 
-TilePartitionSquares::TilePartitionSquares(std::vector<Options::TerrainID> corners, const Options& options) :
-    TilePartition(corners, options)
-{
-
-}
-
-void TilePartitionSquares::initialise(std::vector<Options::TerrainID> corners, const Options& options)
+void tile_partition_squares(TilePartition& regions,
+                            std::vector<Options::TerrainID> corners,
+                            const Options& options)
 {
     sf::RectangleShape quarter_tile;
     auto resolution = options.resolution;
@@ -29,4 +25,4 @@ void TilePartitionSquares::initialise(std::vector<Options::TerrainID> corners, c
     make_mask(sf::Vector2f(0, resolution / 2.f), corners[1]);
     make_mask(sf::Vector2f(resolution / 2.f, 0), corners[2]);
     make_mask(sf::Vector2f(resolution / 2.f, resolution / 2.f), corners[3]);
-}
+};

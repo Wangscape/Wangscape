@@ -159,7 +159,6 @@
     <ClCompile Include="Polynomial.cpp" />
     <ClCompile Include="TerrainImages.cpp" />
     <ClCompile Include="TileGenerator.cpp" />
-    <ClCompile Include="TilePartition.cpp" />
     <ClCompile Include="TilePartitionSquares.cpp" />
     <ClCompile Include="TilesetGenerator.cpp" />
   </ItemGroup>
