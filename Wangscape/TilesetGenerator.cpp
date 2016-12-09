@@ -38,7 +38,7 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
         // prepare a blank image of size res_x*res_y
         sf::RenderTexture output;
         output.create(res_x, res_y);
-        output.clear(sf::Color(255,255,255,0));
+        output.clear(sf::Color(0,0,0,255));
         generateClique(clique, output, TileGenerator::generate);
         output.display();
 
