@@ -1,5 +1,6 @@
 #include "TileGenerator.h"
 #include "TilePartitionSquares.h"
+#include "TilePartitionGradient.h"
 
 
 
@@ -18,7 +19,8 @@ void TileGenerator::generate(sf::RenderTexture& image, size_t x, size_t y,
                              const Options& options)
 {
     TilePartition tp;
-    tile_partition_squares(tp, corners, options);
+    //tile_partition_squares(tp, corners, options);
+    tile_partition_gradient(tp, corners, options);
     sf::RenderTexture temp;
     temp.create(options.resolution, options.resolution);
     for (const auto& it : tp)
@@ -30,6 +32,8 @@ void TileGenerator::generate(sf::RenderTexture& image, size_t x, size_t y,
         temp.display();
         sf::Sprite tile(temp.getTexture());
         tile.setPosition(sf::Vector2f((float)x, (float)y)*(float)options.resolution);
-        image.draw(tile);
+        image.draw(tile, sf::RenderStates(sf::BlendMode(sf::BlendMode::SrcAlpha, sf::BlendMode::One, sf::BlendMode::Add,
+                                                        sf::BlendMode::Zero, sf::BlendMode::One, sf::BlendMode::Add)));
+        //image.draw(tile, sf::RenderStates(sf::BlendNone));
     }
 }
