@@ -50,7 +50,10 @@
     <ClCompile Include="TestTilesetGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestTilePartition.cpp">
+    <ClCompile Include="TestTilePartitionSquares.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestTilePartitionGradient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

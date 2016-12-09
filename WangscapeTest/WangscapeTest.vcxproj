@@ -178,7 +178,8 @@
     <ClCompile Include="TestPolynomial.cpp" />
     <ClCompile Include="TestPolynomialAugmented.cpp" />
     <ClCompile Include="TestSpline.cpp" />
-    <ClCompile Include="TestTilePartition.cpp" />
+    <ClCompile Include="TestTilePartitionGradient.cpp" />
+    <ClCompile Include="TestTilePartitionSquares.cpp" />
     <ClCompile Include="TestTilesetGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
