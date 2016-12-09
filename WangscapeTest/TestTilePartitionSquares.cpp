@@ -7,7 +7,7 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace WangscapeTest
 {
-    TEST_CLASS(TestTilePartition)
+    TEST_CLASS(TestTilePartitionSquares)
     {
     public:
 
