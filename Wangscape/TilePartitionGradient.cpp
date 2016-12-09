@@ -26,9 +26,9 @@ void apply_weights(const std::vector<float>& weights, std::vector<sf::Uint8>& al
     }
 }
 
-int gradient_weight(int x, int y, int X, int Y, int resolution_sub_1)
+int gradient_weight(int x, int y, int X, int Y, int resolution_sub_1, int range)
 {
-    return (resolution_sub_1 - std::max(std::abs(x - X), std::abs(y - Y)));
+    return std::max(0,(resolution_sub_1 - range - std::max(std::abs(x - X), std::abs(y - Y))));
 }
 
 void tile_partition_gradient(TilePartition & regions, std::vector<Options::TerrainID> corners, const Options & options)
@@ -47,10 +47,10 @@ void tile_partition_gradient(TilePartition & regions, std::vector<Options::Terra
     {
         for (size_t y = 0; y < options.resolution; y++)
         {
-            weights[0] = (float)gradient_weight(x, y, 0, 0, resolution_sub_1);
-            weights[1] = (float)gradient_weight(x, y, 0, resolution_sub_1, resolution_sub_1);
-            weights[2] = (float)gradient_weight(x, y, resolution_sub_1, 0, resolution_sub_1);
-            weights[3] = (float)gradient_weight(x, y, resolution_sub_1, resolution_sub_1, resolution_sub_1);
+            weights[0] = (float)gradient_weight(x, y, 0, 0, resolution_sub_1, options.resolution / 4);
+            weights[1] = (float)gradient_weight(x, y, 0, resolution_sub_1, resolution_sub_1, options.resolution / 4);
+            weights[2] = (float)gradient_weight(x, y, resolution_sub_1, 0, resolution_sub_1, options.resolution / 4);
+            weights[3] = (float)gradient_weight(x, y, resolution_sub_1, resolution_sub_1, resolution_sub_1, options.resolution / 4);
             apply_weights(weights, alphas);
             for (size_t i = 0; i < masks.size(); i++)
             {
