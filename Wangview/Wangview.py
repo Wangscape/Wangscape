@@ -19,7 +19,7 @@ class Wangview(object):
                  rel_path='.',
                  fn_tile_groups='tile_groups.json',
                  fn_terrain_hypergraph='terrain_hypergraph.json',
-                 fn_tileset_data='tileset_data.json'):
+                 fn_tileset_data='tilesets.json'):
         self.rel_path = rel_path
         with open(path.join(rel_path, fn_tileset_data),'r') as f:
             self.init_tilesets(json.load(f))
@@ -163,10 +163,7 @@ def wangview(*args, **kwargs):
 
 # In[ ]:
 
-wangview('../Wangscape/example3/output',
-         'tile_groups.json',
-         'terrain_hypergraph.json',
-         'tilesets.json')
+wangview('../Wangscape/example3/output')
 
 
 # In[ ]:
