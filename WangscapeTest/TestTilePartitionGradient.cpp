@@ -23,7 +23,7 @@ namespace WangscapeTest
             std::string filename("../Wangscape/example/example_options.json");
             const Options options(filename);
             TilePartition tp;
-            tile_partition_gradient(tp, { "0","0","1","1" }, options);
+            tile_partition_gradient(tp, { "g","g","s","s" }, options);
             sf::Image mask = tp[0].first.copyToImage();
             //mask.saveToFile("temp.png");
             Assert::IsTrue(mask.getPixel(0, 0) == sf::Color(255, 255, 255, 255),
