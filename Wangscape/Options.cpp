@@ -5,6 +5,7 @@
 #include <rapidjson/istreamwrapper.h>
 #include <rapidjson/document.h>
 #include <stdexcept>
+#include <boost/filesystem.hpp>
 Options::Options(std::string filename):
     filename(filename)
 {
@@ -52,6 +53,10 @@ void Options::initialise(const rapidjson::Document& d)
         tilesetDataFilename = doc_metaoutput.FindMember("TilesetData")->value.GetString();
     }
     outputDirectory = o.FindMember("OutputDirectory")->value.GetString();
+    boost::filesystem::path p(filename);
+    p.remove_filename();
+    p.append(outputDirectory);
+    boost::filesystem::create_directories(p);
     {
         auto& doc_terrains = o.FindMember("Terrains")->value.GetObject();
         for (const auto& it : doc_terrains)
