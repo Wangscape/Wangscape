@@ -22,12 +22,26 @@
       "FileName": "sea.png",
       "OffsetX": 0,
       "OffsetY": 0
+    },
+    "v": {
+      "FullName": "void",
+      "FileName": "void.png",
+      "OffsetX": 0,
+      "OffsetY": 0
     }
   },
   "Cliques": [
     [
       "g",
       "s"
+    ],
+    [
+      "s",
+      "v"
+    ],
+    [
+      "v",
+      "g"
     ]
   ],
   "BorderOffsets": [

@@ -17,5 +17,6 @@ public:
                          std::vector<Options::TerrainID> corners,
                          const TerrainImages& images,
                          const Options& options);
+
 };
 

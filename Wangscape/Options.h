@@ -23,6 +23,12 @@ public:
     std::string fileType = "png";
 
     std::string outputDirectory;
+    std::string relativeOutputDirectory;
+
+    std::string tileDataFilename;
+    std::string tileGroupsFilename;
+    std::string tilesetDataFilename;
+    std::string terrainHypergraphFilename;
 
     TerrainSpecMap terrains;
 

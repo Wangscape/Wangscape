@@ -5,6 +5,7 @@
 #include <rapidjson/istreamwrapper.h>
 #include <rapidjson/document.h>
 #include <stdexcept>
+#include <boost/filesystem.hpp>
 Options::Options(std::string filename):
     filename(filename)
 {
@@ -44,7 +45,20 @@ void Options::initialise(const rapidjson::Document& d)
         if (it != doc_tile_format.end())
             fileType = it->value.GetString();
     }
+    {
+        auto& doc_metaoutput = o.FindMember("MetaOutput")->value.GetObject();
+
+        tileDataFilename = doc_metaoutput.FindMember("TileData")->value.GetString();
+        tileGroupsFilename = doc_metaoutput.FindMember("TileGroups")->value.GetString();
+        tilesetDataFilename = doc_metaoutput.FindMember("TilesetData")->value.GetString();
+        terrainHypergraphFilename = doc_metaoutput.FindMember("TerrainHypergraph")->value.GetString();
+    }
     outputDirectory = o.FindMember("OutputDirectory")->value.GetString();
+    boost::filesystem::path p(filename);
+    p.remove_filename();
+    p.append(outputDirectory);
+    boost::filesystem::create_directories(p);
+    relativeOutputDirectory = p.string();
     {
         auto& doc_terrains = o.FindMember("Terrains")->value.GetObject();
         for (const auto& it : doc_terrains)
@@ -54,7 +68,6 @@ void Options::initialise(const rapidjson::Document& d)
                 it.name.GetString(),
                 TerrainSpec(
                     v.FindMember("FullName")->value.GetString(),
-                    v.FindMember("ShortName")->value.GetString(),
                     v.FindMember("FileName")->value.GetString(),
                     v.FindMember("OffsetX")->value.GetInt(),
                     v.FindMember("OffsetY")->value.GetInt())

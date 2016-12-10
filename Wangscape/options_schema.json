@@ -4,6 +4,42 @@
   "title": "Wangscape options schema",
   "description": "Specifies how Wangscape should convert a set of terrain tiles into corner Wang tilesets.",
   "properties": {
+    "MetaOutput": {
+      "type": "object",
+      "title": "Meta-output information schema",
+      "description": "Specifies the filenames Wangscape will use to write meta-output.",
+      "additionalValues": false,
+      "properties": {
+        "TileData": {
+          "type": "string",
+          "title": "Tile data filename",
+          "description": "Specifies the file which will contain individual details about each output tile.",
+          "minLength": 1
+        },
+        "TileGroups": {
+          "type": "string",
+          "title": "Tile groups filename",
+          "description": "Specifies the file which will contain grouped arrays of details for similar tiles.",
+          "minLength": 1
+        },
+        "TilesetData": {
+          "type": "string",
+          "title": "Tileset data filename",
+          "description": "Specifies the file which will contain details about output tilesets.",
+          "minLength": 1
+        },
+        "TerrainHypergraph": {
+          "type": "string",
+          "title": "Terrain hypergraph filename",
+          "description": "Specifies the file which will contain the hypergraph of terrains which can appear in the same tile.",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "TileData",
+        "TilesetData"
+      ]
+    },
     "TileFormat": {
       "type": "object",
       "title": "Tile format schema",
@@ -58,12 +94,6 @@
               "type": "string",
               "title": "Full name schema",
               "description": "Specifies the full name of one of Wangscape's input terrain tiles.",
-              "minLength": 1
-            },
-            "ShortName": {
-              "type": "string",
-              "title": "Short name schema",
-              "description": "Specifies the short name of one of Wangscape's input terrain tiles.",
               "minLength": 1
             },
             "FileName": {

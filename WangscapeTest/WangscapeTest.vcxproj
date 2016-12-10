@@ -171,6 +171,7 @@
     <ClCompile Include="TestCase.cpp" />
     <ClCompile Include="TestCurve.cpp" />
     <ClCompile Include="TestInterval.cpp" />
+    <ClCompile Include="TestMetaOutput.cpp" />
     <ClCompile Include="TestOptions.cpp">
       <SubType>
       </SubType>

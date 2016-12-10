@@ -24,6 +24,8 @@ TilesetGenerator::~TilesetGenerator()
 
 void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::string)> callback)
 {
+    mo.setResolution(options.resolution);
+    boost::filesystem::path p(options.relativeOutputDirectory);
     for (const auto& clique : options.cliques)
     {
         size_t res_x = options.resolution;
@@ -39,9 +41,6 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
         sf::RenderTexture output;
         output.create(res_x, res_y);
         output.clear(sf::Color(0,0,0,255));
-        generateClique(clique, output, TileGenerator::generate);
-        output.display();
-
         std::stringstream ss;
         for (auto terrain : clique)
         {
@@ -49,17 +48,19 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
         }
         ss << options.fileType;
         std::string filename = ss.str();
-        boost::filesystem::path p(options.filename);
-        p.remove_filename();
-        p.append(options.outputDirectory);
-        boost::filesystem::create_directories(p);
+        // MetaOutput.addTileset, addTile should use this version of filename;
+        // relative to output dir, not options dir!
+        mo.addTileset(clique, filename, res_x, res_y);
+        generateClique(clique, output, filename, TileGenerator::generate);
+        output.display();
+
         p.append(filename);
-        filename = p.string();
-        callback(output.getTexture(), filename);
+        callback(output.getTexture(), p.string());
+        p.remove_filename();
     }
 }
 
-void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderTexture& image,
+void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderTexture& image, std::string filename,
                                       TileGenerator::TileGenerateFunction callback)
 {
     std::vector<Options::TerrainID> corner_terrains(CORNERS, clique[0]);
@@ -77,6 +78,7 @@ void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderT
             x_dimension = !x_dimension;
         }
         callback(image, x, y, corner_terrains, images, options);
+        mo.addTile(corner_terrains, filename, x*options.resolution, y*options.resolution);
         stop = true;
         auto zip_begin = boost::make_zip_iterator(boost::make_tuple(corner_terrains.begin(),
                                                                     corner_clique_indices.begin()));
