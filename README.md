@@ -1,5 +1,6 @@
 # Wangscape
-Convert terrain tiles to procedural corner Wang tilesets
+Converts terrain tiles to procedural corner Wang tilesets.
+
 Procjam 2016 project (in progress)
 
 # What is Wangscape for?
