@@ -49,8 +49,9 @@ namespace WangscapeTest
                 Assert::IsTrue(tgd.HasMember("g.s.g.s"), L"TileGroups is missing ""g.s.g.s""");
                 Assert::IsTrue(tgd.HasMember("g.s.s.g"), L"TileGroups is missing ""g.s.s.g""");
             }
-            const auto& ta = tg.mo.getTerrainAdjacency();
-            Assert::IsTrue(ta.at("g").find("s") != ta.at("g").end());
+            const auto& ta = tg.mo.getTerrainHypergraph();
+            auto it = ta.at("g").cbegin();
+            Assert::IsTrue((*it).find("s") != (*it).end());
         }
     };
 }

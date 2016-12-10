@@ -28,7 +28,7 @@ public:
     std::string tileDataFilename;
     std::string tileGroupsFilename;
     std::string tilesetDataFilename;
-    std::string terrainAdjacencyFilename;
+    std::string terrainHypergraphFilename;
 
     TerrainSpecMap terrains;
 

@@ -75,14 +75,15 @@ void MetaOutput::addTile(std::vector<Options::TerrainID> corners, std::string fi
 
 void MetaOutput::addTileset(std::vector<Options::TerrainID> terrains, std::string filename, size_t size_x, size_t size_y)
 {
-    for (auto t1 : terrains)
+    TerrainSet clique;
+    for (auto t : terrains)
     {
-        for (auto t2 : terrains)
-        {
-            auto it = mTerrainAdjacency.insert({ t1,TerrainSet() }).first;
-            (*it).second.insert(t1);
-            (*it).second.insert(t2);
-        }
+        clique.insert(t);
+    }
+    for (auto t : terrains)
+    {
+        auto it = mTerrainHypergraph.insert({ t, TerrainSetSet() });
+        (*it.first).second.insert(clique);
     }
 
     rapidjson::Document::AllocatorType& allocator = mTilesetData.GetAllocator();
@@ -137,19 +138,25 @@ void MetaOutput::writeTilesetData(std::string filename) const
     mTilesetData.Accept(writer);
 }
 
-void MetaOutput::writeTerrainAdjacency(std::string filename) const
+void MetaOutput::writeTerrainHypergraph(std::string filename) const
 {
     rapidjson::Document tad;
     auto& allocator = tad.GetAllocator();
     tad.SetObject();
-    for (const auto& it : mTerrainAdjacency)
+    for (const auto& it : mTerrainHypergraph)
     {
         rapidjson::Value v_item;
         v_item.SetArray();
-        for (const auto& t : it.second)
+        for (const auto& clique : it.second)
         {
-            rapidjson::Value v(t.c_str(), allocator);
-            v_item.PushBack(v, allocator);
+            rapidjson::Value v_clique;
+            v_clique.SetArray();
+            for (const auto& t : clique)
+            {
+                rapidjson::Value v(t.c_str(), allocator);
+                v_clique.PushBack(v, allocator);
+            }
+            v_item.PushBack(v_clique, allocator);
         }
         rapidjson::Value v(it.first.c_str(), allocator);
         tad.AddMember(v, v_item, allocator);
@@ -177,8 +184,8 @@ void MetaOutput::writeAll(const Options & options) const
     writeTileGroups(p.string());
     p.remove_filename();
 
-    p.append(options.terrainAdjacencyFilename);
-    writeTerrainAdjacency(p.string());
+    p.append(options.terrainHypergraphFilename);
+    writeTerrainHypergraph(p.string());
 }
 
 const rapidjson::Document & MetaOutput::getTileData() const
@@ -196,7 +203,7 @@ const rapidjson::Document & MetaOutput::getTilesetData() const
     return mTilesetData;
 }
 
-const MetaOutput::TerrainAdjacency & MetaOutput::getTerrainAdjacency() const
+const MetaOutput::TerrainHypergraph & MetaOutput::getTerrainHypergraph() const
 {
-    return mTerrainAdjacency;
+    return mTerrainHypergraph;
 }

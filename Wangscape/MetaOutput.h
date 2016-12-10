@@ -7,7 +7,8 @@ class MetaOutput
 {
 public:
     typedef std::set<Options::TerrainID> TerrainSet;
-    typedef std::map<Options::TerrainID, TerrainSet> TerrainAdjacency;
+    typedef std::set<TerrainSet> TerrainSetSet;
+    typedef std::map<Options::TerrainID, TerrainSetSet> TerrainHypergraph;
     MetaOutput();
     ~MetaOutput();
     void addTile(std::vector<Options::TerrainID> corners,
@@ -18,16 +19,16 @@ public:
     void writeTileData(std::string filename) const;
     void writeTileGroups(std::string filename) const;
     void writeTilesetData(std::string filename) const;
-    void writeTerrainAdjacency(std::string filename) const;
+    void writeTerrainHypergraph(std::string filename) const;
     void writeAll(const Options& options) const;
     const rapidjson::Document& getTileData() const;
     const rapidjson::Document& getTileGroups() const;
     const rapidjson::Document& getTilesetData() const;
-    const TerrainAdjacency& getTerrainAdjacency() const;
+    const TerrainHypergraph& getTerrainHypergraph() const;
 protected:
     rapidjson::Document mTilesetData;
     rapidjson::Document mTileData;
     rapidjson::Document mTileGroups;
-    TerrainAdjacency mTerrainAdjacency;
+    TerrainHypergraph mTerrainHypergraph;
 };
 

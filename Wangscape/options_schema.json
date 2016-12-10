@@ -28,10 +28,10 @@
           "description": "Specifies the file which will contain details about output tilesets.",
           "minLength": 1
         },
-        "TerrainAdjacency": {
+        "TerrainHypergraph": {
           "type": "string",
-          "title": "Terrain adjacency filename",
-          "description": "Specifies the file which will contain the graph of terrains which can border each other.",
+          "title": "Terrain hypergraph filename",
+          "description": "Specifies the file which will contain the hypergraph of terrains which can appear in the same tile.",
           "minLength": 1
         }
       },
