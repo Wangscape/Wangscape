@@ -24,6 +24,7 @@ TilesetGenerator::~TilesetGenerator()
 
 void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::string)> callback)
 {
+    mo.setResolution(options.resolution);
     boost::filesystem::path p(options.relativeOutputDirectory);
     for (const auto& clique : options.cliques)
     {

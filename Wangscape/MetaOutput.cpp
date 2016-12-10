@@ -172,6 +172,7 @@ void MetaOutput::writeTerrainHypergraph(std::string filename) const
 void MetaOutput::writeAll(const Options & options) const
 {
     boost::filesystem::path p(options.relativeOutputDirectory);
+
     p.append(options.tilesetDataFilename);
     writeTilesetData(p.string());
     p.remove_filename();
