@@ -27,6 +27,12 @@
           "title": "Tileset data filename",
           "description": "Specifies the file which will contain details about output tilesets.",
           "minLength": 1
+        },
+        "TerrainAdjacency": {
+          "type": "string",
+          "title": "Terrain adjacency filename",
+          "description": "Specifies the file which will contain the graph of terrains which can border each other.",
+          "minLength": 1
         }
       },
       "required": [

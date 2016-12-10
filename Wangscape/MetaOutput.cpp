@@ -75,6 +75,16 @@ void MetaOutput::addTile(std::vector<Options::TerrainID> corners, std::string fi
 
 void MetaOutput::addTileset(std::vector<Options::TerrainID> terrains, std::string filename, size_t size_x, size_t size_y)
 {
+    for (auto t1 : terrains)
+    {
+        for (auto t2 : terrains)
+        {
+            auto it = mTerrainAdjacency.insert({ t1,TerrainSet() }).first;
+            (*it).second.insert(t1);
+            (*it).second.insert(t2);
+        }
+    }
+
     rapidjson::Document::AllocatorType& allocator = mTilesetData.GetAllocator();
 
     rapidjson::Value v_terrains;
@@ -103,7 +113,7 @@ void MetaOutput::setResolution(size_t resolution)
         (*it).value.Set(resolution);
 }
 
-void MetaOutput::writeTileData(std::string filename)
+void MetaOutput::writeTileData(std::string filename) const
 {
     std::ofstream ofs(filename);
     rapidjson::OStreamWrapper osw(ofs);
@@ -111,7 +121,7 @@ void MetaOutput::writeTileData(std::string filename)
     mTileData.Accept(writer);
 }
 
-void MetaOutput::writeTileGroups(std::string filename)
+void MetaOutput::writeTileGroups(std::string filename) const
 {
     std::ofstream ofs(filename);
     rapidjson::OStreamWrapper osw(ofs);
@@ -119,7 +129,7 @@ void MetaOutput::writeTileGroups(std::string filename)
     mTileGroups.Accept(writer);
 }
 
-void MetaOutput::writeTilesetData(std::string filename)
+void MetaOutput::writeTilesetData(std::string filename) const
 {
     std::ofstream ofs(filename);
     rapidjson::OStreamWrapper osw(ofs);
@@ -127,7 +137,32 @@ void MetaOutput::writeTilesetData(std::string filename)
     mTilesetData.Accept(writer);
 }
 
-void MetaOutput::writeAll(const Options & options)
+void MetaOutput::writeTerrainAdjacency(std::string filename) const
+{
+    rapidjson::Document tad;
+    auto& allocator = tad.GetAllocator();
+    tad.SetObject();
+    for (const auto& it : mTerrainAdjacency)
+    {
+        rapidjson::Value v_item;
+        v_item.SetArray();
+        for (const auto& t : it.second)
+        {
+            rapidjson::Value v(t.c_str(), allocator);
+            v_item.PushBack(v, allocator);
+        }
+        rapidjson::Value v(it.first.c_str(), allocator);
+        tad.AddMember(v, v_item, allocator);
+    }
+
+    std::ofstream ofs(filename);
+    rapidjson::OStreamWrapper osw(ofs);
+    rapidjson::Writer<rapidjson::OStreamWrapper> writer(osw);
+    tad.Accept(writer);
+
+}
+
+void MetaOutput::writeAll(const Options & options) const
 {
     boost::filesystem::path p(options.relativeOutputDirectory);
     p.append(options.tilesetDataFilename);
@@ -140,6 +175,10 @@ void MetaOutput::writeAll(const Options & options)
 
     p.append(options.tileGroupsFilename);
     writeTileGroups(p.string());
+    p.remove_filename();
+
+    p.append(options.terrainAdjacencyFilename);
+    writeTerrainAdjacency(p.string());
 }
 
 const rapidjson::Document & MetaOutput::getTileData() const
@@ -155,4 +194,9 @@ const rapidjson::Document & MetaOutput::getTileGroups() const
 const rapidjson::Document & MetaOutput::getTilesetData() const
 {
     return mTilesetData;
+}
+
+const MetaOutput::TerrainAdjacency & MetaOutput::getTerrainAdjacency() const
+{
+    return mTerrainAdjacency;
 }

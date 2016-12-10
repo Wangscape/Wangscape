@@ -2,7 +2,8 @@
   "MetaOutput": {
     "TileData": "tiles.json",
     "TileGroups": "tile_groups.json",
-    "TilesetData": "tilesets.json"
+    "TilesetData": "tilesets.json",
+    "TerrainAdjacency": "terrain_adjacency.json"
   },
   "TileFormat": {
     "Resolution": 32,

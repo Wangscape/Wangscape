@@ -51,6 +51,7 @@ void Options::initialise(const rapidjson::Document& d)
         tileDataFilename = doc_metaoutput.FindMember("TileData")->value.GetString();
         tileGroupsFilename = doc_metaoutput.FindMember("TileGroups")->value.GetString();
         tilesetDataFilename = doc_metaoutput.FindMember("TilesetData")->value.GetString();
+        terrainAdjacencyFilename = doc_metaoutput.FindMember("TerrainAdjacency")->value.GetString();
     }
     outputDirectory = o.FindMember("OutputDirectory")->value.GetString();
     boost::filesystem::path p(filename);
