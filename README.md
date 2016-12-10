@@ -11,16 +11,12 @@ Wangscape is intended to convert your tiles into a set of corner Wang tiles that
 # What are corner Wang tiles?
 A good explanation of the corner Wang tiles (and the related Wang tiles) can be found at [cr31.co.uk](http://cr31.co.uk/stagecast/wang/2corn.html). Examples of the natural boundary lines that can be produced with corner Wang tiles in an isometric display can be seen by searching for screenshots of [Civilization 3 terrain](https://www.google.co.uk/search?q=civilization+3+terrain&tbm=isch).
 
-Rather than matching graphical tiles with the representation of logical tiles on screen, corner Wang tiles should be displayed offset by half a tile in both axes. Thus each logical tile is represented by the matching corners of four graphical tiles. Then the logical boundary between tiles will pass through the central axes of the graphical tiles. Thus the graphical boundary between tiles can intrude on both sides of the logical boundary, simply by being drawn on one side or the other of the graphical tile.
+Rather than matching graphical tiles with the representation of logical tiles on screen, corner Wang tiles should be displayed offset by half a tile in both axes. Thus each logical tile is represented by the matching corners of four graphical tiles, and the logical boundary between tiles will pass through the central axes of the graphical tiles. Thus the graphical boundary between tiles can intrude on both sides of the logical boundary, simply by being drawn on one side or the other of the graphical tile.
 
 # How does Wangscape make corner Wang tiles?
-At the moment it doesn't! :)
-
-In future, it is intended to work as follows:
 * A set of cliques each with up to 4 members is defined on the terrain types. Each clique produces a separate tileset to avoid making excessively large textures.
-* For each pair of terrain types which can border each other, horizontal and vertical offsets are automatically selected for the the intersection of the terrain border with the edges of the graphical tiles that have those terrains adjacent.
 * For each valid combination of terrain types in the corners:
-    * a set of boundaries is generated (using random noisy splines or random floodfill).
-    * These boundaries are used to divide up a square into regions.
-    * A tile is made by using the regions to select from or combine pixels from the input terrain tiles.
-* Ideally, the loop between altering the parameters to this generation process and seeing the graphical results should be as tight as possible, and as GUI-driven as possible. I can't guarantee that by the end of procjam, though.
+    * An alpha mask is generated for each corner (currently it's just a smooth gradient with no randomness).
+    * These alpha masks are used to combine each corner's terrain texture into a single tile.
+* In future this will be much more customisable, using Perlin noise to generate noisy gradients and boundaries betwen corners.
+* Currently all tile generation is done through a command-line application configured using a JSON file. In the future, this should be migrated to a GUI interface which allows the user to alter tile generation parameters and immediately see the range of possible results.
