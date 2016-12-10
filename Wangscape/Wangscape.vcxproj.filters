@@ -67,6 +67,9 @@
     <ClInclude Include="TilePartitionGradient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MetaOutput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -94,6 +97,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TilePartitionGradient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MetaOutput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
