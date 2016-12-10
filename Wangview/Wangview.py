@@ -93,6 +93,9 @@ class Wangview(object):
                 kp = blt.read()
                 if kp == blt.TK_CLOSE:
                     stop = True
+                elif kp == blt.TK_SPACE:
+                    self.init_terrain_map()
+                    self.init_tile_map()
         blt.close()
 
 
@@ -163,7 +166,11 @@ def wangview(*args, **kwargs):
 
 # In[ ]:
 
-wangview('../Wangscape/example3/output')
+try:
+    wangview('../Wangscape/example3/output')
+except:
+    blt.close()
+    raise
 
 
 # In[ ]:
