@@ -20,6 +20,7 @@ class Wangview(object):
                  fn_tile_groups='tile_groups.json',
                  fn_terrain_hypergraph='terrain_hypergraph.json',
                  fn_tileset_data='tileset_data.json'):
+        self.rel_path = rel_path
         with open(path.join(rel_path, fn_tileset_data),'r') as f:
             self.init_tilesets(json.load(f))
         with open(path.join(rel_path,fn_tile_groups),'r') as f:
@@ -32,18 +33,21 @@ class Wangview(object):
         self.init_tile_map()
     def simplify_tile(self, tile):
         tileset = self.tilesets[tile['file']]
-        return tileset.offset + tileset.width*tile['y'] + tile['x']
+        return (tileset.offset +
+                tileset.width*tile['y']//self.resolution +
+                tile['x']//self.resolution)
     def simplify_tile_group(self, tile_group):
         return [self.simplify_tile(tile) for tile in tile_group]
     def init_tile_groups(self, raw_groups):
         self.tile_groups = {tuple(k.split('.')):self.simplify_tile_group(v)
                             for (k,v) in raw_groups.items()}
-        
     def init_tilesets(self, raw_tileset_data):
         self.resolution = raw_tileset_data.pop('resolution')
         blt.open()
-        blt.set("window: size=30x20, cellsize:{0}x{0}, title='Wangview'".format(
-            self.resolution))
+        config_string = "window: size=30x20, cellsize={0}x{0}, title='Wangview'".format(
+            self.resolution)
+        #print(config_string)
+        blt.set(config_string)
         tileset_offset_counter = 0xE000
         self.tilesets = {}
         for filename, tileset in raw_tileset_data.items():
@@ -52,10 +56,12 @@ class Wangview(object):
             self.tilesets[filename] = Tileset(
                 filename, tileset_offset_counter,
                 rx,ry, tuple(tileset['terrains']))
-            blt.set("0x{0:x}: {1}, size={2}x{2}".format(
+            config_string = "0x{0:x}: {1}, size={2}x{2}".format(
                     tileset_offset_counter,
-                    filename,
-                    self.resolution))
+                    path.join(self.rel_path, filename),
+                    self.resolution)
+            #print(config_string)
+            blt.set(config_string)
             tileset_offset_counter += rx*ry
     def init_terrain_map(self):
         terrain_iter = self.hypergraph.generate_lines(self.width, self.height)
@@ -80,6 +86,7 @@ class Wangview(object):
     def run(self):
         stop = False
         while not stop:
+            blt.clear()
             self.draw()
             blt.refresh()
             while blt.has_input():
@@ -156,7 +163,7 @@ def wangview(*args, **kwargs):
 
 # In[ ]:
 
-wangview('../Wangscape/example/output',
+wangview('../Wangscape/example3/output',
          'tile_groups.json',
          'terrain_hypergraph.json',
          'tilesets.json')
