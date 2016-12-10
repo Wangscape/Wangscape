@@ -24,7 +24,7 @@ namespace WangscapeTest
             std::map<std::pair<size_t, size_t>, std::vector<Options::TerrainID>> tiles;
             const auto& clique = options.cliques[0];
             sf::RenderTexture image;
-            tg.generateClique(clique, image,
+            tg.generateClique(clique, image, "nope.png",
                               [&](sf::RenderTexture& image, size_t x, size_t y,
                                   std::vector<Options::TerrainID> terrains,
                                   const TerrainImages& images,
