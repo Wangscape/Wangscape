@@ -216,5 +216,9 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
 WangscapeTest/json_meta_schema_4
 Wangscape/example/output/
+
+Wangview/.ipynb_checkpoints/
+Wangview/Untitled*
