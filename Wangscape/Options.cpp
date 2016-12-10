@@ -67,7 +67,6 @@ void Options::initialise(const rapidjson::Document& d)
                 it.name.GetString(),
                 TerrainSpec(
                     v.FindMember("FullName")->value.GetString(),
-                    v.FindMember("ShortName")->value.GetString(),
                     v.FindMember("FileName")->value.GetString(),
                     v.FindMember("OffsetX")->value.GetInt(),
                     v.FindMember("OffsetY")->value.GetInt())

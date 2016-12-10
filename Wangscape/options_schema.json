@@ -84,12 +84,6 @@
               "description": "Specifies the full name of one of Wangscape's input terrain tiles.",
               "minLength": 1
             },
-            "ShortName": {
-              "type": "string",
-              "title": "Short name schema",
-              "description": "Specifies the short name of one of Wangscape's input terrain tiles.",
-              "minLength": 1
-            },
             "FileName": {
               "type": "string",
               "title": "File name schema",

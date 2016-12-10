@@ -9,16 +9,14 @@
   },
   "OutputDirectory": "output",
   "Terrains": {
-    "0": {
+    "g": {
       "FullName": "grass",
-      "ShortName": "g",
       "FileName": "grass.png",
       "OffsetX": 0,
       "OffsetY": 0
     },
-    "1": {
+    "s": {
       "FullName": "sea",
-      "ShortName": "s",
       "FileName": "sea.png",
       "OffsetX": 0,
       "OffsetY": 0
@@ -26,20 +24,20 @@
   },
   "Cliques": [
     [
-      "0",
-      "1"
+      "g",
+      "s"
     ]
   ],
   "BorderOffsets": [
     {
-      "Terrains": ["0", "1"],
+      "Terrains": ["g", "s"],
       "Horizontal": -4,
       "Vertical": 5,
       "HorizontalAngle": -21.3,
       "VerticalAngle": 52
     },
     {
-      "Terrains": ["1", "0"],
+      "Terrains": ["s", "g"],
       "Horizontal": 3,
       "Vertical": -2,
       "HorizontalAngle": -63.2,
