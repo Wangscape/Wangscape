@@ -84,10 +84,10 @@ void MetaOutput::writeTilesetData(std::string filename)
 
 const rapidjson::Document & MetaOutput::getTileData() const
 {
-    return mTilesetData;
+    return mTileData;
 }
 
 const rapidjson::Document & MetaOutput::getTilesetData() const
 {
-    return mTileData;
+    return mTilesetData;
 }
