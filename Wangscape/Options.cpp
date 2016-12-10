@@ -44,6 +44,13 @@ void Options::initialise(const rapidjson::Document& d)
         if (it != doc_tile_format.end())
             fileType = it->value.GetString();
     }
+    {
+        auto& doc_metaoutput = o.FindMember("MetaOutput")->value.GetObject();
+
+        tileDataFilename = doc_metaoutput.FindMember("TileData")->value.GetString();
+
+        tilesetDataFilename = doc_metaoutput.FindMember("TilesetData")->value.GetString();
+    }
     outputDirectory = o.FindMember("OutputDirectory")->value.GetString();
     {
         auto& doc_terrains = o.FindMember("Terrains")->value.GetObject();

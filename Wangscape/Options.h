@@ -24,6 +24,9 @@ public:
 
     std::string outputDirectory;
 
+    std::string tileDataFilename;
+    std::string tilesetDataFilename;
+
     TerrainSpecMap terrains;
 
     CliqueList cliques;
