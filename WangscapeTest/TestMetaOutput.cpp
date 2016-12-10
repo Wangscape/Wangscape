@@ -52,6 +52,7 @@ namespace WangscapeTest
             const auto& ta = tg.mo.getTerrainHypergraph();
             auto it = ta.at("g").cbegin();
             Assert::IsTrue((*it).find("s") != (*it).end());
+            Assert::AreEqual(32, (*tg.mo.getTilesetData().FindMember("resolution")).value.GetInt(), L"Incorrect resolution");
         }
     };
 }
