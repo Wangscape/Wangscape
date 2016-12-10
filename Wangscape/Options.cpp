@@ -49,7 +49,7 @@ void Options::initialise(const rapidjson::Document& d)
         auto& doc_metaoutput = o.FindMember("MetaOutput")->value.GetObject();
 
         tileDataFilename = doc_metaoutput.FindMember("TileData")->value.GetString();
-
+        tileGroupsFilename = doc_metaoutput.FindMember("TileGroups")->value.GetString();
         tilesetDataFilename = doc_metaoutput.FindMember("TilesetData")->value.GetString();
     }
     outputDirectory = o.FindMember("OutputDirectory")->value.GetString();

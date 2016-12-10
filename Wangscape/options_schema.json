@@ -16,6 +16,12 @@
           "description": "Specifies the file which will contain individual details about each output tile.",
           "minLength": 1
         },
+        "TileGroups": {
+          "type": "string",
+          "title": "Tile groups filename",
+          "description": "Specifies the file which will contain grouped arrays of details for similar tiles.",
+          "minLength": 1
+        },
         "TilesetData": {
           "type": "string",
           "title": "Tileset data filename",

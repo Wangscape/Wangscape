@@ -57,13 +57,6 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
         callback(output.getTexture(), p.string());
         p.remove_filename();
     }
-
-    p.append(options.tilesetDataFilename);
-    mo.writeTilesetData(p.string());
-    p.remove_filename();
-
-    p.append(options.tileDataFilename);
-    mo.writeTileData(p.string());
 }
 
 void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderTexture& image, std::string filename,

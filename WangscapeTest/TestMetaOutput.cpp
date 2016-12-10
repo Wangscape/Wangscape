@@ -43,6 +43,11 @@ namespace WangscapeTest
                 const auto& tsd = tg.mo.getTilesetData();
                 //Assert::IsTrue(tsd.IsObject());
                 Assert::IsTrue(tsd.HasMember("g.s.png"));
+
+                const auto& tgd = tg.mo.getTileGroups();
+                Assert::IsTrue(tgd.IsObject(), L"TileGroups is not an object");
+                Assert::IsTrue(tgd.HasMember("g.s.g.s"), L"TileGroups is missing ""g.s.g.s""");
+                Assert::IsTrue(tgd.HasMember("g.s.s.g"), L"TileGroups is missing ""g.s.s.g""");
             }
         }
     };

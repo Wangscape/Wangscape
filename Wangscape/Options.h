@@ -26,6 +26,7 @@ public:
     std::string relativeOutputDirectory;
 
     std::string tileDataFilename;
+    std::string tileGroupsFilename;
     std::string tilesetDataFilename;
 
     TerrainSpecMap terrains;

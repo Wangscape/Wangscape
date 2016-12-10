@@ -21,5 +21,6 @@ int main(int argc, char** argv)
             if (!output.copyToImage().saveToFile(filename))
                 throw std::runtime_error("Couldn't write image");
         });
+        tg.mo.writeAll(options);
     }
 }
