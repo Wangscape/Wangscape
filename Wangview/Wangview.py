@@ -27,8 +27,12 @@ class Wangview(object):
             self.init_tile_groups(json.load(f))
         with open(path.join(rel_path, fn_terrain_hypergraph),'r') as f:
             self.hypergraph = Hypergraph(json.load(f))
-        self.width = blt.state(blt.TK_WIDTH)
-        self.height = blt.state(blt.TK_HEIGHT)
+        self.terminal_width = blt.state(blt.TK_WIDTH)
+        self.terminal_height = blt.state(blt.TK_HEIGHT)
+        self.terrain_width = self.terminal_width+2
+        self.terrain_height = self.terminal_height+2
+        self.tile_width = self.terminal_width+1
+        self.tile_height = self.terminal_height+1
         self.init_terrain_map()
         self.init_tile_map()
     def simplify_tile(self, tile):
@@ -64,27 +68,41 @@ class Wangview(object):
             blt.set(config_string)
             tileset_offset_counter += rx*ry
     def init_terrain_map(self):
-        terrain_iter = self.hypergraph.generate_lines(self.width, self.height)
-        terrain_deque_iter = (deque(line, self.width) for line in terrain_iter)
-        self.terrain_map = deque(terrain_deque_iter, self.height)
+        terrain_iter = self.hypergraph.generate_lines(
+            self.terrain_width, self.terrain_height)
+        terrain_deque_iter = (deque(line, self.terrain_width)
+                              for line in terrain_iter)
+        self.terrain_map = deque(terrain_deque_iter, self.terrain_height)
     def init_tile_map(self):
         tile_iter = ((self.select_tile(self.get_tile_corners(x,y))
-                      for x in range(self.width-1))
-                     for y in range(self.height-1))
-        tile_deque_iter = (deque(line, self.width-1) for line in tile_iter)
-        self.tile_map = deque(tile_deque_iter, self.height-1)
+                      for x in range(self.tile_width))
+                     for y in range(self.tile_height))
+        tile_deque_iter = (deque(line, self.tile_width) for line in tile_iter)
+        self.tile_map = deque(tile_deque_iter, self.tile_height)
     def get_tile_corners(self, x, y):
         return (self.terrain_map[y][x]
                 for (x,y) in
                 product((x,x+1),(y,y+1)))
     def select_tile(self, corners):
         return random.choice(self.tile_groups[tuple(corners)])
-    def draw(self):
+    def draw_iter(self):
         for y, line in enumerate(self.tile_map):
+            dy =-self.resolution//2
+            if y == self.tile_height-1:
+                y -= 1
+                dy += self.resolution
             for x, c in enumerate(line):
-                blt.put(x,y,c)
+                dx = -self.resolution//2
+                if x == self.tile_width-1:
+                    x -= 1
+                    dx += self.resolution
+                yield (x,y,dx,dy,c)
+    def draw(self):
+        for draw_args in self.draw_iter():
+            blt.put_ext(*draw_args)
     def run(self):
         stop = False
+        blt.composition(True)
         while not stop:
             blt.clear()
             self.draw()
@@ -92,6 +110,8 @@ class Wangview(object):
             while blt.has_input():
                 kp = blt.read()
                 if kp == blt.TK_CLOSE:
+                    stop = True
+                elif kp == blt.TK_ESCAPE:
                     stop = True
                 elif kp == blt.TK_SPACE:
                     self.init_terrain_map()
