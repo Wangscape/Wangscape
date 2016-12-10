@@ -12,15 +12,8 @@ from functools import reduce
 
 # In[ ]:
 
-def terrain_graph(tileset_data):
-    tg = defaultdict(lambda:set())
-    for ts in tileset_data.values():
-        for t1,t2 in product(ts['terrains'],ts['terrains']):
-            tg[t1].add(t1)
-            tg[t1].add(t2)
-            tg[t2].add(t1)
-            tg[t2].add(t2)
-    return {k:frozenset(v) for (k,v) in tg.items()}
+def terrain_graph(raw_graph):
+    return {k:frozenset(v) for (k,v) in raw_graph.items()}
 
 
 # In[ ]:
@@ -32,34 +25,24 @@ def adjacency_options(adjacency, *terrains):
 
 # In[ ]:
 
-def generate_line(previous_line):
+def generate_line(previous_line=None):
     new_line = []
     new_line.append()
 
 
 # In[ ]:
 
-tg = terrain_graph(json.load(open('../Wangscape/example/output/tilesets.json')))
-
-
-# In[ ]:
-
-adjacency_options(tg,'g')
-
-
-# In[ ]:
-
-def wangview(fn_tile_groups, fn_tileset_data):
-    with open(fn_tileset_data,'r') as f:
-        tileset_data = json.load(f)
+def wangview(fn_tile_groups, fn_terrain_adjacency):
     with open(fn_tile_groups,'r') as f:
         tile_groups = json.load(f)
-    adjacency = terrain_graph(tileset_data)
+    with open(fn_terrain_adjacency,'r') as f:
+        terrain_adjacency = terrain_graph(json.load(f))
 
 
 # In[ ]:
 
-
+wangview('../Wangscape/example/output/tile_groups.json',
+         '../Wangscape/example/output/terrain_adjacency.json')
 
 
 # In[ ]:
@@ -69,5 +52,5 @@ if __name__ == '__main__':
     try:
         wangview(sys.argv[1], sys.argv[2])
     except (IndexError, FileNotFoundError):
-        print('Usage: Wangview.py tile_groups.json tilesets.json')
+        print('Usage: Wangview.py tile_groups.json terrain_adjacency.json')
 
