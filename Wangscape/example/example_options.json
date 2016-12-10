@@ -1,4 +1,8 @@
 {
+  "MetaOutput": {
+    "TileData": "tiles.json",
+    "TilesetData": "tilesets.json"
+  },
   "TileFormat": {
     "Resolution": 32,
     "FileType": "png"
