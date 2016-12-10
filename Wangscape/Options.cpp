@@ -57,6 +57,7 @@ void Options::initialise(const rapidjson::Document& d)
     p.remove_filename();
     p.append(outputDirectory);
     boost::filesystem::create_directories(p);
+    relativeOutputDirectory = p.string();
     {
         auto& doc_terrains = o.FindMember("Terrains")->value.GetObject();
         for (const auto& it : doc_terrains)
