@@ -51,10 +51,9 @@ void MetaOutput::addTileset(std::vector<Options::TerrainID> terrains, std::strin
     v_item.SetObject();
     v_item.AddMember("terrains", v_terrains, allocator);
     rapidjson::Value v(filename.c_str(), allocator);
-    v_item.AddMember("file", v, allocator);
     v_item.AddMember("x", size_x, allocator);
     v_item.AddMember("y", size_y, allocator);
-    mTileData.PushBack(v_item, allocator);
+    mTilesetData.AddMember(v, v_item, allocator);
 }
 
 void MetaOutput::setResolution(size_t resolution)
