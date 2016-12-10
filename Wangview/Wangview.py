@@ -186,19 +186,19 @@ def wangview(*args, **kwargs):
 
 # In[ ]:
 
-try:
-    wangview('../Wangscape/example3/output')
-except:
-    blt.close()
-    raise
+# try:
+#     wangview('../Wangscape/example3/output')
+# except:
+#     blt.close()
+#     raise
 
 
 # In[ ]:
 
-# if __name__ == '__main__':
-#     import sys
-#     try:
-#         w = wangview(*sys.argv[1:])
-#     except (IndexError, FileNotFoundError):
-#         print('Usage: Wangview.py [path [tile_groups.json [terrain_hypergraph.json [tileset_data.json]]]]')
+if __name__ == '__main__':
+    import sys
+    try:
+        wangview(*sys.argv[1:])
+    except (IndexError, FileNotFoundError):
+        print('Usage: Wangview.py [path [tile_groups.json [terrain_hypergraph.json [tileset_data.json]]]]')
 
