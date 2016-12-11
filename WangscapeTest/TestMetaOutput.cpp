@@ -4,6 +4,7 @@
 #include "../Wangscape/Options.h"
 #include "../Wangscape/TilesetGenerator.h"
 #include <SFML/Graphics.hpp>
+#include <algorithm>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -51,7 +52,7 @@ namespace WangscapeTest
             }
             const auto& ta = tg.mo.getTerrainHypergraph();
             auto it = ta.at("g").cbegin();
-            Assert::IsTrue((*it).find("s") != (*it).end());
+            Assert::IsTrue(std::find((*it).cbegin(), (*it).cend(), "s") != (*it).end());
             Assert::AreEqual(32, (*tg.mo.getTilesetData().FindMember("resolution")).value.GetInt(), L"Incorrect resolution");
         }
     };

@@ -77,9 +77,7 @@ void MetaOutput::addTileset(std::vector<Options::TerrainID> terrains, std::strin
 {
     TerrainSet clique;
     for (auto t : terrains)
-    {
-        clique.insert(t);
-    }
+        clique.push_back(t);
     for (auto t : terrains)
     {
         auto it = mTerrainHypergraph.insert({ t, TerrainSetSet() });

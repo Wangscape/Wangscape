@@ -6,7 +6,7 @@
 class MetaOutput
 {
 public:
-    typedef std::set<Options::TerrainID> TerrainSet;
+    typedef std::vector<Options::TerrainID> TerrainSet;
     typedef std::set<TerrainSet> TerrainSetSet;
     typedef std::map<Options::TerrainID, TerrainSetSet> TerrainHypergraph;
     MetaOutput();
