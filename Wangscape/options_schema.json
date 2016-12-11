@@ -151,15 +151,15 @@
         }
       }
     },
-    "BorderOffsets": {
+    "BorderOptions": {
       "type": "array",
-      "title": "Border offsets schema",
-      "description": "Lists border offsets and angles for ordered pairs of terrain types that can neighbour each other.",
+      "title": "Border options schema",
+      "description": "Lists terrain types that can border each other, and details about how their boundaries should be generated.",
       "minItems": 2,
       "items": {
         "type": "object",
-        "title": "Border offset schema",
-        "description": "Specifies an ordered pair of terrain types that can neighbour each other and the corresponding horizontal and vertical border offsets and angles.",
+        "title": "Individual border options schema",
+        "description": "Specifies an ordered pair of terrain types that can neighbour each other and details about how their boundaries should be generated.",
         "additionalProperties":false,
         "properties": {
           "Terrains": {
@@ -174,44 +174,10 @@
               "description": "Specifies a terrain type as a key in #/Terrains.",
               "pattern": "^[0-9a-zA-Z_-]+$"
             }
-          },
-          "Horizontal": {
-            "type": "integer",
-            "multipleOf": 1,
-            "maximum": 256,
-            "minimum": -256,
-            "title": "Horizontal offset schema",
-            "description": "Specifies a horizontal border offset."
-          },
-          "Vertical": {
-            "type": "integer",
-            "multipleOf": 1,
-            "maximum": 256,
-            "minimum": -256,
-            "title": "Vertical offset schema",
-            "description": "Specifies a vertical border offset."
-          },
-          "HorizontalAngle": {
-            "type": "number",
-            "maximum": 90,
-            "minimum": -90,
-            "title": "Horizontal angle schema",
-            "description": "Specifies the angle of entry of a horizontal border."
-          },
-          "VerticalAngle": {
-            "type": "number",
-            "maximum": 90,
-            "minimum": -90,
-            "title": "Vertical angle schema",
-            "description": "Specifies the angle of entry of a vertical border."
           }
         },
         "required": [
-          "Terrains",
-          "Horizontal",
-          "Vertical",
-          "HorizontalAngle",
-          "VerticalAngle"
+          "Terrains"
         ]
       }
     }
@@ -221,6 +187,6 @@
     "OutputDirectory",
     "Terrains",
     "Cliques",
-    "BorderOffsets"
+    "BorderOptions"
   ]
 }

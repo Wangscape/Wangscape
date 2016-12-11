@@ -30,20 +30,12 @@
       "s"
     ]
   ],
-  "BorderOffsets": [
+  "BorderOptions": [
     {
-      "Terrains": ["g", "s"],
-      "Horizontal": -4,
-      "Vertical": 5,
-      "HorizontalAngle": -21.3,
-      "VerticalAngle": 52
+      "Terrains": ["g", "s"]
     },
     {
-      "Terrains": ["s", "g"],
-      "Horizontal": 3,
-      "Vertical": -2,
-      "HorizontalAngle": -63.2,
-      "VerticalAngle": 11.1
+      "Terrains": ["s", "g"]
     }
   ]
 }
