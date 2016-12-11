@@ -4,6 +4,7 @@
 #include "TileGenerator.h"
 #include "TerrainImages.h"
 #include "MetaOutput.h"
+#include "BorderInfo.h"
 class TilesetGenerator
 {
 public:
@@ -15,5 +16,6 @@ public:
     const Options& options;
     MetaOutput mo;
     TerrainImages images;
+    BorderInfo borders;
 };
 

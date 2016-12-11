@@ -9,13 +9,14 @@
 #include "common.h"
 
 TilesetGenerator::TilesetGenerator(const Options& options) :
-    options(options)
+    options(options), borders(options)
 {
     for (auto& terrain : options.terrains)
     {
         images.addTerrain(terrain.first, terrain.second.fileName, options.filename,
                           terrain.second.offsetX, terrain.second.offsetY, options.resolution);
     }
+
 }
 
 TilesetGenerator::~TilesetGenerator()

@@ -149,8 +149,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BorderInfo.h" />
     <ClInclude Include="common.h" />
+    <ClInclude Include="FlattenedModule.h" />
     <ClInclude Include="MetaOutput.h" />
+    <ClInclude Include="NoiseMap.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="TerrainImages.h" />
     <ClInclude Include="TerrainSpec.h" />
@@ -162,12 +165,16 @@
     <ClInclude Include="TilesetGenerator.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BorderInfo.cpp" />
+    <ClCompile Include="FlattenedModule.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MetaOutput.cpp" />
+    <ClCompile Include="NoiseMap.cpp" />
     <ClCompile Include="Options.cpp" />
     <ClCompile Include="TerrainImages.cpp" />
     <ClCompile Include="TileGenerator.cpp" />
     <ClCompile Include="TilePartitionGradient.cpp" />
+    <ClCompile Include="TilePartitionPerlin.cpp" />
     <ClCompile Include="TilePartitionSquares.cpp" />
     <ClCompile Include="TilesetGenerator.cpp" />
   </ItemGroup>
