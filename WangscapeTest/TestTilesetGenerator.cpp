@@ -34,12 +34,12 @@ TEST_F(TestTilesetGenerator, TestGenerateClique)
     const auto& first_tile = tiles.at({ 0,0 });
     for (auto corner : first_tile)
     {
-        EXPECT_EQ(corner.c_str(), "g") << "Incorrect corners in first tile";
+        EXPECT_STREQ(corner.c_str(), "g") << "Incorrect corner in first tile";
     }
     const auto& last_tile = tiles.at({ 3,3 });
     for (auto corner : last_tile)
     {
-        EXPECT_EQ(corner.c_str(), "s") << "Incorrect corners in last tile";
+        EXPECT_STREQ(corner.c_str(), "s") << "Incorrect corner in last tile";
     }
     for (size_t x = 0; x < 4; x++)
     {
