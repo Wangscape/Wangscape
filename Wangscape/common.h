@@ -1,4 +1,5 @@
 #pragma once
+#include <cstddef>
 
 /// Numeric type used for all spline calculations
 typedef double Real;
