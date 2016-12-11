@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Wangscape", "Wangscape\Wangscape.vcxproj", "{8F51FF9E-FEFF-414F-9F5B-9F55B5C15679}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WangscapeTest", "WangscapeTest\WangscapeTest.vcxproj", "{0047A33A-15D7-4001-A2EF-586AD6D171F0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8F51FF9E-FEFF-414F-9F5B-9F55B5C15679} = {8F51FF9E-FEFF-414F-9F5B-9F55B5C15679}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
