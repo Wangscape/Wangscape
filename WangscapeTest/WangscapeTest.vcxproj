@@ -146,6 +146,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestMetaOutput.cpp" />
+    <ClCompile Include="TestOptions.cpp" />
     <ClCompile Include="TestTilePartitionGradient.cpp" />
     <ClCompile Include="TestTilePartitionSquares.cpp" />
     <ClCompile Include="TestTilesetGenerator.cpp" />
