@@ -5,11 +5,4 @@
   <PropertyGroup>
     <IncludePath>C:\libs\rapidjson\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
-  <ItemDefinitionGroup>
-    <ClCompile>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
-    </ClCompile>
-  </ItemDefinitionGroup>
-  <ItemGroup />
 </Project>

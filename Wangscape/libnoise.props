@@ -4,11 +4,10 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <LibraryPath>C:\libs\libnoise\libnoisedll-1.0.0\bin;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\libs\libnoise\libnoiseheaders-1.0.0\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
-    <ClCompile>
-      <AdditionalIncludeDirectories>C:\libs\libnoise\libnoiseheaders-1.0.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-    </ClCompile>
+    <ClCompile />
     <Link>
       <AdditionalDependencies>libnoise.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
