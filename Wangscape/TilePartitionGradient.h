@@ -1,6 +1,6 @@
 #pragma once
 #include "TilePartition.h"
-#include <sfml/Graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 void apply_weights(const std::vector<float>& weights, std::vector<sf::Uint8>& alphas);
 
