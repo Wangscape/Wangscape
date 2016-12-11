@@ -20,6 +20,7 @@
     <None Include="example\example.json">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="@(NativeLibs)" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -53,6 +54,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MetaOutput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TilePartitionPerlin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
