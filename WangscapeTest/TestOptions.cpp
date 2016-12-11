@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 
+#include <boost/filesystem.hpp>
+
 #include <Options.h>
 
 class TestOptions : public ::testing::Test {
@@ -20,8 +22,9 @@ TEST_F(TestOptions, TestOptionsValues)
 {
     EXPECT_EQ(options.filename, filename) <<
         "Incorrect options filename";
-    EXPECT_STREQ(options.relativeOutputDirectory.c_str(),
-                 "../Wangscape/example/output") <<
+    EXPECT_TRUE(boost::filesystem::equivalent(
+        boost::filesystem::path(options.relativeOutputDirectory),
+        boost::filesystem::path("../Wangscape/example/output"))) <<
         "Incorrect relative output directory";
     EXPECT_STREQ(options.outputDirectory.c_str(),
                  "output") <<
