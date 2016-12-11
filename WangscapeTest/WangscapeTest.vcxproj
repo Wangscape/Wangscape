@@ -142,18 +142,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\gtest.1.7.0\build\native\gtest.targets" Condition="Exists('..\packages\gtest.1.7.0\build\native\gtest.targets')" />
+    <Import Project="..\packages\googletest.v140.windesktop.static.rt-dyn.1.7.0.1\build\native\googletest.v140.windesktop.static.rt-dyn.targets" Condition="Exists('..\packages\googletest.v140.windesktop.static.rt-dyn.1.7.0.1\build\native\googletest.v140.windesktop.static.rt-dyn.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\gtest.1.7.0\build\native\gtest.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\gtest.1.7.0\build\native\gtest.targets'))" />
+    <Error Condition="!Exists('..\packages\googletest.v140.windesktop.static.rt-dyn.1.7.0.1\build\native\googletest.v140.windesktop.static.rt-dyn.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\googletest.v140.windesktop.static.rt-dyn.1.7.0.1\build\native\googletest.v140.windesktop.static.rt-dyn.targets'))" />
   </Target>
 </Project>
