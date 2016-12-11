@@ -1,7 +1,7 @@
 #include "TilePartitionSquares.h"
 
 void tile_partition_squares(TilePartition& regions,
-                            std::vector<Options::TerrainID> corners,
+                            std::vector<TerrainID> corners,
                             const Options& options)
 {
     sf::RectangleShape quarter_tile;
@@ -12,7 +12,7 @@ void tile_partition_squares(TilePartition& regions,
     sf::RenderTexture mask;
     mask.create(resolution, resolution);
 
-    auto make_mask = [&](sf::Vector2f origin, Options::TerrainID tid)
+    auto make_mask = [&](sf::Vector2f origin, TerrainID tid)
     {
         mask.clear(sf::Color(255, 255, 255, 0));
         quarter_tile.setPosition(origin);

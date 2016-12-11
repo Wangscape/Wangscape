@@ -4,6 +4,6 @@
 #include <functional>
 #include "Options.h"
 
-typedef std::vector<std::pair<sf::Texture, Options::TerrainID>> TilePartition;
+typedef std::vector<std::pair<sf::Texture, TerrainID>> TilePartition;
 
-typedef std::function<void(TilePartition&, std::vector<Options::TerrainID>, const Options&)> TilePartitionGenerator;
+typedef std::function<void(TilePartition&, std::vector<TerrainID>, const Options&)> TilePartitionGenerator;

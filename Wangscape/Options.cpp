@@ -87,22 +87,6 @@ void Options::initialise(const rapidjson::Document& d)
             cliques.push_back(c);
         }
     }
-    {
-        const auto& doc_border_offsets = o.FindMember("BorderOffsets")->value.GetArray();
-        for (const auto& it : doc_border_offsets)
-        {
-            const auto& doc_bos = it.GetObject();
-            const auto& doc_terrain_pair = doc_bos.FindMember("Terrains")->value.GetArray();
-            borderOffsets.insert(std::make_pair(
-                TerrainIDPair(
-                    doc_terrain_pair.Begin()->GetString(),
-                    (doc_terrain_pair.Begin()+1)->GetString()),
-                BorderOffsetSpec(
-                    doc_bos.FindMember("Horizontal")->value.GetInt(),
-                    doc_bos.FindMember("Vertical")->value.GetInt())
-            ));
-        }
-    }
 }
 
 Options::~Options()

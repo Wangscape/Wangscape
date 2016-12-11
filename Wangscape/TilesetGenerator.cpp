@@ -63,7 +63,7 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
 void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderTexture& image, std::string filename,
                                       TileGenerator::TileGenerateFunction callback)
 {
-    std::vector<Options::TerrainID> corner_terrains(CORNERS, clique[0]);
+    std::vector<TerrainID> corner_terrains(CORNERS, clique[0]);
     std::vector<size_t> corner_clique_indices(CORNERS, 0);
     bool stop = false;
     while (!stop)
@@ -87,7 +87,7 @@ void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderT
         for (auto it : boost::make_iterator_range(zip_begin,zip_end))
         {
             size_t& i = it.tail.head;
-            Options::TerrainID& t = it.head;
+            TerrainID& t = it.head;
             i++;
             if (i >= clique.size())
             {

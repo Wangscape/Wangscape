@@ -31,7 +31,7 @@ int gradient_weight(int x, int y, int X, int Y, int resolution_sub_1, int range)
     return std::max(0,(resolution_sub_1 - range - std::max(std::abs(x - X), std::abs(y - Y))));
 }
 
-void tile_partition_gradient(TilePartition & regions, std::vector<Options::TerrainID> corners, const Options & options)
+void tile_partition_gradient(TilePartition & regions, std::vector<TerrainID> corners, const Options & options)
 {
     std::vector<sf::Image> masks;
     for (auto corner : corners)
