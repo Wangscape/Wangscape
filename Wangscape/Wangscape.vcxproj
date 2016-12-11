@@ -139,12 +139,8 @@
   <ItemGroup>
     <ClInclude Include="BorderOffsetSpec.h" />
     <ClInclude Include="common.h" />
-    <ClInclude Include="Curve.h" />
-    <ClInclude Include="Interval.h" />
     <ClInclude Include="MetaOutput.h" />
     <ClInclude Include="Options.h" />
-    <ClInclude Include="Spline.h" />
-    <ClInclude Include="Polynomial.h" />
     <ClInclude Include="TerrainImages.h" />
     <ClInclude Include="TerrainSpec.h" />
     <ClInclude Include="TileGenerator.h" />
@@ -152,14 +148,11 @@
     <ClInclude Include="TilePartitionGradient.h" />
     <ClInclude Include="TilePartitionSquares.h" />
     <ClInclude Include="TilesetGenerator.h" />
-    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Interval.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MetaOutput.cpp" />
     <ClCompile Include="Options.cpp" />
-    <ClCompile Include="Polynomial.cpp" />
     <ClCompile Include="TerrainImages.cpp" />
     <ClCompile Include="TileGenerator.cpp" />
     <ClCompile Include="TilePartitionGradient.cpp" />

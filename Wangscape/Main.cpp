@@ -8,7 +8,7 @@ int main(int argc, char** argv)
     if (argc != 2)
     {
         std::cout << "Usage: Wangscape rel/path/to/options.json\n";
-        exit(1);
+        return 1;
     }
     else
     {
@@ -23,4 +23,5 @@ int main(int argc, char** argv)
         });
         tg.mo.writeAll(options);
     }
+    return 0;
 }

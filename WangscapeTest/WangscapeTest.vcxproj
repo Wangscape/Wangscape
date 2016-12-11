@@ -169,16 +169,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TestCase.cpp" />
-    <ClCompile Include="TestCurve.cpp" />
-    <ClCompile Include="TestInterval.cpp" />
     <ClCompile Include="TestMetaOutput.cpp" />
     <ClCompile Include="TestOptions.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="TestPolynomial.cpp" />
-    <ClCompile Include="TestPolynomialAugmented.cpp" />
-    <ClCompile Include="TestSpline.cpp" />
     <ClCompile Include="TestTilePartitionGradient.cpp" />
     <ClCompile Include="TestTilePartitionSquares.cpp" />
     <ClCompile Include="TestTilesetGenerator.cpp" />
