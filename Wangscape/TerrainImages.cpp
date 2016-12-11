@@ -37,7 +37,7 @@ void TerrainImages::rearrangeTile(sf::Texture& t)
     t = new_tile.getTexture();
 }
 
-void TerrainImages::addTerrain(Options::TerrainID tid, std::string image_filename, std::string json_filename,
+void TerrainImages::addTerrain(TerrainID tid, std::string image_filename, std::string json_filename,
                                size_t offset_x, size_t offset_y, size_t resolution)
 {
     std::string filename = image_filename;

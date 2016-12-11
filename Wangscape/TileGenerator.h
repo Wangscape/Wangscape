@@ -9,12 +9,12 @@ public:
     TileGenerator();
     ~TileGenerator();
     typedef std::function<void(sf::RenderTexture&, size_t, size_t,
-                               std::vector<Options::TerrainID>,
+                               std::vector<TerrainID>,
                                const TerrainImages&,
                                const Options&)>
         TileGenerateFunction;
     static void generate(sf::RenderTexture& image, size_t x, size_t y,
-                         std::vector<Options::TerrainID> corners,
+                         std::vector<TerrainID> corners,
                          const TerrainImages& images,
                          const Options& options);
 

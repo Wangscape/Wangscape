@@ -20,7 +20,7 @@ MetaOutput::~MetaOutput()
 {
 }
 
-void MetaOutput::addTile(std::vector<Options::TerrainID> corners, std::string filename, size_t offset_x, size_t offset_y)
+void MetaOutput::addTile(std::vector<TerrainID> corners, std::string filename, size_t offset_x, size_t offset_y)
 {
     {
         rapidjson::Document::AllocatorType& allocator = mTileData.GetAllocator();
@@ -73,7 +73,7 @@ void MetaOutput::addTile(std::vector<Options::TerrainID> corners, std::string fi
     }
 }
 
-void MetaOutput::addTileset(std::vector<Options::TerrainID> terrains, std::string filename, size_t size_x, size_t size_y)
+void MetaOutput::addTileset(std::vector<TerrainID> terrains, std::string filename, size_t size_x, size_t size_y)
 {
     TerrainSet clique;
     for (auto t : terrains)

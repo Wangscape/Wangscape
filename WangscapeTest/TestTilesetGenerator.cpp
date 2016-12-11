@@ -21,12 +21,12 @@ namespace WangscapeTest
             std::string filename("../Wangscape/example/example_options.json");
             const Options options(filename);
             TilesetGenerator tg(options);
-            std::map<std::pair<size_t, size_t>, std::vector<Options::TerrainID>> tiles;
+            std::map<std::pair<size_t, size_t>, std::vector<TerrainID>> tiles;
             const auto& clique = options.cliques[0];
             sf::RenderTexture image;
             tg.generateClique(clique, image, "nope.png",
                               [&](sf::RenderTexture& image, size_t x, size_t y,
-                                  std::vector<Options::TerrainID> terrains,
+                                  std::vector<TerrainID> terrains,
                                   const TerrainImages& images,
                                   const Options& options)
             {

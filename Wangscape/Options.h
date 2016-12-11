@@ -4,12 +4,12 @@
 #include <utility>
 #include <vector>
 #include <rapidjson/document.h>
+#include "common.h"
 #include "TerrainSpec.h"
 
 class Options
 {
 public:
-    typedef std::string TerrainID;
     typedef std::map<TerrainID, TerrainSpec> TerrainSpecMap;
     typedef std::vector<TerrainID> Clique;
     typedef std::vector<Clique> CliqueList;

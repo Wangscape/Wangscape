@@ -6,14 +6,14 @@
 class MetaOutput
 {
 public:
-    typedef std::vector<Options::TerrainID> TerrainSet;
+    typedef std::vector<TerrainID> TerrainSet;
     typedef std::set<TerrainSet> TerrainSetSet;
-    typedef std::map<Options::TerrainID, TerrainSetSet> TerrainHypergraph;
+    typedef std::map<TerrainID, TerrainSetSet> TerrainHypergraph;
     MetaOutput();
     ~MetaOutput();
-    void addTile(std::vector<Options::TerrainID> corners,
+    void addTile(std::vector<TerrainID> corners,
                  std::string filename, size_t offset_x, size_t offset_y);
-    void addTileset(std::vector<Options::TerrainID> terrains,
+    void addTileset(std::vector<TerrainID> terrains,
                     std::string filename, size_t size_x, size_t size_y);
     void setResolution(size_t resolution);
     void writeTileData(std::string filename) const;
