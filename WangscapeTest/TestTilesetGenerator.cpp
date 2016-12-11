@@ -5,21 +5,22 @@
 
 class TestTilesetGenerator : public ::testing::Test {
 protected:
-    virtual void SetUp()
+    std::string filename;
+    const Options options;
+    TilesetGenerator tg;
+
+    TestTilesetGenerator():
+        filename("../Wangscape/example/example_options.json"),
+        options(filename),
+        tg(options)
     {
 
-    }
-    virtual void TearDown()
-    {
-        
-    }
+    };
+    ~TestTilesetGenerator() {};
 };
 
 TEST_F(TestTilesetGenerator, TestGenerateClique)
 {
-    std::string filename("../Wangscape/example/example_options.json");
-    const Options options(filename);
-    TilesetGenerator tg(options);
     std::map<std::pair<size_t, size_t>, std::vector<TerrainID>> tiles;
     const auto& clique = options.cliques[0];
     sf::RenderTexture image;
@@ -48,4 +49,19 @@ TEST_F(TestTilesetGenerator, TestGenerateClique)
             EXPECT_FALSE(tiles.find({ x,y }) == tiles.end()) << "Missing tile";
         }
     }
+}
+
+TEST_F(TestTilesetGenerator, TestGenerateTilesets)
+{
+    tg.generate([&](const sf::Texture& output, std::string filename)
+    {
+        sf::Image img = output.copyToImage();
+        for (size_t x = 0; x < img.getSize().x; x++)
+        {
+            for (size_t y = 0; y < img.getSize().y; y++)
+            {
+                EXPECT_EQ(img.getPixel(x, y).a, (sf::Uint8)255) << "Non-opaque pixel in output";
+            }
+        }
+    });
 }
