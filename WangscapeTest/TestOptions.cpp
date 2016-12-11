@@ -30,10 +30,10 @@ TEST_F(TestOptions, TestOptionsValues)
                  "output") <<
         "Incorrect output directory";
     EXPECT_STREQ(options.tileDataFilename.c_str(),
-                 "tile_data.json") <<
+                 "tiles.json") <<
         "Incorrect tile data filename";
     EXPECT_STREQ(options.tilesetDataFilename.c_str(),
-                 "tileset_data.json") <<
+                 "tilesets.json") <<
         "Incorrect tileset data filename";
     EXPECT_STREQ(options.tileGroupsFilename.c_str(),
                  "tile_groups.json") <<
