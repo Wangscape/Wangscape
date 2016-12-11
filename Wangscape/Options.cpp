@@ -35,9 +35,9 @@ Options::Options(std::string filename):
 
 void Options::initialise(const rapidjson::Document& d)
 {
-    auto& o = d.GetObject();
+    const auto& o = d.GetObject();
     {
-        auto& doc_tile_format = o.FindMember("TileFormat")->value.GetObject();
+        const auto& doc_tile_format = o.FindMember("TileFormat")->value.GetObject();
 
         resolution = doc_tile_format.FindMember("Resolution")->value.GetInt();
 
@@ -46,7 +46,7 @@ void Options::initialise(const rapidjson::Document& d)
             fileType = it->value.GetString();
     }
     {
-        auto& doc_metaoutput = o.FindMember("MetaOutput")->value.GetObject();
+        const auto& doc_metaoutput = o.FindMember("MetaOutput")->value.GetObject();
 
         tileDataFilename = doc_metaoutput.FindMember("TileData")->value.GetString();
         tileGroupsFilename = doc_metaoutput.FindMember("TileGroups")->value.GetString();
@@ -60,7 +60,7 @@ void Options::initialise(const rapidjson::Document& d)
     boost::filesystem::create_directories(p);
     relativeOutputDirectory = p.string();
     {
-        auto& doc_terrains = o.FindMember("Terrains")->value.GetObject();
+        const auto& doc_terrains = o.FindMember("Terrains")->value.GetObject();
         for (const auto& it : doc_terrains)
         {
             const auto& v = it.value.GetObject();
@@ -75,7 +75,7 @@ void Options::initialise(const rapidjson::Document& d)
         }
     }
     {
-        auto& doc_cliques = o.FindMember("Cliques")->value.GetArray();
+        const auto& doc_cliques = o.FindMember("Cliques")->value.GetArray();
         for (const auto& it : doc_cliques)
         {
             const auto& doc_c = it.GetArray();
@@ -88,7 +88,7 @@ void Options::initialise(const rapidjson::Document& d)
         }
     }
     {
-        auto& doc_border_offsets = o.FindMember("BorderOffsets")->value.GetArray();
+        const auto& doc_border_offsets = o.FindMember("BorderOffsets")->value.GetArray();
         for (const auto& it : doc_border_offsets)
         {
             const auto& doc_bos = it.GetObject();
