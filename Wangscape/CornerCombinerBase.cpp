@@ -1,15 +1,15 @@
-#include "CornerCombiner.h"
+#include "CornerCombinerBase.h"
 #include <cmath>
 
 
 
-CornerCombiner::CornerCombiner(double power):
+CornerCombinerBase::CornerCombinerBase(double power):
     noise::module::Module(GetSourceModuleCount()),
     power(power)
 {
 }
 
-double CornerCombiner::GetValue(double x, double y, double z) const
+double CornerCombinerBase::GetValue(double x, double y, double z) const
 {
     double ax = std::abs(x);
     double ay = std::abs(y);

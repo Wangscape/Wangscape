@@ -20,10 +20,10 @@
 // the output will be greater than 1.0 along the axes
 // when x, y are in [-1., 1.], and the output should
 // be clamped.
-class CornerCombiner : public noise::module::Module
+class CornerCombinerBase : public noise::module::Module
 {
 public:
-    CornerCombiner(double power = 1.);
+    CornerCombinerBase(double power = 1.);
     virtual int GetSourceModuleCount() const
     {
         return 0;

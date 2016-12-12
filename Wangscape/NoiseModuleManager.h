@@ -3,7 +3,6 @@
 #include <map>
 #include <noise/noise.h>
 #include "common.h"
-#include "CornerCombinerGroup.h"
 #include "Gradient.h"
 #include "ModuleGroup.h"
 class NoiseModuleManager
@@ -13,7 +12,6 @@ public:
     typedef std::pair<TerrainID, TerrainID> TerrainIDPair;
     NoiseModuleManager();
     ~NoiseModuleManager();
-    const Module& getGradient(bool x, bool increasing) const;
     
 protected:
     std::map<TerrainIDPair, ModulePtr> mBordersHorizontal;

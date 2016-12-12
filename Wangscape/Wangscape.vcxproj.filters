@@ -62,16 +62,19 @@
     <ClInclude Include="NoiseMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CornerCombiner.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CornerCombinerGroup.h">
+    <ClInclude Include="NoiseModuleManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Gradient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NoiseModuleManager.h">
+    <ClInclude Include="ModuleFactories.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleGroup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CornerCombinerBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -109,13 +112,16 @@
     <ClCompile Include="NoiseMap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CornerCombiner.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CornerCombinerGroup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="NoiseModuleManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFactories.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleGroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CornerCombinerBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
