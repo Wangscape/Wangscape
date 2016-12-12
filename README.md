@@ -59,7 +59,7 @@ make
 
 # Example
 
-To check how it works for provided examples, call it with path to one of JSONs
+To check how it works for provided examples, call it with the path to one of JSONs
 under `Wangscape` dir, e.g. (in `build` directory):
 
 ```shell
@@ -68,3 +68,15 @@ under `Wangscape` dir, e.g. (in `build` directory):
 
 After that the result image can be found in the `output` directory under
 `Wangscape/example`.
+
+Alternatively, you can use the `Wangview` Python script to see example landscapes
+using the output tilesets.
+Wangview requires Python 3 and the [`bearlibterminal`](https://pypi.python.org/pypi/bearlibterminal) package.
+
+Example usage (in `Wangview` directory):
+
+```shell
+python Wangview.py ../Wangscape/example3/output
+```
+
+Press `space` to regenerate the landscape, or `esc` to quit.
