@@ -8,6 +8,8 @@
 class GradientX : public noise::module::Module
 {
 public:
+    GradientX() : Module(GetSourceModuleCount())
+    {};
     virtual int GetSourceModuleCount() const
     {
         return 0;
@@ -25,6 +27,8 @@ public:
 class GradientY : public noise::module::Module
 {
 public:
+    GradientY() : Module(GetSourceModuleCount())
+    {};
     virtual int GetSourceModuleCount() const
     {
         return 0;
@@ -42,6 +46,8 @@ public:
 class GradientZ : public noise::module::Module
 {
 public:
+    GradientZ() : Module(GetSourceModuleCount())
+    {};
     virtual int GetSourceModuleCount() const
     {
         return 0;
