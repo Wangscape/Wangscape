@@ -1,5 +1,4 @@
-set(src
-    Main.cpp
+set(lib-src
     MetaOutput.cpp
     Options.cpp
     TerrainImages.cpp
@@ -9,7 +8,10 @@ set(src
     TilesetGenerator.cpp
 )
 
-add_executable(Wangscape ${src})
+add_library(wangscape STATIC ${lib-src})
+add_executable(Wangscape Main.cpp)
+
+target_link_libraries(Wangscape wangscape)
 
 find_package(Boost COMPONENTS system filesystem REQUIRED)
 if(Boost_FOUND)
