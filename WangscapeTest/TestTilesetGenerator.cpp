@@ -51,6 +51,7 @@ TEST_F(TestTilesetGenerator, TestGenerateClique)
     }
 }
 
+// TODO replace this test with something faster
 TEST_F(TestTilesetGenerator, TestGenerateTilesets)
 {
     tg.generate([&](const sf::Texture& output, std::string filename)
