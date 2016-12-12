@@ -23,13 +23,14 @@ Rather than matching graphical tiles with the representation of logical tiles on
 
 # How can it build?
 
-Wangscape depends on two libraries:
+Wangscape depends on these libraries:
 * **Boost**
   - system
   - filesystem
 * **SFML 2**
   - system
   - graphics
+* **rapidjson**
 
 After installing them, you can compile Wangscape using either of the methods
 below.
