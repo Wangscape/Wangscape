@@ -57,6 +57,12 @@ It will check for required libraries and prepare files for the next step.
 make
 ```
 
+#### 4. To run **unit tests** just execute:
+
+```shell
+./bin/WangscapeTest
+```
+
 # Example
 
 To check how it works for provided examples, call it with the path to one of JSONs
