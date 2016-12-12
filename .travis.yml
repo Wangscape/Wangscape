@@ -31,3 +31,4 @@ script:
   - cd build
   - cmake ..
   - make
+  - ./bin/WangscapeTest
