@@ -20,3 +20,70 @@ Rather than matching graphical tiles with the representation of logical tiles on
     * These alpha masks are used to combine each corner's terrain texture into a single tile.
 * In future this will be much more customisable, using Perlin noise to generate noisy gradients and boundaries betwen corners.
 * Currently all tile generation is done through a command-line application configured using a JSON file. In the future, this should be migrated to a GUI interface which allows the user to alter tile generation parameters and immediately see the range of possible results.
+
+# How can it build?
+
+Wangscape depends on these libraries:
+* **Boost**
+  - system
+  - filesystem
+* **SFML 2**
+  - system
+  - graphics
+* **rapidjson**
+
+After installing them, you can compile Wangscape using either of the methods
+below.
+
+## CMake (Linux)
+
+#### 1. Create `build` directory in **Wangscape** project root and move into it:
+
+```shell
+mkdir build
+cd build
+```
+
+#### 2. Execute `cmake` with path to root `CMakeLists.txt`:
+
+```shell
+cmake ..
+```
+
+It will check for required libraries and prepare files for the next step.
+
+#### 3. Execute `make` to generate `Wangscape` executable under `bin/` subdirectory:
+
+```shell
+make
+```
+
+#### 4. To run **unit tests** just execute:
+
+```shell
+./bin/WangscapeTest
+```
+
+# Example
+
+To check how it works for provided examples, call it with the path to one of JSONs
+under `Wangscape` dir, e.g. (in `build` directory):
+
+```shell
+./bin/Wangscape ../Wangscape/example/example_options.json
+```
+
+After that the result image can be found in the `output` directory under
+`Wangscape/example`.
+
+Alternatively, you can use the `Wangview` Python script to see example landscapes
+using the output tilesets.
+Wangview requires Python 3 and the [`bearlibterminal`](https://pypi.python.org/pypi/bearlibterminal) package.
+
+Example usage (in `Wangview` directory):
+
+```shell
+python Wangview.py ../Wangscape/example3/output
+```
+
+Press `space` to regenerate the landscape, or `esc` to quit.
