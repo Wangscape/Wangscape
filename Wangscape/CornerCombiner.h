@@ -32,4 +32,3 @@ public:
     virtual double GetValue(double x, double y, double z) const;
     double power;
 };
-
