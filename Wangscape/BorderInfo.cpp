@@ -11,13 +11,13 @@ BorderInfo::BorderInfo(const Options& options)
         {
             for (const auto& t2 : clique)
             {
-                UniqueModule border_x = (UniqueModule)std::make_unique<noise::module::Perlin>();
-                ((std::unique_ptr<noise::module::Perlin>)border_x)->SetSeed(rand());
+                //UniqueModule border_x = (UniqueModule)std::make_unique<noise::module::Perlin>();
+                //((std::unique_ptr<noise::module::Perlin>)border_x)->SetSeed(rand());
 
-                UniqueModule border_y = (UniqueModule)std::make_unique<noise::module::Perlin>();
-                ((std::unique_ptr<noise::module::Perlin>)border_y)->SetSeed(rand());
+                //UniqueModule border_y = (UniqueModule)std::make_unique<noise::module::Perlin>();
+                //((std::unique_ptr<noise::module::Perlin>)border_y)->SetSeed(rand());
 
-                borders.insert({ { t1,t2 }, {border_x, border_y} });
+                //borders.insert({ { t1,t2 }, {border_x, border_y} });
             }
         }
     }

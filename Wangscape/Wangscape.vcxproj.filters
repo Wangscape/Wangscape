@@ -62,13 +62,13 @@
     <ClInclude Include="NoiseMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FlattenedModule.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CornerCombiner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CornerCombinerGroup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Gradient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -104,9 +104,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NoiseMap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FlattenedModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CornerCombiner.cpp">

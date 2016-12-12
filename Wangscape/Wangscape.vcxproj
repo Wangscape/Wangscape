@@ -153,7 +153,7 @@
     <ClInclude Include="common.h" />
     <ClInclude Include="CornerCombiner.h" />
     <ClInclude Include="CornerCombinerGroup.h" />
-    <ClInclude Include="FlattenedModule.h" />
+    <ClInclude Include="Gradient.h" />
     <ClInclude Include="MetaOutput.h" />
     <ClInclude Include="NoiseMap.h" />
     <ClInclude Include="Options.h" />
@@ -170,7 +170,6 @@
     <ClCompile Include="BorderInfo.cpp" />
     <ClCompile Include="CornerCombiner.cpp" />
     <ClCompile Include="CornerCombinerGroup.cpp" />
-    <ClCompile Include="FlattenedModule.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MetaOutput.cpp" />
     <ClCompile Include="NoiseMap.cpp" />
