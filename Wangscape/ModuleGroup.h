@@ -1,6 +1,7 @@
 #pragma once
 #include <noise/noise.h>
-#include <vector>
+#include <string>
+#include <map>
 #include <memory>
 
 // Maybe these typedefs should be elsewhere?
@@ -9,23 +10,33 @@ typedef std::shared_ptr<Module> ModulePtr;
 
 // A helper class to store related noise modules in one place.
 //
-// The first noise module in the stored vector is used as the
-// output, and the other modules in the vector may be used as
-// sources. External modules may also be used as sources,
-// but this class will not be responsible for deleting them.
+// Each component module is identified with a std::string.
+// The module identified by OUTPUT_MODULE ("output") is
+// used in calls to GetValue(x,y,z).
+// Component modules are stored in std::shared_ptrs,
+// so they may be reused in other ModuleGroups.
+// Note that libnoise's internal pointers to source modules
+// are all raw pointers, which do not have ownership,
+// cannot be used to save a ModulePtr from deletion,
+// and must never be used to delete a module stored
+// in a ModulePtr.
+// A module in a ModuleGroup may have a source module
+// which is not managed by the ModuleGroup,
+// but the ModuleGroup will not be responsible
+// for its deletion, and will be vulnerable to crashes
+// if the unmanaged source module is deleted.
 class ModuleGroup : public noise::module::Module
 {
 public:
-    typedef std::vector<ModulePtr> ModuleVector;
+    typedef std::map<std::string, ModulePtr> ModuleContainer;
 
-    // One of the tests already needs to refer
-    // to an element in this vector by its index.
-    // Maybe replace this with a std::map<std::string, ...>?
-    ModuleVector modules;
+    ModuleContainer modules;
+    const static std::string OUTPUT_MODULE;
 
     ModuleGroup();
     ~ModuleGroup();
     virtual int GetSourceModuleCount() const;
     virtual double GetValue(double x, double y, double z) const;
+    
 };
 

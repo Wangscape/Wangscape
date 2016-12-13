@@ -18,5 +18,7 @@ ModuleGroup::~ModuleGroup()
 
 double ModuleGroup::GetValue(double x, double y, double z) const
 {
-    return modules[0].get()->GetValue(x, y, z);
+    return modules.at(OUTPUT_MODULE).get()->GetValue(x, y, z);
 };
+
+const std::string ModuleGroup::OUTPUT_MODULE("output");

@@ -25,7 +25,7 @@ TEST_F(TestCornerCombiner, TestCornerCombinerBasePowers)
     EXPECT_EQ(2., cc2.power) << "Power not correctly assigned";
 
     const ModuleGroup* ccg2_p_raw = (ModuleGroup*)(ccg2_p.get());
-    const CornerCombinerBase* ccg2_p_0 = (CornerCombinerBase*)(ccg2_p_raw->modules[2].get());
+    const CornerCombinerBase* ccg2_p_0 = (CornerCombinerBase*)(ccg2_p_raw->modules.at(std::string("corner_combiner_base")).get());
     EXPECT_EQ(2., ccg2_p_0->power) << "Power not correctly assigned";
 }
 

@@ -13,23 +13,16 @@ ModulePtr makePeak(bool x)
     ModulePtr abs = std::make_shared<noise::module::Abs>();
     abs.get()->SetSourceModule(0, *gradient.get());
 
-    ModulePtr inv = std::make_shared<noise::module::Invert>();
-    inv.get()->SetSourceModule(0, *abs.get());
-
-    ModulePtr one = std::make_shared<noise::module::Const>();
-    ((noise::module::Const*)one.get())->SetConstValue(1.);
-
-    ModulePtr add = std::make_shared<noise::module::Add>();
-    add.get()->SetSourceModule(0, *one.get());
-    add.get()->SetSourceModule(1, *inv.get());
+    ModulePtr scale_bias = std::make_shared<noise::module::ScaleBias>();
+    scale_bias.get()->SetSourceModule(0, *abs.get());
+    ((std::shared_ptr<noise::module::ScaleBias>&)*scale_bias.get())->SetScale(-1.);
+    ((std::shared_ptr<noise::module::ScaleBias>&)*scale_bias.get())->SetBias(1.);
 
     ModulePtr mg(new ModuleGroup);
     ModuleGroup& mg_r = (ModuleGroup&)*mg.get();
-    mg_r.modules.push_back(add);
-    mg_r.modules.push_back(one);
-    mg_r.modules.push_back(inv);
-    mg_r.modules.push_back(abs);
-    mg_r.modules.push_back(gradient);
+    mg_r.modules.insert({ ModuleGroup::OUTPUT_MODULE, scale_bias });
+    mg_r.modules.insert({ "abs", abs });
+    mg_r.modules.insert({ "gradient", gradient });
 
     return mg;
 }
@@ -49,9 +42,9 @@ ModulePtr makeCornerCombiner(bool x_positive, bool y_positive, double power)
 
     ModulePtr mg = std::make_shared<ModuleGroup>();
     ModuleGroup& mg_r = (ModuleGroup&)*mg.get();
-    mg_r.modules.push_back(clamp);
-    mg_r.modules.push_back(scale_bias);
-    mg_r.modules.push_back(corner_combiner_base);
+    mg_r.modules.insert({ ModuleGroup::OUTPUT_MODULE, clamp });
+    mg_r.modules.insert({ "scale_bias", scale_bias });
+    mg_r.modules.insert({ "corner_combiner_base", corner_combiner_base });
 
     return mg;
 
@@ -82,14 +75,13 @@ ModulePtr makeEdgeFavouringMask(double p, double q, double min)
     ((noise::module::Clamp&)*clamp.get()).SetBounds(min, 1.);
     clamp.get()->SetSourceModule(0, *scale_bias.get());
 
-
-
     ModulePtr mg = std::make_shared<ModuleGroup>();
     ModuleGroup& mg_r = (ModuleGroup&)*mg.get();
-    mg_r.modules.push_back(clamp);
-    mg_r.modules.push_back(scale_bias);
-    mg_r.modules.push_back(scale_point);
-    mg_r.modules.push_back(translate);
-    mg_r.modules.push_back(norm_lp_q);
+    mg_r.modules.insert({ ModuleGroup::OUTPUT_MODULE, clamp });
+    mg_r.modules.insert({ "scale_bias", scale_bias });
+    mg_r.modules.insert({ "scale_point", scale_point });
+    mg_r.modules.insert({ "translate", translate });
+    mg_r.modules.insert({ "norm_lp_q", norm_lp_q });
+
     return mg;
 }
