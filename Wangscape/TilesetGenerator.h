@@ -17,6 +17,7 @@ public:
     TerrainImages images;
 
 private:
+    std::string getOutputImageFilename(const Options::Clique& clique) const;
     std::unique_ptr<sf::RenderTexture>  getBlankImage(size_t res_x, size_t res_y) const;
 };
 

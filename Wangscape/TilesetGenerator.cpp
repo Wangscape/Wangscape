@@ -33,13 +33,8 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
 
         std::unique_ptr<sf::RenderTexture> output{getBlankImage(res_x, res_y)};
 
-        std::stringstream ss;
-        for (auto terrain : clique)
-        {
-            ss << terrain << ".";
-        }
-        ss << options.fileType;
-        std::string filename = ss.str();
+        auto filename = getOutputImageFilename(clique);
+
         // MetaOutput.addTileset, addTile should use this version of filename;
         // relative to output dir, not options dir!
         mo.addTileset(clique, filename, res_x, res_y);
@@ -94,6 +89,17 @@ void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderT
             }
         }
     }
+}
+
+std::string TilesetGenerator::getOutputImageFilename(const Options::Clique& clique) const
+{
+    std::stringstream ss;
+    for (auto terrain : clique)
+    {
+        ss << terrain << ".";
+    }
+    ss << options.fileType;
+    return ss.str();
 }
 
 std::unique_ptr<sf::RenderTexture> TilesetGenerator::getBlankImage(size_t res_x, size_t res_y) const
