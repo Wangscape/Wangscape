@@ -28,9 +28,9 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
     boost::filesystem::path p(options.relativeOutputDirectory);
     for (const auto& clique : options.cliques)
     {
-        size_t res_x = options.resolution * clique.size() * clique.size();
-        size_t res_y = options.resolution * clique.size() * clique.size();
-
+        std::pair<size_t, size_t> tileset_resolution = calculateTilesetResolution(clique.size());
+        size_t res_x = tileset_resolution.first;
+        size_t res_y = tileset_resolution.second;
         std::unique_ptr<sf::RenderTexture> output{getBlankImage(res_x, res_y)};
 
         auto filename = getOutputImageFilename(clique);
@@ -56,13 +56,11 @@ void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderT
     while (!stop)
     {
         size_t x = 0; size_t y = 0;
-        bool x_dimension = true;
-        for (size_t i : corner_clique_indices)
+        for (size_t i = 0; i < corner_clique_indices.size(); i++)
         {
-            size_t& z = x_dimension ? x : y;
+            size_t& z = ((i + 1) % 2) ? x : y;
             z *= clique.size();
-            z += i;
-            x_dimension = !x_dimension;
+            z += corner_clique_indices[i];
         }
         callback(image, x, y, corner_terrains, images, options);
         mo.addTile(corner_terrains, filename, x*options.resolution, y*options.resolution);
@@ -108,4 +106,28 @@ std::unique_ptr<sf::RenderTexture> TilesetGenerator::getBlankImage(size_t res_x,
     output->create(res_x, res_y);
     output->clear(sf::Color(0,0,0,255));
     return output;
+}
+
+std::pair<size_t, size_t> TilesetGenerator::calculateTilesetResolution(size_t clique_size) const
+{
+    size_t res_x;
+    size_t res_y;
+    switch (CORNERS)
+    {
+    case 3:
+        res_y = options.resolution*clique_size;
+        res_x = res_y*clique_size;
+        break;
+    case 4:
+        res_x = options.resolution*clique_size*clique_size;
+        res_y = res_x;
+        break;
+    case 6:
+        res_x = options.resolution*clique_size*clique_size*clique_size;
+        res_y = res_x;
+        break;
+    default:
+        throw std::out_of_range("CORNERS was not one of 3,4,6");
+    }
+    return{ res_x, res_y };
 }
