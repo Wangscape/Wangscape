@@ -28,15 +28,8 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
     boost::filesystem::path p(options.relativeOutputDirectory);
     for (const auto& clique : options.cliques)
     {
-        size_t res_x = options.resolution;
-        size_t res_y = options.resolution;
-        bool x_dimension = true;
-        for (int i = 0; i < CORNERS; i++)
-        {
-            size_t& res_z = x_dimension ? res_x : res_y;
-            res_z *= clique.size();
-            x_dimension = !x_dimension;
-        }
+        size_t res_x = options.resolution * clique.size() * clique.size();
+        size_t res_y = options.resolution * clique.size() * clique.size();
         // prepare a blank image of size res_x*res_y
         sf::RenderTexture output;
         output.create(res_x, res_y);
