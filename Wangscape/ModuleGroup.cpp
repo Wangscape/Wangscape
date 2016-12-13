@@ -1,7 +1,8 @@
 #include "ModuleGroup.h"
 
-ModuleGroup::ModuleGroup() :
-    Module(GetSourceModuleCount())
+ModuleGroup::ModuleGroup(ModuleID output_id) :
+    Module(GetSourceModuleCount()),
+    output_id(output_id)
 {
 
 };
@@ -18,7 +19,7 @@ ModuleGroup::~ModuleGroup()
 
 double ModuleGroup::GetValue(double x, double y, double z) const
 {
-    return modules.at(OUTPUT_MODULE).get()->GetValue(x, y, z);
+    return modules.at(output_id).get()->GetValue(x, y, z);
 };
 
-const std::string ModuleGroup::OUTPUT_MODULE("output");
+const std::string ModuleGroup::DEFAULT_OUT("output");

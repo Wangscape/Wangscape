@@ -30,12 +30,14 @@ typedef std::shared_ptr<Module> ModulePtr;
 class ModuleGroup : public noise::module::Module
 {
 public:
-    typedef std::map<std::string, ModulePtr> ModuleContainer;
+    typedef std::string ModuleID;
+    typedef std::map<ModuleID, ModulePtr> ModuleContainer;
 
     ModuleContainer modules;
-    const static std::string OUTPUT_MODULE;
+    const static ModuleID DEFAULT_OUT;
+    ModuleID output_id;
 
-    ModuleGroup();
+    ModuleGroup(ModuleID output_id="output");
     ~ModuleGroup();
     virtual int GetSourceModuleCount() const;
     virtual double GetValue(double x, double y, double z) const;

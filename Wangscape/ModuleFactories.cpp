@@ -20,7 +20,7 @@ ModulePtr makePeak(bool x)
 
     ModulePtr mg(new ModuleGroup);
     ModuleGroup& mg_r = (ModuleGroup&)*mg.get();
-    mg_r.modules.insert({ ModuleGroup::OUTPUT_MODULE, scale_bias });
+    mg_r.modules.insert({ mg_r.output_id, scale_bias });
     mg_r.modules.insert({ "abs", abs });
     mg_r.modules.insert({ "gradient", gradient });
 
@@ -42,7 +42,7 @@ ModulePtr makeCornerCombiner(bool x_positive, bool y_positive, double power)
 
     ModulePtr mg = std::make_shared<ModuleGroup>();
     ModuleGroup& mg_r = (ModuleGroup&)*mg.get();
-    mg_r.modules.insert({ ModuleGroup::OUTPUT_MODULE, clamp });
+    mg_r.modules.insert({ mg_r.output_id, clamp });
     mg_r.modules.insert({ "scale_bias", scale_bias });
     mg_r.modules.insert({ "corner_combiner_base", corner_combiner_base });
 
@@ -77,7 +77,7 @@ ModulePtr makeEdgeFavouringMask(double p, double q, double min)
 
     ModulePtr mg = std::make_shared<ModuleGroup>();
     ModuleGroup& mg_r = (ModuleGroup&)*mg.get();
-    mg_r.modules.insert({ ModuleGroup::OUTPUT_MODULE, clamp });
+    mg_r.modules.insert({ mg_r.output_id, clamp });
     mg_r.modules.insert({ "scale_bias", scale_bias });
     mg_r.modules.insert({ "scale_point", scale_point });
     mg_r.modules.insert({ "translate", translate });
