@@ -25,6 +25,8 @@ typedef std::shared_ptr<Module> ModulePtr;
 // but the ModuleGroup will not be responsible
 // for its deletion, and will be vulnerable to crashes
 // if the unmanaged source module is deleted.
+// This module currently has no guards against
+// cyclic references between modules.
 class ModuleGroup : public noise::module::Module
 {
 public:
