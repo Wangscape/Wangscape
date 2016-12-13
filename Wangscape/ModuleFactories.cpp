@@ -86,13 +86,15 @@ ModulePtr makeEdgeFavouringMask(double p, double q, double min)
     return mg;
 }
 
-ModulePtr makePlaceholder(int octaves,
+ModulePtr makePlaceholder(int seed,
+                          int octaves,
                           double frequency,
                           double lacunarity,
                           double persistence,
                           noise::NoiseQuality quality)
 {
     ModulePtr placeholder = std::make_shared<noise::module::Perlin>();
+    ((noise::module::Perlin&)*placeholder.get()).SetSeed(seed);
     ((noise::module::Perlin&)*placeholder.get()).SetOctaveCount(octaves);
     ((noise::module::Perlin&)*placeholder.get()).SetFrequency(frequency);
     ((noise::module::Perlin&)*placeholder.get()).SetLacunarity(lacunarity);

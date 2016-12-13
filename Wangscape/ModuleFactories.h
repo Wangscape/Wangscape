@@ -14,7 +14,7 @@ ModulePtr makeCornerCombiner(bool x_positive, bool y_positive, double power = 2.
 ModulePtr makeEdgeFavouringMask(double p, double q=1., double min=0.);
 
 // Makes a placeholder noise module (a Perlin noise module with typical parameters).
-ModulePtr makePlaceholder(int octaves = 5,
+                          int octaves = 5,
                           double frequency=1.,
                           double lacunarity=2.,
                           double persistence=0.5,
