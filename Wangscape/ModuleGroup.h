@@ -5,7 +5,7 @@
 
 // Maybe these typedefs should be elsewhere?
 typedef noise::module::Module Module;
-typedef std::unique_ptr<Module> ModulePtr;
+typedef std::shared_ptr<Module> ModulePtr;
 
 // A helper class to store related noise modules in one place.
 //

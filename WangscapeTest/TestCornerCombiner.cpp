@@ -10,7 +10,8 @@ protected:
     CornerCombinerBase cc2;
     ModulePtr ccg2_p;
     TestCornerCombiner():
-        cc1(), cc05(0.5), cc2(2.), ccg2_p(makeCornerCombiner(true, true))
+        cc1(), cc05(0.5), cc2(2.),
+        ccg2_p(makeCornerCombiner(true, true))
     {
 
     };
@@ -24,7 +25,7 @@ TEST_F(TestCornerCombiner, TestCornerCombinerBasePowers)
     EXPECT_EQ(2., cc2.power) << "Power not correctly assigned";
 
     const ModuleGroup* ccg2_p_raw = (ModuleGroup*)(ccg2_p.get());
-    const CornerCombinerBase* ccg2_p_0 = (CornerCombinerBase*)(ccg2_p_raw->modules[0].get());
+    const CornerCombinerBase* ccg2_p_0 = (CornerCombinerBase*)(ccg2_p_raw->modules[2].get());
     EXPECT_EQ(2., ccg2_p_0->power) << "Power not correctly assigned";
 }
 

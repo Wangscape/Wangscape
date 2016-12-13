@@ -34,21 +34,25 @@ ModulePtr makePeak(bool x)
 
 ModulePtr makeCornerCombiner(bool x_positive, bool y_positive, double power)
 {
-    ModulePtr cc(new CornerCombinerBase(power));
+    ModulePtr mg = std::make_shared<ModuleGroup>();
+    ModuleGroup& mg_r = (ModuleGroup&)*mg.get();
 
-    ModulePtr sb(new noise::module::ScaleBias);
-    ((noise::module::ScaleBias*)sb.get())->SetBias(0.5);
-    ((noise::module::ScaleBias*)sb.get())->SetScale(0.5);
-    sb.get()->SetSourceModule(0, *cc.get());
+    mg_r.modules.push_back(std::make_shared<noise::module::Clamp>());
+    ModulePtr clamp = mg_r.modules[0];
 
-    ModulePtr clamp(new noise::module::Clamp);
-    ((noise::module::Clamp*)clamp.get())->SetBounds(0., 1.);
-    clamp.get()->SetSourceModule(0, *sb.get());
+    mg_r.modules.push_back(std::make_shared<noise::module::ScaleBias>());
+    ModulePtr scale_bias = mg_r.modules[1];
 
-    ModulePtr mg(new ModuleGroup);
-    ((ModuleGroup*)mg.get())->modules.push_back(std::move(clamp));
-    ((ModuleGroup*)mg.get())->modules.push_back(std::move(sb));
-    ((ModuleGroup*)mg.get())->modules.push_back(std::move(cc));
+    mg_r.modules.push_back(std::make_shared<CornerCombinerBase>(power));
+    ModulePtr corner_combiner_base = mg_r.modules[2];
+
+    ((noise::module::ScaleBias&)*scale_bias.get()).SetBias(0.5);
+    ((noise::module::ScaleBias&)*scale_bias.get()).SetScale(0.5);
+    scale_bias.get()->SetSourceModule(0, *corner_combiner_base.get());
+
+    ((noise::module::Clamp&)*clamp.get()).SetBounds(0., 1.);
+    clamp.get()->SetSourceModule(0, *scale_bias.get());
+
 
     return mg;
 
