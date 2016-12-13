@@ -30,10 +30,9 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
     {
         size_t res_x = options.resolution * clique.size() * clique.size();
         size_t res_y = options.resolution * clique.size() * clique.size();
-        // prepare a blank image of size res_x*res_y
-        sf::RenderTexture output;
-        output.create(res_x, res_y);
-        output.clear(sf::Color(0,0,0,255));
+
+        std::unique_ptr<sf::RenderTexture> output{getBlankImage(res_x, res_y)};
+
         std::stringstream ss;
         for (auto terrain : clique)
         {
@@ -44,11 +43,11 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
         // MetaOutput.addTileset, addTile should use this version of filename;
         // relative to output dir, not options dir!
         mo.addTileset(clique, filename, res_x, res_y);
-        generateClique(clique, output, filename, TileGenerator::generate);
-        output.display();
+        generateClique(clique, *output, filename, TileGenerator::generate);
+        output->display();
 
         p.append(filename);
-        callback(output.getTexture(), p.string());
+        callback(output->getTexture(), p.string());
         p.remove_filename();
     }
 }
@@ -95,4 +94,12 @@ void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderT
             }
         }
     }
+}
+
+std::unique_ptr<sf::RenderTexture> TilesetGenerator::getBlankImage(size_t res_x, size_t res_y) const
+{
+    std::unique_ptr<sf::RenderTexture> output{std::make_unique<sf::RenderTexture>()};
+    output->create(res_x, res_y);
+    output->clear(sf::Color(0,0,0,255));
+    return output;
 }

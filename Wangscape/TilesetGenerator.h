@@ -15,5 +15,8 @@ public:
     const Options& options;
     MetaOutput mo;
     TerrainImages images;
+
+private:
+    std::unique_ptr<sf::RenderTexture>  getBlankImage(size_t res_x, size_t res_y) const;
 };
 
