@@ -18,6 +18,9 @@ class ModuleGroup : public noise::module::Module
 public:
     typedef std::vector<ModulePtr> ModuleVector;
 
+    // One of the tests already needs to refer
+    // to an element in this vector by its index.
+    // Maybe replace this with a std::map<std::string, ...>?
     ModuleVector modules;
 
     ModuleGroup();

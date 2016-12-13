@@ -147,8 +147,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TestCornerCombiner.cpp" />
+    <ClCompile Include="TestEdgeFavouringMask.cpp" />
     <ClCompile Include="TestMetaOutput.cpp" />
+    <ClCompile Include="TestNormLPQ.cpp" />
     <ClCompile Include="TestOptions.cpp" />
+    <ClCompile Include="TestPeak.cpp" />
     <ClCompile Include="TestTilePartitionGradient.cpp" />
     <ClCompile Include="TestTilePartitionSquares.cpp" />
     <ClCompile Include="TestTilesetGenerator.cpp" />

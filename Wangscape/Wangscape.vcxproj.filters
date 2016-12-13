@@ -77,6 +77,9 @@
     <ClInclude Include="CornerCombinerBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="NormLPQ.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -122,6 +125,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CornerCombinerBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NormLPQ.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
