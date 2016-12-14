@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <memory>
 #include "Options.h"
 #include "TileGenerator.h"
 #include "TerrainImages.h"
@@ -17,5 +18,8 @@ public:
     MetaOutput mo;
     TerrainImages images;
     BorderInfo borders;
+private:
+    std::string getOutputImageFilename(const Options::Clique& clique) const;
+    std::unique_ptr<sf::RenderTexture> getBlankImage(size_t res_x, size_t res_y) const;
+    std::pair<size_t, size_t> calculateTilesetResolution(size_t clique_size) const;
 };
-
