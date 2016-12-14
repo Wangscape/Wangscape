@@ -2,7 +2,7 @@
 #include "Gradient.h"
 #include "NormLPQ.h"
 
-ModulePtr makePeak(bool x)
+Reseedable makePeak(bool x)
 {
     ModulePtr gradient;
     if (x)
@@ -20,14 +20,14 @@ ModulePtr makePeak(bool x)
 
     ModulePtr mg(new ModuleGroup);
     ModuleGroup& mg_r = (ModuleGroup&)*mg.get();
-    mg_r.modules.insert({ mg_r.output_id, scale_bias });
-    mg_r.modules.insert({ "abs", abs });
-    mg_r.modules.insert({ "gradient", gradient });
+    mg_r.modules.insert({ mg_r.output_id, makeReseedable(scale_bias) });
+    mg_r.modules.insert({ "abs",makeReseedable(abs) });
+    mg_r.modules.insert({ "gradient",makeReseedable(gradient) });
 
-    return mg;
+    return makeReseedable(mg);
 }
 
-ModulePtr makeCornerCombiner(bool x_positive, bool y_positive, double power)
+Reseedable makeCornerCombiner(bool x_positive, bool y_positive, double power)
 {
     ModulePtr corner_combiner_base = std::make_shared<CornerCombinerBase>(power);
 
@@ -42,15 +42,15 @@ ModulePtr makeCornerCombiner(bool x_positive, bool y_positive, double power)
 
     ModulePtr mg = std::make_shared<ModuleGroup>();
     ModuleGroup& mg_r = (ModuleGroup&)*mg.get();
-    mg_r.modules.insert({ mg_r.output_id, clamp });
-    mg_r.modules.insert({ "scale_bias", scale_bias });
-    mg_r.modules.insert({ "corner_combiner_base", corner_combiner_base });
+    mg_r.modules.insert({ mg_r.output_id,makeReseedable(clamp) });
+    mg_r.modules.insert({ "scale_bias", makeReseedable(scale_bias) });
+    mg_r.modules.insert({ "corner_combiner_base", makeReseedable(corner_combiner_base) });
 
-    return mg;
+    return makeReseedable(mg);
 
 }
 
-ModulePtr makeEdgeFavouringMask(double p, double q, double min)
+Reseedable makeEdgeFavouringMask(double p, double q, double min)
 {
     ModulePtr norm_lp_q = std::make_shared<NormLPQ>(p, q);
 
@@ -77,21 +77,21 @@ ModulePtr makeEdgeFavouringMask(double p, double q, double min)
 
     ModulePtr mg = std::make_shared<ModuleGroup>();
     ModuleGroup& mg_r = (ModuleGroup&)*mg.get();
-    mg_r.modules.insert({ mg_r.output_id, clamp });
-    mg_r.modules.insert({ "scale_bias", scale_bias });
-    mg_r.modules.insert({ "scale_point", scale_point });
-    mg_r.modules.insert({ "translate", translate });
-    mg_r.modules.insert({ "norm_lp_q", norm_lp_q });
+    mg_r.modules.insert({ mg_r.output_id, makeReseedable(clamp) });
+    mg_r.modules.insert({ "scale_bias",makeReseedable(scale_bias) });
+    mg_r.modules.insert({ "scale_point",makeReseedable(scale_point) });
+    mg_r.modules.insert({ "translate", makeReseedable(translate) });
+    mg_r.modules.insert({ "norm_lp_q", makeReseedable(norm_lp_q) });
 
-    return mg;
+    return makeReseedable(mg);
 }
 
-ModulePtr makePlaceholder(int seed,
-                          int octaves,
-                          double frequency,
-                          double lacunarity,
-                          double persistence,
-                          noise::NoiseQuality quality)
+Reseedable makePlaceholder(int seed,
+                           int octaves,
+                           double frequency,
+                           double lacunarity,
+                           double persistence,
+                           noise::NoiseQuality quality)
 {
     ModulePtr placeholder = std::make_shared<noise::module::Perlin>();
     ((noise::module::Perlin&)*placeholder.get()).SetSeed(seed);
@@ -100,5 +100,5 @@ ModulePtr makePlaceholder(int seed,
     ((noise::module::Perlin&)*placeholder.get()).SetLacunarity(lacunarity);
     ((noise::module::Perlin&)*placeholder.get()).SetPersistence(persistence);
     ((noise::module::Perlin&)*placeholder.get()).SetNoiseQuality(quality);
-    return placeholder;
+    return makeReseedable(placeholder);
 }

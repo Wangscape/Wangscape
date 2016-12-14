@@ -160,6 +160,7 @@
     <ClInclude Include="NoiseMap.h" />
     <ClInclude Include="NoiseModuleManager.h" />
     <ClInclude Include="Options.h" />
+    <ClInclude Include="Reseedable.h" />
     <ClInclude Include="TerrainImages.h" />
     <ClInclude Include="TerrainSpec.h" />
     <ClInclude Include="TileGenerator.h" />

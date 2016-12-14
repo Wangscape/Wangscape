@@ -80,6 +80,9 @@
     <ClInclude Include="NormLPQ.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Reseedable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

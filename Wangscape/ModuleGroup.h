@@ -3,10 +3,7 @@
 #include <string>
 #include <map>
 #include <memory>
-
-// Maybe these typedefs should be elsewhere?
-typedef noise::module::Module Module;
-typedef std::shared_ptr<Module> ModulePtr;
+#include "Reseedable.h"
 
 // A helper class to store related noise modules in one place.
 //
@@ -31,7 +28,7 @@ class ModuleGroup : public noise::module::Module
 {
 public:
     typedef std::string ModuleID;
-    typedef std::map<ModuleID, ModulePtr> ModuleContainer;
+    typedef std::map<ModuleID, Reseedable> ModuleContainer;
 
     ModuleContainer modules;
     const static ModuleID DEFAULT_OUT;
@@ -41,6 +38,6 @@ public:
     ~ModuleGroup();
     virtual int GetSourceModuleCount() const;
     virtual double GetValue(double x, double y, double z) const;
-    
+    void SetSeed(int seed);
 };
 
