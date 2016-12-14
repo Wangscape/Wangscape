@@ -26,7 +26,9 @@ void ModuleGroup::SetSeed(int seed)
 {
     for (auto it : modules)
     {
-        it.second.second(seed);
+        // Use a different seed for each submodule
+        int hash = (int)std::hash<ModuleID>{}(it.first);
+        it.second.second(seed^hash);
     }
 };
 

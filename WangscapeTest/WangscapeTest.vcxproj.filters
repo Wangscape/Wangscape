@@ -45,6 +45,9 @@
     <ClCompile Include="TestEdgeFavouringMask.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestModuleGroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

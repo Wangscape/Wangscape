@@ -83,6 +83,9 @@
     <ClInclude Include="Reseedable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MakeReseedable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -131,6 +134,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NormLPQ.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Reseedable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MakeReseedable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
