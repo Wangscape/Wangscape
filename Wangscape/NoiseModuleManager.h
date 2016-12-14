@@ -18,13 +18,13 @@ protected:
     // should blend in the region of horizontal border.
     // Evaluated in the square [0,1]x[0,1] (if the corners are at the bottom)
     // or [0,1]x[-1,0] (if the corners are at the top).
-    // Always evaluated with the same seed.
+    // Reseeding will make terrain borders incompatible.
     std::map<TerrainIDPair, Reseedable> mBordersHorizontal;
     // User-defined masks specifying how two corner terrain types
     // should blend in the region of a vertical border.
     // Evaluated in the square [0,1]x[0,1] (if the corners are on the right)
     // or [-1,0]x[0,1] (if the corners are on the left).
-    // Always evaluated with the same seed.
+    // Reseeding will make terrain borders incompatible.
     std::map<TerrainIDPair, Reseedable> mBordersVertical;
     // User-defined masks specifying how a corner terrain type
     // should blend with other corners in the region of the centre of the tile.
