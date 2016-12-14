@@ -4,7 +4,7 @@
 #include <noise/noise.h>
 #include "common.h"
 #include "Gradient.h"
-#include "ModuleGroup.h"
+#include "Reseedable.h"
 class NoiseModuleManager
 {
 public:
@@ -19,18 +19,18 @@ protected:
     // Evaluated in the square [0,1]x[0,1] (if the corners are at the bottom)
     // or [0,1]x[-1,0] (if the corners are at the top).
     // Always evaluated with the same seed.
-    std::map<TerrainIDPair, ModulePtr> mBordersHorizontal;
+    std::map<TerrainIDPair, Reseedable> mBordersHorizontal;
     // User-defined masks specifying how two corner terrain types
     // should blend in the region of a vertical border.
     // Evaluated in the square [0,1]x[0,1] (if the corners are on the right)
     // or [-1,0]x[0,1] (if the corners are on the left).
     // Always evaluated with the same seed.
-    std::map<TerrainIDPair, ModulePtr> mBordersVertical;
+    std::map<TerrainIDPair, Reseedable> mBordersVertical;
     // User-defined masks specifying how a corner terrain type
     // should blend with other corners in the region of the centre of the tile.
     // Evaluated in the square [0,1]x[0,1].
     // Normally evaluated with a different seed in every corner of every tile.
-    std::map<TerrainID, ModulePtr> mStochasticMasks;
+    std::map<TerrainID, Reseedable> mStochasticMasks;
 
 };
 
