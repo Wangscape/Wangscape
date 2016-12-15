@@ -21,7 +21,7 @@ Rather than matching graphical tiles with the representation of logical tiles on
 * In future this will be much more customisable, using Perlin noise to generate noisy gradients and boundaries betwen corners.
 * Currently all tile generation is done through a command-line application configured using a JSON file. In the future, this should be migrated to a GUI interface which allows the user to alter tile generation parameters and immediately see the range of possible results.
 
-# How can it build?
+# How can I build Wangscape?
 
 Wangscape depends on these libraries:
 * **Boost**
