@@ -8,7 +8,9 @@ protected:
     TestModuleGroup() :
         rs(makePlaceholder())
     {
-
+        // The current placeholder is a Reseedable,
+        // but it's not a ModuleGroup.
+        // Maybe these tests should be moved.
     };
     ~TestModuleGroup() {};
 };
@@ -21,8 +23,8 @@ TEST_F(TestModuleGroup, TestGetValue)
 TEST_F(TestModuleGroup, TestSetSeed)
 {
     rs.setSeed(35089);
-    double v = rs.module->GetValue(2., 1., 0.);
+    double v = rs.module->GetValue(2.1, 1.1, 0.1);
     rs.setSeed(293847928);
-    ASSERT_NE(v, rs.module->GetValue(2., 1., 0.)) <<
+    ASSERT_NE(v, rs.module->GetValue(2.1, 1.1, 0.1)) <<
         "Same value after reseed";
 }
