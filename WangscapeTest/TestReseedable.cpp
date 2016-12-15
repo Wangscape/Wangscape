@@ -179,18 +179,20 @@ TEST_F(TestReseedable, TestReseedableDisplace)
 }
 TEST_F(TestReseedable, TestReseedableRotatePoint)
 {
-    EXPECT_TRUE(false) << "Test not implemented";
+    EXPECT_EQ(20., x.rotatePoint(0,0,90).module->GetValue(2, 20, 200));
+    EXPECT_EQ(-30, y.rotatePoint(0,0,180).module->GetValue(2, 30, 200));
 
 }
 TEST_F(TestReseedable, TestReseedableScalePoint)
 {
-    EXPECT_TRUE(false) << "Test not implemented";
+    EXPECT_EQ(6., x.scalePoint(3, 30, 300).module->GetValue(2, 20, 200));
+    EXPECT_EQ(200., y.scalePoint(-1, -10, -100).module->GetValue(2, -20, 200));
 
 }
 TEST_F(TestReseedable, TestReseedableTranslatePoint)
 {
-    EXPECT_TRUE(false) << "Test not implemented";
-
+    EXPECT_EQ(3., x.translatePoint(1, 10, 100).module->GetValue(2, 20, 200));
+    EXPECT_EQ(-10., y.translatePoint(1, 10, 100).module->GetValue(2, -20, 200));
 }
 TEST_F(TestReseedable, TestReseedableTurbulence)
 {
