@@ -24,12 +24,6 @@
 // if the unmanaged source module is deleted.
 // This module currently has no guards against
 // cyclic references between modules.
-// The submodule container is publicly exposed,
-// but there is no record of which modules are
-// connected to each other or what their types are.
-// So, if you need to alter the module after construction,
-// make sure you know what the types are and how they are connected.
-// Preferably, don't try to alter the modules.
 class ModuleGroup : public noise::module::Module
 {
 public:
