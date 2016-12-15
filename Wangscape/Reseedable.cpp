@@ -224,28 +224,57 @@ Reseedable Reseedable::select(Reseedable& source_a, Reseedable& source_b)
     return makeReseedable(mg);
 }
 
-Reseedable Reseedable::Displace(Reseedable & x_displace, Reseedable & y_displace, Reseedable & z_displace)
-{
-    return Reseedable();
-}
-
 Reseedable Reseedable::rotatePoint(double x_angle, double y_angle, double z_angle)
 {
-    return Reseedable();
+    std::shared_ptr<noise::module::RotatePoint> rotate_point_p = std::make_shared<noise::module::RotatePoint>();
+    rotate_point_p->SetSourceModule(0, *module);
+    rotate_point_p->SetXAngle(x_angle);
+    rotate_point_p->SetYAngle(y_angle);
+    rotate_point_p->SetZAngle(z_angle);
+
+    std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
+    mg->insert("source", *this);
+    mg->insert("output", makeReseedable(rotate_point_p));
+    return makeReseedable(mg);
 }
 
 Reseedable Reseedable::scalePoint(double x_scale, double y_scale, double z_scale)
 {
-    return Reseedable();
+    std::shared_ptr<noise::module::ScalePoint> scale_point_p = std::make_shared<noise::module::ScalePoint>();
+    scale_point_p->SetSourceModule(0, *module);
+    scale_point_p->SetXScale(x_scale);
+    scale_point_p->SetYScale(y_scale);
+    scale_point_p->SetZScale(z_scale);
+
+    std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
+    mg->insert("source", *this);
+    mg->insert("output", makeReseedable(scale_point_p));
+    return makeReseedable(mg);
 }
 
 Reseedable Reseedable::translatePoint(double x_displace, double y_displace, double z_displace)
 {
-    return Reseedable();
+    std::shared_ptr<noise::module::TranslatePoint> translate_point_p = std::make_shared<noise::module::TranslatePoint>();
+    translate_point_p->SetSourceModule(0, *module);
+    translate_point_p->SetXTranslation(x_displace);
+    translate_point_p->SetYTranslation(y_displace);
+    translate_point_p->SetZTranslation(z_displace);
+
+    std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
+    mg->insert("source", *this);
+    mg->insert("output", makeReseedable(translate_point_p));
+    return makeReseedable(mg);
 }
 
 Reseedable Reseedable::turbulence()
 {
+    throw;
     return Reseedable();
 }
 
+
+Reseedable Reseedable::displace(Reseedable & x_displace, Reseedable & y_displace, Reseedable & z_displace)
+{
+    throw;
+    return Reseedable();
+}

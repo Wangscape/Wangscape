@@ -34,7 +34,7 @@ struct Reseedable
     Reseedable operator*(double scale);
     Reseedable blend(Reseedable& source_a, Reseedable& source_b);
     Reseedable select(Reseedable& source_a, Reseedable& source_b);
-    Reseedable Displace(Reseedable& x_displace, Reseedable& y_displace, Reseedable& z_displace);
+    Reseedable displace(Reseedable& x_displace, Reseedable& y_displace, Reseedable& z_displace);
     Reseedable rotatePoint(double x_angle, double y_angle, double z_angle);
     Reseedable scalePoint(double x_scale, double y_scale, double z_scale);
     Reseedable translatePoint(double x_displace, double y_displace, double z_displace);
