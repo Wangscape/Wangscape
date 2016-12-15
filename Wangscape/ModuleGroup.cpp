@@ -1,5 +1,25 @@
 #include "ModuleGroup.h"
 
+void ModuleGroup::insert(ModuleID name, Reseedable module)
+{
+    mModules.insert({ name, module });
+}
+
+const Reseedable & ModuleGroup::at(ModuleID name) const
+{
+    return mModules.at(name);
+}
+
+ModuleGroup::ModuleContainer::const_iterator ModuleGroup::cend() const
+{
+    return mModules.cend();
+}
+
+ModuleGroup::ModuleContainer::const_iterator ModuleGroup::cbegin() const
+{
+    return mModules.cbegin();
+}
+
 ModuleGroup::ModuleGroup(ModuleID output_id) :
     Module(GetSourceModuleCount()),
     output_id(output_id)
@@ -19,16 +39,16 @@ ModuleGroup::~ModuleGroup()
 
 double ModuleGroup::GetValue(double x, double y, double z) const
 {
-    return modules.at(output_id).first.get()->GetValue(x, y, z);
+    return mModules.at(output_id).module.get()->GetValue(x, y, z);
 }
 
 void ModuleGroup::SetSeed(int seed)
 {
-    for (auto it : modules)
+    for (auto it : mModules)
     {
         // Use a different seed for each submodule
         int hash = (int)std::hash<ModuleID>{}(it.first);
-        it.second.second(seed^hash);
+        it.second.setSeed(seed^hash);
     }
 };
 

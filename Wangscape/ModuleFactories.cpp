@@ -19,7 +19,7 @@ Reseedable makePeak(bool x)
         gradient = makeReseedable(std::make_shared<GradientY>());
 
     std::shared_ptr<Abs> abs = std::make_shared<Abs>();
-    abs->SetSourceModule(0, *gradient.first.get());
+    abs->SetSourceModule(0, *gradient.module);
 
     std::shared_ptr<ScaleBias> scale_bias = std::make_shared<ScaleBias>();
     scale_bias->SetSourceModule(0, *abs.get());
@@ -27,9 +27,9 @@ Reseedable makePeak(bool x)
     scale_bias->SetBias(1.);
 
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->modules.insert({ mg->output_id, makeReseedable(scale_bias) });
-    mg->modules.insert({ "abs",makeReseedable(abs) });
-    mg->modules.insert({ "gradient",gradient });
+    mg->insert( mg->output_id, makeReseedable(scale_bias) );
+    mg->insert( "abs",makeReseedable(abs) );
+    mg->insert( "gradient",gradient );
 
     return makeReseedable(mg);
 }
@@ -48,9 +48,9 @@ Reseedable makeCornerCombiner(bool x_positive, bool y_positive, double power)
     clamp->SetSourceModule(0, *scale_bias.get());
 
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->modules.insert({ mg->output_id,makeReseedable(clamp) });
-    mg->modules.insert({ "scale_bias", makeReseedable(scale_bias) });
-    mg->modules.insert({ "corner_combiner_base", makeReseedable(corner_combiner_base) });
+    mg->insert( mg->output_id,makeReseedable(clamp) );
+    mg->insert( "scale_bias", makeReseedable(scale_bias) );
+    mg->insert( "corner_combiner_base", makeReseedable(corner_combiner_base) );
 
     return makeReseedable(mg);
 
@@ -82,11 +82,11 @@ Reseedable makeEdgeFavouringMask(double p, double q, double min)
     clamp->SetSourceModule(0, *scale_bias.get());
 
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->modules.insert({ mg->output_id, makeReseedable(clamp) });
-    mg->modules.insert({ "scale_bias",makeReseedable(scale_bias) });
-    mg->modules.insert({ "scale_point",makeReseedable(scale_point) });
-    mg->modules.insert({ "translate", makeReseedable(translate) });
-    mg->modules.insert({ "norm_lp_q", makeReseedable(norm_lp_q) });
+    mg->insert( mg->output_id, makeReseedable(clamp) );
+    mg->insert( "scale_bias",makeReseedable(scale_bias) );
+    mg->insert( "scale_point",makeReseedable(scale_point) );
+    mg->insert( "translate", makeReseedable(translate) );
+    mg->insert( "norm_lp_q", makeReseedable(norm_lp_q) );
 
     return makeReseedable(mg);
 }

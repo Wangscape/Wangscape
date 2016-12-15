@@ -24,20 +24,32 @@
 // if the unmanaged source module is deleted.
 // This module currently has no guards against
 // cyclic references between modules.
+// The submodule container is publicly exposed,
+// but there is no record of which modules are
+// connected to each other or what their types are.
+// So, if you need to alter the module after construction,
+// make sure you know what the types are and how they are connected.
+// Preferably, don't try to alter the modules.
 class ModuleGroup : public noise::module::Module
 {
 public:
     typedef std::string ModuleID;
     typedef std::map<ModuleID, Reseedable> ModuleContainer;
 
-    ModuleContainer modules;
     const static ModuleID DEFAULT_OUT;
     ModuleID output_id;
+    void insert(ModuleID name, Reseedable module);
+    const Reseedable& at(ModuleID name) const;
+    ModuleContainer::const_iterator cend() const;
+    ModuleContainer::const_iterator cbegin() const;
 
     ModuleGroup(ModuleID output_id="output");
     ~ModuleGroup();
     virtual int GetSourceModuleCount() const;
     virtual double GetValue(double x, double y, double z) const;
     void SetSeed(int seed);
+protected:
+    ModuleContainer mModules;
+
 };
 
