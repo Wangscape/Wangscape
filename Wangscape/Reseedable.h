@@ -14,20 +14,26 @@ struct Reseedable
     SetSeedFn setSeed;
     Reseedable abs();
     Reseedable clamp(double lower, double upper);
+    Reseedable pow(Reseedable& exponent);
     Reseedable pow(double exponent);
+    Reseedable exp(double base);
     Reseedable invert();
     Reseedable scaleBias(double scale, double bias);
     //Reseedable curve(...?)
     //Reseedable terrace(...?)
     Reseedable operator+(Reseedable& other);
     Reseedable operator+(double bias);
+    Reseedable operator-(Reseedable& other);
+    Reseedable operator-(double bias);
+    Reseedable operator-();
     Reseedable max(Reseedable& other);
+    Reseedable max(double other);
     Reseedable min(Reseedable& other);
+    Reseedable min(double other);
     Reseedable operator*(Reseedable& other);
     Reseedable operator*(double scale);
-    Reseedable pow(Reseedable& exponent);
-    Reseedable blend(Reseedable& other, Reseedable& control);
-    Reseedable select(Reseedable& other, Reseedable& control);
+    Reseedable blend(Reseedable& source_a, Reseedable& source_b);
+    Reseedable select(Reseedable& source_a, Reseedable& source_b);
     Reseedable Displace(Reseedable& x_displace, Reseedable& y_displace, Reseedable& z_displace);
     Reseedable rotatePoint(double x_angle, double y_angle, double z_angle);
     Reseedable scalePoint(double x_scale, double y_scale, double z_scale);

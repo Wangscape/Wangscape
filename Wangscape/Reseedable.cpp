@@ -1,6 +1,7 @@
 #include "Reseedable.h"
 #include "MakeReseedable.h"
 #include "ModuleGroup.h"
+#include "Exp.h"
 
 Reseedable Reseedable::abs()
 {
@@ -8,8 +9,8 @@ Reseedable Reseedable::abs()
     abs_p->SetSourceModule(0, *module);
 
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->insert( "source",*this );
-    mg->insert( "output", makeReseedable(abs_p) );
+    mg->insert("source", *this);
+    mg->insert("output", makeReseedable(abs_p));
     return makeReseedable(mg);
 }
 
@@ -20,20 +21,20 @@ Reseedable Reseedable::clamp(double lower, double upper)
     clamp_p->SetBounds(lower, upper);
 
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->insert( "source",*this );
-    mg->insert( "output", makeReseedable(clamp_p) );
+    mg->insert("source", *this);
+    mg->insert("output", makeReseedable(clamp_p));
     return makeReseedable(mg);
 }
 
-Reseedable Reseedable::pow(double exponent)
+Reseedable Reseedable::exp(double base)
 {
-    std::shared_ptr<noise::module::Exponent> exponent_p = std::make_shared<noise::module::Exponent>();
+    std::shared_ptr<Exp> exponent_p = std::make_shared<Exp>();
     exponent_p->SetSourceModule(0, *module);
-    exponent_p->SetExponent(exponent);
+    exponent_p->SetBase(base);
 
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->insert( "source",*this );
-    mg->insert( "output", makeReseedable(exponent_p) );
+    mg->insert("source", *this);
+    mg->insert("output", makeReseedable(exponent_p));
     return makeReseedable(mg);
 }
 
@@ -43,8 +44,8 @@ Reseedable Reseedable::invert()
     invert_p->SetSourceModule(0, *module);
 
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->insert( "source",*this );
-    mg->insert( "output", makeReseedable(invert_p) );
+    mg->insert("source", *this);
+    mg->insert("output", makeReseedable(invert_p));
     return makeReseedable(mg);
 }
 
@@ -56,8 +57,8 @@ Reseedable Reseedable::scaleBias(double scale, double bias)
     scale_bias_p->SetBias(bias);
 
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->insert( "source",*this );
-    mg->insert( "output", makeReseedable(scale_bias_p) );
+    mg->insert("source", *this);
+    mg->insert("output", makeReseedable(scale_bias_p));
     return makeReseedable(mg);
 }
 
@@ -68,9 +69,9 @@ Reseedable Reseedable::operator+(Reseedable & other)
     add_p->SetSourceModule(1, *other.module);
 
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->insert( "source0",*this );
-    mg->insert( "source1",other );
-    mg->insert( "output", makeReseedable(add_p) );
+    mg->insert("source0", *this);
+    mg->insert("source1", other);
+    mg->insert("output", makeReseedable(add_p));
     return makeReseedable(mg);
 }
 
@@ -82,9 +83,24 @@ Reseedable Reseedable::operator+(double bias)
     scale_bias_p->SetBias(bias);
 
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->insert( "source",*this );
-    mg->insert( "output", makeReseedable(scale_bias_p) );
+    mg->insert("source", *this);
+    mg->insert("output", makeReseedable(scale_bias_p));
     return makeReseedable(mg);
+}
+
+Reseedable Reseedable::operator-(Reseedable & other)
+{
+    return operator+(other.invert());
+}
+
+Reseedable Reseedable::operator-(double bias)
+{
+    return operator+(-bias);
+}
+
+Reseedable Reseedable::operator-()
+{
+    return invert();
 }
 
 Reseedable Reseedable::max(Reseedable & other)
@@ -94,11 +110,19 @@ Reseedable Reseedable::max(Reseedable & other)
     max_p->SetSourceModule(1, *other.module);
 
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->insert( "source0",*this );
-    mg->insert( "source1",other );
-    mg->insert( "output", makeReseedable(max_p) );
+    mg->insert("source0", *this);
+    mg->insert("source1", other);
+    mg->insert("output", makeReseedable(max_p));
     return makeReseedable(mg);
 }
+
+Reseedable Reseedable::max(double other)
+{
+    auto c = std::make_shared<noise::module::Const>();
+    c->SetConstValue(other);
+    return max(makeReseedable(c));
+}
+
 
 Reseedable Reseedable::min(Reseedable & other)
 {
@@ -107,10 +131,17 @@ Reseedable Reseedable::min(Reseedable & other)
     min_p->SetSourceModule(1, *other.module);
 
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->insert( "source0",*this );
-    mg->insert( "source1",other );
-    mg->insert( "output", makeReseedable(min_p) );
+    mg->insert("source0", *this);
+    mg->insert("source1", other);
+    mg->insert("output", makeReseedable(min_p));
     return makeReseedable(mg);
+}
+
+Reseedable Reseedable::min(double other)
+{
+    auto c = std::make_shared<noise::module::Const>();
+    c->SetConstValue(other);
+    return min(makeReseedable(c));
 }
 
 Reseedable Reseedable::operator*(Reseedable & other)
@@ -120,9 +151,9 @@ Reseedable Reseedable::operator*(Reseedable & other)
     multiply_p->SetSourceModule(1, *other.module);
 
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->insert( "source0",*this );
-    mg->insert( "source1",other );
-    mg->insert( "output", makeReseedable(multiply_p) );
+    mg->insert("source0", *this);
+    mg->insert("source1", other);
+    mg->insert("output", makeReseedable(multiply_p));
     return makeReseedable(mg);
 }
 
@@ -133,8 +164,8 @@ Reseedable Reseedable::operator*(double scale)
     scale_bias_p->SetScale(scale);
 
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->insert( "source",*this );
-    mg->insert( "output", makeReseedable(scale_bias_p) );
+    mg->insert("source", *this);
+    mg->insert("output", makeReseedable(scale_bias_p));
     return makeReseedable(mg);
 }
 
@@ -145,39 +176,51 @@ Reseedable Reseedable::pow(Reseedable & exponent)
     power_p->SetSourceModule(1, *exponent.module);
 
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->insert( "base",*this );
-    mg->insert( "exponent",exponent );
-    mg->insert( "output", makeReseedable(power_p) );
+    mg->insert("base", *this);
+    mg->insert("exponent", exponent);
+    mg->insert("output", makeReseedable(power_p));
     return makeReseedable(mg);
 }
 
-Reseedable Reseedable::blend(Reseedable & other, Reseedable & control)
+Reseedable Reseedable::pow(double exponent)
+{
+    std::shared_ptr<Power> exponent_p = std::make_shared<Power>();
+    exponent_p->SetSourceModule(0, *module);
+    exponent_p->SetExponent(exponent);
+
+    std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
+    mg->insert("source", *this);
+    mg->insert("output", makeReseedable(exponent_p));
+    return makeReseedable(mg);
+}
+
+Reseedable Reseedable::blend(Reseedable& source_a, Reseedable& source_b)
 {
     std::shared_ptr<noise::module::Blend> blend_p = std::make_shared<noise::module::Blend>();
-    blend_p->SetSourceModule(0, *module);
-    blend_p->SetSourceModule(1, *other.module);
-    blend_p->SetControlModule(*control.module);
+    blend_p->SetSourceModule(0, *source_a.module);
+    blend_p->SetSourceModule(1, *source_b.module);
+    blend_p->SetControlModule(*module);
 
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->insert( "source0",*this );
-    mg->insert( "source1",other );
-    mg->insert( "control",control );
-    mg->insert( "output", makeReseedable(blend_p) );
+    mg->insert("control", *this);
+    mg->insert("source0", source_a);
+    mg->insert("source1", source_b);
+    mg->insert("output", makeReseedable(blend_p));
     return makeReseedable(mg);
 }
 
-Reseedable Reseedable::select(Reseedable & other, Reseedable & control)
+Reseedable Reseedable::select(Reseedable& source_a, Reseedable& source_b)
 {
     std::shared_ptr<noise::module::Select> select_p = std::make_shared<noise::module::Select>();
-    select_p->SetSourceModule(0, *module);
-    select_p->SetSourceModule(1, *other.module);
-    select_p->SetControlModule(*control.module);
+    select_p->SetSourceModule(0, *source_a.module);
+    select_p->SetSourceModule(1, *source_b.module);
+    select_p->SetControlModule(*module);
 
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->insert( "source0",*this );
-    mg->insert( "source1",other );
-    mg->insert( "control",control );
-    mg->insert( "output", makeReseedable(select_p) );
+    mg->insert("control", *this);
+    mg->insert("source0", source_a);
+    mg->insert("source1", source_b);
+    mg->insert("output", makeReseedable(select_p));
     return makeReseedable(mg);
 }
 
