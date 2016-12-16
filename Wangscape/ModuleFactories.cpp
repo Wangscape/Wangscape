@@ -54,8 +54,7 @@ Reseedable makeZ()
     return makeReseedable(std::make_shared<GradientZ>());
 }
 
-Reseedable makeLinearMovingScaleBias(Reseedable & source,
-                                     bool x, bool positive,
+Reseedable makeLinearMovingScaleBias(Reseedable & source, bool x,
                                      double length, double middle_length)
 {
     if (length <= middle_length)
@@ -63,8 +62,10 @@ Reseedable makeLinearMovingScaleBias(Reseedable & source,
     Reseedable z = x ? makeX() : makeY();
     double slope_length = (length - middle_length) / 2.;
     double slope = 1. / slope_length;
-    Reseedable min = (z.abs()*(-slope) + 1).clamp(0, 1);
-    Reseedable max = (z.abs()*(-slope) + slope).clamp(0, 1);
+    double intercept = length*slope;
+    Reseedable peak = z.abs()*(-slope);
+    Reseedable min = (peak + 1).clamp(0, 1);
+    Reseedable max = (peak + intercept).clamp(0, 1);
 
     return makeMovingScaleBias(source, min, max);
 }
