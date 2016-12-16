@@ -4,7 +4,8 @@ NoiseMapBase::NoiseMapBase()
 {
 }
 
-NoiseMapBase::NoiseMapBase(Bounds bounds)
+NoiseMapBase::NoiseMapBase(Bounds bounds):
+    mBounds(bounds)
 {
 }
 
@@ -115,8 +116,10 @@ NoiseMapImage::Colour NoiseMapImage::get(size_t x, size_t y) const
 
 NoiseMapImage::Colour NoiseMapImage::makeColour(Real value)
 {
-    sf::Uint8 v = int((value + 1)*255. / 2.);
-    return Colour(v, v, v, 255);
+    return Colour(std::min(255, std::max(0, int(-value * 256))),
+                  0,
+                  std::min(255, std::max(0, int(value * 256))),
+                  255);
 }
 
 void NoiseMapImage::set(size_t x, size_t y, Real value)
