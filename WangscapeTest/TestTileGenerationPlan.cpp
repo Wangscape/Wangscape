@@ -8,9 +8,13 @@ class TestTileGenerationPlan : public ::testing::Test {
 protected:
     Reseedable x;
     Reseedable y;
+    Reseedable c0;
+    Reseedable c1;
     TestTileGenerationPlan() :
         x(makeX()),
-        y(makeY())
+        y(makeY()),
+        c0(makeConst(0)),
+        c1(makeConst(1))
     {
     };
     ~TestTileGenerationPlan() {};
@@ -39,25 +43,39 @@ TEST_F(TestTileGenerationPlan, TestTileGenerationPlan)
         output.saveToFile("test/"+filename+".png");
     };
 
-    write_map(x, "x", nmixy);
-    write_map(x, "x_", nmix_y);
-    write_map(y, "y", nmixy);
-    write_map(y, "y_", nmixy_);
+    //write_map(x, "x", nmixy);
+    //write_map(x, "x_", nmix_y);
+    //write_map(y, "y", nmixy);
+    //write_map(y, "y_", nmixy_);
+
+    //Reseedable msb_max_x = makeLinearMovingScaleBias(c1, true, 0.8, 0.3);
+    //Reseedable msb_max_y = makeLinearMovingScaleBias(c1, false, 0.8, 0.3);
+    //Reseedable msb_min_x = makeLinearMovingScaleBias(-c1, true, 0.8, 0.3);
+    //Reseedable msb_min_y = makeLinearMovingScaleBias(-c1, false, 0.8, 0.3);
+
+    //write_map(msb_max_x, "msb_max_x", nmixy);
+    //write_map(msb_max_y, "msb_max_y", nmixy);
+    //write_map(msb_min_x, "msb_min_x", nmixy);
+    //write_map(msb_min_y, "msb_min_y", nmixy);
+
+    Reseedable cc = makeCornerCombiner(true, true);
+    //write_map(cc, "ccxy", nmixy);
+    //write_map(cc, "ccxy_", nmixy_);
+    //write_map(cc, "ccx_y", nmix_y);
+    //write_map(cc, "ccx_y_", nmix_y_);
     
+    // this corner's weight in the tile centre
     Reseedable stochastic = makePlaceholder(259738);
+    // this corner's weight along its adjacent horizontal border
     Reseedable border_x = makePlaceholder(5204790);
+    // this corner's weight along its adjacent vertical border
     Reseedable border_y = makePlaceholder(923784);
 
     write_map(stochastic, "stochastic", nmixy);
-    write_map(border_x, "border_x", nmixy);
-    write_map(border_x, "border_x_", nmix_y);
-    write_map(border_y, "border_y", nmixy);
-    write_map(border_y, "border_y_", nmixy_);
-
-    Reseedable msb_x = makeLinearMovingScaleBias(y, true, 0.8, 0.3);
-    Reseedable msb_y = makeLinearMovingScaleBias(x, false, 0.8, 0.3);
-    write_map(msb_x, "msb_x", nmixy);
-    write_map(msb_y, "msb_y", nmixy);
+    write_map(border_x, "borderx_y", nmixy);
+    write_map(border_x, "borderx_y_", nmixy_);
+    write_map(border_y, "bordery_x", nmixy);
+    write_map(border_y, "bordery_x_", nmix_y);
 
     Reseedable msb_bx = makeLinearMovingScaleBias(border_x, true, 0.8, 0.3);
     Reseedable msb_by = makeLinearMovingScaleBias(border_y, false, 0.8, 0.3);
@@ -66,4 +84,9 @@ TEST_F(TestTileGenerationPlan, TestTileGenerationPlan)
     write_map(msb_by, "msb_by", nmixy);
     write_map(msb_by, "msb_by_", nmixy_);
 
+    Reseedable deterministic = cc.blend(msb_by, msb_bx);
+    write_map(deterministic, "deterministic", nmixy);
+
+    Reseedable ef = makeEdgeFavouringMask(2.5, 1.5);
+    write_map(ef, "ef", nmixy);
 }
