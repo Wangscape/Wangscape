@@ -31,7 +31,7 @@ protected:
 
 TEST_F(TestEdgeFavouringMask, TestEdgeFavouringMask1_1)
 {
-    EXPECT_EQ(0., n1_1.module->GetValue(0.5, 0.5, 0.5)) <<
+    EXPECT_EQ(-1., n1_1.module->GetValue(0.5, 0.5, 0.5)) <<
         "Incorrect value at origin";
 
     EXPECT_EQ(1., n1_1.module->GetValue(1., 1., 0.)) <<
@@ -58,7 +58,7 @@ TEST_F(TestEdgeFavouringMask, TestEdgeFavouringMask1_1)
 
 TEST_F(TestEdgeFavouringMask, TestEdgeFavouringMask1_2)
 {
-    EXPECT_EQ(0., n1_2.module->GetValue(0.5, 0.5, 0.5)) <<
+    EXPECT_EQ(-1., n1_2.module->GetValue(0.5, 0.5, 0.5)) <<
         "Incorrect value at origin";
 
     EXPECT_EQ(1., n1_2.module->GetValue(1., 1., 0.)) <<
@@ -85,7 +85,7 @@ TEST_F(TestEdgeFavouringMask, TestEdgeFavouringMask1_2)
 
 TEST_F(TestEdgeFavouringMask, TestEdgeFavouringMask2_1)
 {
-    EXPECT_EQ(0., n2_1.module->GetValue(0.5, 0.5, 0.5)) <<
+    EXPECT_EQ(-1., n2_1.module->GetValue(0.5, 0.5, 0.5)) <<
         "Incorrect value at origin";
 
     EXPECT_EQ(1., n2_1.module->GetValue(1., 1., 0.)) <<
@@ -106,13 +106,13 @@ TEST_F(TestEdgeFavouringMask, TestEdgeFavouringMask2_1)
     EXPECT_EQ(1., n2_1.module->GetValue(0.5, 0., 0.)) <<
         "Incorrect value on axis";
 
-    EXPECT_NEAR(sqrt(0.5), n2_1.module->GetValue(0.75, 0.75, 0.), 0.0001) <<
+    EXPECT_NEAR(2.*sqrt(0.5) - 1., n2_1.module->GetValue(0.75, 0.75, 0.), 0.0001) <<
         "Incorrect value";
 }
 
 TEST_F(TestEdgeFavouringMask, TestEdgeFavouringMask2_2)
 {
-    EXPECT_EQ(0., n2_2.module->GetValue(0.5, 0.5, 0.5)) <<
+    EXPECT_EQ(-1., n2_2.module->GetValue(0.5, 0.5, 0.5)) <<
         "Incorrect value at origin";
 
     EXPECT_EQ(1., n2_2.module->GetValue(1., 1., 0.)) <<
@@ -133,13 +133,13 @@ TEST_F(TestEdgeFavouringMask, TestEdgeFavouringMask2_2)
     EXPECT_EQ(1., n2_2.module->GetValue(0.5, 0., 0.)) <<
         "Incorrect value on axis";
 
-    EXPECT_NEAR(0.5, n2_2.module->GetValue(0.75, 0.75, 0.), 0.0001) <<
+    EXPECT_NEAR(0.0, n2_2.module->GetValue(0.75, 0.75, 0.), 0.0001) <<
         "Incorrect value";
 }
 
 TEST_F(TestEdgeFavouringMask, TestEdgeFavouringMask05_1)
 {
-    EXPECT_EQ(0., n05_1.module->GetValue(0.5, 0.5, 0.5)) <<
+    EXPECT_EQ(-1., n05_1.module->GetValue(0.5, 0.5, 0.5)) <<
         "Incorrect value at origin";
 
     EXPECT_EQ(1., n05_1.module->GetValue(1., 1., 0.)) <<
@@ -166,7 +166,7 @@ TEST_F(TestEdgeFavouringMask, TestEdgeFavouringMask05_1)
 
 TEST_F(TestEdgeFavouringMask, TestEdgeFavouringMask05_05)
 {
-    EXPECT_EQ(0., n05_05.module->GetValue(0.5, 0.5, 0.5)) <<
+    EXPECT_EQ(-1., n05_05.module->GetValue(0.5, 0.5, 0.5)) <<
         "Incorrect value at origin";
 
     EXPECT_EQ(1., n05_05.module->GetValue(1., 1., 0.)) <<
