@@ -17,21 +17,7 @@ Reseedable makePeak(bool x)
         gradient = makeReseedable(std::make_shared<GradientX>());
     else
         gradient = makeReseedable(std::make_shared<GradientY>());
-
-    std::shared_ptr<Abs> abs = std::make_shared<Abs>();
-    abs->SetSourceModule(0, *gradient.module);
-
-    std::shared_ptr<ScaleBias> scale_bias = std::make_shared<ScaleBias>();
-    scale_bias->SetSourceModule(0, *abs.get());
-    scale_bias->SetScale(-1.);
-    scale_bias->SetBias(1.);
-
-    std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->insert( mg->output_id, makeReseedable(scale_bias) );
-    mg->insert( "abs",makeReseedable(abs) );
-    mg->insert( "gradient",gradient );
-
-    return makeReseedable(mg);
+    return gradient.abs().scaleBias(-1, 1);
 }
 
 Reseedable makeCornerCombiner(bool x_positive, bool y_positive, double power)
