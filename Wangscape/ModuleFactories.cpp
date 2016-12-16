@@ -22,24 +22,8 @@ Reseedable makePeak(bool x)
 
 Reseedable makeCornerCombiner(bool x_positive, bool y_positive, double power)
 {
-    std::shared_ptr<CornerCombinerBase> corner_combiner_base = std::make_shared<CornerCombinerBase>(power);
-
-    std::shared_ptr<ScaleBias> scale_bias = std::make_shared<ScaleBias>();
-    scale_bias->SetBias(0.5);
-    scale_bias->SetScale(0.5);
-    scale_bias->SetSourceModule(0, *corner_combiner_base.get());
-
-    std::shared_ptr<Clamp> clamp = std::make_shared<Clamp>();
-    clamp->SetBounds(0., 1.);
-    clamp->SetSourceModule(0, *scale_bias.get());
-
-    std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->insert( mg->output_id,makeReseedable(clamp) );
-    mg->insert( "scale_bias", makeReseedable(scale_bias) );
-    mg->insert( "corner_combiner_base", makeReseedable(corner_combiner_base) );
-
-    return makeReseedable(mg);
-
+    Reseedable corner_combiner_base = makeReseedable(std::make_shared<CornerCombinerBase>(power));
+    return corner_combiner_base.clamp(-1, 1);
 }
 
 Reseedable makeEdgeFavouringMask(double p, double q, double min)
