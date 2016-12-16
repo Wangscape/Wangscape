@@ -12,7 +12,7 @@ using noise::module::Perlin;
 
 Reseedable makePeak(bool x)
 {
-    Reseedable gradient = x ? makeX() = makeY();
+    Reseedable gradient = x ? makeX() : makeY();
     return makeX().abs().scaleBias(-1, 1);
 }
 
