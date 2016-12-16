@@ -199,3 +199,9 @@ TEST_F(TestReseedable, TestReseedableTurbulence)
     EXPECT_TRUE(false) << "Test not implemented";
 
 }
+
+TEST_F(TestReseedable, TestReseedableConst)
+{
+    EXPECT_EQ(3.6345, makeConst(3.6345).module->GetValue(52935874, 57432895, 2549));
+    EXPECT_EQ(-3045.25, makeConst(-3045.25).module->GetValue(259, 594, 239587));
+}
