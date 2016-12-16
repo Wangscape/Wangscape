@@ -3,7 +3,7 @@
 #include "CornerCombinerBase.h"
 #include "Reseedable.h"
 
-//ModuleGroup::ModulePtr makeQuadrantSelector(bool x,  bool y)
+Reseedable makeQuadrantSelector(Reseedable& source, bool x, bool y);
 
 // Makes a CornerCombiner scaled and clamped to the interval [-1., 1.].
 Reseedable makeCornerCombiner(bool x_positive, bool y_positive, double power = 2.);

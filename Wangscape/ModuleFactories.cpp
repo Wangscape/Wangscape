@@ -11,6 +11,11 @@ using noise::module::TranslatePoint;
 using noise::module::ScalePoint;
 using noise::module::Perlin;
 
+Reseedable makeQuadrantSelector(Reseedable& source, bool x, bool y)
+{
+    return source.translatePoint(x ? 0 : -1, y ? 0 : -1, 0);
+}
+
 Reseedable makeCornerCombiner(bool x_positive, bool y_positive, double power)
 {
     Reseedable corner_combiner_base = makeReseedable(std::make_shared<CornerCombinerBase>(power));
