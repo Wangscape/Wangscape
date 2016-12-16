@@ -12,7 +12,7 @@ Reseedable makePeak(bool x);
 Reseedable makeCornerCombiner(bool x_positive, bool y_positive, double power = 2.);
 
 // Makes a NormLPQ clamped to the interval [0., 1.].
-Reseedable makeEdgeFavouringMask(double p, double q=1., double min=0.);
+Reseedable makeEdgeFavouringMask(double p, double q=1., double min=-1.);
 
 // Makes a placeholder noise module (a Perlin noise module with typical parameters).
 Reseedable makePlaceholder(int seed = 0,
