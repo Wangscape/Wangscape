@@ -33,8 +33,8 @@ Reseedable makeEdgeFavouringMask(double p, double q, double min)
     return norm_lp_q
         .translatePoint(-1., -1., 0.)
         .scalePoint(2., 2., 0.)
-        .scaleBias(2., -1)
-        .clamp(-1., 1.);
+        .scaleBias(1.-min, min)
+        .clamp(min, 1.);
 }
 
 Reseedable makePlaceholder(int seed,
