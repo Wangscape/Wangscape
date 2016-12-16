@@ -14,7 +14,8 @@ protected:
         x(makeX()),
         y(makeY()),
         msb(makeMovingScaleBias(x, (y * 2) + 1, (y * 3) + 2)),
-        lmsb1(makeLinearMovingScaleBias(y, true)),
+        // these need updating for 2D lmsbs!
+        lmsb1(makeLinearMovingScaleBias(y, true,true)),
         lmsb2(makeLinearMovingScaleBias(x, false, 0.5, 0.25))
     {
 
