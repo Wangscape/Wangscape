@@ -2,6 +2,7 @@
 #include "Gradient.h"
 #include "NormLPQ.h"
 #include "MakeReseedable.h"
+#include <stdexcept>
 
 using noise::module::Abs;
 using noise::module::ScaleBias;
@@ -51,6 +52,21 @@ Reseedable makeY()
 Reseedable makeZ()
 {
     return makeReseedable(std::make_shared<GradientZ>());
+}
+
+Reseedable makeLinearMovingScaleBias(Reseedable & source,
+                                     bool x, bool positive,
+                                     double length, double middle_length)
+{
+    if (length <= middle_length)
+        throw std::domain_error("LinearMovingScaleBias must have length greater than middle_length");
+    Reseedable z = x ? makeX() : makeY();
+    double slope_length = (length - middle_length) / 2.;
+    double slope = 1. / slope_length;
+    Reseedable min = (z.abs()*(-slope) + 1).clamp(0, 1);
+    Reseedable max = (z.abs()*(-slope) + slope).clamp(0, 1);
+
+    return makeMovingScaleBias(source, min, max);
 }
 
 Reseedable makePlaceholder(int seed,
