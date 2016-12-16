@@ -19,7 +19,6 @@ public:
 
     virtual size_t sizeX() const = 0;
     virtual size_t sizeY() const = 0;
-    virtual void set(size_t x, size_t y, Real value) const = 0;
 protected:
     virtual void set(size_t x, size_t y, Real value) = 0;
     Bounds mBounds;
@@ -37,7 +36,7 @@ public:
     virtual size_t sizeY() const;
     Real get(size_t x, size_t y) const;
 protected:
-    void set(size_t x, size_t y, Real value);
+    virtual void set(size_t x, size_t y, Real value);
     size_t index(size_t x, size_t y) const;
     size_t mSizeX;
     size_t mSizeY;
