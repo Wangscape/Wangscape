@@ -16,8 +16,11 @@ Reseedable makeEdgeFavouringMask(double p, double q=1., double min=-1.);
 
 // Makes a placeholder noise module (a Perlin noise module with typical parameters).
 Reseedable makePlaceholder(int seed = 0,
-                          int octaves = 5,
-                          double frequency=1.,
-                          double lacunarity=2.,
-                          double persistence=0.5,
-                          noise::NoiseQuality quality=noise::QUALITY_FAST);
+                           int octaves = 5,
+                           double frequency = 1.,
+                           double lacunarity = 2.,
+                           double persistence = 0.5,
+                           noise::NoiseQuality quality = noise::QUALITY_FAST,
+                           double origin_x=1.1,
+                           double origin_y=2.2,
+                           double origin_z=3.3);

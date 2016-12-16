@@ -42,7 +42,10 @@ Reseedable makePlaceholder(int seed,
                            double frequency,
                            double lacunarity,
                            double persistence,
-                           noise::NoiseQuality quality)
+                           noise::NoiseQuality quality,
+                           double origin_x,
+                           double origin_y,
+                           double origin_z)
 {
     std::shared_ptr<Perlin> placeholder = std::make_shared<Perlin>();
     placeholder->SetSeed(seed);
@@ -51,5 +54,5 @@ Reseedable makePlaceholder(int seed,
     placeholder->SetLacunarity(lacunarity);
     placeholder->SetPersistence(persistence);
     placeholder->SetNoiseQuality(quality);
-    return makeReseedable(placeholder);
+    return makeReseedable(placeholder).translatePoint(origin_x,origin_y,origin_z);
 }
