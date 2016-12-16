@@ -3,9 +3,6 @@
 #include "CornerCombinerBase.h"
 #include "Reseedable.h"
 
-// Makes a ModuleGroup with values 1-|x| or 1-|y|.
-Reseedable makePeak(bool x);
-
 //ModuleGroup::ModulePtr makeQuadrantSelector(bool x,  bool y)
 
 // Makes a CornerCombiner scaled and clamped to the interval [-1., 1.].

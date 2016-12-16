@@ -11,12 +11,6 @@ using noise::module::TranslatePoint;
 using noise::module::ScalePoint;
 using noise::module::Perlin;
 
-Reseedable makePeak(bool x)
-{
-    Reseedable gradient = x ? makeX() : makeY();
-    return makeX().abs().scaleBias(-1, 1);
-}
-
 Reseedable makeCornerCombiner(bool x_positive, bool y_positive, double power)
 {
     Reseedable corner_combiner_base = makeReseedable(std::make_shared<CornerCombinerBase>(power));
