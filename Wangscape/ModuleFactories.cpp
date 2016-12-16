@@ -28,37 +28,13 @@ Reseedable makeCornerCombiner(bool x_positive, bool y_positive, double power)
 
 Reseedable makeEdgeFavouringMask(double p, double q, double min)
 {
-    std::shared_ptr<NormLPQ> norm_lp_q = std::make_shared<NormLPQ>(p, q);
+    Reseedable norm_lp_q = makeReseedable(std::make_shared<NormLPQ>(p, q));
 
-    std::shared_ptr<TranslatePoint> translate = std::make_shared<TranslatePoint>();
-    translate->SetXTranslation(-1.);
-    translate->SetYTranslation(-1.);
-    translate->SetZTranslation(0.);
-    translate->SetSourceModule(0, *norm_lp_q.get());
-
-    std::shared_ptr<ScalePoint> scale_point = std::make_shared<ScalePoint>();
-    scale_point->SetXScale(2.);
-    scale_point->SetYScale(2.);
-    scale_point->SetZScale(0.);
-    scale_point->SetSourceModule(0, *translate.get());
-
-    std::shared_ptr<ScaleBias> scale_bias = std::make_shared<ScaleBias>();
-    scale_bias->SetBias(min);
-    scale_bias->SetScale(1. - min);
-    scale_bias->SetSourceModule(0, *scale_point.get());
-
-    std::shared_ptr<Clamp> clamp = std::make_shared<Clamp>();
-    clamp->SetBounds(min, 1.);
-    clamp->SetSourceModule(0, *scale_bias.get());
-
-    std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
-    mg->insert( mg->output_id, makeReseedable(clamp) );
-    mg->insert( "scale_bias",makeReseedable(scale_bias) );
-    mg->insert( "scale_point",makeReseedable(scale_point) );
-    mg->insert( "translate", makeReseedable(translate) );
-    mg->insert( "norm_lp_q", makeReseedable(norm_lp_q) );
-
-    return makeReseedable(mg);
+    return norm_lp_q
+        .translatePoint(-1., -1., 0.)
+        .scalePoint(2., 2., 0.)
+        .scaleBias(2., -1)
+        .clamp(-1., 1.);
 }
 
 Reseedable makePlaceholder(int seed,
