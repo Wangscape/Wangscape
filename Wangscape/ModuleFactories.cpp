@@ -60,16 +60,18 @@ Reseedable makeConst(double c)
     return makeReseedable(c_p);
 }
 
-Reseedable makeLinearMovingScaleBias(Reseedable & source, bool x,
+Reseedable makeLinearMovingScaleBias(Reseedable & source,
+                                     bool x_positive, bool y_positive,
                                      double length, double middle_length)
 {
     if (length <= middle_length)
         throw std::domain_error("LinearMovingScaleBias must have length greater than middle_length");
-    Reseedable z = x ? makeX() : makeY();
+    Reseedable x = x_positive ? makeX() : -makeX();
+    Reseedable y = y_positive ? makeY() : -makeY();
     double slope_length = (length - middle_length) / 2.;
     double slope = 1. / slope_length;
     double intercept = length*slope;
-    Reseedable peak = z.abs()*(-slope);
+    Reseedable peak = (x+y).abs()*(-slope);
     Reseedable min = (peak + 1).clamp(0, 1);
     Reseedable max = (peak + intercept).clamp(0, 1);
 

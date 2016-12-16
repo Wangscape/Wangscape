@@ -27,7 +27,8 @@ Reseedable makeZ();
 Reseedable makeConst(double c);
 
 // Makes a MovingScaleBias instance which grows linearly from [0,0] to [0,1], then shrinks to [1,1].
-Reseedable makeLinearMovingScaleBias(Reseedable& source, bool x,
+Reseedable makeLinearMovingScaleBias(Reseedable & source,
+                                     bool x_positive, bool y_positive,
                                      double length = 1., double middle_length = 0.);
 
 // Makes a placeholder noise module (a Perlin noise module with typical parameters).
