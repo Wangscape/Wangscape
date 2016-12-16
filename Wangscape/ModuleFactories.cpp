@@ -12,12 +12,8 @@ using noise::module::Perlin;
 
 Reseedable makePeak(bool x)
 {
-    Reseedable gradient;
-    if (x)
-        gradient = makeReseedable(std::make_shared<GradientX>());
-    else
-        gradient = makeReseedable(std::make_shared<GradientY>());
-    return gradient.abs().scaleBias(-1, 1);
+    Reseedable gradient = x ? makeX() = makeY();
+    return makeX().abs().scaleBias(-1, 1);
 }
 
 Reseedable makeCornerCombiner(bool x_positive, bool y_positive, double power)
@@ -35,6 +31,26 @@ Reseedable makeEdgeFavouringMask(double p, double q, double min)
         .scalePoint(2., 2., 0.)
         .scaleBias(1.-min, min)
         .clamp(min, 1.);
+}
+
+Reseedable makeMovingScaleBias(Reseedable& source, Reseedable& min, Reseedable& max)
+{
+    return ((source + 1)*0.5*(max - min)) + min;
+}
+
+Reseedable makeX()
+{
+    return makeReseedable(std::make_shared<GradientX>());
+}
+
+Reseedable makeY()
+{
+    return makeReseedable(std::make_shared<GradientY>());
+}
+
+Reseedable makeZ()
+{
+    return makeReseedable(std::make_shared<GradientZ>());
 }
 
 Reseedable makePlaceholder(int seed,

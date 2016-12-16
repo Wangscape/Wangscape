@@ -14,6 +14,18 @@ Reseedable makeCornerCombiner(bool x_positive, bool y_positive, double power = 2
 // Makes a NormLPQ clamped to the interval [min, 1.].
 Reseedable makeEdgeFavouringMask(double p, double q=1., double min=-1.);
 
+// Makes a noise module that rescales a module from range [-1,1] to range [min,max].
+Reseedable makeMovingScaleBias(Reseedable& source, Reseedable& min, Reseedable& max);
+
+// Makes a noise module with value equal to x.
+Reseedable makeX();
+
+// Makes a noise module with value equal to y.
+Reseedable makeY();
+
+// Makes a noise module with value equal to z.
+Reseedable makeZ();
+
 // Makes a placeholder noise module (a Perlin noise module with typical parameters).
 Reseedable makePlaceholder(int seed = 0,
                            int octaves = 5,

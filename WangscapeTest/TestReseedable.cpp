@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <MakeReseedable.h>
-#include <Gradient.h>
+#include <ModuleFactories.h>
 
 class TestReseedable : public ::testing::Test {
 protected:
@@ -9,8 +9,8 @@ protected:
     Reseedable y;
     Reseedable c05;
     TestReseedable() :
-        x(makeReseedable(std::make_shared<GradientX>())),
-        y(makeReseedable(std::make_shared<GradientY>())),
+        x(makeX()),
+        y(makeY()),
         c05(makeReseedable(std::make_shared<noise::module::Const>()))
     {
         ((noise::module::Const&)(*c05.module)).SetConstValue(0.5);
