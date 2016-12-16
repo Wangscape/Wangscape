@@ -45,6 +45,7 @@ protected:
 
 class NoiseMapImage : public NoiseMapBase
 {
+public:
     typedef sf::Color Colour;
     typedef std::function<Colour(Real)> ColourMaker;
     typedef sf::Image Image;
