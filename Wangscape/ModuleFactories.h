@@ -23,6 +23,9 @@ Reseedable makeY();
 // Makes a noise module with value equal to z.
 Reseedable makeZ();
 
+// Makes a constant noise module with value c.
+Reseedable makeConst(double c);
+
 // Makes a MovingScaleBias instance which grows linearly from [0,0] to [0,1], then shrinks to [1,1].
 Reseedable makeLinearMovingScaleBias(Reseedable& source, bool x,
                                      double length = 1., double middle_length = 0.);

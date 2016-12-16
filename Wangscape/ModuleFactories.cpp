@@ -53,6 +53,13 @@ Reseedable makeZ()
     return makeReseedable(std::make_shared<GradientZ>());
 }
 
+Reseedable makeConst(double c)
+{
+    auto c_p = std::make_shared<noise::module::Const>();
+    c_p->SetConstValue(c);
+    return makeReseedable(c_p);
+}
+
 Reseedable makeLinearMovingScaleBias(Reseedable & source, bool x,
                                      double length, double middle_length)
 {
