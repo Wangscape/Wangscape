@@ -1,0 +1,3 @@
+[submodule "lib/spotify-json"]
+	path = lib/spotify-json
+	url = https://github.com/spotify/spotify-json.git
