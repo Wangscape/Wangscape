@@ -112,28 +112,28 @@ void MetaOutput::setResolution(size_t resolution)
         (*it).value.Set(resolution);
 }
 
-void MetaOutput::writeTileData(std::string filename) const
+void MetaOutput::writeJsonObjectToFile(const rapidjson::Document& object, std::string filename) const
 {
     std::ofstream ofs(filename);
     rapidjson::OStreamWrapper osw(ofs);
     rapidjson::Writer<rapidjson::OStreamWrapper> writer(osw);
-    mTileData.Accept(writer);
+    object.Accept(writer);
+
+}
+
+void MetaOutput::writeTileData(std::string filename) const
+{
+    writeJsonObjectToFile(mTileData, filename);
 }
 
 void MetaOutput::writeTileGroups(std::string filename) const
 {
-    std::ofstream ofs(filename);
-    rapidjson::OStreamWrapper osw(ofs);
-    rapidjson::Writer<rapidjson::OStreamWrapper> writer(osw);
-    mTileGroups.Accept(writer);
+    writeJsonObjectToFile(mTileGroups, filename);
 }
 
 void MetaOutput::writeTilesetData(std::string filename) const
 {
-    std::ofstream ofs(filename);
-    rapidjson::OStreamWrapper osw(ofs);
-    rapidjson::Writer<rapidjson::OStreamWrapper> writer(osw);
-    mTilesetData.Accept(writer);
+    writeJsonObjectToFile(mTilesetData, filename);
 }
 
 void MetaOutput::writeTerrainHypergraph(std::string filename) const
@@ -160,11 +160,7 @@ void MetaOutput::writeTerrainHypergraph(std::string filename) const
         tad.AddMember(v, v_item, allocator);
     }
 
-    std::ofstream ofs(filename);
-    rapidjson::OStreamWrapper osw(ofs);
-    rapidjson::Writer<rapidjson::OStreamWrapper> writer(osw);
-    tad.Accept(writer);
-
+    writeJsonObjectToFile(tad, filename);
 }
 
 void MetaOutput::writeAll(const Options & options) const

@@ -30,5 +30,7 @@ protected:
     rapidjson::Document mTileData;
     rapidjson::Document mTileGroups;
     TerrainHypergraph mTerrainHypergraph;
+private:
+    void writeJsonObjectToFile(const rapidjson::Document& object, std::string filename) const;
 };
 
