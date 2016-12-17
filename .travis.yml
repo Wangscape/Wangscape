@@ -18,9 +18,7 @@ addons:
       - g++-5
       - gcc-5
       - cmake
-      - rapidjson-dev
       - libsfml-dev
-      - libnoise-dev
       - libboost-filesystem-dev
 
 install:
