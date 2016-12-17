@@ -3,6 +3,7 @@
 #include <MakeReseedable.h>
 #include <ModuleFactories.h>
 #include <NoiseMap.h>
+#include <random>
 
 class TestTileGenerationPlan : public ::testing::Test {
 protected:
@@ -43,37 +44,44 @@ TEST_F(TestTileGenerationPlan, TestTileGenerationPlan)
         output.saveToFile("test/"+filename+".png");
     };
 
-    //write_map(x, "x", nmixy);
-    //write_map(x, "x_", nmix_y);
-    //write_map(y, "y", nmixy);
-    //write_map(y, "y_", nmixy_);
+    write_map(x, "x", nmixy);
+    write_map(x, "x_", nmix_y);
+    write_map(y, "y", nmixy);
+    write_map(y, "y_", nmixy_);
 
-    //Reseedable msb_max_xy = makeLinearMovingScaleBias(c1, true, true 0.8, 0.3);
-    //Reseedable msb_max_xy_ = makeLinearMovingScaleBias(c1, true, false, 0.8, 0.3);
-    //Reseedable msb_max_x_y = makeLinearMovingScaleBias(-c1, false, true, 0.8, 0.3);
-    //Reseedable msb_max_x_y_ = makeLinearMovingScaleBias(-c1, false, false, 0.8, 0.3);
-    //Reseedable msb_min_xy = makeLinearMovingScaleBias(c1, true, true 0.8, 0.3);
-    //Reseedable msb_min_xy_ = makeLinearMovingScaleBias(c1, true, false, 0.8, 0.3);
-    //Reseedable msb_min_x_y = makeLinearMovingScaleBias(-c1, false, true, 0.8, 0.3);
-    //Reseedable msb_min_x_y_ = makeLinearMovingScaleBias(-c1, false, false, 0.8, 0.3);
+    Reseedable msb_max_xy = makeLinearMovingScaleBias(c1, true, true, 0.7, 0.25);
+    Reseedable msb_max_xy_ = makeLinearMovingScaleBias(c1, true, false, 0.7, 0.25);
+    Reseedable msb_max_x_y = makeLinearMovingScaleBias(c1, false, true, 0.7, 0.25);
+    Reseedable msb_max_x_y_ = makeLinearMovingScaleBias(c1, false, false, 0.7, 0.25);
+    Reseedable msb_min_xy = makeLinearMovingScaleBias(-c1, true, true, 0.7, 0.25);
+    Reseedable msb_min_xy_ = makeLinearMovingScaleBias(-c1, true, false, 0.7, 0.25);
+    Reseedable msb_min_x_y = makeLinearMovingScaleBias(-c1, false, true, 0.7, 0.25);
+    Reseedable msb_min_x_y_ = makeLinearMovingScaleBias(-c1, false, false, 0.7, 0.25);
 
-    //write_map(msb_max_x, "msb_max_x", nmixy);
-    //write_map(msb_max_y, "msb_max_y", nmixy);
-    //write_map(msb_min_x, "msb_min_x", nmixy);
-    //write_map(msb_min_y, "msb_min_y", nmixy);
+    write_map(msb_max_xy, "msb_max_xy", nmixy);
+    write_map(msb_max_x_y, "msb_max_x_y", nmix_y);
+    write_map(msb_max_xy_, "msb_max_xy_", nmixy_);
+    write_map(msb_max_x_y_, "msb_max_x_y_", nmix_y_);
+    write_map(msb_min_xy, "msb_min_xy", nmixy);
+    write_map(msb_min_x_y, "msb_min_x_y", nmix_y);
+    write_map(msb_min_xy_, "msb_min_xy_", nmixy_);
+    write_map(msb_min_x_y_, "msb_min_x_y_", nmix_y_);
 
     Reseedable cc = makeCornerCombiner(true, true);
-    //write_map(cc, "ccxy", nmixy);
-    //write_map(cc, "ccxy_", nmixy_);
-    //write_map(cc, "ccx_y", nmix_y);
-    //write_map(cc, "ccx_y_", nmix_y_);
+    write_map(cc, "ccxy", nmixy);
+    write_map(cc, "ccxy_", nmixy_);
+    write_map(cc, "ccx_y", nmix_y);
+    write_map(cc, "ccx_y_", nmix_y_);
+
+    std::mt19937 rng;
+    rng.seed((unsigned int)time(nullptr));
     
     // this corner's weight in the tile centre
-    Reseedable stochastic = makePlaceholder(259738);
+    Reseedable stochastic = makePlaceholder(rng()).scaleBias(0.5,0.5);
     // this corner's weight along its adjacent horizontal border
-    Reseedable border_x = makePlaceholder(5204790);
+    Reseedable border_x = makePlaceholder(rng());
     // this corner's weight along its adjacent vertical border
-    Reseedable border_y = makePlaceholder(923784);
+    Reseedable border_y = makePlaceholder(rng());
 
     write_map(stochastic, "stochastic", nmixy);
     write_map(border_x, "borderx_y", nmixy);
@@ -84,10 +92,10 @@ TEST_F(TestTileGenerationPlan, TestTileGenerationPlan)
     Reseedable border_xy = cc.blend(border_y, border_x);
     write_map(border_xy, "border_xy", nmixy);
 
-    Reseedable deterministic = makeLinearMovingScaleBias(border_xy, true, true, 0.8, 0.3);
+    Reseedable deterministic = makeLinearMovingScaleBias(border_xy, true, true, 0.7, 0.25);
     write_map(deterministic, "deterministic", nmixy);
 
-    Reseedable ef = makeEdgeFavouringMask(2.5, 1.5);
+    Reseedable ef = makeEdgeFavouringMask(1.5, 1.);
     write_map(ef, "ef", nmixy);
 
     Reseedable corner = ef.blend(stochastic, deterministic);

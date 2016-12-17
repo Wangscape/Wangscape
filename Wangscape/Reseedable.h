@@ -12,7 +12,9 @@ struct Reseedable
 {
     ModulePtr module;
     SetSeedFn setSeed;
+
     double getValue(double x, double y, double z);
+
     Reseedable abs();
     Reseedable clamp(double lower, double upper);
     Reseedable pow(Reseedable& exponent);
