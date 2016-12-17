@@ -1,7 +1,8 @@
 #pragma once
+#include "Corners.h"
 #include <cstddef>
 #include <string>
 
 typedef std::string TerrainID;
 
-static size_t const CORNERS = 4;
+static Corners const CORNERS = Corners::Square;

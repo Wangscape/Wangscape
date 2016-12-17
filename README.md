@@ -21,15 +21,16 @@ Rather than matching graphical tiles with the representation of logical tiles on
 * In future this will be much more customisable, using Perlin noise to generate noisy gradients and boundaries betwen corners.
 * Currently all tile generation is done through a command-line application configured using a JSON file. In the future, this should be migrated to a GUI interface which allows the user to alter tile generation parameters and immediately see the range of possible results.
 
-# How can it build?
+# How can I build Wangscape?
 
-Wangscape depends on two libraries:
+Wangscape depends on these libraries:
 * **Boost**
   - system
   - filesystem
 * **SFML 2**
   - system
   - graphics
+* **rapidjson**
 
 After installing them, you can compile Wangscape using either of the methods
 below.
@@ -55,6 +56,12 @@ It will check for required libraries and prepare files for the next step.
 
 ```shell
 make
+```
+
+#### 4. To run **unit tests** just execute:
+
+```shell
+./bin/WangscapeTest
 ```
 
 # Example

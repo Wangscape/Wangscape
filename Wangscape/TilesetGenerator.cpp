@@ -1,3 +1,4 @@
+#include "Corners.h"
 #include "TilesetGenerator.h"
 #include "TileGenerator.h"
 #include <functional>
@@ -28,34 +29,21 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
     boost::filesystem::path p(options.relativeOutputDirectory);
     for (const auto& clique : options.cliques)
     {
-        size_t res_x = options.resolution;
-        size_t res_y = options.resolution;
-        bool x_dimension = true;
-        for (int i = 0; i < CORNERS; i++)
-        {
-            size_t& res_z = x_dimension ? res_x : res_y;
-            res_z *= clique.size();
-            x_dimension = !x_dimension;
-        }
-        // prepare a blank image of size res_x*res_y
-        sf::RenderTexture output;
-        output.create(res_x, res_y);
-        output.clear(sf::Color(0,0,0,255));
-        std::stringstream ss;
-        for (auto terrain : clique)
-        {
-            ss << terrain << ".";
-        }
-        ss << options.fileType;
-        std::string filename = ss.str();
+        std::pair<size_t, size_t> tileset_resolution = calculateTilesetResolution(clique.size());
+        size_t res_x = tileset_resolution.first;
+        size_t res_y = tileset_resolution.second;
+        std::unique_ptr<sf::RenderTexture> output{getBlankImage(res_x, res_y)};
+
+        auto filename = getOutputImageFilename(clique);
+
         // MetaOutput.addTileset, addTile should use this version of filename;
         // relative to output dir, not options dir!
         mo.addTileset(clique, filename, res_x, res_y);
-        generateClique(clique, output, filename, TileGenerator::generate);
-        output.display();
+        generateClique(clique, *output, filename, TileGenerator::generate);
+        output->display();
 
         p.append(filename);
-        callback(output.getTexture(), p.string());
+        callback(output->getTexture(), p.string());
         p.remove_filename();
     }
 }
@@ -63,19 +51,17 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
 void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderTexture& image, std::string filename,
                                       TileGenerator::TileGenerateFunction callback)
 {
-    std::vector<TerrainID> corner_terrains(CORNERS, clique[0]);
-    std::vector<size_t> corner_clique_indices(CORNERS, 0);
+    std::vector<TerrainID> corner_terrains(static_cast<size_t>(CORNERS), clique[0]);
+    std::vector<size_t> corner_clique_indices(static_cast<size_t>(CORNERS), 0);
     bool stop = false;
     while (!stop)
     {
         size_t x = 0; size_t y = 0;
-        bool x_dimension = true;
-        for (size_t i : corner_clique_indices)
+        for (size_t i = 0; i < corner_clique_indices.size(); i++)
         {
-            size_t& z = x_dimension ? x : y;
+            size_t& z = ((i + 1) % 2) ? x : y;
             z *= clique.size();
-            z += i;
-            x_dimension = !x_dimension;
+            z += corner_clique_indices[i];
         }
         callback(image, x, y, corner_terrains, images, options);
         mo.addTile(corner_terrains, filename, x*options.resolution, y*options.resolution);
@@ -102,4 +88,47 @@ void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderT
             }
         }
     }
+}
+
+std::string TilesetGenerator::getOutputImageFilename(const Options::Clique& clique) const
+{
+    std::stringstream ss;
+    for (auto terrain : clique)
+    {
+        ss << terrain << ".";
+    }
+    ss << options.fileType;
+    return ss.str();
+}
+
+std::unique_ptr<sf::RenderTexture> TilesetGenerator::getBlankImage(size_t res_x, size_t res_y) const
+{
+    std::unique_ptr<sf::RenderTexture> output{std::make_unique<sf::RenderTexture>()};
+    output->create(res_x, res_y);
+    output->clear(sf::Color(0,0,0,255));
+    return output;
+}
+
+std::pair<size_t, size_t> TilesetGenerator::calculateTilesetResolution(size_t clique_size) const
+{
+    size_t res_x;
+    size_t res_y;
+    switch (CORNERS)
+    {
+    case Corners::Triangle:
+        res_y = options.resolution*clique_size;
+        res_x = res_y*clique_size;
+        break;
+    case Corners::Square:
+        res_x = options.resolution*clique_size*clique_size;
+        res_y = res_x;
+        break;
+    case Corners::Hexagon:
+        res_x = options.resolution*clique_size*clique_size*clique_size;
+        res_y = res_x;
+        break;
+    default:
+        throw std::out_of_range("Unsupported value of CORNERS variable");
+    }
+    return{ res_x, res_y };
 }
