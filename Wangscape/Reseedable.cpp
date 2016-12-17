@@ -3,6 +3,11 @@
 #include "ModuleGroup.h"
 #include "Exp.h"
 
+double Reseedable::getValue(double x, double y, double z)
+{
+    return module->GetValue(x, y, z);
+}
+
 Reseedable Reseedable::abs()
 {
     std::shared_ptr<noise::module::Abs> abs_p = std::make_shared<noise::module::Abs>();
