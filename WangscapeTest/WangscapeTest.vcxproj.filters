@@ -21,12 +21,6 @@
     <ClCompile Include="TestTilesetGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestTilePartitionSquares.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TestTilePartitionGradient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TestOptions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -52,6 +46,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TestTileGenerationPlan.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestTilePartitionerGradient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestTilePartitionerSquares.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

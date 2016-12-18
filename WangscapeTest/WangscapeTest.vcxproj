@@ -156,8 +156,8 @@
     <ClCompile Include="TestOptions.cpp" />
     <ClCompile Include="TestReseedable.cpp" />
     <ClCompile Include="TestTileGenerationPlan.cpp" />
-    <ClCompile Include="TestTilePartitionGradient.cpp" />
-    <ClCompile Include="TestTilePartitionSquares.cpp" />
+    <ClCompile Include="TestTilePartitionerGradient.cpp" />
+    <ClCompile Include="TestTilePartitionerSquares.cpp" />
     <ClCompile Include="TestTilesetGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
