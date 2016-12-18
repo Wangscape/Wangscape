@@ -56,9 +56,6 @@
     <ClInclude Include="TilePartitionPerlin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BorderInfo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="NoiseMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
