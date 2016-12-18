@@ -45,8 +45,6 @@ protected:
     Data mData;
 };
 
-template class NoiseMapVector<float>;
-
 class NoiseMapImage : public NoiseMapBase
 {
 public:

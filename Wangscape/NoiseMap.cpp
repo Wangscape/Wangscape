@@ -133,3 +133,5 @@ void NoiseMapImage::set(size_t x, size_t y, Real value)
 {
     mImage.setPixel(x, y, makeColour(value));
 }
+
+template class NoiseMapVector<float>;
