@@ -18,9 +18,9 @@ NoiseModuleManager::NoiseModuleManager(const Options & options) :
             {
                 TerrainIDPair tp{t1, t2};
                 if (mBordersHorizontal.find(tp) == mBordersHorizontal.end())
-                    mBordersHorizontal.insert({tp, makePlaceholder(rng())});
+                    mBordersHorizontal.insert({tp, makePlaceholder(mRNG())});
                 if (mBordersVertical.find(tp) == mBordersVertical.end())
-                    mBordersVertical.insert({tp, makePlaceholder(rng())});
+                    mBordersVertical.insert({tp, makePlaceholder(mRNG())});
             }
     }
 }
