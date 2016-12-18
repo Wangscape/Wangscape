@@ -29,14 +29,20 @@ NoiseModuleManager::~NoiseModuleManager()
 {
 }
 
-Reseedable& NoiseModuleManager::getBorderVertical(TerrainID top, TerrainID bottom)
+Reseedable& NoiseModuleManager::getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive)
 {
-    return mBordersVertical.at({top, bottom});
+    Reseedable& r = mBordersVertical.at({top, bottom});
+    if (x_positive)
+        return r;
+    return r.translatePoint(-1., 0., 0.);
 }
 
-Reseedable& NoiseModuleManager::getBorderHorizontal(TerrainID left, TerrainID right)
+Reseedable& NoiseModuleManager::getBorderHorizontal(TerrainID left, TerrainID right, bool y_positive)
 {
-    return mBordersHorizontal.at({left, right});
+    Reseedable& r = mBordersHorizontal.at({left, right});
+    if (y_positive)
+        return r;
+    return r.translatePoint(0., -1., 0.);
 }
 
 Reseedable& NoiseModuleManager::getStochastic(TerrainID terrain)
