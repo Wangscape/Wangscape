@@ -45,17 +45,18 @@ NoiseMapVector<T>::NoiseMapVector(size_t x, size_t y) :
 template<typename T>
 NoiseMapVector<T>::NoiseMapVector(size_t x, size_t y, NoiseMapBase::Bounds bounds) :
     NoiseMapBase(bounds),
-    mSizeX(x), mSizeY(y)
+    mSizeX(x), mSizeY(y),
+    mData(x*y)
 {
 }
 
 template<typename T>
 NoiseMapVector<T>::NoiseMapVector(size_t x, size_t y, NoiseMapBase::Bounds bounds, const NoiseModule & module) :
     NoiseMapBase(bounds),
-    mSizeX(x), mSizeY(y)
+    mSizeX(x), mSizeY(y),
+    mData(x*y)
 {
     build(module);
-    mData.resize(x*y);
 }
 template<typename T>
 size_t NoiseMapVector<T>::sizeX() const
