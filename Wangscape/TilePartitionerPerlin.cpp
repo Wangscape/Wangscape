@@ -17,12 +17,36 @@ void TilePartitionerPerlin::makeCorner(NoiseMapVector<float>& noise_map_vector,
     Reseedable border_v = mNoiseModuleManager.getBorderVertical(top ? corner_id : corner_v,
                                                                 top ? corner_v : corner_id,
                                                                 left);
-
     Reseedable cc = makeCornerCombiner(left,top);
     Reseedable border_xy = cc.blend(border_v, border_h);
-    Reseedable deterministic = makeLinearMovingScaleBias(border_xy, left, top, 0.85, 0.35);
+    Reseedable deterministic = makeLinearMovingScaleBias(border_xy, left, top, 0.85, 0.15);
     Reseedable ef = makeEdgeFavouringMask(1.5, 1.);
     Reseedable corner = ef.blend(stochastic_mask, deterministic);
+#ifdef _DEBUG
+    sf::Image debug;
+    debug.create(mOptions.resolution, mOptions.resolution);
+    NoiseMapImage debug_map(debug, {0, 0, 1, 1});
+    auto write_map = [&](const Reseedable module,
+                         std::string filename,
+                         NoiseMapImage& nmi)
+    {
+        nmi.build(*module.module);
+        debug.saveToFile("debug/" + filename + ".png");
+    };
+
+    write_map(stochastic_mask, "stoch", debug_map);
+    write_map(border_h, "bh", debug_map);
+    write_map(border_v, "bv", debug_map);
+    write_map(cc, "cc", debug_map);
+    write_map(border_xy, "bhv", debug_map);
+    Reseedable max_det = makeLinearMovingScaleBias(makeConst(1.), left, top, 0.85, 0.15);
+    Reseedable min_det = makeLinearMovingScaleBias(makeConst(-1.), left, top, 0.85, 0.15);
+    write_map(min_det, "min_det", debug_map);
+    write_map(max_det, "max_det", debug_map);
+    write_map(deterministic, "det", debug_map);
+    write_map(ef, "ef", debug_map);
+    write_map(corner, "corner", debug_map);
+#endif
     noise_map_vector.build(*corner.module);
 }
 
@@ -52,12 +76,12 @@ void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners
         {
             for (int i = 0; i < 4; i++)
             {
-                weights[i] = nmvs[0].get(x, y);
+                weights[i] = nmvs[i].get(x, y);
             }
             applyWeights(weights, alphas);
             for (int i = 0; i < 4; i++)
             {
-                outputs[i].setPixel(x, y, sf::Color(255, 255, 255, alphas[i]));
+                 outputs[i].setPixel(x, y, sf::Color(255, 255, 255, alphas[i]));
             }
         }
     }
