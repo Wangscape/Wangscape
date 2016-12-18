@@ -1,3 +1,4 @@
+#pragma once
 #include <vector>
 #include <noise/noise.h>
 #include <SFML/Graphics.hpp>
