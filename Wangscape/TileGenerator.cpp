@@ -1,6 +1,5 @@
 #include "TileGenerator.h"
 #include "TilePartitionerBase.h"
-#include "TilePartitionerGradient.h"
 
 
 
@@ -16,13 +15,11 @@ TileGenerator::~TileGenerator()
 void TileGenerator::generate(sf::RenderTexture& image, size_t x, size_t y,
                              std::vector<TerrainID> corners,
                              const TerrainImages& images,
-                             const Options& options)
+                             const Options& options,
+                             TilePartitionerBase& tile_partitioner)
 {
     TilePartitionerBase::TilePartition tp;
-    //tile_partition_squares(tp, corners, options);
-    // Should be passed into this function as a const TilePartitionerBase&
-    TilePartitionerGradient tpg(options);
-    tpg.makePartition(tp, corners);
+    tile_partitioner.makePartition(tp, corners);
     sf::RenderTexture temp;
     temp.create(options.resolution, options.resolution);
     for (const auto& it : tp)
