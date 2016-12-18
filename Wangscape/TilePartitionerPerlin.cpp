@@ -63,7 +63,7 @@ void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners
     }
     for (int i = 0; i < 2; i++)
         for (int j = 0; j < 2; j++)
-            makeCorner(nmvs[(2 * i) + j], corners, j == 0, i == 0);
+            makeCorner(nmvs[(2 * i) + j], corners, i == 0, j == 0);
     // post-processing steps
     std::vector<sf::Image> outputs(4);
     for (int i = 0; i < 4; i++)
@@ -91,7 +91,6 @@ void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners
         t.loadFromImage(outputs[i]);
         regions.push_back({t, corners[i]});
     }
-    // normalise corner masks so they add up to 255 everywhere
 }
 
 TilePartitionerPerlin::TilePartitionerPerlin(const Options & options) :
