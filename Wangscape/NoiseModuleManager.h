@@ -15,8 +15,8 @@ public:
     NoiseModuleManager(const Options& options);
     ~NoiseModuleManager();
 
-    Reseedable& getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive);
-    Reseedable& getBorderHorizontal(TerrainID left, TerrainID right, bool y_positive);
+    Reseedable getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive);
+    Reseedable getBorderHorizontal(TerrainID left, TerrainID right, bool y_positive);
     Reseedable& getStochastic(TerrainID terrain);
 protected:
     std::mt19937 mRNG;

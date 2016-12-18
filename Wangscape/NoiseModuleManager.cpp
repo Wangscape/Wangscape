@@ -29,7 +29,7 @@ NoiseModuleManager::~NoiseModuleManager()
 {
 }
 
-Reseedable& NoiseModuleManager::getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive)
+Reseedable NoiseModuleManager::getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive)
 {
     Reseedable& r = mBordersVertical.at({top, bottom});
     if (x_positive)
@@ -37,7 +37,7 @@ Reseedable& NoiseModuleManager::getBorderVertical(TerrainID top, TerrainID botto
     return r.translatePoint(-1., 0., 0.);
 }
 
-Reseedable& NoiseModuleManager::getBorderHorizontal(TerrainID left, TerrainID right, bool y_positive)
+Reseedable NoiseModuleManager::getBorderHorizontal(TerrainID left, TerrainID right, bool y_positive)
 {
     Reseedable& r = mBordersHorizontal.at({left, right});
     if (y_positive)

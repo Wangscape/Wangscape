@@ -11,12 +11,12 @@ void TilePartitionerPerlin::makeCorner(NoiseMapVector<float>& noise_map_vector,
     TerrainID corner_v =  corners[ (left ? 0 : 1) + (!top ? 0 : 2)];
 
     Reseedable& stochastic_mask = mNoiseModuleManager.getStochastic(corner_id);
-    Reseedable& border_h = mNoiseModuleManager.getBorderHorizontal(left ? corner_id : corner_h,
-                                                                   left ? corner_h : corner_id,
-                                                                   top);
-    Reseedable& border_v = mNoiseModuleManager.getBorderVertical(top ? corner_id : corner_v,
-                                                                 top ? corner_v : corner_id,
-                                                                 left);
+    Reseedable border_h = mNoiseModuleManager.getBorderHorizontal(left ? corner_id : corner_h,
+                                                                  left ? corner_h : corner_id,
+                                                                  top);
+    Reseedable border_v = mNoiseModuleManager.getBorderVertical(top ? corner_id : corner_v,
+                                                                top ? corner_v : corner_id,
+                                                                left);
 
     Reseedable cc = makeCornerCombiner(left,top);
     Reseedable border_xy = cc.blend(border_v, border_h);
