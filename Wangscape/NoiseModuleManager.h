@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <map>
+#include <random>
 #include <noise/noise.h>
 #include "common.h"
 #include "Gradient.h"
@@ -14,11 +15,13 @@ public:
     NoiseModuleManager(const Options& options);
     ~NoiseModuleManager();
 
-    const Reseedable getBorderVertical(TerrainID top, TerrainID bottom) const;
-    const Reseedable getBorderHorizontal(TerrainID left, TerrainID right) const;
-    Reseedable getStochastic(TerrainID terrain);
-    
+    Reseedable& getBorderVertical(TerrainID top, TerrainID bottom);
+    Reseedable& getBorderHorizontal(TerrainID left, TerrainID right);
+    Reseedable& getStochastic(TerrainID terrain);
+
 protected:
+    std::mt19937 mRNG;
+
     // User-defined masks specifying how two corner terrain types
     // should blend in the region of horizontal border.
     // Evaluated in the square [0,1]x[0,1] (if the corners are at the bottom)
