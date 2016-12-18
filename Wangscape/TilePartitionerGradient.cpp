@@ -3,7 +3,9 @@
 
 int TilePartitionerGradient::gradientWeight(int x, int y, int x_corner, int y_corner, int range)
 {
-    return std::max(0,((int)mOptions.resolution-1 - range - std::max(std::abs(x - x_corner), std::abs(y - y_corner))));
+    return std::max(0, ((int)mOptions.resolution - 1 - range -
+                        std::max(std::abs(x - x_corner),
+                                 std::abs(y - y_corner))));
 }
 
 void TilePartitionerGradient::makePartition(TilePartition & regions,
@@ -16,7 +18,7 @@ void TilePartitionerGradient::makePartition(TilePartition & regions,
         img.create(mOptions.resolution, mOptions.resolution);
         masks.push_back(img);
     }
-    std::vector<float> weights(corners.size(),0.f);
+    std::vector<float> weights(corners.size(), 0.f);
     std::vector<sf::Uint8> alphas(corners.size(), 0);
     int resolution_sub_1 = mOptions.resolution - 1;
     for (size_t x = 0; x < mOptions.resolution; x++)
@@ -35,15 +37,15 @@ void TilePartitionerGradient::makePartition(TilePartition & regions,
         }
     }
 
-    for (size_t i=0; i<corners.size(); i++)
+    for (size_t i = 0; i < corners.size(); i++)
     {
         sf::Texture t;
         t.loadFromImage(masks[i]);
-        regions.push_back({ t,corners[i] });
+        regions.push_back({t, corners[i]});
     }
 }
 
-TilePartitionerGradient::TilePartitionerGradient(const Options & options):
+TilePartitionerGradient::TilePartitionerGradient(const Options & options) :
     TilePartitionerBase(options)
 {
 }
