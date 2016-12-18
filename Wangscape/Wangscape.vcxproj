@@ -166,14 +166,13 @@
     <ClInclude Include="TerrainImages.h" />
     <ClInclude Include="TerrainSpec.h" />
     <ClInclude Include="TileGenerator.h" />
-    <ClInclude Include="TilePartition.h" />
-    <ClInclude Include="TilePartitionGradient.h" />
-    <ClInclude Include="TilePartitionPerlin.h" />
-    <ClInclude Include="TilePartitionSquares.h" />
+    <ClInclude Include="TilePartitionerBase.h" />
+    <ClInclude Include="TilePartitionerGradient.h" />
+    <ClInclude Include="TilePartitionerPerlin.h" />
+    <ClInclude Include="TilePartitionerSquares.h" />
     <ClInclude Include="TilesetGenerator.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BorderInfo.cpp" />
     <ClCompile Include="CornerCombinerBase.cpp" />
     <ClCompile Include="MakeReseedable.cpp" />
     <ClCompile Include="NormLPQ.cpp" />
@@ -187,9 +186,10 @@
     <ClCompile Include="Reseedable.cpp" />
     <ClCompile Include="TerrainImages.cpp" />
     <ClCompile Include="TileGenerator.cpp" />
-    <ClCompile Include="TilePartitionGradient.cpp" />
-    <ClCompile Include="TilePartitionPerlin.cpp" />
-    <ClCompile Include="TilePartitionSquares.cpp" />
+    <ClCompile Include="TilePartitionerBase.cpp" />
+    <ClCompile Include="TilePartitionerGradient.cpp" />
+    <ClCompile Include="TilePartitionerPerlin.cpp" />
+    <ClCompile Include="TilePartitionerSquares.cpp" />
     <ClCompile Include="TilesetGenerator.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

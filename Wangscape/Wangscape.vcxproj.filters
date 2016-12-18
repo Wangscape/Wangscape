@@ -35,25 +35,13 @@
     <ClInclude Include="TilesetGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TilePartition.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TileGenerator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TerrainImages.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TilePartitionSquares.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TilePartitionGradient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MetaOutput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TilePartitionPerlin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NoiseMap.h">
@@ -86,6 +74,18 @@
     <ClInclude Include="Exp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TilePartitionerBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TilePartitionerGradient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TilePartitionerSquares.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TilePartitionerPerlin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -103,19 +103,7 @@
     <ClCompile Include="TerrainImages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TilePartitionSquares.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TilePartitionGradient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MetaOutput.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TilePartitionPerlin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BorderInfo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="NoiseMap.cpp">
@@ -140,6 +128,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MakeReseedable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TilePartitionerBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TilePartitionerGradient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TilePartitionerSquares.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TilePartitionerPerlin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

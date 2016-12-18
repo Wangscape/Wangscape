@@ -9,7 +9,7 @@
 #include "common.h"
 
 TilesetGenerator::TilesetGenerator(const Options& options) :
-    options(options), borders(options)
+    options(options)
 {
     for (auto& terrain : options.terrains)
     {
