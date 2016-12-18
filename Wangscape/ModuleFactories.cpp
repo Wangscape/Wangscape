@@ -19,7 +19,12 @@ Reseedable makeQuadrantSelector(Reseedable& source, bool x, bool y)
 Reseedable makeCornerCombiner(bool x_positive, bool y_positive, double power)
 {
     Reseedable corner_combiner_base = makeReseedable(std::make_shared<CornerCombinerBase>(power));
-    return corner_combiner_base.clamp(-1, 1);
+    Reseedable ccb_clamped = corner_combiner_base.clamp(-1, 1);
+    return corner_combiner_base
+        .clamp(-1., 1.)
+        .translatePoint(x_positive ? 0. : -1.,
+                        y_positive ? 0. : -1.,
+                        0.0001);
 }
 
 Reseedable makeEdgeFavouringMask(double p, double q, double min)
