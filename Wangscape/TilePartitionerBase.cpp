@@ -4,6 +4,16 @@ void TilePartitionerBase::applyWeights(const std::vector<float>& weights, std::v
 {
     int err = 255;
     float total_weight = 0.f;
+    if (total_weight == 0.f)
+    {
+        // This shouldn't happen, but it is easy to make weight masks
+        // where this does happen.
+        for (auto& alpha : alphas)
+        {
+            alpha = 0;
+        }
+        return;
+    }
     for (auto weight : weights)
         total_weight += weight;
     for (size_t i = 0; i < weights.size(); i++)
