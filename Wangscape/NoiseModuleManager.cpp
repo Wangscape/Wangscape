@@ -4,7 +4,7 @@
 #include <time.h>
 
 NoiseModuleManager::NoiseModuleManager(const Options & options) :
-    mRNG(time(nullptr))
+    mRNG((unsigned int)time(nullptr))
 {
     for (const auto& terrain : options.terrains)
     {
