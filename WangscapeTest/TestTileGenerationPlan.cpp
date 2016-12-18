@@ -59,13 +59,13 @@ TEST_F(TestTileGenerationPlan, TestTileGenerationPlan)
     Reseedable msb_min_x_y_ = makeLinearMovingScaleBias(-c1, false, false, 0.7, 0.25);
 
     write_map(msb_max_xy, "msb_max_xy", nmixy);
-    write_map(msb_max_x_y, "msb_max_x_y", nmix_y);
-    write_map(msb_max_xy_, "msb_max_xy_", nmixy_);
-    write_map(msb_max_x_y_, "msb_max_x_y_", nmix_y_);
+    write_map(msb_max_x_y, "msb_max_x_y", nmixy);
+    write_map(msb_max_xy_, "msb_max_xy_", nmixy);
+    write_map(msb_max_x_y_, "msb_max_x_y_", nmixy);
     write_map(msb_min_xy, "msb_min_xy", nmixy);
-    write_map(msb_min_x_y, "msb_min_x_y", nmix_y);
-    write_map(msb_min_xy_, "msb_min_xy_", nmixy_);
-    write_map(msb_min_x_y_, "msb_min_x_y_", nmix_y_);
+    write_map(msb_min_x_y, "msb_min_x_y", nmixy);
+    write_map(msb_min_xy_, "msb_min_xy_", nmixy);
+    write_map(msb_min_x_y_, "msb_min_x_y_", nmixy);
 
     Reseedable cc = makeCornerCombiner(true, true);
     write_map(cc, "ccxy", nmixy);

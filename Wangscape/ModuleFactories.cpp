@@ -80,7 +80,8 @@ Reseedable makeLinearMovingScaleBias(Reseedable & source,
     Reseedable min = (peak + 1).clamp(0, 1);
     Reseedable max = (peak + intercept).clamp(0, 1);
 
-    return makeMovingScaleBias(source, min, max);
+    return makeQuadrantSelector(makeMovingScaleBias(source, min, max),
+                                x_positive,y_positive);
 }
 
 Reseedable makePlaceholder(int seed,
