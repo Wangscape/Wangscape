@@ -25,17 +25,18 @@ protected:
     Bounds mBounds;
 };
 
+template <typename T>
 class NoiseMapVector : public NoiseMapBase
 {
 public:
-    typedef std::vector<Real> Data;
+    typedef std::vector<T> Data;
     NoiseMapVector(size_t x, size_t y);
     NoiseMapVector(size_t x, size_t y, Bounds bounds);
     NoiseMapVector(size_t x, size_t y, Bounds bounds, const NoiseModule& module);
 
     virtual size_t sizeX() const;
     virtual size_t sizeY() const;
-    Real get(size_t x, size_t y) const;
+    T get(size_t x, size_t y) const;
 protected:
     virtual void set(size_t x, size_t y, Real value);
     size_t index(size_t x, size_t y) const;
@@ -43,6 +44,8 @@ protected:
     size_t mSizeY;
     Data mData;
 };
+
+template class NoiseMapVector<float>;
 
 class NoiseMapImage : public NoiseMapBase
 {

@@ -36,45 +36,52 @@ void NoiseMapBase::build(const NoiseModule & module)
     }
 }
 
-NoiseMapVector::NoiseMapVector(size_t x, size_t y) :
+template<typename T>
+NoiseMapVector<T>::NoiseMapVector(size_t x, size_t y) :
     mSizeX(x), mSizeY(y), mData(x*y)
 {
 }
 
-NoiseMapVector::NoiseMapVector(size_t x, size_t y, NoiseMapBase::Bounds bounds) :
+template<typename T>
+NoiseMapVector<T>::NoiseMapVector(size_t x, size_t y, NoiseMapBase::Bounds bounds) :
     NoiseMapBase(bounds),
     mSizeX(x), mSizeY(y)
 {
 }
 
-NoiseMapVector::NoiseMapVector(size_t x, size_t y, NoiseMapBase::Bounds bounds, const NoiseModule & module) :
+template<typename T>
+NoiseMapVector<T>::NoiseMapVector(size_t x, size_t y, NoiseMapBase::Bounds bounds, const NoiseModule & module) :
     NoiseMapBase(bounds),
     mSizeX(x), mSizeY(y)
 {
     build(module);
 }
-
-size_t NoiseMapVector::sizeX() const
+template<typename T>
+size_t NoiseMapVector<T>::sizeX() const
 {
     return mSizeX;
 }
 
-size_t NoiseMapVector::sizeY() const
+template<typename T>
+size_t NoiseMapVector<T>::sizeY() const
 {
     return mSizeY;
 }
 
-NoiseMapBase::Real NoiseMapVector::get(size_t x, size_t y) const
+template<typename T>
+T NoiseMapVector<T>::get(size_t x, size_t y) const
 {
     return mData[index(x, y)];
 }
 
-void NoiseMapVector::set(size_t x, size_t y, Real value)
+template<typename T>
+void NoiseMapVector<T>::set(size_t x, size_t y, Real value)
 {
-    mData[index(x, y)] = value;
+    mData[index(x, y)] = (T)value;
 }
 
-size_t NoiseMapVector::index(size_t x, size_t y) const
+template<typename T>
+size_t NoiseMapVector<T>::index(size_t x, size_t y) const
 {
     if (x >= mSizeX || y >= mSizeY)
         throw std::out_of_range("Tried to access NoiseMap with x or y out of bounds");

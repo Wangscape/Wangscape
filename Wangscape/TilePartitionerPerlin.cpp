@@ -2,7 +2,7 @@
 #include "ModuleFactories.h"
 #include "NoiseMap.h"
 
-void TilePartitionerPerlin::makeCorner(NoiseMapVector& noise_map_vector,
+void TilePartitionerPerlin::makeCorner(NoiseMapVector<float>& noise_map_vector,
                                        const Corners& corners,
                                        bool left, bool top)
 {
@@ -28,14 +28,14 @@ void TilePartitionerPerlin::makeCorner(NoiseMapVector& noise_map_vector,
 
 void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners& corners)
 {
-    std::vector<NoiseMapVector> nmvs;
+    std::vector<NoiseMapVector<float>> nmvs;
     // This whole function needs to depend on CORNERS,
     // not the magic number 4
     for (int i = 0; i < 4; i++)
     {
         nmvs.emplace_back(mOptions.resolution,
                           mOptions.resolution,
-                          sf::IntRect{0, 0, 1, 1});
+                          sf::Rect<double>{0, 0, 1, 1});
     }
     for (int i = 0; i < 2; i++)
         for (int j = 0; j < 2; j++)
@@ -52,7 +52,7 @@ void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners
         {
             for (int i = 0; i < 4; i++)
             {
-                weights[i] = (float)nmvs[0].get(x, y);
+                weights[i] = nmvs[0].get(x, y);
             }
             applyWeights(weights, alphas);
             for (int i = 0; i < 4; i++)
