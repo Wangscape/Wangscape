@@ -8,7 +8,7 @@ NoiseModuleManager::NoiseModuleManager(const Options & options) :
 {
     for (const auto& terrain : options.terrains)
     {
-        mStochasticMasks.insert({terrain.first, makePlaceholder()});
+        mStochasticMasks.insert({terrain.first, makePlaceholder().scaleBias(0.5, 0.5)});
     }
     for (const auto& clique : options.cliques)
     {
