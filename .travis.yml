@@ -19,7 +19,8 @@ addons:
       - gcc-5
       - cmake
       - libboost-filesystem-dev
-      - libboost-program-options-dev 
+      - libboost-program-options-dev
+      - libxrandr-dev
 
 install:
   - if [ "$TRAVIS_OS_NAME" = "linux" -a "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
