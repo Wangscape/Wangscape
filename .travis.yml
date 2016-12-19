@@ -18,7 +18,6 @@ addons:
       - g++-5
       - gcc-5
       - cmake
-      - libsfml-dev
       - libboost-filesystem-dev
       - libboost-program-options-dev 
 
