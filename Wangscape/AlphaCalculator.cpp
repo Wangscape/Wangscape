@@ -13,7 +13,7 @@ AlphaCalculator::~AlphaCalculator()
 {
 }
 
-void AlphaCalculator::calculatePixelAlphaLinear(std::vector<float>& weights, std::vector<sf::Uint8>& alphas)
+void AlphaCalculator::calculatePixelAlphaLinear(WeightVector& weights, AlphaVector& alphas)
 {
     int err = 255;
     float total_weight = 0.f;
@@ -51,7 +51,7 @@ void AlphaCalculator::calculatePixelAlphaLinear(std::vector<float>& weights, std
     }
 }
 
-void AlphaCalculator::calculatePixelAlphaMax(std::vector<float>& weights, std::vector<sf::Uint8>& alphas)
+void AlphaCalculator::calculatePixelAlphaMax(WeightVector& weights, AlphaVector& alphas)
 {
     for (auto& alpha : alphas)
     {
@@ -64,7 +64,7 @@ void AlphaCalculator::calculatePixelAlphaMax(std::vector<float>& weights, std::v
     *alpha_it = 255;
 }
 
-void AlphaCalculator::calculatePixelAlphaFunction(std::vector<float>& weights, std::vector<sf::Uint8>& alphas,
+void AlphaCalculator::calculatePixelAlphaFunction(WeightVector& weights, AlphaVector& alphas,
                                                   std::function<float(float)> fn)
 {
     for (auto& weight : weights)
@@ -72,4 +72,14 @@ void AlphaCalculator::calculatePixelAlphaFunction(std::vector<float>& weights, s
         weight = fn(weight);
     }
     calculatePixelAlphaLinear(weights, alphas);
+}
+
+AlphaCalculator::PixelAlphaCalculator AlphaCalculator::makeCalculatePixelAlphaPower(float power)
+{
+    return bindCalculatePixelAlphaFunction(std::bind(powf, std::placeholders::_1, power));
+}
+
+AlphaCalculator::PixelAlphaCalculator AlphaCalculator::bindCalculatePixelAlphaFunction(std::function<float(float)> fn)
+{
+    return std::bind(calculatePixelAlphaFunction, std::placeholders::_1, std::placeholders::_2, fn);
 }

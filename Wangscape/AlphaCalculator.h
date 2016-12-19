@@ -5,11 +5,16 @@
 class AlphaCalculator
 {
 public:
+    typedef std::vector<float> WeightVector;
+    typedef std::vector<sf::Uint8> AlphaVector;
+    typedef std::function<void(WeightVector&, AlphaVector&)> PixelAlphaCalculator;
     AlphaCalculator();
     ~AlphaCalculator();
-    static void calculatePixelAlphaLinear(std::vector<float>& weights, std::vector<sf::Uint8>& alphas);
-    static void calculatePixelAlphaMax(std::vector<float>& weights, std::vector<sf::Uint8>& alphas);
-    static void calculatePixelAlphaFunction(std::vector<float>& weights, std::vector<sf::Uint8>& alphas,
-                                     std::function<float(float)> fn);
+    static void calculatePixelAlphaLinear(WeightVector& weights, AlphaVector& alphas);
+    static void calculatePixelAlphaMax(WeightVector& weights, AlphaVector& alphas);
+    static void calculatePixelAlphaFunction(WeightVector& weights, AlphaVector& alphas,
+                                            std::function<float(float)> fn);
+    static PixelAlphaCalculator makeCalculatePixelAlphaPower(float power);
+    static PixelAlphaCalculator bindCalculatePixelAlphaFunction(std::function<float(float)> fn);
 };
 
