@@ -21,8 +21,9 @@ addons:
       - cmake
       - libboost-filesystem-dev
       - libboost-program-options-dev
-      - libxrandr-dev
-      - udev
+      - libsfml-dev
+      - libnoise-dev
+      - rapidjson-dev
 
 install:
   - if [ "$TRAVIS_OS_NAME" = "linux" -a "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
