@@ -13,7 +13,6 @@ public:
     TilePartitionerBase(const Options& options);
     virtual ~TilePartitionerBase();
     virtual void makePartition(TilePartition& regions, const Corners& corners) = 0;
-    static void applyWeights(const std::vector<float>& weights, std::vector<sf::Uint8>& alphas);
 protected:
     const Options& mOptions;
 };
