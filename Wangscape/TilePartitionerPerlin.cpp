@@ -1,6 +1,7 @@
 #include "TilePartitionerPerlin.h"
 #include "ModuleFactories.h"
 #include "NoiseMap.h"
+#include "AlphaCalculator.h"
 
 void TilePartitionerPerlin::makeCorner(NoiseMapVector<float>& noise_map_vector,
                                        const Corners& corners,
@@ -70,6 +71,7 @@ void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners
         outputs[i].create(mOptions.resolution, mOptions.resolution);
     std::vector<float> weights(4);
     std::vector<sf::Uint8> alphas(4);
+    auto apply_weights = AlphaCalculator::makeCalculatePixelAlphaPower(5.);
     for (size_t x = 0; x < mOptions.resolution; x++)
     {
         for (size_t y = 0; y < mOptions.resolution; y++)
@@ -78,7 +80,8 @@ void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners
             {
                 weights[i] = nmvs[i].get(x, y);
             }
-            applyWeights(weights, alphas);
+
+            apply_weights(weights, alphas);
             for (int i = 0; i < 4; i++)
             {
                  outputs[i].setPixel(x, y, sf::Color(255, 255, 255, alphas[i]));

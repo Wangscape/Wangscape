@@ -1,4 +1,5 @@
 #include "TilePartitionerGradient.h"
+#include "AlphaCalculator.h"
 #include <utility>
 
 int TilePartitionerGradient::gradientWeight(int x, int y, int x_corner, int y_corner, int range)
@@ -29,7 +30,7 @@ void TilePartitionerGradient::makePartition(TilePartition & regions,
             weights[1] = (float)gradientWeight(x, y, 0, resolution_sub_1, mOptions.resolution / 4);
             weights[2] = (float)gradientWeight(x, y, resolution_sub_1, 0, mOptions.resolution / 4);
             weights[3] = (float)gradientWeight(x, y, resolution_sub_1, resolution_sub_1, mOptions.resolution / 4);
-            applyWeights(weights, alphas);
+            AlphaCalculator::calculatePixelAlphaLinear(weights, alphas);
             for (size_t i = 0; i < masks.size(); i++)
             {
                 masks[i].setPixel(x, y, sf::Color(255, 255, 255, alphas[i]));
