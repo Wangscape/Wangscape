@@ -1,4 +1,6 @@
 #include "AlphaCalculator.h"
+#include <algorithm>
+#include <numeric>
 
 
 
@@ -11,13 +13,16 @@ AlphaCalculator::~AlphaCalculator()
 {
 }
 
-void AlphaCalculator::calculatePixelAlphaLinear(const std::vector<float>& weights, std::vector<sf::Uint8>& alphas)
+void AlphaCalculator::calculatePixelAlphaLinear(std::vector<float>& weights, std::vector<sf::Uint8>& alphas)
 {
     int err = 255;
     float total_weight = 0.f;
-    for (auto weight : weights)
+    for (auto& weight : weights)
+    {
+        weight = std::max(0.f, weight);
         total_weight += weight;
-    if (total_weight == 0.f)
+    }
+    if (total_weight <= 0.f)
     {
         // This shouldn't happen, but it is easy to make weight masks
         // where this does happen.
@@ -46,38 +51,25 @@ void AlphaCalculator::calculatePixelAlphaLinear(const std::vector<float>& weight
     }
 }
 
-void AlphaCalculator::calculatePixelAlphaMax(const std::vector<float>& weights, std::vector<sf::Uint8>& alphas)
+void AlphaCalculator::calculatePixelAlphaMax(std::vector<float>& weights, std::vector<sf::Uint8>& alphas)
 {
-    int err = 255;
-    float total_weight = 0.f;
-    for (auto weight : weights)
-        total_weight += weight;
     for (auto& alpha : alphas)
     {
         alpha = 0;
     }
-    if (total_weight == 0.f)
-    {
-        // This shouldn't happen, but it is easy to make weight masks
-        // where this does happen.
-        return;
-    }
-    else
-    {
-        size_t max_idx = -1;
-        float max_weight = -1.;
-        for (size_t i = 0; i < weights.size(); i++)
-        {
-            if (weights[i] > max_weight)
-            {
-                max_idx = i;
-                max_weight = weights[i];
-            }
-        }
-        alphas[max_idx] = 255;
-    }
+    auto max_it = std::max_element(weights.cbegin(), weights.cend());
+    auto max_idx = std::distance(weights.cbegin(), max_it);
+    auto alpha_it = alphas.begin();
+    std::advance(alpha_it, max_idx);
+    *alpha_it = 255;
 }
 
-void AlphaCalculator::calculatePixelAlphaFunction(const std::vector<float>& weights, std::vector<sf::Uint8>& alphas, std::function<float(float)> fn)
+void AlphaCalculator::calculatePixelAlphaFunction(std::vector<float>& weights, std::vector<sf::Uint8>& alphas,
+                                                  std::function<float(float)> fn)
 {
+    for (auto& weight : weights)
+    {
+        weight = fn(weight);
+    }
+    calculatePixelAlphaLinear(weights, alphas);
 }
