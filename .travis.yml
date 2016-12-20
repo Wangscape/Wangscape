@@ -21,12 +21,14 @@ addons:
       - cmake
       - libboost-filesystem-dev
       - libboost-program-options-dev
-      - libsfml-dev
       - libnoise-dev
       - libgtest-dev
 
 install:
   - if [ "$TRAVIS_OS_NAME" = "linux" -a "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
+  
+before_script:
+  # gtest
   - mkdir tmp
   - cd tmp
   - mkdir .build
@@ -35,16 +37,16 @@ install:
   - make
   - sudo mv libg* /usr/lib/
   - cd ../..
-  - cd lib/rapidjson
-  - mkdir build
-  - cd build
-  - cmake ..
-  - sudo make install
-  - cd ../../..
-  - wget https://raw.githubusercontent.com/SFML/SFML/master/cmake/Modules/FindSFML.cmake
-  - mkdir build
+  # SFML
+  - wget http://www.sfml-dev.org/files/SFML-2.4.1-linux-gcc-64-bit.tar.gz
+  - tar xf SFML-2.4.1-linux-gcc-64-bit.tar.gz
+  - sudo cp -r SFML-2.4.1/lib/* /usr/local/lib/.
+  - sudo cp -r SFML-2.4.1/include/* /usr/local/include/.
+  # rapidjson
+  - sudo cp -r lib/rapidjson/include/* /usr/local/include/.
 
 script:
+  - mkdir build
   - cd build
   - cmake -D CMAKE_MODULE_PATH=.. ..
   - make
