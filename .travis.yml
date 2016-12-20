@@ -46,7 +46,7 @@ before_script:
   - cp SFML-2.4.1/share/SFML/cmake/Modules/FindSFML.cmake cmake/.
   # rapidjson
   - sudo cp -r lib/rapidjson/include/* /usr/local/include/.
-  - wget https://github.com/rjeczalik/rapidjson/blob/369d20d461fbc5f72cc9c629bd4bdb93709c5b85/cmake/Findrapidjson.cmake
+  - wget https://raw.githubusercontent.com/rjeczalik/rapidjson/369d20d461fbc5f72cc9c629bd4bdb93709c5b85/cmake/Findrapidjson.cmake
   - mv Findrapidjson.cmake cmake/FindRapidJSON.cmake
 
 script:
