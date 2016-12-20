@@ -12,8 +12,8 @@ include_directories(${PROJECT_SOURCE_DIR}/Wangscape)
 target_link_libraries(WangscapeTest wangscape)
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
 if(Threads_FOUND)
-    find_package(Threads REQUIRED)
     target_link_libraries(WangscapeTest Threads::Threads)
 endif()
 
