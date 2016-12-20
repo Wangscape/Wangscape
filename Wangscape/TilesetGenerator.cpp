@@ -42,7 +42,7 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
         generateClique(clique, *output, filename, TileGenerator::generate);
         output->display();
 
-        p.append(filename);
+        p /=(filename);
         callback(output->getTexture(), p.string());
         p.remove_filename();
     }

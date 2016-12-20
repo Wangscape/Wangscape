@@ -43,7 +43,7 @@ void TerrainImages::addTerrain(TerrainID tid, std::string image_filename, std::s
     std::string filename = image_filename;
     boost::filesystem::path p(json_filename);
     p.remove_filename();
-    p.append(filename);
+    p /=(filename);
     filename = p.string();
     auto it = source_images.find(filename);
     if (it == source_images.end())
