@@ -56,7 +56,7 @@ void Options::initialise(const rapidjson::Document& d)
     outputDirectory = o.FindMember("OutputDirectory")->value.GetString();
     boost::filesystem::path p(filename);
     p.remove_filename();
-    p.append(outputDirectory);
+    p /=(outputDirectory);
     boost::filesystem::create_directories(p);
     relativeOutputDirectory = p.string();
     {

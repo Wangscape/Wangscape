@@ -1,0 +1,57 @@
+language: cpp
+dist: trusty
+sudo: required
+
+cache:
+  apt: true
+
+compiler:
+  - gcc
+
+os:
+  - linux
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-5
+      - gcc-5
+      - cmake
+      - libboost-filesystem-dev
+      - libboost-program-options-dev
+      - libnoise-dev
+      - libgtest-dev
+
+install:
+  - if [ "$TRAVIS_OS_NAME" = "linux" -a "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
+  - mkdir cmake
+
+before_script:
+  # gtest
+  - mkdir tmp
+  - cd tmp
+  - mkdir .build
+  - cd .build
+  - cmake /usr/src/gtest
+  - make
+  - sudo mv libg* /usr/lib/
+  - cd ../..
+  # SFML
+  - wget http://www.sfml-dev.org/files/SFML-2.4.1-linux-gcc-64-bit.tar.gz
+  - tar xf SFML-2.4.1-linux-gcc-64-bit.tar.gz
+  - sudo cp -r SFML-2.4.1/lib/* /usr/local/lib/.
+  - sudo cp -r SFML-2.4.1/include/* /usr/local/include/.
+  - cp SFML-2.4.1/share/SFML/cmake/Modules/FindSFML.cmake cmake/.
+  # rapidjson
+  - sudo cp -r lib/rapidjson/include/* /usr/local/include/.
+  - wget https://raw.githubusercontent.com/rjeczalik/rapidjson/369d20d461fbc5f72cc9c629bd4bdb93709c5b85/cmake/Findrapidjson.cmake
+  - mv Findrapidjson.cmake cmake/FindRapidJSON.cmake
+
+script:
+  - mkdir build
+  - cd build
+  - cmake -D CMAKE_MODULE_PATH=../cmake ..
+  - make
+  - ./bin/WangscapeTest
