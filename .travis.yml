@@ -43,6 +43,7 @@ script:
   - cd build
   - cmake ..
   - sudo make install
+  - cd ../../..
   - wget https://raw.githubusercontent.com/SFML/SFML/master/cmake/Modules/FindSFML.cmake
   - cd build
   - cmake -D CMAKE_MODULE_PATH=.. ..
