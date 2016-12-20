@@ -30,6 +30,14 @@ install:
   - mkdir build
 
 script:
+  - mkdir tmp
+  - cd tmp
+  - mkdir .build
+  - cd .build
+  - cmake /usr/src/gtest
+  - make
+  - sudo mv libg* /usr/lib/
+  - cd ../..
   - wget https://raw.githubusercontent.com/SFML/SFML/master/cmake/Modules/FindSFML.cmake
   - cd build
   - cmake -D CMAKE_MODULE_PATH=.. ..
