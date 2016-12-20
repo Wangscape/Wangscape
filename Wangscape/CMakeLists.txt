@@ -13,7 +13,7 @@ add_executable(Wangscape Main.cpp)
 
 target_link_libraries(Wangscape wangscape)
 
-find_package(Boost COMPONENTS system filesystem REQUIRED)
+find_package(Boost COMPONENTS system filesystem program_options REQUIRED)
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIR})
     link_directories(${Boost_LIBRARY_DIR})

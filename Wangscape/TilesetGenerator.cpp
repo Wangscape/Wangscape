@@ -1,3 +1,4 @@
+#include "Corners.h"
 #include "TilesetGenerator.h"
 #include "TileGenerator.h"
 #include <functional>
@@ -51,8 +52,8 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
 
 void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderTexture& image, std::string filename)
 {
-    std::vector<TerrainID> corner_terrains(CORNERS, clique[0]);
-    std::vector<size_t> corner_clique_indices(CORNERS, 0);
+    std::vector<TerrainID> corner_terrains(static_cast<size_t>(CORNERS), clique[0]);
+    std::vector<size_t> corner_clique_indices(static_cast<size_t>(CORNERS), 0);
     bool stop = false;
     while (!stop)
     {
@@ -115,20 +116,20 @@ std::pair<size_t, size_t> TilesetGenerator::calculateTilesetResolution(size_t cl
     size_t res_y;
     switch (CORNERS)
     {
-    case 3:
+    case Corners::Triangle:
         res_y = options.resolution*clique_size;
         res_x = res_y*clique_size;
         break;
-    case 4:
+    case Corners::Square:
         res_x = options.resolution*clique_size*clique_size;
         res_y = res_x;
         break;
-    case 6:
+    case Corners::Hexagon:
         res_x = options.resolution*clique_size*clique_size*clique_size;
         res_y = res_x;
         break;
     default:
-        throw std::out_of_range("CORNERS was not one of 3,4,6");
+        throw std::out_of_range("Unsupported value of CORNERS variable");
     }
     return{ res_x, res_y };
 }
