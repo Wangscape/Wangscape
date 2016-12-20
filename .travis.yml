@@ -27,9 +27,6 @@ addons:
 
 install:
   - if [ "$TRAVIS_OS_NAME" = "linux" -a "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
-  - mkdir build
-
-script:
   - mkdir tmp
   - cd tmp
   - mkdir .build
@@ -45,6 +42,9 @@ script:
   - sudo make install
   - cd ../../..
   - wget https://raw.githubusercontent.com/SFML/SFML/master/cmake/Modules/FindSFML.cmake
+  - mkdir build
+
+script:
   - cd build
   - cmake -D CMAKE_MODULE_PATH=.. ..
   - make
