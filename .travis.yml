@@ -42,13 +42,13 @@ before_script:
   - tar xf SFML-2.4.1-linux-gcc-64-bit.tar.gz
   - sudo cp -r SFML-2.4.1/lib/* /usr/local/lib/.
   - sudo cp -r SFML-2.4.1/include/* /usr/local/include/.
-  - sudo cp -r SFML-2.4.1/share/* /usr/local/share/.
+  - sudo cp -r SFML-2.4.1/share/SFML/* /usr/local/share/.
   # rapidjson
   - sudo cp -r lib/rapidjson/include/* /usr/local/include/.
 
 script:
   - mkdir build
   - cd build
-  - cmake -D CMAKE_MODULE_PATH=.. ..
+  - cmake ..
   - make
   - ./bin/WangscapeTest
