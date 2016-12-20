@@ -23,6 +23,7 @@ addons:
       - libboost-program-options-dev
       - libsfml-dev
       - libnoise-dev
+      - libgtest-dev
 
 install:
   - if [ "$TRAVIS_OS_NAME" = "linux" -a "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
