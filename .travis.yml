@@ -26,7 +26,7 @@ addons:
 
 install:
   - if [ "$TRAVIS_OS_NAME" = "linux" -a "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
-  
+
 before_script:
   # gtest
   - mkdir tmp
@@ -42,13 +42,12 @@ before_script:
   - tar xf SFML-2.4.1-linux-gcc-64-bit.tar.gz
   - sudo cp -r SFML-2.4.1/lib/* /usr/local/lib/.
   - sudo cp -r SFML-2.4.1/include/* /usr/local/include/.
-  - sudo cp -r SFML-2.4.1/share/SFML/* /usr/local/share/.
   # rapidjson
   - sudo cp -r lib/rapidjson/include/* /usr/local/include/.
 
 script:
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake -D CMAKE_MODULE_PATH=../SFML-2.4.1/share/SFML/cmake/modules ..
   - make
   - ./bin/WangscapeTest
