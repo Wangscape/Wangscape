@@ -29,7 +29,8 @@ install:
   - mkdir build
 
 script:
+  - wget https://raw.githubusercontent.com/LaurentGomila/SFML/master/cmake/Modules/FindSFML.cmake
   - cd build
-  - cmake ..
+  - cmake -D CMAKE_MODULE_PATH=. ..
   - make
   - ./bin/WangscapeTest
