@@ -31,6 +31,6 @@ install:
 script:
   - wget https://raw.githubusercontent.com/SFML/SFML/master/cmake/Modules/FindSFML.cmake
   - cd build
-  - cmake -D CMAKE_MODULE_PATH=. ..
+  - cmake -D CMAKE_MODULE_PATH=.. ..
   - make
   - ./bin/WangscapeTest
