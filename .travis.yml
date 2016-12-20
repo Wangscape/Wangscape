@@ -47,7 +47,7 @@ before_script:
   # rapidjson
   - sudo cp -r lib/rapidjson/include/* /usr/local/include/.
   - wget https://github.com/rjeczalik/rapidjson/blob/369d20d461fbc5f72cc9c629bd4bdb93709c5b85/cmake/Findrapidjson.cmake
-  - mv FindRapidJSON.cmake cmake/.
+  - mv Findrapidjson.cmake cmake/FindRapidJSON.cmake
 
 script:
   - mkdir build
