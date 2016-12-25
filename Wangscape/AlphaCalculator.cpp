@@ -2,13 +2,6 @@
 #include <algorithm>
 #include <numeric>
 
-
-
-AlphaCalculator::AlphaCalculator()
-{
-}
-
-
 AlphaCalculator::~AlphaCalculator()
 {
 }
