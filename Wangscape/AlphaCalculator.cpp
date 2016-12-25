@@ -8,7 +8,7 @@ AlphaCalculator::~AlphaCalculator()
 
 void AlphaCalculator::calculatePixelAlphaLinear(WeightVector& weights, AlphaVector& alphas)
 {
-    int err = 255;
+    int alpha_remaining = 255;
     float total_weight = 0.f;
     for (auto& weight : weights)
     {
@@ -28,17 +28,17 @@ void AlphaCalculator::calculatePixelAlphaLinear(WeightVector& weights, AlphaVect
     for (size_t i = 0; i < weights.size(); i++)
     {
         int alpha = (int)((255 * weights[i]) / total_weight);
-        err -= alpha;
+        alpha_remaining -= alpha;
         alphas[i] = (sf::Uint8)alpha;
     }
     size_t i = 0;
-    while (err > 0)
+    while (alpha_remaining > 0)
     {
         sf::Uint8& alpha = alphas[i%alphas.size()];
         if (alpha > 0)
         {
             alpha++;
-            err--;
+            alpha_remaining--;
         }
         i++;
     }
