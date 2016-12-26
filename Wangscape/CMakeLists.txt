@@ -5,6 +5,7 @@ set(lib-src
     TileGenerator.cpp
     TilePartitionGradient.cpp
     TilePartitionSquares.cpp
+    Tile.cpp
     Tileset.cpp
     TilesetGenerator.cpp
 )
