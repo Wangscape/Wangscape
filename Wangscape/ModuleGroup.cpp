@@ -52,4 +52,4 @@ void ModuleGroup::SetSeed(int seed)
     }
 };
 
-const std::string ModuleGroup::DEFAULT_OUT("output");
+const ModuleGroup::ModuleID ModuleGroup::DEFAULT_OUT("output");
