@@ -32,7 +32,7 @@ public:
 
     const static ModuleID DEFAULT_OUT;
     ModuleID output_id;
-    void insert(ModuleID name, Reseedable module);
+    ModuleGroup& insert(ModuleID name, Reseedable module);
     const Reseedable& at(ModuleID name) const;
     ModuleContainer::const_iterator cend() const;
     ModuleContainer::const_iterator cbegin() const;

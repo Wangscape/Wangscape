@@ -1,8 +1,9 @@
 #include "ModuleGroup.h"
 
-void ModuleGroup::insert(ModuleID name, Reseedable module)
+ModuleGroup& ModuleGroup::insert(ModuleID name, Reseedable module)
 {
     mModules.insert({ name, module });
+    return *this;
 }
 
 const Reseedable & ModuleGroup::at(ModuleID name) const
