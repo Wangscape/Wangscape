@@ -67,9 +67,9 @@ void AlphaCalculator::calculatePixelAlphaMax(WeightVector& weights, AlphaVector&
         alpha = 0;
     }
     auto max_it = std::max_element(weights.cbegin(), weights.cend());
-    auto max_idx = std::distance(weights.cbegin(), max_it);
+    auto max_index = std::distance(weights.cbegin(), max_it);
     auto alpha_it = alphas.begin();
-    std::advance(alpha_it, max_idx);
+    std::advance(alpha_it, max_index);
     *alpha_it = 255;
 }
 
