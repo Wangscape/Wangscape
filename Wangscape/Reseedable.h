@@ -41,7 +41,7 @@ struct Reseedable
     Reseedable rotatePoint(double x_angle, double y_angle, double z_angle);
     Reseedable scalePoint(double x_scale, double y_scale, double z_scale);
     Reseedable translatePoint(double x_displace, double y_displace, double z_displace);
-    Reseedable turbulence();
+    Reseedable turbulence(double frequency, double power, int roughness, int seed);
 
 
 

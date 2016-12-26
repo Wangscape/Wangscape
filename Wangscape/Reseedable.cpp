@@ -271,10 +271,17 @@ Reseedable Reseedable::translatePoint(double x_displace, double y_displace, doub
     return makeReseedable(mg);
 }
 
-Reseedable Reseedable::turbulence()
+Reseedable Reseedable::turbulence(double frequency, double power, int roughness, int seed)
 {
-    throw;
-    return Reseedable();
+    auto turbulence_p = std::make_shared<noise::module::Turbulence>();
+    turbulence_p->SetFrequency(frequency);
+    turbulence_p->SetPower(power);
+    turbulence_p->SetRoughness(roughness);
+    turbulence_p->SetSeed(seed);
+    std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
+    mg->insert("source", *this);
+    mg->insert("output", makeReseedable(turbulence_p));
+    return makeReseedable(mg);
 }
 
 
