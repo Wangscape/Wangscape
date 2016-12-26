@@ -176,7 +176,7 @@ TEST_F(TestReseedable, TestReseedableDisplace)
     auto displace = (x - (y * 2)).displace(x, y, c05);
     EXPECT_EQ(0., displace.getValue(0, 0, 304958.));
     EXPECT_EQ(0., displace.getValue(2, 1, 30458.));
-    EXPECT_EQ(-10., displace.getValue(-2, 3, 30458.));
+    EXPECT_EQ(-16., displace.getValue(-2, 3, 30458.));
 }
 TEST_F(TestReseedable, TestReseedableRotatePoint)
 {
