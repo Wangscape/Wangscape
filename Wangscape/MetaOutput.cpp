@@ -1,17 +1,20 @@
 #include "MetaOutput.h"
+#include "Tileset.h"
+#include "codecs/TilesetCodec.h"
 #include <ostream>
 #include <sstream>
 #include <fstream>
 #include <rapidjson/ostreamwrapper.h>
 #include <rapidjson/writer.h>
+#include <spotify/json.hpp>
 #include <boost/filesystem.hpp>
+
 
 
 
 MetaOutput::MetaOutput()
 {
     mTileData.SetArray();
-    mTilesetData.SetObject();
     mTileGroups.SetObject();
 }
 
@@ -73,43 +76,20 @@ void MetaOutput::addTile(std::vector<TerrainID> corners, std::string filename, s
     }
 }
 
-void MetaOutput::addTileset(std::vector<TerrainID> terrains, std::string filename, size_t size_x, size_t size_y)
+void MetaOutput::addTileset(TerrainSet terrains, std::string filename, size_t size_x, size_t size_y)
 {
-    TerrainSet clique;
-    for (auto t : terrains)
-        clique.push_back(t);
     for (auto t : terrains)
     {
         auto it = mTerrainHypergraph.insert({ t, TerrainSetSet() });
-        (*it.first).second.insert(clique);
+        (*it.first).second.insert(terrains);
     }
 
-    rapidjson::Document::AllocatorType& allocator = mTilesetData.GetAllocator();
-
-    rapidjson::Value v_terrains;
-    v_terrains.SetArray();
-    for (auto terrain : terrains)
-    {
-        rapidjson::Value v(terrain.c_str(), allocator);
-        v_terrains.PushBack(v, allocator);
-    }
-    rapidjson::Value v_item;
-    v_item.SetObject();
-    v_item.AddMember("terrains", v_terrains, allocator);
-    rapidjson::Value v(filename.c_str(), allocator);
-    v_item.AddMember("x", size_x, allocator);
-    v_item.AddMember("y", size_y, allocator);
-    mTilesetData.AddMember(v, v_item, allocator);
+    mTilesets.push_back(Tileset(filename, mResolution, size_x, size_y, terrains));
 }
 
 void MetaOutput::setResolution(size_t resolution)
 {
-    rapidjson::Document::AllocatorType& allocator = mTilesetData.GetAllocator();
-    auto it = mTilesetData.FindMember("resolution");
-    if (it == mTilesetData.MemberEnd())
-        mTilesetData.AddMember("resolution", resolution, allocator);
-    else
-        (*it).value.Set(resolution);
+    mResolution = resolution;
 }
 
 void MetaOutput::writeJsonObjectToFile(const rapidjson::Document& object, std::string filename) const
@@ -133,7 +113,8 @@ void MetaOutput::writeTileGroups(std::string filename) const
 
 void MetaOutput::writeTilesetData(std::string filename) const
 {
-    writeJsonObjectToFile(mTilesetData, filename);
+    std::ofstream ofs(filename);
+    ofs << spotify::json::encode(getTilesetData());
 }
 
 void MetaOutput::writeTerrainHypergraph(std::string filename) const
@@ -193,9 +174,9 @@ const rapidjson::Document & MetaOutput::getTileGroups() const
     return mTileGroups;
 }
 
-const rapidjson::Document & MetaOutput::getTilesetData() const
+const std::vector<Tileset> & MetaOutput::getTilesetData() const
 {
-    return mTilesetData;
+    return mTilesets;
 }
 
 const MetaOutput::TerrainHypergraph & MetaOutput::getTerrainHypergraph() const

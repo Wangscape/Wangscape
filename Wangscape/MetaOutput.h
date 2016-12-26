@@ -1,8 +1,11 @@
 #pragma once
 #include <rapidjson/document.h>
 #include "Options.h"
+#include "Tileset.h"
 #include <map>
 #include <set>
+#include <vector>
+
 class MetaOutput
 {
 public:
@@ -23,14 +26,15 @@ public:
     void writeAll(const Options& options) const;
     const rapidjson::Document& getTileData() const;
     const rapidjson::Document& getTileGroups() const;
-    const rapidjson::Document& getTilesetData() const;
+    const std::vector<Tileset>& getTilesetData() const;
     const TerrainHypergraph& getTerrainHypergraph() const;
 protected:
-    rapidjson::Document mTilesetData;
+    std::vector<Tileset> mTilesets;
     rapidjson::Document mTileData;
     rapidjson::Document mTileGroups;
     TerrainHypergraph mTerrainHypergraph;
 private:
+    size_t mResolution;
     void writeJsonObjectToFile(const rapidjson::Document& object, std::string filename) const;
 };
 
