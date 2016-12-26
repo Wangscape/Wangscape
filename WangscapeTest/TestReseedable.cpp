@@ -170,12 +170,13 @@ TEST_F(TestReseedable, TestReseedableSelect)
 {
     EXPECT_EQ(-17, c05.select(x, y).getValue(-1, -17, 5.));
     EXPECT_EQ(0., c05.select(y, x).getValue(0., 1., 5.));
-
 }
 TEST_F(TestReseedable, TestReseedableDisplace)
 {
-    EXPECT_TRUE(false) << "Test not implemented";
-
+    auto displace = (x - (y * 2)).displace(x, y, c05);
+    EXPECT_EQ(0., displace.getValue(0, 0, 304958.));
+    EXPECT_EQ(0., displace.getValue(2, 1, 30458.));
+    EXPECT_EQ(-10., displace.getValue(-2, 3, 30458.));
 }
 TEST_F(TestReseedable, TestReseedableRotatePoint)
 {

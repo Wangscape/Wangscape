@@ -285,7 +285,6 @@ Reseedable Reseedable::turbulence(double frequency, double power, int roughness,
     return makeReseedable(mg);
 }
 
-
 Reseedable Reseedable::displace(Reseedable & x_displace, Reseedable & y_displace, Reseedable & z_displace)
 {
     auto displace_p = std::make_shared<noise::module::Displace>();
