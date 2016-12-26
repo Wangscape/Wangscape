@@ -278,6 +278,7 @@ Reseedable Reseedable::turbulence(double frequency, double power, int roughness,
     turbulence_p->SetPower(power);
     turbulence_p->SetRoughness(roughness);
     turbulence_p->SetSeed(seed);
+    turbulence_p->SetSourceModule(0, *module);
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
     mg->insert("source", *this);
     mg->insert("output", makeReseedable(turbulence_p));
@@ -287,6 +288,17 @@ Reseedable Reseedable::turbulence(double frequency, double power, int roughness,
 
 Reseedable Reseedable::displace(Reseedable & x_displace, Reseedable & y_displace, Reseedable & z_displace)
 {
-    throw;
-    return Reseedable();
+    auto displace_p = std::make_shared<noise::module::Displace>();
+    displace_p->SetSourceModule(0, *module);
+    displace_p->SetXDisplaceModule(*x_displace.module);
+    displace_p->SetYDisplaceModule(*y_displace.module);
+    displace_p->SetZDisplaceModule(*z_displace.module);
+
+    std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
+    mg->insert("source", *this);
+    mg->insert("displaceX", x_displace);
+    mg->insert("displaceY", y_displace);
+    mg->insert("displaceZ", z_displace);
+    mg->insert("output", makeReseedable(displace_p));
+    return makeReseedable(mg);
 }
