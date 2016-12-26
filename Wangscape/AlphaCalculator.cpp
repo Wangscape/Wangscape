@@ -1,5 +1,6 @@
 #include "AlphaCalculator.h"
 #include <algorithm>
+#include <assert.h>
 #include <numeric>
 
 AlphaCalculator::~AlphaCalculator()
@@ -31,17 +32,28 @@ void AlphaCalculator::calculatePixelAlphaLinear(WeightVector& weights, AlphaVect
         alpha_remaining -= alpha;
         alphas[i] = (sf::Uint8)alpha;
     }
-    size_t i = 0;
-    while (alpha_remaining > 0)
-    {
-        sf::Uint8& alpha = alphas[i%alphas.size()];
-        if (alpha > 0)
+    size_t nonzero_alphas = std::accumulate(
+        alphas.cbegin(),
+        alphas.cend(),
+        (size_t)0,
+        [](const size_t& acc, const sf::Uint8& alpha)
         {
-            alpha++;
+            return alpha > 0 ? acc + 1 : acc;
+        });
+    assert(nonzero_alphas > 0);
+    auto divmod = std::div(alpha_remaining, nonzero_alphas);
+    assert(divmod.quot >= 0);
+    for (size_t i = 0; i < alphas.size(); i++)
+    {
+        alphas[i] += divmod.quot;
+        alpha_remaining -= divmod.quot;
+        if (i < (size_t)divmod.rem)
+        {
+            alphas[i]++;
             alpha_remaining--;
         }
-        i++;
     }
+    assert(alpha_remaining == 0);
 }
 
 void AlphaCalculator::calculatePixelAlphaMax(WeightVector& weights, AlphaVector& alphas)
