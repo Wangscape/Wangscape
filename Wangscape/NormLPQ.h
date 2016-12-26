@@ -9,7 +9,7 @@ class NormLPQ : public noise::module::Module
 {
 public:
     NormLPQ(double p, double q=1.);
-    ~NormLPQ();
+    virtual ~NormLPQ() = default;
     virtual int GetSourceModuleCount() const
     {
         return 0;

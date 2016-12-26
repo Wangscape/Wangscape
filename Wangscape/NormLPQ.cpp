@@ -18,10 +18,6 @@ double NormLPQ::GetValue(double x, double y, double z) const
     return pow(dp, mQP);
 }
 
-NormLPQ::~NormLPQ()
-{
-}
-
 void NormLPQ::setPQ(double p, double q)
 {
     mP = p;
