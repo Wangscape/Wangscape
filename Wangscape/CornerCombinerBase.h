@@ -23,7 +23,7 @@
 class CornerCombinerBase : public noise::module::Module
 {
 public:
-    CornerCombinerBase(double power = 1.);
+    CornerCombinerBase(double power_ = 1.);
     virtual int GetSourceModuleCount() const
     {
         return 0;

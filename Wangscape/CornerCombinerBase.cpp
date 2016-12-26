@@ -3,9 +3,9 @@
 
 
 
-CornerCombinerBase::CornerCombinerBase(double power):
+CornerCombinerBase::CornerCombinerBase(double power_):
     noise::module::Module(GetSourceModuleCount()),
-    power(power)
+    power(power_)
 {
 }
 
