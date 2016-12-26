@@ -11,9 +11,13 @@ using noise::module::TranslatePoint;
 using noise::module::ScalePoint;
 using noise::module::Perlin;
 
-Reseedable makeQuadrantSelector(Reseedable& source, bool x, bool y)
+Reseedable makeQuadrantSelector(Reseedable& source, bool x_positive, bool y_positive)
 {
-    return source.translatePoint(x ? 0 : -1, y ? 0 : -1, 0);
+    if (x_positive && y_positive)
+        return source;
+    return source.translatePoint(x_positive ? 0 : -1,
+                                 y_positive ? 0 : -1,
+                                 0);
 }
 
 Reseedable makeCornerCombiner(bool x_positive, bool y_positive, double power)
@@ -24,7 +28,7 @@ Reseedable makeCornerCombiner(bool x_positive, bool y_positive, double power)
         .clamp(-1., 1.)
         .translatePoint(x_positive ? 0. : -1.,
                         y_positive ? 0. : -1.,
-                        0.0001);
+                        0.0001); // Not a QuadrantSelector because of the z offset
 }
 
 Reseedable makeEdgeFavouringMask(double p, double q, double min)
@@ -32,7 +36,7 @@ Reseedable makeEdgeFavouringMask(double p, double q, double min)
     Reseedable norm_lp_q = makeReseedable(std::make_shared<NormLPQ>(p, q));
 
     return norm_lp_q
-        .translatePoint(-1., -1., 0.)
+        .translatePoint(-1., -1., 0.) // Has the form of a QuadrantSelector but is semantically different
         .scalePoint(2., 2., 0.)
         .scaleBias(1.-min, min)
         .clamp(min, 1.);
@@ -101,5 +105,5 @@ Reseedable makePlaceholder(int seed,
     placeholder->SetLacunarity(lacunarity);
     placeholder->SetPersistence(persistence);
     placeholder->SetNoiseQuality(quality);
-    return makeReseedable(placeholder).translatePoint(origin_x,origin_y,origin_z);
+    return makeReseedable(placeholder).translatePoint(origin_x, origin_y, origin_z);
 }

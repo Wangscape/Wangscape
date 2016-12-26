@@ -29,17 +29,13 @@ NoiseModuleManager::NoiseModuleManager(const Options & options) :
 Reseedable NoiseModuleManager::getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive)
 {
     Reseedable& r = mBordersVertical.at({top, bottom});
-    if (x_positive)
-        return r;
-    return r.translatePoint(-1., 0., 0.);
+    return makeQuadrantSelector(r, x_positive, true);
 }
 
 Reseedable NoiseModuleManager::getBorderHorizontal(TerrainID left, TerrainID right, bool y_positive)
 {
     Reseedable& r = mBordersHorizontal.at({left, right});
-    if (y_positive)
-        return r;
-    return r.translatePoint(0., -1., 0.);
+    return makeQuadrantSelector(r, true, y_positive);
 }
 
 Reseedable& NoiseModuleManager::getStochastic(TerrainID terrain)
