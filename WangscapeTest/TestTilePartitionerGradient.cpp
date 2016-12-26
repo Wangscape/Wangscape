@@ -22,7 +22,6 @@ protected:
  
 TEST_F(TestTilePartitionerGradient, TestGradientWeight)
 {
-    // Doesn't use the test fixture - move to a different test case?
     EXPECT_EQ(31, tpg.gradientWeight(0, 0, 0, 0, 31));
     EXPECT_EQ(0, tpg.gradientWeight(0, 0, 31, 0, 31));
     EXPECT_EQ(0, tpg.gradientWeight(0, 0, 0, 31, 31));
