@@ -13,7 +13,7 @@ public:
     typedef noise::module::Module Module;
     typedef std::pair<TerrainID, TerrainID> TerrainIDPair;
     NoiseModuleManager(const Options& options);
-    ~NoiseModuleManager();
+    virtual ~NoiseModuleManager() = default;
 
     Reseedable getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive);
     Reseedable getBorderHorizontal(TerrainID left, TerrainID right, bool y_positive);

@@ -2,6 +2,7 @@
 #include "ModuleFactories.h"
 #include <random>
 #include <time.h>
+#include <algorithm>
 
 NoiseModuleManager::NoiseModuleManager(const Options & options) :
     mRNG((unsigned int)time(nullptr))
@@ -23,10 +24,6 @@ NoiseModuleManager::NoiseModuleManager(const Options & options) :
                     mBordersVertical.insert({tp, makePlaceholder(mRNG())});
             }
     }
-}
-
-NoiseModuleManager::~NoiseModuleManager()
-{
 }
 
 Reseedable NoiseModuleManager::getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive)
