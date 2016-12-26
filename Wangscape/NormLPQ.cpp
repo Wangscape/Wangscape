@@ -25,7 +25,7 @@ NormLPQ::~NormLPQ()
 void NormLPQ::setPQ(double p, double q)
 {
     mP = p;
-    mQP = q/p;
+    setQ(q);
 }
 
 void NormLPQ::setQ(double q)
