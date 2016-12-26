@@ -43,14 +43,18 @@ void AlphaCalculator::calculatePixelAlphaLinear(WeightVector& weights, AlphaVect
     assert(nonzero_alphas > 0);
     auto divmod = std::div(alpha_remaining, nonzero_alphas);
     assert(divmod.quot >= 0);
-    for (size_t i = 0; i < alphas.size(); i++)
+    int alphas_incremented = 0;
+    for(auto& alpha : alphas)
     {
-        alphas[i] += divmod.quot;
+        if (alpha == 0)
+            continue;
+        alpha += divmod.quot;
         alpha_remaining -= divmod.quot;
-        if (i < (size_t)divmod.rem)
+        if (alphas_incremented < divmod.rem)
         {
-            alphas[i]++;
+            alpha++;
             alpha_remaining--;
+            alphas_incremented++;
         }
     }
     assert(alpha_remaining == 0);
