@@ -12,7 +12,12 @@ set(lib-src
 add_library(wangscape STATIC ${lib-src})
 add_executable(Wangscape Main.cpp)
 
+include_directories(${PROJECT_SOURCE_DIR}/Wangscape)
+include_directories(${PROJECT_SOURCE_DIR}/lib/spotify-json/include)
+include_directories(${PROJECT_SOURCE_DIR}/lib/spotify-json/vendor/double-conversion)
 target_link_libraries(Wangscape wangscape)
+target_link_libraries(Wangscape spotify-json)
+
 
 find_package(Boost COMPONENTS system filesystem program_options REQUIRED)
 if(Boost_FOUND)
