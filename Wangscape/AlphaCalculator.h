@@ -2,6 +2,7 @@
 #include <vector>
 #include <functional>
 #include <SFML/Config.hpp>
+
 class AlphaCalculator
 {
 public:
