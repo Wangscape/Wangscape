@@ -76,10 +76,7 @@ void AlphaCalculator::calculatePixelAlphaMax(WeightVector& weights, AlphaVector&
 void AlphaCalculator::calculatePixelAlphaFunction(WeightVector& weights, AlphaVector& alphas,
                                                   std::function<float(float)> fn)
 {
-    for (auto& weight : weights)
-    {
-        weight = fn(weight);
-    }
+    std::transform(weights.begin(), weights.end(), weights.begin(), fn);
     calculatePixelAlphaLinear(weights, alphas);
 }
 
