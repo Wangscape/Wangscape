@@ -22,10 +22,10 @@ protected:
  
 TEST_F(TestTilePartitionerGradient, TestGradientWeight)
 {
-    EXPECT_EQ(31, tpg.gradientWeight(0, 0, 0, 0, 31));
-    EXPECT_EQ(0, tpg.gradientWeight(0, 0, 31, 0, 31));
-    EXPECT_EQ(0, tpg.gradientWeight(0, 0, 0, 31, 31));
-    EXPECT_EQ(0, tpg.gradientWeight(0, 0, 31, 31, 31));
+    EXPECT_LT(0, tpg.gradientWeight(0, 0, 0, 0, 8));
+    EXPECT_EQ(0, tpg.gradientWeight(0, 0, 31, 0, 8));
+    EXPECT_EQ(0, tpg.gradientWeight(0, 0, 0, 31, 8));
+    EXPECT_EQ(0, tpg.gradientWeight(0, 0, 31, 31, 8));
 }
 
 TEST_F(TestTilePartitionerGradient, TestGradientPartition)

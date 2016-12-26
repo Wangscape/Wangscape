@@ -2,9 +2,9 @@
 #include "AlphaCalculator.h"
 #include <utility>
 
-int TilePartitionerGradient::gradientWeight(int x, int y, int x_corner, int y_corner, int range)
+int TilePartitionerGradient::gradientWeight(int x, int y, int x_corner, int y_corner, int margin)
 {
-    return std::max(0, ((int)mOptions.resolution - 1 - range -
+    return std::max(0, ((int)mOptions.resolution - 1 - margin -
                         std::max(std::abs(x - x_corner),
                                  std::abs(y - y_corner))));
 }

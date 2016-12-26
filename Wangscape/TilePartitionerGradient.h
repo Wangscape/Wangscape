@@ -7,7 +7,7 @@ class TilePartitionerGradient : public TilePartitionerBase
 public:
     TilePartitionerGradient(const Options& options);
     virtual void makePartition(TilePartition& regions, const Corners& corners);
-    int gradientWeight(int x, int y, int x_corner, int y_corner, int range = 0);
+    int gradientWeight(int x, int y, int x_corner, int y_corner, int margin = 0);
 protected:
 
 };
