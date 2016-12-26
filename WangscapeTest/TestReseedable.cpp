@@ -196,8 +196,8 @@ TEST_F(TestReseedable, TestReseedableTranslatePoint)
 }
 TEST_F(TestReseedable, TestReseedableTurbulence)
 {
-    EXPECT_TRUE(false) << "Test not implemented";
-
+    auto turbulence = c05.turbulence(2., 2., 3, 0);
+    EXPECT_EQ(0.5, turbulence.getValue(346980., 0.63, 696.346));
 }
 
 TEST_F(TestReseedable, TestReseedableConst)
