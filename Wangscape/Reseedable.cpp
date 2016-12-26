@@ -233,9 +233,7 @@ Reseedable Reseedable::rotatePoint(double x_angle, double y_angle, double z_angl
 {
     std::shared_ptr<noise::module::RotatePoint> rotate_point_p = std::make_shared<noise::module::RotatePoint>();
     rotate_point_p->SetSourceModule(0, *module);
-    rotate_point_p->SetXAngle(x_angle);
-    rotate_point_p->SetYAngle(y_angle);
-    rotate_point_p->SetZAngle(z_angle);
+    rotate_point_p->SetAngles(x_angle, y_angle, z_angle);
 
     std::shared_ptr<ModuleGroup> mg = std::make_shared<ModuleGroup>();
     mg->insert("source", *this);
