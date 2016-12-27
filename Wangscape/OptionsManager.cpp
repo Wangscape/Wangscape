@@ -2,6 +2,8 @@
 
 #include <fstream>
 
+#include <boost/filesystem.hpp>
+
 #include <spotify/json.hpp>
 
 #include "codecs/OptionsCodec.h"
@@ -19,6 +21,15 @@ OptionsManager::OptionsManager(std::string filename)
 
     mOptions = spotify::json::decode<Options>(str.c_str());
     mOptions.filename = filename;
+
+    // TODO(hryniuk): move it elsewhere
+    auto outputDirectory = mOptions.outputDirectory;
+    boost::filesystem::path p(filename);
+    p.remove_filename();
+    p.append(outputDirectory);
+    boost::filesystem::create_directories(p);
+    auto relativeOutputDirectory = p.string();
+    mOptions.relativeOutputDirectory = relativeOutputDirectory;
 }
 
 void OptionsManager::loadOptions(std::string filename)
