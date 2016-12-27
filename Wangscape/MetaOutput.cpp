@@ -65,19 +65,19 @@ void MetaOutput::writeAll(const Options & options) const
 {
     boost::filesystem::path p(options.relativeOutputDirectory);
 
-    p.append(options.tilesetDataFilename);
+    p.append(options.outputFilenames.tilesetDataFilename);
     writeTilesetData(p.string());
     p.remove_filename();
 
-    p.append(options.tileDataFilename);
+    p.append(options.outputFilenames.tileDataFilename);
     writeTileData(p.string());
     p.remove_filename();
 
-    p.append(options.tileGroupsFilename);
+    p.append(options.outputFilenames.tileGroupsFilename);
     writeTileGroups(p.string());
     p.remove_filename();
 
-    p.append(options.terrainHypergraphFilename);
+    p.append(options.outputFilenames.terrainHypergraphFilename);
     writeTerrainHypergraph(p.string());
 }
 
