@@ -1,7 +1,7 @@
 #pragma once
 #include <rapidjson/document.h>
 #include "Options.h"
-#include "TileGroup.h"
+#include "TileLocation.h"
 #include "Tile.h"
 #include "Tileset.h"
 #include <map>
