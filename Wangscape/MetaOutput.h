@@ -24,7 +24,7 @@ public:
     void writeTilesetData(std::string filename) const;
     void writeTerrainHypergraph(std::string filename) const;
     void writeAll(const Options& options) const;
-    const std::vector<Tile>& getTiles() const;
+    const std::vector<Tile>& getTileData() const;
     const std::unordered_map<std::string, std::vector<TileLocation>>& getTileGroups() const;
     const std::vector<Tileset>& getTilesetData() const;
     const TerrainHypergraph& getTerrainHypergraph() const;

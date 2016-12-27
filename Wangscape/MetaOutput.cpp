@@ -40,7 +40,7 @@ void MetaOutput::setResolution(size_t resolution)
 void MetaOutput::writeTileData(std::string filename) const
 {
     std::ofstream ofs(filename);
-    ofs << spotify::json::encode(getTiles());
+    ofs << spotify::json::encode(getTileData());
 }
 
 void MetaOutput::writeTileGroups(std::string filename) const
@@ -81,7 +81,7 @@ void MetaOutput::writeAll(const Options & options) const
     writeTerrainHypergraph(p.string());
 }
 
-const std::vector<Tile>& MetaOutput::getTiles() const
+const std::vector<Tile>& MetaOutput::getTileData() const
 {
     return mTiles;
 }
