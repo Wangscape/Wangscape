@@ -26,7 +26,7 @@ TEST_F(TestOptions, TestOptionsValues)
         "Incorrect options filename";
     EXPECT_TRUE(boost::filesystem::equivalent(
         boost::filesystem::path(options.relativeOutputDirectory),
-        boost::filesystem::path("../Wangscape/example/output"))) <<
+        boost::filesystem::path("../../Wangscape/example/output"))) <<
         "Incorrect relative output directory";
     EXPECT_STREQ(options.outputDirectory.c_str(),
                  "output") <<
