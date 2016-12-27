@@ -24,6 +24,7 @@ public:
     TerrainSpecMap terrains;
     CliqueList cliques;
 
+    Options() = default;
     Options(std::string filename);
     void initialise(const rapidjson::Document& d);
     ~Options();
