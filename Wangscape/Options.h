@@ -5,6 +5,7 @@
 #include <vector>
 #include <rapidjson/document.h>
 #include "common.h"
+#include "OutputFilenames.h"
 #include "TerrainSpec.h"
 #include "TileFormat.h"
 
@@ -19,14 +20,8 @@ public:
     TileFormat tileFormat;
     std::string outputDirectory;
     std::string relativeOutputDirectory;
-
-    std::string tileDataFilename;
-    std::string tileGroupsFilename;
-    std::string tilesetDataFilename;
-    std::string terrainHypergraphFilename;
-
+    OutputFilenames outputFilenames;
     TerrainSpecMap terrains;
-
     CliqueList cliques;
 
     Options(std::string filename);
