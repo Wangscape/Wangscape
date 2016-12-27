@@ -1,0 +1,43 @@
+#include "OptionsManager.h"
+
+#include <fstream>
+
+#include <spotify/json.hpp>
+
+#include "codecs/OptionsCodec.h"
+
+OptionsManager::OptionsManager(std::string filename)
+{
+    std::ifstream ifs(filename);
+    if (!ifs.good())
+    {
+        throw std::runtime_error("Could not open options file");
+    }
+
+    std::string str{std::istreambuf_iterator<char>(ifs),
+                    std::istreambuf_iterator<char>()};
+
+    mOptions = spotify::json::decode<Options>(str.c_str());
+    mOptions.filename = filename;
+}
+
+void OptionsManager::loadOptions(std::string filename)
+{
+    std::ifstream ifs(filename);
+    if (!ifs.good())
+    {
+        throw std::runtime_error("Could not open options file");
+    }
+
+    std::string str{std::istreambuf_iterator<char>(ifs),
+                    std::istreambuf_iterator<char>()};
+
+    Options options = spotify::json::decode<Options>(str.c_str());
+    options.filename = filename;
+}
+
+const Options& OptionsManager::getOptions() const
+{
+    return mOptions;
+}
+
