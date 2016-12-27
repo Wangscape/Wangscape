@@ -1,10 +1,16 @@
 #include <iostream>
+#include <fstream>
+
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/parsers.hpp>
 #include <boost/program_options/variables_map.hpp>
+
+#include <spotify/json.hpp>
+
+#include "codecs/OptionsCodec.h"
 #include "Options.h"
-#include "TilesetGenerator.h"
 #include "TileGenerator.h"
+#include "TilesetGenerator.h"
 
 namespace po = boost::program_options;
 
@@ -53,7 +59,15 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    const Options options(filename);
+    std::ifstream ifs(filename);
+    if (!ifs.good())
+    {
+        throw std::runtime_error("Could not open options file");
+    }
+    std::string str{std::istreambuf_iterator<char>(ifs),
+                    std::istreambuf_iterator<char>()};
+    Options options = spotify::json::decode<Options>(str.c_str());
+    options.filename = filename;
     TilesetGenerator tg(options);
     tg.generate([](const sf::Texture& output, std::string filename)
     {
