@@ -68,29 +68,8 @@ void MetaOutput::writeTilesetData(std::string filename) const
 
 void MetaOutput::writeTerrainHypergraph(std::string filename) const
 {
-    rapidjson::Document tad;
-    auto& allocator = tad.GetAllocator();
-    tad.SetObject();
-    for (const auto& it : mTerrainHypergraph)
-    {
-        rapidjson::Value v_item;
-        v_item.SetArray();
-        for (const auto& clique : it.second)
-        {
-            rapidjson::Value v_clique;
-            v_clique.SetArray();
-            for (const auto& t : clique)
-            {
-                rapidjson::Value v(t.c_str(), allocator);
-                v_clique.PushBack(v, allocator);
-            }
-            v_item.PushBack(v_clique, allocator);
-        }
-        rapidjson::Value v(it.first.c_str(), allocator);
-        tad.AddMember(v, v_item, allocator);
-    }
-
-    writeJsonObjectToFile(tad, filename);
+    std::ofstream ofs(filename);
+    ofs << spotify::json::encode(getTerrainHypergraph());
 }
 
 void MetaOutput::writeAll(const Options & options) const
