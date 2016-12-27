@@ -16,7 +16,7 @@ public:
     typedef std::vector<TerrainID> Clique;
     typedef std::vector<Clique> CliqueList;
 
-    const std::string filename;
+    std::string filename;
     TileFormat tileFormat;
     std::string outputDirectory;
     std::string relativeOutputDirectory;
