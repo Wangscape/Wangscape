@@ -1,15 +1,20 @@
 #include <gtest/gtest.h>
 #include <TilePartitionSquares.h>
 
+#include <Options.h>
+#include <OptionsManager.h>
+
 class TestTilePartitionSquares : public ::testing::Test {
 protected:
     std::string filename;
-    const Options options;
+    const Options& options;
+    const OptionsManager optionsManager;
     TilePartition tp;
 
     TestTilePartitionSquares() :
-        filename("../Wangscape/example/example_options.json"),
-        options(filename)
+        filename("../../Wangscape/example/example_options.json"),
+        optionsManager(filename),
+        options(optionsManager.getOptions())
     {
         tile_partition_squares(tp, { "g","g","s","s" }, options);
     };

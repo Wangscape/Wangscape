@@ -1,22 +1,24 @@
 #include <gtest/gtest.h>
 #include <Options.h>
+#include <OptionsManager.h>
 #include <TileGenerator.h>
 #include <TilesetGenerator.h>
 
 class TestTilesetGenerator : public ::testing::Test {
 protected:
     std::string filename;
-    const Options options;
+    const Options& options;
+    const OptionsManager optionsManager;
     TilesetGenerator tg;
 
     TestTilesetGenerator():
-        filename("../Wangscape/example/example_options.json"),
-        options(filename),
+        filename("../../Wangscape/example/example_options.json"),
+        optionsManager(filename),
+        options(optionsManager.getOptions()),
         tg(options)
     {
 
     };
-    ~TestTilesetGenerator() {};
 };
 
 TEST_F(TestTilesetGenerator, TestGenerateClique)

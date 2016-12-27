@@ -2,16 +2,19 @@
 
 #include <TilePartitionGradient.h>
 #include <Options.h>
+#include <OptionsManager.h>
 
 class TestTilePartitionGradient: public ::testing::Test{
 protected:
     std::string filename;
-    const Options options;
+    const Options& options;
+    const OptionsManager optionsManager;
     TilePartition tp;
 
     TestTilePartitionGradient() :
-        filename("../Wangscape/example/example_options.json"),
-        options(filename)
+        filename("../../Wangscape/example/example_options.json"),
+        optionsManager(filename),
+        options(optionsManager.getOptions())
     {
         tile_partition_gradient(tp,{ "g","g","s","s" }, options);
     };
