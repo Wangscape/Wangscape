@@ -6,6 +6,7 @@
 #include <rapidjson/document.h>
 #include "common.h"
 #include "TerrainSpec.h"
+#include "TileFormat.h"
 
 class Options
 {
@@ -15,10 +16,7 @@ public:
     typedef std::vector<Clique> CliqueList;
 
     const std::string filename;
-
-    unsigned int resolution;
-    std::string fileType = "png";
-
+    TileFormat tileFormat;
     std::string outputDirectory;
     std::string relativeOutputDirectory;
 
