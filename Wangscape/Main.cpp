@@ -8,7 +8,7 @@
 #include <spotify/json.hpp>
 
 #include "codecs/OptionsCodec.h"
-#include "Options.h"
+#include "OptionsManager.h"
 #include "TileGenerator.h"
 #include "TilesetGenerator.h"
 
@@ -59,22 +59,15 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    std::ifstream ifs(filename);
-    if (!ifs.good())
-    {
-        throw std::runtime_error("Could not open options file");
-    }
-    std::string str{std::istreambuf_iterator<char>(ifs),
-                    std::istreambuf_iterator<char>()};
-    Options options = spotify::json::decode<Options>(str.c_str());
-    options.filename = filename;
-    TilesetGenerator tg(options);
+    OptionsManager optionsManager(filename);
+
+    TilesetGenerator tg(optionsManager.getOptions());
     tg.generate([](const sf::Texture& output, std::string filename)
     {
         if (!output.copyToImage().saveToFile(filename))
             throw std::runtime_error("Couldn't write image");
     });
-    tg.mo.writeAll(options);
+    tg.mo.writeAll(optionsManager.getOptions());
 
     return 0;
 }
