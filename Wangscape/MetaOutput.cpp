@@ -1,6 +1,7 @@
 #include "MetaOutput.h"
 #include "codecs/TileCodec.h"
 #include "codecs/TilesetCodec.h"
+#include "codecs/TileLocationCodec.h"
 #include <ostream>
 #include <sstream>
 #include <fstream>
@@ -10,46 +11,16 @@
 #include <boost/filesystem.hpp>
 
 
-MetaOutput::MetaOutput()
-{
-    mTileGroups.SetObject();
-}
-
 void MetaOutput::addTile(std::vector<TerrainID> corners, std::string filename, size_t offset_x, size_t offset_y)
 {
     mTiles.push_back(Tile(corners, filename, offset_x, offset_y));
 
-    {
-        rapidjson::Document::AllocatorType& allocator = mTileGroups.GetAllocator();
-        rapidjson::Value v_item;
-        v_item.SetObject();
-        {
-            rapidjson::Value v(filename.c_str(), allocator);
-            v_item.AddMember("file", v, allocator);
-        }
-        v_item.AddMember("x", offset_x, allocator);
-        v_item.AddMember("y", offset_y, allocator);
+    std::stringstream ss;
+    for (size_t i = 0; i < corners.size() - 1; i++)
+        ss << corners[i] << ".";
+    ss << *corners.rbegin();
 
-        std::stringstream ss;
-        for (size_t i = 0; i < corners.size() - 1; i++)
-            ss << corners[i] << ".";
-        ss << *corners.rbegin();
-        std::string tile_spec = ss.str();
-
-        auto it = mTileGroups.FindMember(tile_spec.c_str());
-        if (it == mTileGroups.MemberEnd())
-        {
-            rapidjson::Value v_options;
-            v_options.SetArray();
-            v_options.PushBack(v_item, allocator);
-            {
-                rapidjson::Value v(tile_spec.c_str(), allocator);
-                mTileGroups.AddMember(v, v_options, allocator);
-            }
-        }
-        else
-            (*it).value.PushBack(v_item, allocator);
-    }
+    mTileGroups[ss.str()].push_back(TileLocation(filename, offset_x, offset_y));
 }
 
 void MetaOutput::addTileset(TerrainSet terrains, std::string filename, size_t size_x, size_t size_y)
@@ -85,7 +56,8 @@ void MetaOutput::writeTileData(std::string filename) const
 
 void MetaOutput::writeTileGroups(std::string filename) const
 {
-    writeJsonObjectToFile(mTileGroups, filename);
+    std::ofstream ofs(filename);
+    ofs << spotify::json::encode(getTileGroups());
 }
 
 void MetaOutput::writeTilesetData(std::string filename) const
@@ -146,7 +118,7 @@ const std::vector<Tile>& MetaOutput::getTiles() const
     return mTiles;
 }
 
-const rapidjson::Document & MetaOutput::getTileGroups() const
+const std::unordered_map<std::string, std::vector<TileLocation>>& MetaOutput::getTileGroups() const
 {
     return mTileGroups;
 }
