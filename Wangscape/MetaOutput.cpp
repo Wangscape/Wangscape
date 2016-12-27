@@ -5,8 +5,6 @@
 #include <ostream>
 #include <sstream>
 #include <fstream>
-#include <rapidjson/ostreamwrapper.h>
-#include <rapidjson/writer.h>
 #include <spotify/json.hpp>
 #include <boost/filesystem.hpp>
 
@@ -37,15 +35,6 @@ void MetaOutput::addTileset(TerrainSet terrains, std::string filename, size_t si
 void MetaOutput::setResolution(size_t resolution)
 {
     mResolution = resolution;
-}
-
-void MetaOutput::writeJsonObjectToFile(const rapidjson::Document& object, std::string filename) const
-{
-    std::ofstream ofs(filename);
-    rapidjson::OStreamWrapper osw(ofs);
-    rapidjson::Writer<rapidjson::OStreamWrapper> writer(osw);
-    object.Accept(writer);
-
 }
 
 void MetaOutput::writeTileData(std::string filename) const

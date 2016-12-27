@@ -1,5 +1,4 @@
 #pragma once
-#include <rapidjson/document.h>
 #include "Options.h"
 #include "TileLocation.h"
 #include "Tile.h"
@@ -36,6 +35,5 @@ protected:
     TerrainHypergraph mTerrainHypergraph;
 private:
     size_t mResolution;
-    void writeJsonObjectToFile(const rapidjson::Document& object, std::string filename) const;
 };
 
