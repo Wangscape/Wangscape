@@ -1,5 +1,5 @@
 #include "MetaOutput.h"
-#include "Tileset.h"
+#include "codecs/TileCodec.h"
 #include "codecs/TilesetCodec.h"
 #include <ostream>
 #include <sstream>
@@ -10,34 +10,15 @@
 #include <boost/filesystem.hpp>
 
 
-
-
 MetaOutput::MetaOutput()
 {
-    mTileData.SetArray();
     mTileGroups.SetObject();
 }
 
 void MetaOutput::addTile(std::vector<TerrainID> corners, std::string filename, size_t offset_x, size_t offset_y)
 {
-    {
-        rapidjson::Document::AllocatorType& allocator = mTileData.GetAllocator();
-        rapidjson::Value v_corners;
-        v_corners.SetArray();
-        for (auto corner : corners)
-        {
-            rapidjson::Value v(corner.c_str(), allocator);
-            v_corners.PushBack(v, allocator);
-        }
-        rapidjson::Value v_item;
-        v_item.SetObject();
-        v_item.AddMember("corners", v_corners, allocator);
-        rapidjson::Value v(filename.c_str(), allocator);
-        v_item.AddMember("file", v, allocator);
-        v_item.AddMember("x", offset_x, allocator);
-        v_item.AddMember("y", offset_y, allocator);
-        mTileData.PushBack(v_item, allocator);
-    }
+    mTiles.push_back(Tile(corners, filename, offset_x, offset_y));
+
     {
         rapidjson::Document::AllocatorType& allocator = mTileGroups.GetAllocator();
         rapidjson::Value v_item;
@@ -98,7 +79,8 @@ void MetaOutput::writeJsonObjectToFile(const rapidjson::Document& object, std::s
 
 void MetaOutput::writeTileData(std::string filename) const
 {
-    writeJsonObjectToFile(mTileData, filename);
+    std::ofstream ofs(filename);
+    ofs << spotify::json::encode(getTiles());
 }
 
 void MetaOutput::writeTileGroups(std::string filename) const
@@ -159,9 +141,9 @@ void MetaOutput::writeAll(const Options & options) const
     writeTerrainHypergraph(p.string());
 }
 
-const rapidjson::Document & MetaOutput::getTileData() const
+const std::vector<Tile>& MetaOutput::getTiles() const
 {
-    return mTileData;
+    return mTiles;
 }
 
 const rapidjson::Document & MetaOutput::getTileGroups() const
