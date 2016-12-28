@@ -38,7 +38,7 @@ public:
     ModuleContainer::const_iterator cbegin() const;
 
     ModuleGroup(ModuleID output_id="output");
-    ~ModuleGroup();
+    virtual ~ModuleGroup() = default;
     virtual int GetSourceModuleCount() const;
     virtual double GetValue(double x, double y, double z) const;
     void SetSeed(int seed);
