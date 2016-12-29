@@ -15,9 +15,6 @@ public:
     typedef std::vector<TerrainID> Clique;
     typedef std::vector<Clique> CliqueList;
 
-    Options() = default;
-    Options(std::string filename);
-
     std::string filename;
     TileFormat tileFormat;
     std::string outputDirectory;

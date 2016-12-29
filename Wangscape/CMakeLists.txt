@@ -1,6 +1,5 @@
 set(lib-src
     MetaOutput.cpp
-    Options.cpp
     OptionsManager.cpp
     TerrainImages.cpp
     TileGenerator.cpp
