@@ -34,8 +34,3 @@ if(SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})
     target_link_libraries(Wangscape ${SFML_LIBRARIES})
 endif()
-
-find_package(RapidJSON REQUIRED)
-if(RapidJSON_FOUND)
-    include_directories(${RAPIDJSON_INCLUDE_DIRS})
-endif()
