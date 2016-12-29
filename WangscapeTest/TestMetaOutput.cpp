@@ -22,6 +22,7 @@ protected:
     ~TestMetaOutput() {};
 };
 
+// TODO replace this test with something faster
 TEST_F(TestMetaOutput, TestMetaOutputCorrect)
 {
     const auto& td = mo.getTileData();

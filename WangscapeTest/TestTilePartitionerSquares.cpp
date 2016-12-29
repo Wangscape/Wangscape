@@ -1,34 +1,24 @@
 #include <gtest/gtest.h>
+#include <TilePartitionerSquares.h>
 
-#include <TilePartitionGradient.h>
-#include <Options.h>
-
-class TestTilePartitionGradient: public ::testing::Test{
+class TestTilePartitionerSquares : public ::testing::Test {
 protected:
     std::string filename;
     const Options options;
-    TilePartition tp;
+    TilePartitionerSquares tps;
+    TilePartitionerSquares::TilePartition tp;
 
-    TestTilePartitionGradient() :
+    TestTilePartitionerSquares() :
         filename("../Wangscape/example/example_options.json"),
-        options(filename)
+        options(filename),
+        tps(options)
     {
-        tile_partition_gradient(tp,{ "g","g","s","s" }, options);
+        tps.makePartition(tp, { "g","g","s","s" });
     };
-    ~TestTilePartitionGradient() {};
+    ~TestTilePartitionerSquares() {};
 };
 
- 
-TEST_F(TestTilePartitionGradient, TestGradientWeight)
-{
-    // Doesn't use the test fixture - move to a different test case?
-    EXPECT_EQ(31, gradient_weight(0, 0, 0, 0, 31));
-    EXPECT_EQ(0, gradient_weight(0, 0, 31, 0, 31));
-    EXPECT_EQ(0, gradient_weight(0, 0, 0, 31, 31));
-    EXPECT_EQ(0, gradient_weight(0, 0, 31, 31, 31));
-}
-
-TEST_F(TestTilePartitionGradient, TestGradientPartition)
+TEST_F(TestTilePartitionerSquares, TestSquarePartition)
 {
     sf::Image mask = tp[0].first.copyToImage();
     EXPECT_EQ(mask.getPixel(0, 0), sf::Color(255, 255, 255, 255)) <<
@@ -70,4 +60,3 @@ TEST_F(TestTilePartitionGradient, TestGradientPartition)
     EXPECT_EQ(mask.getPixel(31, 31), sf::Color(255, 255, 255, 255)) <<
         "Mask 3: Wrong colour in bottom right pixel";
 }
-

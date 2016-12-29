@@ -1,6 +1,5 @@
 #include "TileGenerator.h"
-#include "TilePartitionSquares.h"
-#include "TilePartitionGradient.h"
+#include "TilePartitionerBase.h"
 
 
 
@@ -16,11 +15,11 @@ TileGenerator::~TileGenerator()
 void TileGenerator::generate(sf::RenderTexture& image, size_t x, size_t y,
                              std::vector<TerrainID> corners,
                              const TerrainImages& images,
-                             const Options& options)
+                             const Options& options,
+                             TilePartitionerBase& tile_partitioner)
 {
-    TilePartition tp;
-    //tile_partition_squares(tp, corners, options);
-    tile_partition_gradient(tp, corners, options);
+    TilePartitionerBase::TilePartition tp;
+    tile_partitioner.makePartition(tp, corners);
     sf::RenderTexture temp;
     temp.create(options.resolution, options.resolution);
     for (const auto& it : tp)
@@ -33,7 +32,7 @@ void TileGenerator::generate(sf::RenderTexture& image, size_t x, size_t y,
         sf::Sprite tile(temp.getTexture());
         tile.setPosition(sf::Vector2f((float)x, (float)y)*(float)options.resolution);
         image.draw(tile, sf::RenderStates(sf::BlendMode(sf::BlendMode::SrcAlpha, sf::BlendMode::One, sf::BlendMode::Add,
-                                                        sf::BlendMode::Zero, sf::BlendMode::One, sf::BlendMode::Add)));
+                                                        sf::BlendMode::Zero,     sf::BlendMode::One, sf::BlendMode::Add)));
         //image.draw(tile, sf::RenderStates(sf::BlendNone));
     }
 }

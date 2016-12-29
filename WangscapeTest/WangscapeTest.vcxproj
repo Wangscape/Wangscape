@@ -127,6 +127,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>Wangscape.exe.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -146,10 +147,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestCornerCombiner.cpp" />
+    <ClCompile Include="TestEdgeFavouringMask.cpp" />
     <ClCompile Include="TestMetaOutput.cpp" />
+    <ClCompile Include="TestModuleGroup.cpp" />
+    <ClCompile Include="TestMovingScaleBias.cpp" />
+    <ClCompile Include="TestNormLPQ.cpp" />
     <ClCompile Include="TestOptions.cpp" />
-    <ClCompile Include="TestTilePartitionGradient.cpp" />
-    <ClCompile Include="TestTilePartitionSquares.cpp" />
+    <ClCompile Include="TestReseedable.cpp" />
+    <ClCompile Include="TestTileGenerationPlan.cpp" />
+    <ClCompile Include="TestTilePartitionerGradient.cpp" />
+    <ClCompile Include="TestTilePartitionerSquares.cpp" />
     <ClCompile Include="TestTilesetGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
