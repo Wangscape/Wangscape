@@ -1,1 +1,1 @@
-add_subdirectory(spotify-json)
+add_subdirectory(spotify-json EXCLUDE_FROM_ALL)
