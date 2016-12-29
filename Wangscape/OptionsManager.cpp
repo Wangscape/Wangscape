@@ -43,8 +43,8 @@ void OptionsManager::loadOptions(std::string filename)
     std::string str{std::istreambuf_iterator<char>(ifs),
                     std::istreambuf_iterator<char>()};
 
-    Options options = spotify::json::decode<Options>(str.c_str());
-    options.filename = filename;
+    mOptions = spotify::json::decode<Options>(str.c_str());
+    mOptions.filename = filename;
 }
 
 const Options& OptionsManager::getOptions() const
