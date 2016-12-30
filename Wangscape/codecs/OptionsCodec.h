@@ -3,7 +3,7 @@
 #include <spotify/json.hpp>
 
 #include "Options.h"
-#include "OutputFilenamesCodec.h"
+#include "metaoutput/codecs/FilenamesCodec.h"
 #include "TerrainSpecCodec.h"
 #include "TileFormatCodec.h"
 

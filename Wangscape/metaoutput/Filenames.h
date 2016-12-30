@@ -5,7 +5,7 @@
 namespace metaoutput
 {
 
-struct OutputFilenames
+struct Filenames
 {
     std::string tileDataFilename;
     std::string tileGroupsFilename;
