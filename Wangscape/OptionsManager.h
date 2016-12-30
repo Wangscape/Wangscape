@@ -6,8 +6,8 @@ class OptionsManager
 {
 public:
     OptionsManager() = default;
-    OptionsManager(std::string filename);
-    void loadOptions(std::string filename);
+    OptionsManager(std::string optionsFilename);
+    void loadOptions(std::string optionsFilename);
     void createOutputDirectory(std::string filename);
     const Options& getOptions() const;
 

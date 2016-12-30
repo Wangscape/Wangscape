@@ -8,14 +8,14 @@
 
 #include "codecs/OptionsCodec.h"
 
-OptionsManager::OptionsManager(std::string filename)
+OptionsManager::OptionsManager(std::string optionsFilename)
 {
-    loadOptions(filename);
+    loadOptions(optionsFilename);
 }
 
-void OptionsManager::loadOptions(std::string filename)
+void OptionsManager::loadOptions(std::string optionsFilename)
 {
-    std::ifstream ifs(filename);
+    std::ifstream ifs(optionsFilename);
     if (!ifs.good())
     {
         throw std::runtime_error("Could not open options file");
@@ -25,16 +25,16 @@ void OptionsManager::loadOptions(std::string filename)
                     std::istreambuf_iterator<char>()};
 
     mOptions = spotify::json::decode<Options>(str.c_str());
-    mOptions.filename = filename;
+    mOptions.filename = optionsFilename;
 
-    createOutputDirectory(filename);
+    createOutputDirectory(optionsFilename);
 }
 
-void OptionsManager::createOutputDirectory(std::string filename)
+void OptionsManager::createOutputDirectory(std::string optionsFilename)
 {
     // TODO(hryniuk): move it elsewhere
     auto outputDirectory = mOptions.outputDirectory;
-    boost::filesystem::path p(filename);
+    boost::filesystem::path p(optionsFilename);
     p.remove_filename();
     p.append(outputDirectory);
     boost::filesystem::create_directories(p);
