@@ -1,7 +1,7 @@
 #include "MetaOutput.h"
-#include "metaoutput/codecs/TileCodec.h"
-#include "metaoutput/codecs/TilesetCodec.h"
-#include "metaoutput/codecs/TileLocationCodec.h"
+#include "codecs/TileCodec.h"
+#include "codecs/TilesetCodec.h"
+#include "codecs/TileLocationCodec.h"
 
 #include <spotify/json.hpp>
 

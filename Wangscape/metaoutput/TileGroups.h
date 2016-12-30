@@ -1,6 +1,6 @@
 #pragma once
 
-#include "metaoutput/TileLocation.h"
+#include "TileLocation.h"
 
 #include <unordered_map>
 
