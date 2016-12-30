@@ -5,5 +5,11 @@
   <PropertyGroup>
     <IncludePath>$(SolutionDir)lib\spotify-json\include;$(IncludePath)</IncludePath>
     <_PropertySheetDisplayName>spotify-json</_PropertySheetDisplayName>
+    <LibraryPath>$(SolutionDir)lib\spotify-json\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>spotify-json.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
 </Project>
