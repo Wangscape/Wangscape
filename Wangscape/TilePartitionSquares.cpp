@@ -5,7 +5,7 @@ void tile_partition_squares(TilePartition& regions,
                             const Options& options)
 {
     sf::RectangleShape quarter_tile;
-    auto resolution = options.resolution;
+    auto resolution = options.tileFormat.resolution;
     quarter_tile.setSize(sf::Vector2f(resolution / 2.f, resolution / 2.f));
     quarter_tile.setFillColor(sf::Color::White);
     quarter_tile.setOutlineThickness(0.f);

@@ -23,6 +23,13 @@ Rather than matching graphical tiles with the representation of logical tiles on
 
 # How can I build Wangscape?
 
+First of all, you need to clone all needed submodules. To get them, execute
+this command in Wangscape's root directory:
+
+```bash
+git submodule update --init
+```
+
 Wangscape depends on these libraries:
 * **Boost**
   - system
@@ -30,7 +37,7 @@ Wangscape depends on these libraries:
 * **SFML 2**
   - system
   - graphics
-* **rapidjson**
+* **spotify-json** (submodule)
 
 After installing them, you can compile Wangscape using either of the methods
 below.

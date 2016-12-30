@@ -37,20 +37,20 @@ void tile_partition_gradient(TilePartition & regions, std::vector<TerrainID> cor
     for (auto corner : corners)
     {
         sf::Image img;
-        img.create(options.resolution, options.resolution);
+        img.create(options.tileFormat.resolution, options.tileFormat.resolution);
         masks.push_back(img);
     }
     std::vector<float> weights(corners.size(),0.f);
     std::vector<sf::Uint8> alphas(corners.size(), 0);
-    int resolution_sub_1 = options.resolution - 1;
-    for (size_t x = 0; x < options.resolution; x++)
+    int resolution_sub_1 = options.tileFormat.resolution - 1;
+    for (size_t x = 0; x < options.tileFormat.resolution; x++)
     {
-        for (size_t y = 0; y < options.resolution; y++)
+        for (size_t y = 0; y < options.tileFormat.resolution; y++)
         {
-            weights[0] = (float)gradient_weight(x, y, 0, 0, resolution_sub_1, options.resolution / 4);
-            weights[1] = (float)gradient_weight(x, y, 0, resolution_sub_1, resolution_sub_1, options.resolution / 4);
-            weights[2] = (float)gradient_weight(x, y, resolution_sub_1, 0, resolution_sub_1, options.resolution / 4);
-            weights[3] = (float)gradient_weight(x, y, resolution_sub_1, resolution_sub_1, resolution_sub_1, options.resolution / 4);
+            weights[0] = (float)gradient_weight(x, y, 0, 0, resolution_sub_1, options.tileFormat.resolution / 4);
+            weights[1] = (float)gradient_weight(x, y, 0, resolution_sub_1, resolution_sub_1, options.tileFormat.resolution / 4);
+            weights[2] = (float)gradient_weight(x, y, resolution_sub_1, 0, resolution_sub_1, options.tileFormat.resolution / 4);
+            weights[3] = (float)gradient_weight(x, y, resolution_sub_1, resolution_sub_1, resolution_sub_1, options.tileFormat.resolution / 4);
             apply_weights(weights, alphas);
             for (size_t i = 0; i < masks.size(); i++)
             {

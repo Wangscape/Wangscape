@@ -1,10 +1,16 @@
 #include <iostream>
+#include <fstream>
+
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/parsers.hpp>
 #include <boost/program_options/variables_map.hpp>
-#include "Options.h"
-#include "TilesetGenerator.h"
+
+#include <spotify/json.hpp>
+
+#include "codecs/OptionsCodec.h"
+#include "OptionsManager.h"
 #include "TileGenerator.h"
+#include "TilesetGenerator.h"
 
 namespace po = boost::program_options;
 
@@ -53,14 +59,15 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    const Options options(filename);
-    TilesetGenerator tg(options);
+    OptionsManager optionsManager(filename);
+
+    TilesetGenerator tg(optionsManager.getOptions());
     tg.generate([](const sf::Texture& output, std::string filename)
     {
         if (!output.copyToImage().saveToFile(filename))
             throw std::runtime_error("Couldn't write image");
     });
-    tg.mo.writeAll(options);
+    tg.mo.writeAll(optionsManager.getOptions());
 
     return 0;
 }
