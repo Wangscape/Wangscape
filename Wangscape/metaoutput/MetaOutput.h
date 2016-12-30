@@ -3,6 +3,7 @@
 #include "TileLocation.h"
 #include "metaoutput/Tile.h"
 #include "metaoutput/Tileset.h"
+#include "metaoutput/TileGroups.h"
 #include <map>
 #include <set>
 #include <vector>
@@ -28,13 +29,13 @@ public:
     void writeTerrainHypergraph(std::string filename) const;
     void writeAll(const Options& options) const;
     const std::vector<Tile>& getTileData() const;
-    const std::unordered_map<std::string, std::vector<TileLocation>>& getTileGroups() const;
+    const TileGroups& getTileGroups() const;
     const std::vector<Tileset>& getTilesetData() const;
     const TerrainHypergraph& getTerrainHypergraph() const;
 protected:
     std::vector<Tileset> mTilesets;
     std::vector<Tile> mTiles;
-    std::unordered_map<std::string, std::vector<TileLocation>> mTileGroups;
+    TileGroups mTileGroups;
     TerrainHypergraph mTerrainHypergraph;
 private:
     size_t mResolution;

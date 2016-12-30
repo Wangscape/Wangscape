@@ -91,7 +91,7 @@ const std::vector<Tile>& MetaOutput::getTileData() const
     return mTiles;
 }
 
-const std::unordered_map<std::string, std::vector<TileLocation>>& MetaOutput::getTileGroups() const
+const TileGroups& MetaOutput::getTileGroups() const
 {
     return mTileGroups;
 }
