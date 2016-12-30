@@ -3,6 +3,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IncludePath>C:\libs\rapidjson\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)lib\spotify-json\include;$(IncludePath)</IncludePath>
+    <_PropertySheetDisplayName>spotify-json</_PropertySheetDisplayName>
   </PropertyGroup>
 </Project>
