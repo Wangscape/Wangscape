@@ -62,9 +62,6 @@
     <ClInclude Include="TilePartitionGradient.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MetaOutput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TilePartitionPerlin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
