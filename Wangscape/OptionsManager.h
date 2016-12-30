@@ -8,6 +8,7 @@ public:
     OptionsManager() = default;
     OptionsManager(std::string filename);
     void loadOptions(std::string filename);
+    void createOutputDirectory(std::string filename);
     const Options& getOptions() const;
 
 private:

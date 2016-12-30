@@ -11,15 +11,6 @@
 OptionsManager::OptionsManager(std::string filename)
 {
     loadOptions(filename);
-
-    // TODO(hryniuk): move it elsewhere
-    auto outputDirectory = mOptions.outputDirectory;
-    boost::filesystem::path p(filename);
-    p.remove_filename();
-    p.append(outputDirectory);
-    boost::filesystem::create_directories(p);
-    auto relativeOutputDirectory = p.string();
-    mOptions.relativeOutputDirectory = relativeOutputDirectory;
 }
 
 void OptionsManager::loadOptions(std::string filename)
@@ -35,6 +26,20 @@ void OptionsManager::loadOptions(std::string filename)
 
     mOptions = spotify::json::decode<Options>(str.c_str());
     mOptions.filename = filename;
+
+    createOutputDirectory(filename);
+}
+
+void OptionsManager::createOutputDirectory(std::string filename)
+{
+    // TODO(hryniuk): move it elsewhere
+    auto outputDirectory = mOptions.outputDirectory;
+    boost::filesystem::path p(filename);
+    p.remove_filename();
+    p.append(outputDirectory);
+    boost::filesystem::create_directories(p);
+    auto relativeOutputDirectory = p.string();
+    mOptions.relativeOutputDirectory = relativeOutputDirectory;
 }
 
 const Options& OptionsManager::getOptions() const
