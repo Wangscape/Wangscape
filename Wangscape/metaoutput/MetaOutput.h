@@ -1,6 +1,6 @@
 #pragma once
 #include "Options.h"
-#include "TileLocation.h"
+#include "metaoutput/TileLocation.h"
 #include "metaoutput/Tile.h"
 #include "metaoutput/Tileset.h"
 #include "metaoutput/TileGroups.h"
