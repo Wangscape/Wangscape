@@ -1,3 +1,6 @@
 [submodule "lib/spotify-json"]
 	path = lib/spotify-json
 	url = https://github.com/spotify/spotify-json.git
+[submodule "lib/double-conversion"]
+	path = lib/double-conversion
+	url = https://github.com/google/double-conversion.git
