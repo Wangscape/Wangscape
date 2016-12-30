@@ -2,6 +2,9 @@
 
 #include <string>
 
+namespace metaoutput
+{
+
 struct TileLocation
 {
     TileLocation() = default;
@@ -10,3 +13,5 @@ struct TileLocation
     size_t x;
     size_t y;
 };
+
+} // namespace metaoutput

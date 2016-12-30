@@ -2,6 +2,9 @@
 
 #include <string>
 
+namespace metaoutput
+{
+
 struct OutputFilenames
 {
     std::string tileDataFilename;
@@ -9,3 +12,5 @@ struct OutputFilenames
     std::string tilesetDataFilename;
     std::string terrainHypergraphFilename;
 };
+
+} // namespace metaoutput

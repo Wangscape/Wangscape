@@ -2,7 +2,7 @@
 
 #include <OptionsManager.h>
 #include <TilesetGenerator.h>
-#include <MetaOutput.h>
+#include <metaoutput/MetaOutput.h>
 #include <codecs/OptionsCodec.h>
 
 #include <algorithm>
@@ -16,7 +16,7 @@ protected:
     std::ifstream ifs;
     const OptionsManager& optionsManager;
     TilesetGenerator tg;
-    const MetaOutput& mo;
+    const metaoutput::MetaOutput& mo;
     TestMetaOutput() :
         filename("../../Wangscape/example/example_options.json"),
         optionsManager(filename),

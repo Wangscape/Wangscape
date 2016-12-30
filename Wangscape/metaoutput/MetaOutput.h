@@ -1,12 +1,15 @@
 #pragma once
 #include "Options.h"
 #include "TileLocation.h"
-#include "Tile.h"
-#include "Tileset.h"
+#include "metaoutput/Tile.h"
+#include "metaoutput/Tileset.h"
 #include <map>
 #include <set>
 #include <vector>
 #include <unordered_map>
+
+namespace metaoutput
+{
 
 class MetaOutput
 {
@@ -37,3 +40,4 @@ private:
     size_t mResolution;
 };
 
+} // namespace metaoutput

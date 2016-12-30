@@ -4,7 +4,7 @@
 #include <utility>
 #include <vector>
 #include "common.h"
-#include "OutputFilenames.h"
+#include "metaoutput/OutputFilenames.h"
 #include "TerrainSpec.h"
 #include "TileFormat.h"
 
@@ -19,7 +19,7 @@ public:
     TileFormat tileFormat;
     std::string outputDirectory;
     std::string relativeOutputDirectory;
-    OutputFilenames outputFilenames;
+    metaoutput::OutputFilenames outputFilenames;
     TerrainSpecMap terrains;
     CliqueList cliques;
 };

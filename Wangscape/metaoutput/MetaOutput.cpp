@@ -1,13 +1,18 @@
 #include "MetaOutput.h"
-#include "codecs/TileCodec.h"
-#include "codecs/TilesetCodec.h"
-#include "codecs/TileLocationCodec.h"
+#include "metaoutput/codecs/TileCodec.h"
+#include "metaoutput/codecs/TilesetCodec.h"
+#include "metaoutput/codecs/TileLocationCodec.h"
+
+#include <spotify/json.hpp>
+
+#include <boost/filesystem.hpp>
+
 #include <ostream>
 #include <sstream>
 #include <fstream>
-#include <spotify/json.hpp>
-#include <boost/filesystem.hpp>
 
+namespace metaoutput
+{
 
 void MetaOutput::addTile(std::vector<TerrainID> corners, std::string filename, size_t offset_x, size_t offset_y)
 {
@@ -100,3 +105,5 @@ const MetaOutput::TerrainHypergraph & MetaOutput::getTerrainHypergraph() const
 {
     return mTerrainHypergraph;
 }
+
+} // namespace metaoutput

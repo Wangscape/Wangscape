@@ -3,6 +3,9 @@
 #include <string>
 #include <vector>
 
+namespace metaoutput
+{
+
 struct Tile
 {
     Tile() = default;
@@ -12,3 +15,5 @@ struct Tile
     size_t x;
     size_t y;
 };
+
+} // namespace metaoutput

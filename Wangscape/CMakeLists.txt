@@ -1,24 +1,21 @@
 set(lib-src
-    MetaOutput.cpp
     OptionsManager.cpp
     TerrainImages.cpp
     TileGenerator.cpp
     TilePartitionGradient.cpp
     TilePartitionSquares.cpp
-    Tile.cpp
-    TileLocation.cpp
-    Tileset.cpp
     TilesetGenerator.cpp
 )
+
+add_subdirectory(metaoutput)
 
 add_library(wangscape STATIC ${lib-src})
 add_executable(Wangscape Main.cpp)
 
-include_directories(${PROJECT_SOURCE_DIR}/Wangscape)
-include_directories(${PROJECT_SOURCE_DIR}/lib/spotify-json/include)
-include_directories(${PROJECT_SOURCE_DIR}/lib/spotify-json/vendor/double-conversion)
+target_link_libraries(wangscape metaoutput)
+target_link_libraries(wangscape spotify-json)
+
 target_link_libraries(Wangscape wangscape)
-target_link_libraries(Wangscape spotify-json)
 
 
 find_package(Boost COMPONENTS system filesystem program_options REQUIRED)

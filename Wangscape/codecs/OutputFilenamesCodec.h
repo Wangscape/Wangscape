@@ -2,7 +2,7 @@
 
 #include <spotify/json.hpp>
 
-#include "OutputFilenames.h"
+#include "metaoutput/OutputFilenames.h"
 
 using namespace spotify::json::codec;
 
@@ -12,15 +12,15 @@ namespace json
 {
 
 template<>
-struct default_codec_t<OutputFilenames>
+struct default_codec_t<metaoutput::OutputFilenames>
 {
-    static object_t<OutputFilenames> codec()
+    static object_t<metaoutput::OutputFilenames> codec()
     {
-        auto codec = object<OutputFilenames>();
-        codec.required("TileData", &OutputFilenames::tileDataFilename);
-        codec.required("TileGroups", &OutputFilenames::tileGroupsFilename);
-        codec.required("TilesetData", &OutputFilenames::tilesetDataFilename);
-        codec.required("TerrainHypergraph", &OutputFilenames::terrainHypergraphFilename);
+        auto codec = object<metaoutput::OutputFilenames>();
+        codec.required("TileData", &metaoutput::OutputFilenames::tileDataFilename);
+        codec.required("TileGroups", &metaoutput::OutputFilenames::tileGroupsFilename);
+        codec.required("TilesetData", &metaoutput::OutputFilenames::tilesetDataFilename);
+        codec.required("TerrainHypergraph", &metaoutput::OutputFilenames::terrainHypergraphFilename);
 
         return codec;
     }

@@ -5,6 +5,9 @@
 
 #include "common.h"
 
+namespace metaoutput
+{
+
 struct Tileset
 {
     Tileset() = default;
@@ -15,3 +18,5 @@ struct Tileset
     size_t y;
     std::vector<TerrainID> terrains;
 };
+
+} // namespace metaoutput

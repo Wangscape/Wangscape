@@ -8,9 +8,7 @@ set(tst-src
 
 add_executable(WangscapeTest ${tst-src})
 
-include_directories(${PROJECT_SOURCE_DIR}/Wangscape)
 target_link_libraries(WangscapeTest wangscape)
-target_link_libraries(WangscapeTest spotify-json)
 
 find_package(GTest REQUIRED)
 if(GTest_FOUND)

@@ -4,7 +4,7 @@
 #include "Options.h"
 #include "TileGenerator.h"
 #include "TerrainImages.h"
-#include "MetaOutput.h"
+#include "metaoutput/MetaOutput.h"
 class TilesetGenerator
 {
 public:
@@ -14,7 +14,7 @@ public:
     void generateClique(const Options::Clique& clique, sf::RenderTexture& image, std::string filename,
                         TileGenerator::TileGenerateFunction callback);
     const Options& options;
-    MetaOutput mo;
+    metaoutput::MetaOutput mo;
     TerrainImages images;
 
 private:
