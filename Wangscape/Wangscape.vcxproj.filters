@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\codecs">
+      <UniqueIdentifier>{3be24d6e-21c4-4b59-a021-9ab60ac7f883}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\metaoutput">
+      <UniqueIdentifier>{0a68672a-1308-4355-a516-4be1ef4512bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\metaoutput\codecs">
+      <UniqueIdentifier>{e7452e84-b9f1-4061-b0a4-4730ceb7cea8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\metaoutput">
+      <UniqueIdentifier>{37ee9c84-1224-45e9-a5ff-a4198d106da0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -56,12 +68,57 @@
     <ClInclude Include="TilePartitionPerlin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Corners.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionsManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TileFormat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="codecs\OptionsCodec.h">
+      <Filter>Header Files\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="codecs\TerrainSpecCodec.h">
+      <Filter>Header Files\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="codecs\TileFormatCodec.h">
+      <Filter>Header Files\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\Filenames.h">
+      <Filter>Header Files\metaoutput</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\MetaOutput.h">
+      <Filter>Header Files\metaoutput</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\Tile.h">
+      <Filter>Header Files\metaoutput</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\TileGroups.h">
+      <Filter>Header Files\metaoutput</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\TileLocation.h">
+      <Filter>Header Files\metaoutput</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\Tileset.h">
+      <Filter>Header Files\metaoutput</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\codecs\FilenamesCodec.h">
+      <Filter>Header Files\metaoutput\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\codecs\TileCodec.h">
+      <Filter>Header Files\metaoutput\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\codecs\TileLocationCodec.h">
+      <Filter>Header Files\metaoutput\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\codecs\TilesetCodec.h">
+      <Filter>Header Files\metaoutput\codecs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Options.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TilesetGenerator.cpp">
@@ -79,8 +136,17 @@
     <ClCompile Include="TilePartitionGradient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MetaOutput.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="metaoutput\MetaOutput.cpp">
+      <Filter>Source Files\metaoutput</Filter>
+    </ClCompile>
+    <ClCompile Include="metaoutput\Tile.cpp">
+      <Filter>Source Files\metaoutput</Filter>
+    </ClCompile>
+    <ClCompile Include="metaoutput\TileLocation.cpp">
+      <Filter>Source Files\metaoutput</Filter>
+    </ClCompile>
+    <ClCompile Include="metaoutput\Tileset.cpp">
+      <Filter>Source Files\metaoutput</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
