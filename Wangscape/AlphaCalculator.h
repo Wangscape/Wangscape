@@ -9,7 +9,7 @@ public:
     typedef std::vector<float> WeightVector;
     typedef std::vector<sf::Uint8> AlphaVector;
     typedef std::function<void(WeightVector&, AlphaVector&)> PixelAlphaCalculator;
-    virtual ~AlphaCalculator();
+    virtual ~AlphaCalculator() = default;
     static void calculatePixelAlphaLinear(WeightVector& weights, AlphaVector& alphas);
     static void calculatePixelAlphaMax(WeightVector& weights, AlphaVector& alphas);
     static void calculatePixelAlphaFunction(WeightVector& weights, AlphaVector& alphas,

@@ -3,10 +3,6 @@
 #include <assert.h>
 #include <numeric>
 
-AlphaCalculator::~AlphaCalculator()
-{
-}
-
 void AlphaCalculator::calculatePixelAlphaLinear(WeightVector& weights, AlphaVector& alphas)
 {
     int alpha_remaining = 255;
