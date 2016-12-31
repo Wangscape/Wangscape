@@ -33,6 +33,6 @@ public:
 
     Options(std::string filename);
     void initialise(const rapidjson::Document& d);
-    ~Options();
+    virtual ~Options() = default;
 };
 

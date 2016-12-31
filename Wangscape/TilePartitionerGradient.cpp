@@ -45,8 +45,3 @@ void TilePartitionerGradient::makePartition(TilePartition & regions,
         regions.push_back({t, corners[i]});
     }
 }
-
-TilePartitionerGradient::TilePartitionerGradient(const Options & options) :
-    TilePartitionerBase(options)
-{
-}

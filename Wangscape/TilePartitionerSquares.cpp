@@ -24,9 +24,3 @@ void TilePartitionerSquares::makePartition(TilePartition& regions, const Corners
     make_mask(sf::Vector2f(resolution / 2.f, 0), corners[2]);
     make_mask(sf::Vector2f(resolution / 2.f, resolution / 2.f), corners[3]);
 };
-
-
-TilePartitionerSquares::TilePartitionerSquares(const Options & options) :
-    TilePartitionerBase(options)
-{
-}

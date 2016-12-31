@@ -11,7 +11,7 @@ typedef module::Module Module;
 typedef std::shared_ptr<Module> ModulePtr;
 typedef std::function<void(int)> SetSeedFn;
 // typedef std::pair<ModulePtr, SetSeedFn> Reseedable;
-struct Reseedable
+struct Reseedable final
 {
     ModulePtr module;
     SetSeedFn setSeed;

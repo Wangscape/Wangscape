@@ -4,7 +4,7 @@
 class TilePartitionerSquares : public TilePartitionerBase
 {
 public:
-    TilePartitionerSquares(const Options& options);
+    using TilePartitionerBase::TilePartitionerBase;
     virtual void makePartition(TilePartition& regions, const Corners& corners);
 protected:
 

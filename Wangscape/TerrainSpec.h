@@ -17,5 +17,6 @@ struct TerrainSpec
     std::string fileName;
     unsigned int offsetX;
     unsigned int offsetY;
+    virtual ~TerrainSpec() = default;
 };
 

@@ -6,18 +6,11 @@
 #include <rapidjson/writer.h>
 #include <boost/filesystem.hpp>
 
-
-
 MetaOutput::MetaOutput()
 {
     mTileData.SetArray();
     mTilesetData.SetObject();
     mTileGroups.SetObject();
-}
-
-
-MetaOutput::~MetaOutput()
-{
 }
 
 void MetaOutput::addTile(std::vector<TerrainID> corners, std::string filename, size_t offset_x, size_t offset_y)

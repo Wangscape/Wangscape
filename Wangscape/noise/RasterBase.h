@@ -14,8 +14,10 @@ public:
     typedef double Real;
     typedef sf::Rect<Real> Bounds;
 
-    RasterBase();
+    RasterBase() = default;
     RasterBase(Bounds bounds);
+
+    virtual ~RasterBase() = default;
 
     const Bounds& bounds() const;
     Bounds& bounds();

@@ -2,10 +2,6 @@
 
 namespace noise {
 
-RasterBase::RasterBase()
-{
-}
-
 RasterBase::RasterBase(Bounds bounds):
     mBounds(bounds)
 {

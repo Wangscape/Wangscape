@@ -88,7 +88,3 @@ void Options::initialise(const rapidjson::Document& d)
         }
     }
 }
-
-Options::~Options()
-{
-}

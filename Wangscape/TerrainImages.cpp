@@ -2,16 +2,6 @@
 #include <boost/filesystem.hpp>
 #include <functional>
 
-
-TerrainImages::TerrainImages()
-{
-}
-
-
-TerrainImages::~TerrainImages()
-{
-}
-
 void TerrainImages::rearrangeTile(sf::Texture& t)
 {
     auto resolution = t.getSize();
