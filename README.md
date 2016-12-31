@@ -38,7 +38,6 @@ Wangscape depends on these libraries:
   - system
   - graphics
 * **spotify-json** (submodule)
-* **double-conversion** (submodule)
 
 After installing them, you can compile Wangscape using either of the methods
 below.
