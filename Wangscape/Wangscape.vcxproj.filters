@@ -74,9 +74,6 @@
     <ClInclude Include="noise\MakeReseedable.h">
       <Filter>Header Files\noise</Filter>
     </ClInclude>
-    <ClInclude Include="noise\NoiseMap.h">
-      <Filter>Header Files\noise</Filter>
-    </ClInclude>
     <ClInclude Include="noise\Reseedable.h">
       <Filter>Header Files\noise</Filter>
     </ClInclude>
@@ -102,6 +99,17 @@
       <Filter>Header Files\noise\module</Filter>
     </ClInclude>
     <ClInclude Include="noise\ModuleManager.h">
+      <Filter>Header Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\RasterBase.h">
+      <Filter>Header Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\RasterImage.h">
+      <Filter>Header Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\RasterValues.h">
+      <Filter>Header Files\noise</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -140,12 +148,6 @@
     <ClCompile Include="noise\MakeReseedable.cpp">
       <Filter>Source Files\noise</Filter>
     </ClCompile>
-    <ClCompile Include="noise\NoiseMap.cpp">
-      <Filter>Source Files\noise</Filter>
-    </ClCompile>
-    <ClCompile Include="noise\NoiseModuleManager.cpp">
-      <Filter>Source Files\noise</Filter>
-    </ClCompile>
     <ClCompile Include="noise\Reseedable.cpp">
       <Filter>Source Files\noise</Filter>
     </ClCompile>
@@ -160,6 +162,18 @@
     </ClCompile>
     <ClCompile Include="noise\module\NormLPQ.cpp">
       <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\ModuleManager.cpp">
+      <Filter>Source Files\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\RasterBase.cpp">
+      <Filter>Source Files\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\RasterImage.cpp">
+      <Filter>Source Files\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\RasterValues.cpp">
+      <Filter>Source Files\noise</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

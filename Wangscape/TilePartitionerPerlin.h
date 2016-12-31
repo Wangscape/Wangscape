@@ -5,7 +5,7 @@
 #include "noise/ModuleManager.h"
 #include "TilePartitionerBase.h"
 
-#include "noise/NoiseMap.h"
+#include "noise/RasterValues.h"
 
 using Reseedable = noise::Reseedable;
 
@@ -15,7 +15,7 @@ public:
     TilePartitionerPerlin(const Options& options);
     void makePartition(TilePartition& regions,
                        const Corners& corners);
-    void makeCorner(noise::NoiseMapVector<float> & noise_map_vector,
+    void makeCorner(noise::RasterValues<float> & noise_map_vector,
                     const Corners& corners,
                     bool left, bool top);
 protected:

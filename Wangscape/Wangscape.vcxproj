@@ -160,8 +160,10 @@
     <ClInclude Include="noise\module\ModuleFactories.h" />
     <ClInclude Include="noise\module\ModuleGroup.h" />
     <ClInclude Include="noise\module\NormLPQ.h" />
-    <ClInclude Include="noise\NoiseMap.h" />
+    <ClInclude Include="noise\RasterBase.h" />
     <ClInclude Include="noise\ModuleManager.h" />
+    <ClInclude Include="noise\RasterImage.h" />
+    <ClInclude Include="noise\RasterValues.h" />
     <ClInclude Include="noise\Reseedable.h" />
     <ClInclude Include="MetaOutput.h" />
     <ClInclude Include="Options.h" />
@@ -181,8 +183,10 @@
     <ClCompile Include="noise\module\ModuleFactories.cpp" />
     <ClCompile Include="noise\module\ModuleGroup.cpp" />
     <ClCompile Include="noise\module\NormLPQ.cpp" />
-    <ClCompile Include="noise\NoiseMap.cpp" />
-    <ClCompile Include="noise\NoiseModuleManager.cpp" />
+    <ClCompile Include="noise\RasterBase.cpp" />
+    <ClCompile Include="noise\ModuleManager.cpp" />
+    <ClCompile Include="noise\RasterImage.cpp" />
+    <ClCompile Include="noise\RasterValues.cpp" />
     <ClCompile Include="noise\Reseedable.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MetaOutput.cpp" />

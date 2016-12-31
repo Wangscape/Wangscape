@@ -2,7 +2,7 @@
 
 #include <noise/MakeReseedable.h>
 #include <noise/module/ModuleFactories.h>
-#include <noise/NoiseMap.h>
+#include <noise/RasterImage.h>
 #include <random>
 
 using Reseedable = noise::Reseedable;
@@ -27,19 +27,19 @@ TEST_F(TestTileGenerationPlan, TestTileGenerationPlan)
     sf::Image output;
     output.create(256, 256);
 
-    noise::NoiseMapBase::Bounds xy(0, 0, 1, 1);
-    noise::NoiseMapBase::Bounds xy_(0, -1, 1, 1);
-    noise::NoiseMapBase::Bounds x_y(-1, 0, 1, 1);
-    noise::NoiseMapBase::Bounds x_y_(-1, -1, 1, 1);
+    noise::RasterBase::Bounds xy(0, 0, 1, 1);
+    noise::RasterBase::Bounds xy_(0, -1, 1, 1);
+    noise::RasterBase::Bounds x_y(-1, 0, 1, 1);
+    noise::RasterBase::Bounds x_y_(-1, -1, 1, 1);
 
-    noise::NoiseMapImage nmixy(output, xy);
-    noise::NoiseMapImage nmixy_(output, xy_);
-    noise::NoiseMapImage nmix_y(output, x_y);
-    noise::NoiseMapImage nmix_y_(output, x_y_);
+    noise::RasterImage nmixy(output, xy);
+    noise::RasterImage nmixy_(output, xy_);
+    noise::RasterImage nmix_y(output, x_y);
+    noise::RasterImage nmix_y_(output, x_y_);
 
     auto write_map = [&](const Reseedable module,
                         std::string filename,
-                        noise::NoiseMapImage& nmi)
+                        noise::RasterImage& nmi)
     {
         nmi.build(*module.module);
         output.saveToFile("test/"+filename+".png");

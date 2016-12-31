@@ -1,9 +1,9 @@
 #include "TilePartitionerPerlin.h"
 #include "noise/module/ModuleFactories.h"
-#include "noise/NoiseMap.h"
+#include "noise/RasterValues.h"
 #include "AlphaCalculator.h"
 
-void TilePartitionerPerlin::makeCorner(noise::NoiseMapVector<float>& noise_map_vector,
+void TilePartitionerPerlin::makeCorner(noise::RasterValues<float>& noise_map_vector,
                                        const Corners& corners,
                                        bool left, bool top)
 {
@@ -53,7 +53,7 @@ void TilePartitionerPerlin::makeCorner(noise::NoiseMapVector<float>& noise_map_v
 
 void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners& corners)
 {
-    std::vector<noise::NoiseMapVector<float>> nmvs;
+    std::vector<noise::RasterValues<float>> nmvs;
     // This whole function needs to depend on CORNERS,
     // not the magic number 4
     for (int i = 0; i < 4; i++)
