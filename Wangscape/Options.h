@@ -31,7 +31,7 @@ public:
 
     CliqueList cliques;
 
-    Options(std::string filename);
+    explicit Options(std::string filename);
     void initialise(const rapidjson::Document& d);
     virtual ~Options() = default;
 };

@@ -16,7 +16,7 @@ class ModuleManager
 public:
     typedef noise::module::Module Module;
     typedef std::pair<TerrainID, TerrainID> TerrainIDPair;
-    ModuleManager(const Options& options);
+    explicit ModuleManager(const Options& options);
     virtual ~ModuleManager() = default;
 
     Reseedable getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive);

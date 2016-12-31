@@ -12,7 +12,7 @@ using Reseedable = noise::Reseedable;
 class TilePartitionerPerlin : public TilePartitionerBase
 {
 public:
-    TilePartitionerPerlin(const Options& options);
+    explicit TilePartitionerPerlin(const Options& options);
     void makePartition(TilePartition& regions,
                        const Corners& corners);
     void makeCorner(noise::RasterValues<float> & noise_map_vector,

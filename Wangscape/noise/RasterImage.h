@@ -15,7 +15,7 @@ public:
     typedef std::function<Colour(Real)> ColourMaker;
     typedef sf::Image Image;
 
-    RasterImage(Image& image);
+    explicit RasterImage(Image& image);
     RasterImage(Image& image, Bounds bounds);
     RasterImage(Image& image, Bounds bounds, const NoiseModule& module);
 

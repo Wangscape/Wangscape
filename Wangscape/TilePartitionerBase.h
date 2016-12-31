@@ -10,7 +10,7 @@ public:
     typedef std::vector<std::pair<sf::Texture, TerrainID>> TilePartition;
     typedef std::vector<TerrainID> Corners;
 
-    TilePartitionerBase(const Options& options);
+    explicit TilePartitionerBase(const Options& options);
     virtual ~TilePartitionerBase() = default;
     virtual void makePartition(TilePartition& regions, const Corners& corners) = 0;
 protected:

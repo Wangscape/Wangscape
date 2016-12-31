@@ -15,7 +15,7 @@ public:
     typedef sf::Rect<Real> Bounds;
 
     RasterBase() = default;
-    RasterBase(Bounds bounds);
+    explicit RasterBase(Bounds bounds);
 
     virtual ~RasterBase() = default;
 

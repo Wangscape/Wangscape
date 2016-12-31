@@ -13,7 +13,7 @@ namespace module
 class NormLPQ : public Module
 {
 public:
-    NormLPQ(double p, double q=1.);
+    explicit NormLPQ(double p, double q=1.);
     virtual ~NormLPQ() = default;
     virtual int GetSourceModuleCount() const
     {
