@@ -21,10 +21,6 @@ TilesetGenerator::TilesetGenerator(const Options& options) :
     mTilePartitioner = std::make_unique<TilePartitionerPerlin>(options);
 }
 
-TilesetGenerator::~TilesetGenerator()
-{
-}
-
 void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::string)> callback)
 {
     mo.setResolution(options.resolution);

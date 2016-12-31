@@ -10,7 +10,7 @@ class TilesetGenerator
 {
 public:
     explicit TilesetGenerator(const Options& options);
-    ~TilesetGenerator();
+    virtual ~TilesetGenerator() = default;
     void generate(std::function<void(const sf::Texture&, std::string)> callback);
     void generateClique(const Options::Clique& clique, sf::RenderTexture& image, std::string filename);
     const Options& options;
