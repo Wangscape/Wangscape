@@ -11,7 +11,7 @@ public:
     typedef std::vector<TerrainID> Corners;
 
     TilePartitionerBase(const Options& options);
-    virtual ~TilePartitionerBase();
+    virtual ~TilePartitionerBase() = default;
     virtual void makePartition(TilePartition& regions, const Corners& corners) = 0;
 protected:
     const Options& mOptions;

@@ -4,7 +4,3 @@ TilePartitionerBase::TilePartitionerBase(const Options & options) :
     mOptions(options)
 {
 }
-
-TilePartitionerBase::~TilePartitionerBase()
-{
-}
