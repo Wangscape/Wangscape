@@ -16,7 +16,7 @@ void AlphaCalculator::calculatePixelAlphaLinear(WeightVector& weights, AlphaVect
         weight = std::max(0.f, weight);
         total_weight += weight;
     }
-    if (total_weight <= 0.f)
+    if (total_weight <= std::numeric_limits<float>::epsilon() * 255 * 4)
     {
         // This shouldn't happen, but it is easy to make weight masks
         // where this does happen.
