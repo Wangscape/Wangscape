@@ -36,7 +36,7 @@ class Wangview(object):
         self.init_terrain_map()
         self.init_tile_map()
     def simplify_tile(self, tile):
-        tileset = self.tilesets[tile['file']]
+        tileset = self.tilesets[tile['filename']]
         return (tileset.offset +
                 tileset.width*tile['y']//self.resolution +
                 tile['x']//self.resolution)
@@ -46,17 +46,22 @@ class Wangview(object):
         self.tile_groups = {tuple(k.split('.')):self.simplify_tile_group(v)
                             for (k,v) in raw_groups.items()}
     def init_tilesets(self, raw_tileset_data):
-        self.resolution = raw_tileset_data.pop('resolution')
-        blt.open()
-        config_string = "window: size=30x20, cellsize={0}x{0}, title='Wangview'".format(
-            self.resolution)
-        #print(config_string)
-        blt.set(config_string)
-        tileset_offset_counter = 0xE000
-        self.tilesets = {}
-        for filename, tileset in raw_tileset_data.items():
+        first_tileset = True
+        for tileset in raw_tileset_data:
+            resolution = tileset['resolution']
+            if first_tileset:
+                self.resolution = resolution
+                blt.open()
+                config_string = "window: size=30x20, cellsize={0}x{0}, title='Wangview'".format(
+                    self.resolution)
+                blt.set(config_string)
+                tileset_offset_counter = 0xE000
+                self.tilesets = {}
+                first_tileset = False
+            assert(self.resolution == resolution)
             rx = tileset['x']//self.resolution
             ry = tileset['y']//self.resolution
+            filename = tileset['filename']
             self.tilesets[filename] = Tileset(
                 filename, tileset_offset_counter,
                 rx,ry, tuple(tileset['terrains']))
@@ -64,7 +69,6 @@ class Wangview(object):
                     tileset_offset_counter,
                     path.join(self.rel_path, filename),
                     self.resolution)
-            #print(config_string)
             blt.set(config_string)
             tileset_offset_counter += rx*ry
     def init_terrain_map(self):
