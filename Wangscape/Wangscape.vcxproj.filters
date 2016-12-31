@@ -145,5 +145,8 @@
     <ClCompile Include="metaoutput\Tileset.cpp">
       <Filter>Source Files\metaoutput</Filter>
     </ClCompile>
+    <ClCompile Include="OptionsManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

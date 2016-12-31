@@ -186,6 +186,7 @@
     <ClCompile Include="metaoutput\Tile.cpp" />
     <ClCompile Include="metaoutput\TileLocation.cpp" />
     <ClCompile Include="metaoutput\Tileset.cpp" />
+    <ClCompile Include="OptionsManager.cpp" />
     <ClCompile Include="TerrainImages.cpp" />
     <ClCompile Include="TileGenerator.cpp" />
     <ClCompile Include="TilePartitionGradient.cpp" />
