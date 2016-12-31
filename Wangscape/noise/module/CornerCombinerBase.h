@@ -1,5 +1,9 @@
 #pragma once
 #include <noise/noise.h>
+namespace noise
+{
+namespace module
+{
 
 // Noise module that outputs a radial pattern.
 //
@@ -20,7 +24,7 @@
 // the output will be greater than 1.0 along the axes
 // when x, y are in [-1., 1.], and the output should
 // be clamped.
-class CornerCombinerBase : public noise::module::Module
+class CornerCombinerBase : public Module
 {
 public:
     CornerCombinerBase(double power_ = 1.);
@@ -32,3 +36,6 @@ public:
     virtual double GetValue(double x, double y, double z) const;
     double power;
 };
+
+} // namespace module
+} // namespace noise

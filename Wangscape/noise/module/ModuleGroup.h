@@ -3,8 +3,12 @@
 #include <string>
 #include <map>
 #include <memory>
-#include "Reseedable.h"
+#include "../Reseedable.h"
 
+namespace noise
+{
+namespace module
+{
 // A helper class to store related noise modules in one place.
 //
 // Each component module is identified with a std::string.
@@ -24,7 +28,7 @@
 // if the unmanaged source module is deleted.
 // This module currently has no guards against
 // cyclic references between modules.
-class ModuleGroup : public noise::module::Module
+class ModuleGroup : public Module
 {
 public:
     typedef std::string ModuleID;
@@ -47,3 +51,5 @@ protected:
 
 };
 
+} // namespace module
+} // namespace noise

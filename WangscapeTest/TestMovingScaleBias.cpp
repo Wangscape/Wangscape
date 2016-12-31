@@ -1,22 +1,22 @@
 #include <gtest/gtest.h>
 
-#include <ModuleFactories.h>
+#include <noise/module/ModuleFactories.h>
 
 class TestMovingScaleBias : public ::testing::Test {
 protected:
-    Reseedable x;
-    Reseedable y;
-    Reseedable msb;
-    Reseedable lmsb1;
-    Reseedable lmsb2;
+    noise::Reseedable x;
+    noise::Reseedable y;
+    noise::Reseedable msb;
+    noise::Reseedable lmsb1;
+    noise::Reseedable lmsb2;
 
     TestMovingScaleBias() :
-        x(makeX()),
-        y(makeY()),
-        msb(makeMovingScaleBias(x, (y * 2) + 1, (y * 3) + 2)),
+        x(noise::module::makeX()),
+        y(noise::module::makeY()),
+        msb(noise::module::makeMovingScaleBias(x, (y * 2) + 1, (y * 3) + 2)),
         // these need updating for 2D lmsbs!
-        lmsb1(makeLinearMovingScaleBias(y, true,true)),
-        lmsb2(makeLinearMovingScaleBias(x, false, false, 0.5, 0.25))
+        lmsb1(noise::module::makeLinearMovingScaleBias(y, true,true)),
+        lmsb2(noise::module::makeLinearMovingScaleBias(x, false, false, 0.5, 0.25))
     {
 
     };
@@ -57,21 +57,21 @@ TEST_F(TestMovingScaleBias, TestLinearMovingScaleBiasComponents)
     double slope_length = (length - middle_length) / 2.;
     double slope = 1. / slope_length;
     double intercept = length*slope;
-    Reseedable z = makeX();
-    Reseedable peak = z.abs()*(-slope);
+    noise::Reseedable z = noise::module::makeX();
+    noise::Reseedable peak = z.abs()*(-slope);
     ASSERT_EQ(0, peak.getValue(0, 0, 0));
     ASSERT_EQ(-8, peak.getValue(1, 0, 0));
     ASSERT_EQ(-16, peak.getValue(-2, 0, 0));
     ASSERT_EQ(-24, peak.getValue(3, 0, 0));
     ASSERT_EQ(-32, peak.getValue(-4, 0, 0));
-    Reseedable min = (peak + 1).clamp(0, 1);
+    noise::Reseedable min = (peak + 1).clamp(0, 1);
     EXPECT_NEAR(1., min.getValue(0., -26564., 3453.), 0.0001);
     EXPECT_NEAR(0., min.getValue(0.125, 0., 3453.), 0.0001);
     EXPECT_NEAR(0., min.getValue(-0.25, 1., 3453.), 0.0001);
     EXPECT_NEAR(0., min.getValue(0.375, 0.5, 3453.), 0.0001);
     EXPECT_NEAR(0., min.getValue(-0.5, 3740., 3453.), 0.0001);
     EXPECT_NEAR(0., min.getValue(-1., -253., 3453.), 0.0001);
-    Reseedable max = (peak + intercept).clamp(0, 1);
+    noise::Reseedable max = (peak + intercept).clamp(0, 1);
     EXPECT_NEAR(1., max.getValue(0., -26564., 3453.), 0.0001);
     EXPECT_NEAR(1., max.getValue(0.125, 0., 3453.), 0.0001);
     EXPECT_NEAR(1., max.getValue(-0.25, 1., 3453.), 0.0001);

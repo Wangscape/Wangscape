@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\noise">
+      <UniqueIdentifier>{be3de1a4-71b3-4957-8d8f-590a878aed20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\noise\module">
+      <UniqueIdentifier>{4236ccda-39ff-4fa3-acd5-dde38c74be56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\noise">
+      <UniqueIdentifier>{8fa5b0f7-e6fb-4f79-90bc-45c2e56f2793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\noise\module">
+      <UniqueIdentifier>{94d5ebed-8131-4bbd-b583-ffbc7dafe754}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -44,36 +56,6 @@
     <ClInclude Include="MetaOutput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NoiseMap.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NoiseModuleManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Gradient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleFactories.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleGroup.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CornerCombinerBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NormLPQ.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Reseedable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MakeReseedable.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Exp.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TilePartitionerBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -88,6 +70,39 @@
     </ClInclude>
     <ClInclude Include="AlphaCalculator.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\MakeReseedable.h">
+      <Filter>Header Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\NoiseMap.h">
+      <Filter>Header Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\NoiseModuleManager.h">
+      <Filter>Header Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\Reseedable.h">
+      <Filter>Header Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\CornerCombinerBase.h">
+      <Filter>Header Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\Exp.h">
+      <Filter>Header Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\Gradient.h">
+      <Filter>Header Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\ModuleFactories.h">
+      <Filter>Header Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\ModuleGroup.h">
+      <Filter>Header Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\NormLPQ.h">
+      <Filter>Header Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\Pow.h">
+      <Filter>Header Files\noise\module</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -109,30 +124,6 @@
     <ClCompile Include="MetaOutput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NoiseMap.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NoiseModuleManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleFactories.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleGroup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CornerCombinerBase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="NormLPQ.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Reseedable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MakeReseedable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TilePartitionerBase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -147,6 +138,30 @@
     </ClCompile>
     <ClCompile Include="AlphaCalculator.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\MakeReseedable.cpp">
+      <Filter>Source Files\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\NoiseMap.cpp">
+      <Filter>Source Files\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\NoiseModuleManager.cpp">
+      <Filter>Source Files\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\Reseedable.cpp">
+      <Filter>Source Files\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\CornerCombinerBase.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\ModuleFactories.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\ModuleGroup.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\NormLPQ.cpp">
+      <Filter>Source Files\noise\module</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

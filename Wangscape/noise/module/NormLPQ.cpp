@@ -2,6 +2,11 @@
 #include <cmath>
 
 
+namespace noise
+{
+namespace module
+{
+
 
 NormLPQ::NormLPQ(double p, double q):
     Module(GetSourceModuleCount())
@@ -28,3 +33,6 @@ void NormLPQ::setQ(double q)
 {
     mQP = q / mP;
 }
+
+} // namespace module
+} // namespace noise

@@ -4,10 +4,13 @@
 #include <SFML/Graphics.hpp>
 #include <functional>
 
+namespace noise
+{
+
 class NoiseMapBase
 {
 public:
-    typedef noise::module::Module NoiseModule;
+    typedef module::Module NoiseModule;
     typedef double Real;
     typedef sf::Rect<Real> Bounds;
 
@@ -64,3 +67,4 @@ protected:
     virtual void set(size_t x, size_t y, Real value);
     sf::Image& mImage;
 };
+} // namespace noise

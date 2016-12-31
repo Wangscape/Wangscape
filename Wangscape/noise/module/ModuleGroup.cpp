@@ -1,5 +1,10 @@
 #include "ModuleGroup.h"
 
+namespace noise
+{
+namespace module
+{
+
 ModuleGroup& ModuleGroup::insert(ModuleID name, Reseedable module)
 {
     mModules.insert({ name, module });
@@ -49,3 +54,6 @@ void ModuleGroup::SetSeed(int seed)
 };
 
 const ModuleGroup::ModuleID ModuleGroup::DEFAULT_OUT("output");
+
+} // namespace module
+} // namespace noise

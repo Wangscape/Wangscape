@@ -1,5 +1,7 @@
 #include "NoiseMap.h"
 
+namespace noise {
+
 NoiseMapBase::NoiseMapBase()
 {
 }
@@ -137,3 +139,5 @@ void NoiseMapImage::set(size_t x, size_t y, Real value)
 }
 
 template class NoiseMapVector<float>;
+
+} // namespace noise

@@ -1,15 +1,17 @@
 #include "NoiseModuleManager.h"
-#include "ModuleFactories.h"
+#include "module/ModuleFactories.h"
 #include <random>
 #include <time.h>
 #include <algorithm>
+
+namespace noise {
 
 NoiseModuleManager::NoiseModuleManager(const Options & options) :
     mRNG((unsigned int)time(nullptr))
 {
     for (const auto& terrain : options.terrains)
     {
-        mStochasticMasks.insert({terrain.first, makePlaceholder().scaleBias(0.5, 0.5)});
+        mStochasticMasks.insert({terrain.first, module::makePlaceholder().scaleBias(0.5, 0.5)});
     }
     for (const auto& clique : options.cliques)
     {
@@ -19,9 +21,9 @@ NoiseModuleManager::NoiseModuleManager(const Options & options) :
             {
                 TerrainIDPair tp{t1, t2};
                 if (mBordersHorizontal.find(tp) == mBordersHorizontal.end())
-                    mBordersHorizontal.insert({tp, makePlaceholder(mRNG())});
+                    mBordersHorizontal.insert({tp, module::makePlaceholder(mRNG())});
                 if (mBordersVertical.find(tp) == mBordersVertical.end())
-                    mBordersVertical.insert({tp, makePlaceholder(mRNG())});
+                    mBordersVertical.insert({tp, module::makePlaceholder(mRNG())});
             }
     }
 }
@@ -29,13 +31,13 @@ NoiseModuleManager::NoiseModuleManager(const Options & options) :
 Reseedable NoiseModuleManager::getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive)
 {
     Reseedable& r = mBordersVertical.at({top, bottom});
-    return makeQuadrantSelector(r, x_positive, true);
+    return module::makeQuadrantSelector(r, x_positive, true);
 }
 
 Reseedable NoiseModuleManager::getBorderHorizontal(TerrainID left, TerrainID right, bool y_positive)
 {
     Reseedable& r = mBordersHorizontal.at({left, right});
-    return makeQuadrantSelector(r, true, y_positive);
+    return module::makeQuadrantSelector(r, true, y_positive);
 }
 
 Reseedable& NoiseModuleManager::getStochastic(TerrainID terrain)
@@ -44,3 +46,5 @@ Reseedable& NoiseModuleManager::getStochastic(TerrainID terrain)
     r.setSeed(mRNG());
     return r;
 }
+
+} // namespace noise

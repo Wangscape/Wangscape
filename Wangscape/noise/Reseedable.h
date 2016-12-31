@@ -4,7 +4,10 @@
 #include <functional>
 #include <noise/noise.h>
 
-typedef noise::module::Module Module;
+namespace noise
+{
+
+typedef module::Module Module;
 typedef std::shared_ptr<Module> ModulePtr;
 typedef std::function<void(int)> SetSeedFn;
 // typedef std::pair<ModulePtr, SetSeedFn> Reseedable;
@@ -42,7 +45,6 @@ struct Reseedable
     Reseedable scalePoint(double x_scale, double y_scale, double z_scale);
     Reseedable translatePoint(double x_displace, double y_displace, double z_displace);
     Reseedable turbulence(double frequency, double power, int roughness, int seed);
-
-
-
 };
+
+} // namespace noise

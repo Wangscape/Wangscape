@@ -1,17 +1,17 @@
 #include <gtest/gtest.h>
 
-#include <CornerCombinerBase.h>
-#include <ModuleFactories.h>
+#include <noise/module/CornerCombinerBase.h>
+#include <noise/module/ModuleFactories.h>
 
 class TestCornerCombiner : public ::testing::Test {
 protected:
-    CornerCombinerBase cc1;
-    CornerCombinerBase cc05;
-    CornerCombinerBase cc2;
-    Reseedable ccg2_p;
+    noise::module::CornerCombinerBase cc1;
+    noise::module::CornerCombinerBase cc05;
+    noise::module::CornerCombinerBase cc2;
+    noise::Reseedable ccg2_p;
     TestCornerCombiner():
         cc1(), cc05(0.5), cc2(2.),
-        ccg2_p(makeCornerCombiner(true, true))
+        ccg2_p(noise::module::makeCornerCombiner(true, true))
     {
 
     };

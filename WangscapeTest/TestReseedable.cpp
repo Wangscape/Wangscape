@@ -1,17 +1,17 @@
 #include <gtest/gtest.h>
 
-#include <MakeReseedable.h>
-#include <ModuleFactories.h>
+#include <noise/MakeReseedable.h>
+#include <noise/module/ModuleFactories.h>
 
 class TestReseedable : public ::testing::Test {
 protected:
-    Reseedable x;
-    Reseedable y;
-    Reseedable c05;
+    noise::Reseedable x;
+    noise::Reseedable y;
+    noise::Reseedable c05;
     TestReseedable() :
-        x(makeX()),
-        y(makeY()),
-        c05(makeReseedable(std::make_shared<noise::module::Const>()))
+        x(noise::module::makeX()),
+        y(noise::module::makeY()),
+        c05(noise::makeReseedable(std::make_shared<noise::module::Const>()))
     {
         ((noise::module::Const&)(*c05.module)).SetConstValue(0.5);
     };
@@ -203,6 +203,6 @@ TEST_F(TestReseedable, TestReseedableTurbulence)
 
 TEST_F(TestReseedable, TestReseedableConst)
 {
-    EXPECT_EQ(3.6345, makeConst(3.6345).getValue(52935874, 57432895, 2549));
-    EXPECT_EQ(-3045.25, makeConst(-3045.25).getValue(259, 594, 239587));
+    EXPECT_EQ(3.6345, noise::module::makeConst(3.6345).getValue(52935874, 57432895, 2549));
+    EXPECT_EQ(-3045.25, noise::module::makeConst(-3045.25).getValue(259, 594, 239587));
 }
