@@ -3,13 +3,10 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IncludePath>$(SolutionDir)lib\double-conversion;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)lib\double-conversion\double-conversion\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\spotify-json\vendor\double-conversion;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
-    <Link>
-      <AdditionalDependencies>double-conversion.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
+    <Link />
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>
