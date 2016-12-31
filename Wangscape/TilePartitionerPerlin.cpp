@@ -23,31 +23,6 @@ void TilePartitionerPerlin::makeCorner(noise::RasterValues<float>& noise_map_vec
     Reseedable deterministic = noise::module::makeLinearMovingScaleBias(border_xy, left, top, 0.85, 0.15);
     Reseedable ef = noise::module::makeEdgeFavouringMask(1.5, 1.);
     Reseedable corner = ef.blend(stochastic_mask, deterministic);
-#ifdef _DEBUG
-    sf::Image debug;
-    debug.create(mOptions.resolution, mOptions.resolution);
-    NoiseMapImage debug_map(debug, {0, 0, 1, 1});
-    auto write_map = [&](const Reseedable module,
-                         std::string filename,
-                         NoiseMapImage& nmi)
-    {
-        nmi.build(*module.module);
-        debug.saveToFile("debug/" + filename + ".png");
-    };
-
-    write_map(stochastic_mask, "stoch", debug_map);
-    write_map(border_h, "bh", debug_map);
-    write_map(border_v, "bv", debug_map);
-    write_map(cc, "cc", debug_map);
-    write_map(border_xy, "bhv", debug_map);
-    Reseedable max_det = makeLinearMovingScaleBias(makeConst(1.), left, top, 0.85, 0.15);
-    Reseedable min_det = makeLinearMovingScaleBias(makeConst(-1.), left, top, 0.85, 0.15);
-    write_map(min_det, "min_det", debug_map);
-    write_map(max_det, "max_det", debug_map);
-    write_map(deterministic, "det", debug_map);
-    write_map(ef, "ef", debug_map);
-    write_map(corner, "corner", debug_map);
-#endif
     noise_map_vector.build(*corner.module);
 }
 
