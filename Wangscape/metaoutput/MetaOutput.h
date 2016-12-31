@@ -1,9 +1,9 @@
 #pragma once
-#include "Options.h"
-#include "metaoutput/TileLocation.h"
-#include "metaoutput/Tile.h"
-#include "metaoutput/Tileset.h"
-#include "metaoutput/TileGroups.h"
+#include "../Options.h"
+#include "TileLocation.h"
+#include "Tile.h"
+#include "Tileset.h"
+#include "TileGroups.h"
 #include <map>
 #include <set>
 #include <vector>

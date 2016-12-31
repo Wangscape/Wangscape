@@ -12,7 +12,7 @@ protected:
     TilesetGenerator tg;
 
     TestTilesetGenerator():
-        filename("../../Wangscape/example/example_options.json"),
+        filename("../Wangscape/example/example_options.json"),
         optionsManager(filename),
         options(optionsManager.getOptions()),
         tg(options)

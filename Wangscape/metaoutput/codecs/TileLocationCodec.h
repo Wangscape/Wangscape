@@ -2,7 +2,7 @@
 
 #include <spotify/json.hpp>
 
-#include "metaoutput/TileLocation.h"
+#include "../TileLocation.h"
 
 using namespace spotify::json::codec;
 

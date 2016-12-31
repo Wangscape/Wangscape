@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-#include "common.h"
+#include "../common.h"
 
 namespace metaoutput
 {

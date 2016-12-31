@@ -18,7 +18,7 @@ protected:
     TilesetGenerator tg;
     const metaoutput::MetaOutput& mo;
     TestMetaOutput() :
-        filename("../../Wangscape/example/example_options.json"),
+        filename("../Wangscape/example/example_options.json"),
         optionsManager(filename),
         tg{optionsManager.getOptions()},
         mo{tg.mo}

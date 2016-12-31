@@ -3,6 +3,10 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IncludePath>C:\libs\rapidjson\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)lib\spotify-json\vendor\double-conversion;$(IncludePath)</IncludePath>
   </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link />
+  </ItemDefinitionGroup>
+  <ItemGroup />
 </Project>
