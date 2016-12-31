@@ -1,4 +1,4 @@
-#include "NoiseModuleManager.h"
+#include "ModuleManager.h"
 #include "module/ModuleFactories.h"
 #include <random>
 #include <time.h>

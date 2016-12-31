@@ -2,7 +2,7 @@
 #include <noise/noise.h>
 #include <SFML/Graphics.hpp>
 #include "Options.h"
-#include "noise/NoiseModuleManager.h"
+#include "noise/ModuleManager.h"
 #include "TilePartitionerBase.h"
 
 #include "noise/NoiseMap.h"
