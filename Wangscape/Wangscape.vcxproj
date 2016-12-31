@@ -161,7 +161,7 @@
     <ClInclude Include="noise\module\ModuleGroup.h" />
     <ClInclude Include="noise\module\NormLPQ.h" />
     <ClInclude Include="noise\NoiseMap.h" />
-    <ClInclude Include="noise\NoiseModuleManager.h" />
+    <ClInclude Include="noise\ModuleManager.h" />
     <ClInclude Include="noise\Reseedable.h" />
     <ClInclude Include="MetaOutput.h" />
     <ClInclude Include="Options.h" />

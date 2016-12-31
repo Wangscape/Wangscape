@@ -11,13 +11,13 @@
 namespace noise
 {
 
-class NoiseModuleManager
+class ModuleManager
 {
 public:
     typedef noise::module::Module Module;
     typedef std::pair<TerrainID, TerrainID> TerrainIDPair;
-    NoiseModuleManager(const Options& options);
-    virtual ~NoiseModuleManager() = default;
+    ModuleManager(const Options& options);
+    virtual ~ModuleManager() = default;
 
     Reseedable getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive);
     Reseedable getBorderHorizontal(TerrainID left, TerrainID right, bool y_positive);

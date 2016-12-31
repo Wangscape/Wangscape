@@ -77,9 +77,6 @@
     <ClInclude Include="noise\NoiseMap.h">
       <Filter>Header Files\noise</Filter>
     </ClInclude>
-    <ClInclude Include="noise\NoiseModuleManager.h">
-      <Filter>Header Files\noise</Filter>
-    </ClInclude>
     <ClInclude Include="noise\Reseedable.h">
       <Filter>Header Files\noise</Filter>
     </ClInclude>
@@ -104,6 +101,7 @@
     <ClInclude Include="noise\module\Pow.h">
       <Filter>Header Files\noise\module</Filter>
     </ClInclude>
+    <ClInclude Include="noise\ModuleManager.h">
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

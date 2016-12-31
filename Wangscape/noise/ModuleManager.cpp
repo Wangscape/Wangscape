@@ -6,7 +6,7 @@
 
 namespace noise {
 
-NoiseModuleManager::NoiseModuleManager(const Options & options) :
+ModuleManager::ModuleManager(const Options & options) :
     mRNG((unsigned int)time(nullptr))
 {
     for (const auto& terrain : options.terrains)
@@ -28,19 +28,19 @@ NoiseModuleManager::NoiseModuleManager(const Options & options) :
     }
 }
 
-Reseedable NoiseModuleManager::getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive)
+Reseedable ModuleManager::getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive)
 {
     Reseedable& r = mBordersVertical.at({top, bottom});
     return module::makeQuadrantSelector(r, x_positive, true);
 }
 
-Reseedable NoiseModuleManager::getBorderHorizontal(TerrainID left, TerrainID right, bool y_positive)
+Reseedable ModuleManager::getBorderHorizontal(TerrainID left, TerrainID right, bool y_positive)
 {
     Reseedable& r = mBordersHorizontal.at({left, right});
     return module::makeQuadrantSelector(r, true, y_positive);
 }
 
-Reseedable& NoiseModuleManager::getStochastic(TerrainID terrain)
+Reseedable& ModuleManager::getStochastic(TerrainID terrain)
 {
     Reseedable& r = mStochasticMasks.at(terrain);
     r.setSeed(mRNG());

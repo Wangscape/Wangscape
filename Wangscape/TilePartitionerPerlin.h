@@ -19,5 +19,5 @@ public:
                     const Corners& corners,
                     bool left, bool top);
 protected:
-    noise::NoiseModuleManager mNoiseModuleManager;
+    noise::ModuleManager mNoiseModuleManager;
 };
