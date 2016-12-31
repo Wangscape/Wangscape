@@ -5,7 +5,7 @@
   <PropertyGroup>
     <IncludePath>$(SolutionDir)lib\spotify-json\include;$(IncludePath)</IncludePath>
     <_PropertySheetDisplayName>spotify-json</_PropertySheetDisplayName>
-    <LibraryPath>$(SolutionDir)lib\spotify-json\$(Configuration);$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)lib\spotify-json\build32\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
