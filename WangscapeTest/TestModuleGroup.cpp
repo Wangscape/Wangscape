@@ -1,12 +1,12 @@
 #include <gtest/gtest.h>
 
-#include <ModuleFactories.h>
+#include <noise/module/ModuleFactories.h>
 
 class TestModuleGroup : public ::testing::Test {
 protected:
-    Reseedable rs;
+    noise::Reseedable rs;
     TestModuleGroup() :
-        rs(makePlaceholder())
+        rs(noise::module::makePlaceholder())
     {
         // The current placeholder is a Reseedable,
         // but it's not a ModuleGroup.

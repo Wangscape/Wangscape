@@ -1,7 +1,10 @@
 #pragma once
 #include <noise/noise.h>
 #include "Reseedable.h"
-#include "ModuleGroup.h"
+#include "module/ModuleGroup.h"
+
+namespace noise
+{
 
 void dontSetSeed(int seed);
 
@@ -61,10 +64,12 @@ Reseedable makeNonReseedable(std::shared_ptr<T> module_ptr)
 // VS2015 doesn't seem to support the necessary
 // features for that kind of template yet. VS2017?
 
-template<> SetSeedFn trySetSeed<ModuleGroup>(ModuleGroup* module_ptr);
+template<> SetSeedFn trySetSeed<module::ModuleGroup>(module::ModuleGroup* module_ptr);
 
-template<> SetSeedFn trySetSeed<noise::module::Billow>(noise::module::Billow* module_ptr);
-template<> SetSeedFn trySetSeed<noise::module::Perlin>(noise::module::Perlin* module_ptr);
-template<> SetSeedFn trySetSeed<noise::module::RidgedMulti>(noise::module::RidgedMulti* module_ptr);
-template<> SetSeedFn trySetSeed<noise::module::Turbulence>(noise::module::Turbulence* module_ptr);
-template<> SetSeedFn trySetSeed<noise::module::Voronoi>(noise::module::Voronoi* module_ptr);
+template<> SetSeedFn trySetSeed<module::Billow>(module::Billow* module_ptr);
+template<> SetSeedFn trySetSeed<module::Perlin>(module::Perlin* module_ptr);
+template<> SetSeedFn trySetSeed<module::RidgedMulti>(module::RidgedMulti* module_ptr);
+template<> SetSeedFn trySetSeed<module::Turbulence>(module::Turbulence* module_ptr);
+template<> SetSeedFn trySetSeed<module::Voronoi>(module::Voronoi* module_ptr);
+
+} // namespace noise

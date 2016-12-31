@@ -1,7 +1,12 @@
 #pragma once
 #include "ModuleGroup.h"
 #include "CornerCombinerBase.h"
-#include "Reseedable.h"
+#include "../Reseedable.h"
+
+namespace noise
+{
+namespace module
+{
 
 Reseedable makeQuadrantSelector(Reseedable& source, bool x_positive, bool y_positive);
 
@@ -37,7 +42,10 @@ Reseedable makePlaceholder(int seed = 0,
                            double frequency = 1.,
                            double lacunarity = 2.,
                            double persistence = 0.5,
-                           noise::NoiseQuality quality = noise::QUALITY_FAST,
+                           NoiseQuality quality = NoiseQuality::QUALITY_FAST,
                            double origin_x=1.1,
                            double origin_y=2.2,
                            double origin_z=3.3);
+
+} // namespace module
+} // namespace noise

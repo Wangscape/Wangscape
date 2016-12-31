@@ -152,18 +152,19 @@
   <ItemGroup>
     <ClInclude Include="AlphaCalculator.h" />
     <ClInclude Include="common.h" />
-    <ClInclude Include="CornerCombinerBase.h" />
-    <ClInclude Include="Exp.h" />
-    <ClInclude Include="MakeReseedable.h" />
-    <ClInclude Include="NormLPQ.h" />
-    <ClInclude Include="Gradient.h" />
+    <ClInclude Include="noise\module\Pow.h" />
+    <ClInclude Include="noise\MakeReseedable.h" />
+    <ClInclude Include="noise\module\CornerCombinerBase.h" />
+    <ClInclude Include="noise\module\Exp.h" />
+    <ClInclude Include="noise\module\Gradient.h" />
+    <ClInclude Include="noise\module\ModuleFactories.h" />
+    <ClInclude Include="noise\module\ModuleGroup.h" />
+    <ClInclude Include="noise\module\NormLPQ.h" />
+    <ClInclude Include="noise\NoiseMap.h" />
+    <ClInclude Include="noise\NoiseModuleManager.h" />
+    <ClInclude Include="noise\Reseedable.h" />
     <ClInclude Include="MetaOutput.h" />
-    <ClInclude Include="ModuleFactories.h" />
-    <ClInclude Include="ModuleGroup.h" />
-    <ClInclude Include="NoiseMap.h" />
-    <ClInclude Include="NoiseModuleManager.h" />
     <ClInclude Include="Options.h" />
-    <ClInclude Include="Reseedable.h" />
     <ClInclude Include="TerrainImages.h" />
     <ClInclude Include="TerrainSpec.h" />
     <ClInclude Include="TileGenerator.h" />
@@ -175,17 +176,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AlphaCalculator.cpp" />
-    <ClCompile Include="CornerCombinerBase.cpp" />
-    <ClCompile Include="MakeReseedable.cpp" />
-    <ClCompile Include="NormLPQ.cpp" />
+    <ClCompile Include="noise\MakeReseedable.cpp" />
+    <ClCompile Include="noise\module\CornerCombinerBase.cpp" />
+    <ClCompile Include="noise\module\ModuleFactories.cpp" />
+    <ClCompile Include="noise\module\ModuleGroup.cpp" />
+    <ClCompile Include="noise\module\NormLPQ.cpp" />
+    <ClCompile Include="noise\NoiseMap.cpp" />
+    <ClCompile Include="noise\NoiseModuleManager.cpp" />
+    <ClCompile Include="noise\Reseedable.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MetaOutput.cpp" />
-    <ClCompile Include="ModuleFactories.cpp" />
-    <ClCompile Include="ModuleGroup.cpp" />
-    <ClCompile Include="NoiseMap.cpp" />
-    <ClCompile Include="NoiseModuleManager.cpp" />
     <ClCompile Include="Options.cpp" />
-    <ClCompile Include="Reseedable.cpp" />
     <ClCompile Include="TerrainImages.cpp" />
     <ClCompile Include="TileGenerator.cpp" />
     <ClCompile Include="TilePartitionerBase.cpp" />

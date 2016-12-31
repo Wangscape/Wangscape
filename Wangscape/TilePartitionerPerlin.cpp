@@ -1,9 +1,9 @@
 #include "TilePartitionerPerlin.h"
-#include "ModuleFactories.h"
-#include "NoiseMap.h"
+#include "noise/module/ModuleFactories.h"
+#include "noise/NoiseMap.h"
 #include "AlphaCalculator.h"
 
-void TilePartitionerPerlin::makeCorner(NoiseMapVector<float>& noise_map_vector,
+void TilePartitionerPerlin::makeCorner(noise::NoiseMapVector<float>& noise_map_vector,
                                        const Corners& corners,
                                        bool left, bool top)
 {
@@ -18,10 +18,10 @@ void TilePartitionerPerlin::makeCorner(NoiseMapVector<float>& noise_map_vector,
     Reseedable border_v = mNoiseModuleManager.getBorderVertical(top ? corner_id : corner_v,
                                                                 top ? corner_v : corner_id,
                                                                 left);
-    Reseedable cc = makeCornerCombiner(left,top);
+    Reseedable cc = noise::module::makeCornerCombiner(left,top);
     Reseedable border_xy = cc.blend(border_v, border_h);
-    Reseedable deterministic = makeLinearMovingScaleBias(border_xy, left, top, 0.85, 0.15);
-    Reseedable ef = makeEdgeFavouringMask(1.5, 1.);
+    Reseedable deterministic = noise::module::makeLinearMovingScaleBias(border_xy, left, top, 0.85, 0.15);
+    Reseedable ef = noise::module::makeEdgeFavouringMask(1.5, 1.);
     Reseedable corner = ef.blend(stochastic_mask, deterministic);
 #ifdef _DEBUG
     sf::Image debug;
@@ -53,7 +53,7 @@ void TilePartitionerPerlin::makeCorner(NoiseMapVector<float>& noise_map_vector,
 
 void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners& corners)
 {
-    std::vector<NoiseMapVector<float>> nmvs;
+    std::vector<noise::NoiseMapVector<float>> nmvs;
     // This whole function needs to depend on CORNERS,
     // not the magic number 4
     for (int i = 0; i < 4; i++)

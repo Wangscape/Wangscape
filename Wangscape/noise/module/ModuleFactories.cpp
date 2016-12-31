@@ -1,15 +1,13 @@
 #include "ModuleFactories.h"
 #include "Gradient.h"
 #include "NormLPQ.h"
-#include "MakeReseedable.h"
+#include "../MakeReseedable.h"
 #include <stdexcept>
 
-using noise::module::Abs;
-using noise::module::ScaleBias;
-using noise::module::Clamp;
-using noise::module::TranslatePoint;
-using noise::module::ScalePoint;
-using noise::module::Perlin;
+namespace noise
+{
+namespace module
+{
 
 Reseedable makeQuadrantSelector(Reseedable& source, bool x_positive, bool y_positive)
 {
@@ -107,3 +105,6 @@ Reseedable makePlaceholder(int seed,
     placeholder->SetNoiseQuality(quality);
     return makeReseedable(placeholder).translatePoint(origin_x, origin_y, origin_z);
 }
+
+} // namespace module
+} // namespace noise

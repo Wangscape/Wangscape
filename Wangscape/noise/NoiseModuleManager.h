@@ -3,10 +3,14 @@
 #include <map>
 #include <random>
 #include <noise/noise.h>
-#include "common.h"
-#include "Gradient.h"
+#include "../common.h"
+#include "module/Gradient.h"
 #include "Reseedable.h"
-#include "Options.h"
+#include "../Options.h"
+
+namespace noise
+{
+
 class NoiseModuleManager
 {
 public:
@@ -43,3 +47,5 @@ protected:
 
 };
 
+
+} // namespace noise

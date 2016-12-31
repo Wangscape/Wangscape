@@ -1,28 +1,28 @@
 #include <gtest/gtest.h>
-#include <NormLPQ.h>
-#include <ModuleFactories.h>
+#include <noise/module/NormLPQ.h>
+#include <noise/module/ModuleFactories.h>
 
 class TestEdgeFavouringMask : public ::testing::Test {
 protected:
-    Reseedable n1_1;
-    Reseedable n1_2;
+    noise::Reseedable n1_1;
+    noise::Reseedable n1_2;
 
-    Reseedable n2_1;
-    Reseedable n2_2;
+    noise::Reseedable n2_1;
+    noise::Reseedable n2_2;
 
-    Reseedable n05_1;
-    Reseedable n05_05;
+    noise::Reseedable n05_1;
+    noise::Reseedable n05_05;
 
-    Reseedable n2_1_05;
+    noise::Reseedable n2_1_05;
 
     TestEdgeFavouringMask() :
-        n1_1(makeEdgeFavouringMask(1)),
-        n1_2(makeEdgeFavouringMask(1, 2)),
-        n2_1(makeEdgeFavouringMask(2, 1)),
-        n2_2(makeEdgeFavouringMask(2, 2)),
-        n05_1(makeEdgeFavouringMask(0.5, 1)),
-        n05_05(makeEdgeFavouringMask(0.5, 0.5)),
-        n2_1_05(makeEdgeFavouringMask(2, 1, 0.5))
+        n1_1(noise::module::makeEdgeFavouringMask(1)),
+        n1_2(noise::module::makeEdgeFavouringMask(1, 2)),
+        n2_1(noise::module::makeEdgeFavouringMask(2, 1)),
+        n2_2(noise::module::makeEdgeFavouringMask(2, 2)),
+        n05_1(noise::module::makeEdgeFavouringMask(0.5, 1)),
+        n05_05(noise::module::makeEdgeFavouringMask(0.5, 0.5)),
+        n2_1_05(noise::module::makeEdgeFavouringMask(2, 1, 0.5))
     {
 
     };

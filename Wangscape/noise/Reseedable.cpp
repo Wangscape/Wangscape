@@ -1,7 +1,10 @@
 #include "Reseedable.h"
 #include "MakeReseedable.h"
-#include "ModuleGroup.h"
-#include "Exp.h"
+#include "module/ModuleGroup.h"
+#include "module/Exp.h"
+#include "module/Pow.h"
+
+namespace noise {
 
 double Reseedable::getValue(double x, double y, double z)
 {
@@ -10,10 +13,10 @@ double Reseedable::getValue(double x, double y, double z)
 
 Reseedable Reseedable::abs()
 {
-    auto abs_p = std::make_shared<noise::module::Abs>();
+    auto abs_p = std::make_shared<module::Abs>();
     abs_p->SetSourceModule(0, *module);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source", *this)
               .insert("output", makeReseedable(abs_p));
     return makeReseedable(result);
@@ -21,11 +24,11 @@ Reseedable Reseedable::abs()
 
 Reseedable Reseedable::clamp(double lower, double upper)
 {
-    auto clamp_p = std::make_shared<noise::module::Clamp>();
+    auto clamp_p = std::make_shared<module::Clamp>();
     clamp_p->SetSourceModule(0, *module);
     clamp_p->SetBounds(lower, upper);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source", *this)
            .insert("output", makeReseedable(clamp_p));
     return makeReseedable(result);
@@ -33,11 +36,11 @@ Reseedable Reseedable::clamp(double lower, double upper)
 
 Reseedable Reseedable::exp(double base)
 {
-    auto exponent_p = std::make_shared<Exp>();
+    auto exponent_p = std::make_shared<module::Exp>();
     exponent_p->SetSourceModule(0, *module);
     exponent_p->SetBase(base);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source", *this)
            .insert("output", makeReseedable(exponent_p));
     return makeReseedable(result);
@@ -45,10 +48,10 @@ Reseedable Reseedable::exp(double base)
 
 Reseedable Reseedable::invert()
 {
-    auto invert_p = std::make_shared<noise::module::Invert>();
+    auto invert_p = std::make_shared<module::Invert>();
     invert_p->SetSourceModule(0, *module);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source", *this)
            .insert("output", makeReseedable(invert_p));
     return makeReseedable(result);
@@ -56,12 +59,12 @@ Reseedable Reseedable::invert()
 
 Reseedable Reseedable::scaleBias(double scale, double bias)
 {
-    auto scale_bias_p = std::make_shared<noise::module::ScaleBias>();
+    auto scale_bias_p = std::make_shared<module::ScaleBias>();
     scale_bias_p->SetSourceModule(0, *module);
     scale_bias_p->SetScale(scale);
     scale_bias_p->SetBias(bias);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source", *this)
            .insert("output", makeReseedable(scale_bias_p));
     return makeReseedable(result);
@@ -69,11 +72,11 @@ Reseedable Reseedable::scaleBias(double scale, double bias)
 
 Reseedable Reseedable::operator+(Reseedable & other)
 {
-    auto add_p = std::make_shared<noise::module::Add>();
+    auto add_p = std::make_shared<module::Add>();
     add_p->SetSourceModule(0, *module);
     add_p->SetSourceModule(1, *other.module);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source0", *this)
            .insert("source1", other)
            .insert("output", makeReseedable(add_p));
@@ -82,12 +85,12 @@ Reseedable Reseedable::operator+(Reseedable & other)
 
 Reseedable Reseedable::operator+(double bias)
 {
-    auto scale_bias_p = std::make_shared<noise::module::ScaleBias>();
+    auto scale_bias_p = std::make_shared<module::ScaleBias>();
     scale_bias_p->SetSourceModule(0, *module);
     scale_bias_p->SetScale(1.);
     scale_bias_p->SetBias(bias);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source", *this)
            .insert("output", makeReseedable(scale_bias_p));
     return makeReseedable(result);
@@ -110,11 +113,11 @@ Reseedable Reseedable::operator-()
 
 Reseedable Reseedable::max(Reseedable & other)
 {
-    auto max_p = std::make_shared<noise::module::Max>();
+    auto max_p = std::make_shared<module::Max>();
     max_p->SetSourceModule(0, *module);
     max_p->SetSourceModule(1, *other.module);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source0", *this)
            .insert("source1", other)
            .insert("output", makeReseedable(max_p));
@@ -123,7 +126,7 @@ Reseedable Reseedable::max(Reseedable & other)
 
 Reseedable Reseedable::max(double other)
 {
-    auto c = std::make_shared<noise::module::Const>();
+    auto c = std::make_shared<module::Const>();
     c->SetConstValue(other);
     return max(makeReseedable(c));
 }
@@ -131,11 +134,11 @@ Reseedable Reseedable::max(double other)
 
 Reseedable Reseedable::min(Reseedable & other)
 {
-    auto min_p = std::make_shared<noise::module::Min>();
+    auto min_p = std::make_shared<module::Min>();
     min_p->SetSourceModule(0, *module);
     min_p->SetSourceModule(1, *other.module);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source0", *this)
            .insert("source1", other)
            .insert("output", makeReseedable(min_p));
@@ -144,18 +147,18 @@ Reseedable Reseedable::min(Reseedable & other)
 
 Reseedable Reseedable::min(double other)
 {
-    auto c = std::make_shared<noise::module::Const>();
+    auto c = std::make_shared<module::Const>();
     c->SetConstValue(other);
     return min(makeReseedable(c));
 }
 
 Reseedable Reseedable::operator*(Reseedable & other)
 {
-    auto multiply_p = std::make_shared<noise::module::Multiply>();
+    auto multiply_p = std::make_shared<module::Multiply>();
     multiply_p->SetSourceModule(0, *module);
     multiply_p->SetSourceModule(1, *other.module);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source0", *this)
            .insert("source1", other)
            .insert("output", makeReseedable(multiply_p));
@@ -164,11 +167,11 @@ Reseedable Reseedable::operator*(Reseedable & other)
 
 Reseedable Reseedable::operator*(double scale)
 {
-    auto scale_bias_p = std::make_shared<noise::module::ScaleBias>();
+    auto scale_bias_p = std::make_shared<module::ScaleBias>();
     scale_bias_p->SetSourceModule(0, *module);
     scale_bias_p->SetScale(scale);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source", *this)
            .insert("output", makeReseedable(scale_bias_p));
     return makeReseedable(result);
@@ -176,11 +179,11 @@ Reseedable Reseedable::operator*(double scale)
 
 Reseedable Reseedable::pow(Reseedable & exponent)
 {
-    auto power_p = std::make_shared<noise::module::Power>();
+    auto power_p = std::make_shared<module::Power>();
     power_p->SetSourceModule(0, *module);
     power_p->SetSourceModule(1, *exponent.module);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("base", *this)
            .insert("exponent", exponent)
            .insert("output", makeReseedable(power_p));
@@ -189,11 +192,11 @@ Reseedable Reseedable::pow(Reseedable & exponent)
 
 Reseedable Reseedable::pow(double exponent)
 {
-    auto exponent_p = std::make_shared<Power>();
+    auto exponent_p = std::make_shared<module::Pow>();
     exponent_p->SetSourceModule(0, *module);
     exponent_p->SetExponent(exponent);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source", *this)
            .insert("output", makeReseedable(exponent_p));
     return makeReseedable(result);
@@ -206,7 +209,7 @@ Reseedable Reseedable::blend(Reseedable& source_a, Reseedable& source_b)
     blend_p->SetSourceModule(1, *source_b.module);
     blend_p->SetControlModule(*module);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("control", *this)
            .insert("source0", source_a)
            .insert("source1", source_b)
@@ -216,12 +219,12 @@ Reseedable Reseedable::blend(Reseedable& source_a, Reseedable& source_b)
 
 Reseedable Reseedable::select(Reseedable& source_a, Reseedable& source_b)
 {
-    auto select_p = std::make_shared<noise::module::Select>();
+    auto select_p = std::make_shared<module::Select>();
     select_p->SetSourceModule(0, *source_a.module);
     select_p->SetSourceModule(1, *source_b.module);
     select_p->SetControlModule(*module);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("control", *this)
            .insert("source0", source_a)
            .insert("source1", source_b)
@@ -231,11 +234,11 @@ Reseedable Reseedable::select(Reseedable& source_a, Reseedable& source_b)
 
 Reseedable Reseedable::rotatePoint(double x_angle, double y_angle, double z_angle)
 {
-    auto rotate_point_p = std::make_shared<noise::module::RotatePoint>();
+    auto rotate_point_p = std::make_shared<module::RotatePoint>();
     rotate_point_p->SetSourceModule(0, *module);
     rotate_point_p->SetAngles(x_angle, y_angle, z_angle);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source", *this)
            .insert("output", makeReseedable(rotate_point_p));
     return makeReseedable(result);
@@ -243,13 +246,13 @@ Reseedable Reseedable::rotatePoint(double x_angle, double y_angle, double z_angl
 
 Reseedable Reseedable::scalePoint(double x_scale, double y_scale, double z_scale)
 {
-    auto scale_point_p = std::make_shared<noise::module::ScalePoint>();
+    auto scale_point_p = std::make_shared<module::ScalePoint>();
     scale_point_p->SetSourceModule(0, *module);
     scale_point_p->SetXScale(x_scale);
     scale_point_p->SetYScale(y_scale);
     scale_point_p->SetZScale(z_scale);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source", *this)
            .insert("output", makeReseedable(scale_point_p));
     return makeReseedable(result);
@@ -257,13 +260,13 @@ Reseedable Reseedable::scalePoint(double x_scale, double y_scale, double z_scale
 
 Reseedable Reseedable::translatePoint(double x_displace, double y_displace, double z_displace)
 {
-    auto translate_point_p = std::make_shared<noise::module::TranslatePoint>();
+    auto translate_point_p = std::make_shared<module::TranslatePoint>();
     translate_point_p->SetSourceModule(0, *module);
     translate_point_p->SetXTranslation(x_displace);
     translate_point_p->SetYTranslation(y_displace);
     translate_point_p->SetZTranslation(z_displace);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source", *this)
            .insert("output", makeReseedable(translate_point_p));
     return makeReseedable(result);
@@ -271,13 +274,13 @@ Reseedable Reseedable::translatePoint(double x_displace, double y_displace, doub
 
 Reseedable Reseedable::turbulence(double frequency, double power, int roughness, int seed)
 {
-    auto turbulence_p = std::make_shared<noise::module::Turbulence>();
+    auto turbulence_p = std::make_shared<module::Turbulence>();
     turbulence_p->SetFrequency(frequency);
     turbulence_p->SetPower(power);
     turbulence_p->SetRoughness(roughness);
     turbulence_p->SetSeed(seed);
     turbulence_p->SetSourceModule(0, *module);
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source", *this)
            .insert("output", makeReseedable(turbulence_p));
     return makeReseedable(result);
@@ -285,13 +288,13 @@ Reseedable Reseedable::turbulence(double frequency, double power, int roughness,
 
 Reseedable Reseedable::displace(Reseedable & x_displace, Reseedable & y_displace, Reseedable & z_displace)
 {
-    auto displace_p = std::make_shared<noise::module::Displace>();
+    auto displace_p = std::make_shared<module::Displace>();
     displace_p->SetSourceModule(0, *module);
     displace_p->SetXDisplaceModule(*x_displace.module);
     displace_p->SetYDisplaceModule(*y_displace.module);
     displace_p->SetZDisplaceModule(*z_displace.module);
 
-    auto result = std::make_shared<ModuleGroup>();
+    auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source", *this)
            .insert("displaceX", x_displace)
            .insert("displaceY", y_displace)
@@ -299,3 +302,5 @@ Reseedable Reseedable::displace(Reseedable & x_displace, Reseedable & y_displace
            .insert("output", makeReseedable(displace_p));
     return makeReseedable(result);
 }
+
+} // namespace noise

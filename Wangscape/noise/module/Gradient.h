@@ -2,6 +2,11 @@
 #include <noise/noise.h>
 #include <cmath>
 
+namespace noise
+{
+namespace module
+{
+
 // Noise module that outputs the value of x.
 //
 // If abs(x) > 1., then abs(output) will be too!
@@ -58,3 +63,6 @@ public:
         return z;
     };
 };
+
+} // namespace module
+} // namespace noise
