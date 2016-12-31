@@ -1,17 +1,6 @@
 #include "TileGenerator.h"
 #include "TilePartitionerBase.h"
 
-
-
-TileGenerator::TileGenerator()
-{
-}
-
-
-TileGenerator::~TileGenerator()
-{
-}
-
 void TileGenerator::generate(sf::RenderTexture& image, size_t x, size_t y,
                              std::vector<TerrainID> corners,
                              const TerrainImages& images,

@@ -7,8 +7,8 @@
 class TileGenerator
 {
 public:
-    TileGenerator();
-    ~TileGenerator();
+    TileGenerator() = default;
+    virtual ~TileGenerator() = default;
     static void generate(sf::RenderTexture& image, size_t x, size_t y,
                          std::vector<TerrainID> corners,
                          const TerrainImages& images,
