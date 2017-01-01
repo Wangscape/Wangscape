@@ -9,7 +9,8 @@
 class TilesetGenerator
 {
 public:
-    explicit TilesetGenerator(const Options& options);
+    TilesetGenerator(const Options& options,
+                     std::unique_ptr<TilePartitionerBase> tile_partitioner);
     virtual ~TilesetGenerator() = default;
     void generate(std::function<void(const sf::Texture&, std::string)> callback);
     void generateClique(const Options::Clique& clique, sf::RenderTexture& image, std::string filename);

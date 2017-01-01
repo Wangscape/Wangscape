@@ -8,17 +8,17 @@
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/range.hpp>
 #include "common.h"
-#include "TilePartitionerPerlin.h"
 
-TilesetGenerator::TilesetGenerator(const Options& options) :
-    options(options)
+TilesetGenerator::TilesetGenerator(const Options& options,
+                                   std::unique_ptr<TilePartitionerBase> tile_partitioner) :
+    options(options),
+    mTilePartitioner(std::move(tile_partitioner))
 {
     for (auto& terrain : options.terrains)
     {
         images.addTerrain(terrain.first, terrain.second.fileName, options.filename,
                           terrain.second.offsetX, terrain.second.offsetY, options.resolution);
     }
-    mTilePartitioner = std::make_unique<TilePartitionerPerlin>(options);
 }
 
 void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::string)> callback)

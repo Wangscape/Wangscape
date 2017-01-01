@@ -1,10 +1,12 @@
 #include <iostream>
+#include <memory>
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/parsers.hpp>
 #include <boost/program_options/variables_map.hpp>
 #include "Options.h"
 #include "TilesetGenerator.h"
 #include "TileGenerator.h"
+#include "TilePartitionerPerlin.h"
 
 namespace po = boost::program_options;
 
@@ -54,7 +56,8 @@ int main(int argc, char** argv)
     }
 
     const Options options(filename);
-    TilesetGenerator tg(options);
+    std::unique_ptr<TilePartitionerBase> tp = std::make_unique<TilePartitionerPerlin>(options);
+    TilesetGenerator tg(options, std::move(tp));
     tg.generate([](const sf::Texture& output, std::string filename)
     {
         if (!output.copyToImage().saveToFile(filename))

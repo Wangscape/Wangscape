@@ -2,6 +2,7 @@
 #include <Options.h>
 #include <TileGenerator.h>
 #include <TilesetGenerator.h>
+#include <TilePartitionerSquares.h>
 
 class TestTilesetGenerator : public ::testing::Test {
 protected:
@@ -12,7 +13,7 @@ protected:
     TestTilesetGenerator():
         filename("../Wangscape/example/example_options.json"),
         options(filename),
-        tg(options)
+        tg(options, std::move(std::make_unique<TilePartitionerSquares>(options)))
     {
 
     };

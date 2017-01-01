@@ -4,6 +4,7 @@
 #include <TilesetGenerator.h>
 #include <MetaOutput.h>
 #include <algorithm>
+#include <TilePartitionerSquares.h>
 
 class TestMetaOutput : public ::testing::Test {
 protected:
@@ -14,7 +15,7 @@ protected:
     TestMetaOutput() :
         filename("../Wangscape/example/example_options.json"),
         options(filename),
-        tg(options),
+        tg(options,std::move(std::make_unique<TilePartitionerSquares>(options))),
         mo(tg.mo)
     {
         tg.generate([&](const sf::Texture& output, std::string filename) {});
