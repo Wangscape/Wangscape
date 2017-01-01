@@ -73,17 +73,16 @@ Reseedable makeLinearMovingScaleBias(Reseedable & source,
 {
     if (length <= middle_length)
         throw std::domain_error("LinearMovingScaleBias must have length greater than middle_length");
-    Reseedable x = x_positive ? makeX() : -makeX();
-    Reseedable y = y_positive ? makeY() : -makeY();
+    Reseedable xa = makeX().abs();
+    Reseedable ya = makeY().abs();
     double slope_length = (length - middle_length) / 2.;
     double slope = 1. / slope_length;
     double intercept = length*slope;
-    Reseedable peak = (x+y).abs()*(-slope);
-    Reseedable min = (peak + 1).clamp(0, 1);
-    Reseedable max = (peak + intercept).clamp(0, 1);
-
-    return makeQuadrantSelector(makeMovingScaleBias(source, min, max),
-                                x_positive,y_positive);
+    Reseedable peak = (xa + ya)*(-slope);
+    Reseedable peak_translated = makeQuadrantSelector(peak, x_positive, y_positive);
+    Reseedable min = (peak_translated + 1).clamp(0, 1);
+    Reseedable max = (peak_translated + intercept).clamp(0, 1);
+    return makeMovingScaleBias(source, min, max);
 }
 
 Reseedable makePlaceholder(int seed,

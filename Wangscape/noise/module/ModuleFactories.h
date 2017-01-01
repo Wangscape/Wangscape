@@ -31,7 +31,14 @@ Reseedable makeZ();
 // Makes a constant noise module with value c.
 Reseedable makeConst(double c);
 
-// Makes a MovingScaleBias instance which grows linearly from [0,0] to [0,1], then shrinks to [1,1].
+// Makes a MovingScaleBias instance with ranges:
+// [1,1] when d((x,y),origin) == 0,
+// [0,0] when d((x,y),origin) >= length,
+// [0,1] when d((x,y),origin) == length/2,
+// where origin is determined by the *_positive parameters.
+// The middle_length parameter controls the size
+// of the region with range [0,1].
+// It must be less than length.
 Reseedable makeLinearMovingScaleBias(Reseedable & source,
                                      bool x_positive, bool y_positive,
                                      double length = 1., double middle_length = 0.);
