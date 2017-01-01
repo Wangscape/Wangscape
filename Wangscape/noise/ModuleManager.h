@@ -47,5 +47,4 @@ protected:
 
 };
 
-
 } // namespace noise
