@@ -10,8 +10,8 @@ public:
     typedef std::vector<sf::Uint8> Alphas;
 
     virtual ~AlphaCalculatorBase() = default;
-    void calculateAlphas(Weights& weights, Alphas& alphas) const;
+    void calculateAlphas(const Weights& weights, Alphas& alphas) const;
 protected:
-    virtual void calculateAlphasAux(Weights& weights, Alphas& alphas) const = 0;
+    virtual void calculateAlphasAux(const Weights& weights, Alphas& alphas) const = 0;
 };
 

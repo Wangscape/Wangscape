@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <numeric>
 
-void AlphaCalculatorLinear::calculateAlphasAux(Weights& weights, Alphas& alphas) const
+void AlphaCalculatorLinear::calculateAlphasAux(const Weights& weights, Alphas& alphas) const
 {
     int alpha_remaining = 255;
     float total_weight = std::accumulate(weights.cbegin(), weights.cend(), 0.f);

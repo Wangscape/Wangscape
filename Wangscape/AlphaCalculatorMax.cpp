@@ -1,7 +1,7 @@
 #include "AlphaCalculatorMax.h"
 #include <algorithm>
 
-void AlphaCalculatorMax::calculateAlphasAux(Weights& weights, Alphas& alphas) const
+void AlphaCalculatorMax::calculateAlphasAux(const Weights& weights, Alphas& alphas) const
 {
     auto max_it = std::max_element(weights.cbegin(), weights.cend());
     auto max_index = std::distance(weights.cbegin(), max_it);
