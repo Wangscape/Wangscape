@@ -4,9 +4,9 @@
 #include <boost/program_options/parsers.hpp>
 #include <boost/program_options/variables_map.hpp>
 #include "Options.h"
-#include "TilesetGenerator.h"
-#include "TileGenerator.h"
-#include "TilePartitionerPerlin.h"
+#include "tilegen/TilesetGenerator.h"
+#include "tilegen/TileGenerator.h"
+#include "tilegen/partition/TilePartitionerPerlin.h"
 
 namespace po = boost::program_options;
 

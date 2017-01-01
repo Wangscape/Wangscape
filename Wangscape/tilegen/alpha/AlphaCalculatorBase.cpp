@@ -1,6 +1,6 @@
 #include "AlphaCalculatorBase.h"
 #include <algorithm>
-#include "common.h"
+#include "../../common.h"
 
 AlphaCalculatorBase::AlphaCalculatorBase():
     mAlphas((int)CORNERS)

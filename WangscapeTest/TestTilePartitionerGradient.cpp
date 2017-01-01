@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include <TilePartitionerGradient.h>
+#include <tilegen/partition/TilePartitionerGradient.h>
 #include <Options.h>
 
 class TestTilePartitionerGradient : public ::testing::Test{

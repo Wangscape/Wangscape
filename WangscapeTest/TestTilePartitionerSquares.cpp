@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <TilePartitionerSquares.h>
+#include <tilegen/partition/TilePartitionerSquares.h>
 
 class TestTilePartitionerSquares : public ::testing::Test {
 protected:

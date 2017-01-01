@@ -1,11 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <memory>
-#include "Options.h"
+#include "../Options.h"
 #include "TileGenerator.h"
-#include "TilePartitionerBase.h"
-#include "TerrainImages.h"
-#include "MetaOutput.h"
+#include "partition/TilePartitionerBase.h"
+#include "../TerrainImages.h"
+#include "../MetaOutput.h"
 class TilesetGenerator
 {
 public:

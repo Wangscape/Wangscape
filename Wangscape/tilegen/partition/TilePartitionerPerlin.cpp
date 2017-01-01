@@ -1,8 +1,8 @@
 #include "TilePartitionerPerlin.h"
-#include "noise/module/ModuleFactories.h"
-#include "noise/RasterValues.h"
-#include "AlphaCalculatorLinear.h"
-#include "noise/module/Pow.h"
+#include "../../noise/module/ModuleFactories.h"
+#include "../../noise/RasterValues.h"
+#include "../alpha/AlphaCalculatorMax.h"
+#include "../../noise/module/Pow.h"
 
 Reseedable TilePartitionerPerlin::makeCornerModule(const Corners& corners,
                                                    bool left, bool top)
@@ -33,7 +33,7 @@ void TilePartitionerPerlin::noiseToAlpha(std::vector<noise::RasterValues<float>>
                                          size_t resolution) const
 {
     std::vector<float> weights((int)CORNERS);
-    AlphaCalculatorLinear ac;
+    AlphaCalculatorMax ac;
     for (size_t x = 0; x < resolution; x++)
     {
         for (size_t y = 0; y < resolution; y++)

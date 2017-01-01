@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
 
 #include <Options.h>
-#include <TilesetGenerator.h>
+#include <tilegen/TilesetGenerator.h>
 #include <MetaOutput.h>
 #include <algorithm>
-#include <TilePartitionerSquares.h>
+#include <tilegen/partition/TilePartitionerSquares.h>
 
 class TestMetaOutput : public ::testing::Test {
 protected:

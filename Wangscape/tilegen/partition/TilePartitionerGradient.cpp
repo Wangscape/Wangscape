@@ -1,5 +1,5 @@
 #include "TilePartitionerGradient.h"
-#include "AlphaCalculatorLinear.h"
+#include "../alpha/AlphaCalculatorLinear.h"
 #include <utility>
 
 int TilePartitionerGradient::gradientWeight(int x, int y, int x_corner, int y_corner, int margin)

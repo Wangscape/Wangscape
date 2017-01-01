@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 #include <Options.h>
-#include <TileGenerator.h>
-#include <TilesetGenerator.h>
-#include <TilePartitionerSquares.h>
+#include <tilegen/TileGenerator.h>
+#include <tilegen/TilesetGenerator.h>
+#include <tilegen/partition/TilePartitionerSquares.h>
 
 class TestTilesetGenerator : public ::testing::Test {
 protected:

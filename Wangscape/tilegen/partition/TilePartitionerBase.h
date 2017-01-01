@@ -2,7 +2,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <functional>
-#include "Options.h"
+#include "../../Options.h"
 
 class TilePartitionerBase
 {
