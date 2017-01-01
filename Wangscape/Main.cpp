@@ -56,8 +56,9 @@ int main(int argc, char** argv)
     }
 
     const Options options(filename);
-    std::unique_ptr<TilePartitionerBase> tp = std::make_unique<TilePartitionerPerlin>(options);
-    TilesetGenerator tg(options, std::move(tp));
+    std::unique_ptr<tilegen::partition::TilePartitionerBase> tp =
+        std::make_unique<tilegen::partition::TilePartitionerPerlin>(options);
+    tilegen::TilesetGenerator tg(options, std::move(tp));
     tg.generate([](const sf::Texture& output, std::string filename)
     {
         if (!output.copyToImage().saveToFile(filename))

@@ -1,5 +1,10 @@
 #include "TilePartitionerSquares.h"
 
+namespace tilegen
+{
+namespace partition
+{
+
 void TilePartitionerSquares::makePartition(TilePartition& regions, const Corners& corners)
 {
     sf::RectangleShape quarter_tile;
@@ -24,3 +29,6 @@ void TilePartitionerSquares::makePartition(TilePartition& regions, const Corners
     make_mask(sf::Vector2f(resolution / 2.f, 0), corners[2]);
     make_mask(sf::Vector2f(resolution / 2.f, resolution / 2.f), corners[3]);
 };
+
+} // namespace partition
+} // namespace tilegen

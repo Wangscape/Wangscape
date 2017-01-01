@@ -2,6 +2,11 @@
 #include <algorithm>
 #include "../../common.h"
 
+namespace tilegen
+{
+namespace alpha
+{
+
 AlphaCalculatorBase::AlphaCalculatorBase():
     mAlphas((int)CORNERS)
 {
@@ -29,3 +34,6 @@ void AlphaCalculatorBase::updateAlphas(const Weights & weights)
     zeroAlphas();
     updateAlphasAux(weights);
 }
+
+} // namespace alpha
+} // namespace tilegen

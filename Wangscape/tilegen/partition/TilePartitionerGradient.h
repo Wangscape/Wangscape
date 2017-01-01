@@ -2,6 +2,11 @@
 #include "TilePartitionerBase.h"
 #include <SFML/Graphics.hpp>
 
+namespace tilegen
+{
+namespace partition
+{
+
 class TilePartitionerGradient : public TilePartitionerBase
 {
 public:
@@ -11,3 +16,6 @@ public:
 protected:
 
 };
+
+} // namespace partition
+} // namespace tilegen

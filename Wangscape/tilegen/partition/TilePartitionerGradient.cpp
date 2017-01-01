@@ -2,6 +2,11 @@
 #include "../alpha/AlphaCalculatorLinear.h"
 #include <utility>
 
+namespace tilegen
+{
+namespace partition
+{
+
 int TilePartitionerGradient::gradientWeight(int x, int y, int x_corner, int y_corner, int margin)
 {
     return std::max(0, ((int)mOptions.resolution - 1 - margin -
@@ -21,7 +26,7 @@ void TilePartitionerGradient::makePartition(TilePartition & regions,
     }
     std::vector<float> weights(corners.size(), 0.f);
     int resolution_sub_1 = mOptions.resolution - 1;
-    AlphaCalculatorLinear ac;
+    alpha::AlphaCalculatorLinear ac;
     for (size_t x = 0; x < mOptions.resolution; x++)
     {
         for (size_t y = 0; y < mOptions.resolution; y++)
@@ -46,3 +51,6 @@ void TilePartitionerGradient::makePartition(TilePartition & regions,
         regions.push_back({t, corners[i]});
     }
 }
+
+} // namespace partition
+} // namespace tilegen

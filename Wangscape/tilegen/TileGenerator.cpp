@@ -1,13 +1,16 @@
 #include "TileGenerator.h"
 #include "partition/TilePartitionerBase.h"
 
+namespace tilegen
+{
+
 void TileGenerator::generate(sf::RenderTexture& image, size_t x, size_t y,
                              std::vector<TerrainID> corners,
                              const TerrainImages& images,
                              const Options& options,
-                             TilePartitionerBase& tile_partitioner)
+                             partition::TilePartitionerBase& tile_partitioner)
 {
-    TilePartitionerBase::TilePartition tp;
+    partition::TilePartitionerBase::TilePartition tp;
     tile_partitioner.makePartition(tp, corners);
     sf::RenderTexture temp;
     temp.create(options.resolution, options.resolution);
@@ -25,3 +28,5 @@ void TileGenerator::generate(sf::RenderTexture& image, size_t x, size_t y,
         //image.draw(tile, sf::RenderStates(sf::BlendNone));
     }
 }
+
+} // namespace tilegen

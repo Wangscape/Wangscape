@@ -3,6 +3,11 @@
 #include <functional>
 #include <SFML/Config.hpp>
 
+namespace tilegen
+{
+namespace alpha
+{
+
 class AlphaCalculatorBase
 {
 public:
@@ -25,3 +30,6 @@ private:
     Alphas mAlphas;
 };
 
+
+} // namespace alpha
+} // namespace tilegen

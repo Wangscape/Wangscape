@@ -4,6 +4,11 @@
 #include <functional>
 #include "../../Options.h"
 
+namespace tilegen
+{
+namespace partition
+{
+
 class TilePartitionerBase
 {
 public:
@@ -16,3 +21,6 @@ public:
 protected:
     const Options& mOptions;
 };
+
+} // namespace partition
+} // namespace tilegen

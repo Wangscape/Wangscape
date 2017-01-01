@@ -4,6 +4,10 @@
 #include <functional>
 #include "partition/TilePartitionerBase.h"
 #include <SFML/Graphics.hpp>
+
+namespace tilegen
+{
+
 class TileGenerator
 {
 public:
@@ -13,7 +17,8 @@ public:
                          std::vector<TerrainID> corners,
                          const TerrainImages& images,
                          const Options& options,
-                         TilePartitionerBase& tile_partitioner);
+                         partition::TilePartitionerBase& tile_partitioner);
 
 };
 
+} // namespace tilegen

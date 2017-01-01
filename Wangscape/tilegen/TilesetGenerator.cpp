@@ -9,8 +9,11 @@
 #include <boost/range.hpp>
 #include "../common.h"
 
+namespace tilegen
+{
+
 TilesetGenerator::TilesetGenerator(const Options& options,
-                                   std::unique_ptr<TilePartitionerBase> tile_partitioner) :
+                                   std::unique_ptr<partition::TilePartitionerBase> tile_partitioner) :
     options(options),
     mTilePartitioner(std::move(tile_partitioner))
 {
@@ -129,3 +132,5 @@ std::pair<size_t, size_t> TilesetGenerator::calculateTilesetResolution(size_t cl
     }
     return{ res_x, res_y };
 }
+
+} // namespace tilegen

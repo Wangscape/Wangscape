@@ -3,6 +3,11 @@
 #include <assert.h>
 #include <numeric>
 
+namespace tilegen
+{
+namespace alpha
+{
+
 void AlphaCalculatorLinear::updateAlphasAux(const Weights& weights)
 {
     int alpha_remaining = 255;
@@ -56,3 +61,6 @@ void AlphaCalculatorLinear::updateAlphasAux(const Weights& weights)
     }
     assert(alpha_remaining == 0);
 }
+
+} // namespace alpha
+} // namespace tilegen

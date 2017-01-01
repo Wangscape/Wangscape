@@ -4,6 +4,11 @@
 #include "../alpha/AlphaCalculatorMax.h"
 #include "../../noise/module/Pow.h"
 
+namespace tilegen
+{
+namespace partition
+{
+
 Reseedable TilePartitionerPerlin::makeCornerModule(const Corners& corners,
                                                    bool left, bool top)
 {
@@ -33,7 +38,7 @@ void TilePartitionerPerlin::noiseToAlpha(std::vector<noise::RasterValues<float>>
                                          size_t resolution) const
 {
     std::vector<float> weights((int)CORNERS);
-    AlphaCalculatorMax ac;
+    alpha::AlphaCalculatorMax ac;
     for (size_t x = 0; x < resolution; x++)
     {
         for (size_t y = 0; y < resolution; y++)
@@ -94,3 +99,6 @@ TilePartitionerPerlin::TilePartitionerPerlin(const Options & options) :
     mNoiseModuleManager(options)
 {
 }
+
+} // namespace partition
+} // namespace tilegen

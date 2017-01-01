@@ -8,12 +8,12 @@ class TestTilesetGenerator : public ::testing::Test {
 protected:
     std::string filename;
     const Options options;
-    TilesetGenerator tg;
+    tilegen::TilesetGenerator tg;
 
     TestTilesetGenerator():
         filename("../Wangscape/example/example_options.json"),
         options(filename),
-        tg(options, std::move(std::make_unique<TilePartitionerSquares>(options)))
+        tg(options, std::move(std::make_unique<tilegen::partition::TilePartitionerSquares>(options)))
     {
 
     };

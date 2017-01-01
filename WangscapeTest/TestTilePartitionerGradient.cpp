@@ -7,7 +7,7 @@ class TestTilePartitionerGradient : public ::testing::Test{
 protected:
     std::string filename;
     const Options options;
-    TilePartitionerGradient tpg;
+    tilegen::partition::TilePartitionerGradient tpg;
 
 
     TestTilePartitionerGradient() :
@@ -30,7 +30,7 @@ TEST_F(TestTilePartitionerGradient, TestGradientWeight)
 
 TEST_F(TestTilePartitionerGradient, TestGradientPartition)
 {
-    TilePartitionerGradient::TilePartition tp;
+    tilegen::partition::TilePartitionerGradient::TilePartition tp;
     tpg.makePartition(tp, { "g","g","s","s" });
     sf::Image mask = tp[0].first.copyToImage();
     EXPECT_EQ(mask.getPixel(0, 0), sf::Color(255, 255, 255, 255)) <<

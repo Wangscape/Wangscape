@@ -6,6 +6,10 @@
 #include "../../noise/ModuleManager.h"
 #include "../../noise/RasterValues.h"
 
+namespace tilegen
+{
+namespace partition
+{
 
 using Reseedable = noise::Reseedable;
 
@@ -22,3 +26,6 @@ public:
 protected:
     noise::ModuleManager mNoiseModuleManager;
 };
+
+} // namespace partition
+} // namespace tilegen

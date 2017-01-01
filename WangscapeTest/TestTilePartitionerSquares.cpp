@@ -5,8 +5,8 @@ class TestTilePartitionerSquares : public ::testing::Test {
 protected:
     std::string filename;
     const Options options;
-    TilePartitionerSquares tps;
-    TilePartitionerSquares::TilePartition tp;
+    tilegen::partition::TilePartitionerSquares tps;
+    tilegen::partition::TilePartitionerSquares::TilePartition tp;
 
     TestTilePartitionerSquares() :
         filename("../Wangscape/example/example_options.json"),

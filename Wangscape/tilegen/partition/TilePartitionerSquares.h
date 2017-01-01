@@ -1,6 +1,11 @@
 #pragma once
 #include "TilePartitionerBase.h"
 
+namespace tilegen
+{
+namespace partition
+{
+
 class TilePartitionerSquares : public TilePartitionerBase
 {
 public:
@@ -9,3 +14,6 @@ public:
 protected:
 
 };
+
+} // namespace partition
+} // namespace tilegen
