@@ -1,5 +1,5 @@
 #include "TilePartitionerGradient.h"
-#include "AlphaCalculator.h"
+#include "AlphaCalculatorLinear.h"
 #include <utility>
 
 int TilePartitionerGradient::gradientWeight(int x, int y, int x_corner, int y_corner, int margin)
@@ -22,6 +22,7 @@ void TilePartitionerGradient::makePartition(TilePartition & regions,
     std::vector<float> weights(corners.size(), 0.f);
     std::vector<sf::Uint8> alphas(corners.size(), 0);
     int resolution_sub_1 = mOptions.resolution - 1;
+    AlphaCalculatorLinear ac;
     for (size_t x = 0; x < mOptions.resolution; x++)
     {
         for (size_t y = 0; y < mOptions.resolution; y++)
@@ -30,7 +31,7 @@ void TilePartitionerGradient::makePartition(TilePartition & regions,
             weights[1] = (float)gradientWeight(x, y, 0, resolution_sub_1, mOptions.resolution / 4);
             weights[2] = (float)gradientWeight(x, y, resolution_sub_1, 0, mOptions.resolution / 4);
             weights[3] = (float)gradientWeight(x, y, resolution_sub_1, resolution_sub_1, mOptions.resolution / 4);
-            AlphaCalculator::calculatePixelAlphaLinear(weights, alphas);
+            ac.calculateAlphas(weights, alphas);
             for (size_t i = 0; i < masks.size(); i++)
             {
                 masks[i].setPixel(x, y, sf::Color(255, 255, 255, alphas[i]));

@@ -68,9 +68,6 @@
     <ClInclude Include="TilePartitionerPerlin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="AlphaCalculator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="noise\MakeReseedable.h">
       <Filter>Header Files\noise</Filter>
     </ClInclude>
@@ -110,6 +107,15 @@
     <ClInclude Include="noise\RasterValues.h">
       <Filter>Header Files\noise</Filter>
     </ClInclude>
+    <ClInclude Include="AlphaCalculatorBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AlphaCalculatorMax.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AlphaCalculatorLinear.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -142,9 +148,6 @@
     <ClCompile Include="TilePartitionerPerlin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AlphaCalculator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="noise\MakeReseedable.cpp">
       <Filter>Source Files\noise</Filter>
     </ClCompile>
@@ -174,6 +177,15 @@
     </ClCompile>
     <ClCompile Include="noise\RasterValues.cpp">
       <Filter>Source Files\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="AlphaCalculatorMax.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AlphaCalculatorLinear.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AlphaCalculatorBase.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

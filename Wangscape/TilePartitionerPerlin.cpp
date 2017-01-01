@@ -1,7 +1,8 @@
 #include "TilePartitionerPerlin.h"
 #include "noise/module/ModuleFactories.h"
 #include "noise/RasterValues.h"
-#include "AlphaCalculator.h"
+#include "AlphaCalculatorLinear.h"
+#include "noise/module/Pow.h"
 
 void TilePartitionerPerlin::makeCorner(noise::RasterValues<float>& noise_map_vector,
                                        const Corners& corners,
@@ -23,7 +24,9 @@ void TilePartitionerPerlin::makeCorner(noise::RasterValues<float>& noise_map_vec
     Reseedable deterministic = noise::module::makeLinearMovingScaleBias(border_xy, left, top, 0.85, 0.15);
     Reseedable ef = noise::module::makeEdgeFavouringMask(1.5, 1.);
     Reseedable corner = ef.blend(stochastic_mask, deterministic);
-    noise_map_vector.build(*corner.module);
+    // postprocess should be customisable
+    Reseedable postprocess = corner.pow(5.).clamp(0.,std::numeric_limits<float>::infinity());
+    noise_map_vector.build(*postprocess.module);
 }
 
 void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners& corners)
@@ -46,7 +49,7 @@ void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners
         outputs[i].create(mOptions.resolution, mOptions.resolution);
     std::vector<float> weights(4);
     std::vector<sf::Uint8> alphas(4);
-    auto apply_weights = AlphaCalculator::makeCalculatePixelAlphaPower(5.);
+    AlphaCalculatorLinear ac;
     for (size_t x = 0; x < mOptions.resolution; x++)
     {
         for (size_t y = 0; y < mOptions.resolution; y++)
@@ -56,7 +59,7 @@ void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners
                 weights[i] = nmvs[i].get(x, y);
             }
 
-            apply_weights(weights, alphas);
+            ac.calculateAlphas(weights, alphas);
             for (int i = 0; i < 4; i++)
             {
                  outputs[i].setPixel(x, y, sf::Color(255, 255, 255, alphas[i]));

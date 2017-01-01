@@ -150,7 +150,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AlphaCalculator.h" />
+    <ClInclude Include="AlphaCalculatorBase.h" />
+    <ClInclude Include="AlphaCalculatorLinear.h" />
+    <ClInclude Include="AlphaCalculatorMax.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="noise\module\Pow.h" />
     <ClInclude Include="noise\MakeReseedable.h" />
@@ -177,7 +179,9 @@
     <ClInclude Include="TilesetGenerator.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AlphaCalculator.cpp" />
+    <ClCompile Include="AlphaCalculatorBase.cpp" />
+    <ClCompile Include="AlphaCalculatorLinear.cpp" />
+    <ClCompile Include="AlphaCalculatorMax.cpp" />
     <ClCompile Include="noise\MakeReseedable.cpp" />
     <ClCompile Include="noise\module\CornerCombinerBase.cpp" />
     <ClCompile Include="noise\module\ModuleFactories.cpp" />
