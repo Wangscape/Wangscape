@@ -48,7 +48,6 @@ void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners
     for (int i = 0; i < 4; i++)
         outputs[i].create(mOptions.resolution, mOptions.resolution);
     std::vector<float> weights(4);
-    std::vector<sf::Uint8> alphas(4);
     AlphaCalculatorLinear ac;
     for (size_t x = 0; x < mOptions.resolution; x++)
     {
