@@ -29,43 +29,52 @@ void TilePartitionerPerlin::makeCorner(noise::RasterValues<float>& noise_map_vec
     noise_map_vector.build(*postprocess.module);
 }
 
-void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners& corners)
+void TilePartitionerPerlin::noiseToAlpha(std::vector<noise::RasterValues<float>>& noise_values,
+                                         std::vector<sf::Image>& outputs,
+                                         size_t resolution)
 {
-    std::vector<noise::RasterValues<float>> nmvs;
-    // This whole function needs to depend on CORNERS,
-    // not the magic number 4
-    for (int i = 0; i < (int)CORNERS; i++)
-    {
-        nmvs.emplace_back(mOptions.resolution,
-                          mOptions.resolution,
-                          sf::Rect<double>{0, 0, 1, 1});
-    }
-    for (int i = 0; i < 2; i++)
-        for (int j = 0; j < 2; j++)
-            makeCorner(nmvs[(2 * i) + j], corners, i == 0, j == 0);
-    // post-processing steps
-    std::vector<sf::Image> outputs((int)CORNERS);
-    for (int i = 0; i < (int)CORNERS; i++)
-        outputs[i].create(mOptions.resolution, mOptions.resolution);
     std::vector<float> weights((int)CORNERS);
     AlphaCalculatorLinear ac;
-    for (size_t x = 0; x < mOptions.resolution; x++)
+    for (size_t x = 0; x < resolution; x++)
     {
-        for (size_t y = 0; y < mOptions.resolution; y++)
+        for (size_t y = 0; y < resolution; y++)
         {
             for (int i = 0; i < (int)CORNERS; i++)
             {
-                weights[i] = nmvs[i].get(x, y);
+                weights[i] = noise_values[i].get(x, y);
             }
 
             ac.updateAlphas(weights);
             const auto& alphas = ac.getAlphas();
             for (int i = 0; i < (int)CORNERS; i++)
             {
-                 outputs[i].setPixel(x, y, sf::Color(255, 255, 255, alphas[i]));
+                outputs[i].setPixel(x, y, sf::Color(255, 255, 255, alphas[i]));
             }
         }
     }
+}
+
+void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners& corners)
+{
+    // Prepare storage
+    std::vector<noise::RasterValues<float>> noise_values;
+    for (int i = 0; i < (int)CORNERS; i++)
+    {
+        noise_values.emplace_back(mOptions.resolution,
+                          mOptions.resolution,
+                          sf::Rect<double>{0, 0, 1, 1});
+    }
+    // Construct noise modules and render them
+    for (int i = 0; i < 2; i++)
+        for (int j = 0; j < 2; j++)
+            makeCorner(noise_values[(2 * i) + j], corners, i == 0, j == 0);
+    // Prepare storage
+    std::vector<sf::Image> outputs((int)CORNERS);
+    for (int i = 0; i < (int)CORNERS; i++)
+        outputs[i].create(mOptions.resolution, mOptions.resolution);
+    // Convert noise values to alpha values
+    noiseToAlpha(noise_values, outputs, mOptions.resolution);
+    // Convert output images to required format
     for (int i = 0; i < (int)CORNERS; i++)
     {
         sf::Texture t;
