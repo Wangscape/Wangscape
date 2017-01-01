@@ -34,7 +34,7 @@ void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners
     std::vector<noise::RasterValues<float>> nmvs;
     // This whole function needs to depend on CORNERS,
     // not the magic number 4
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < (int)CORNERS; i++)
     {
         nmvs.emplace_back(mOptions.resolution,
                           mOptions.resolution,
@@ -44,29 +44,29 @@ void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners
         for (int j = 0; j < 2; j++)
             makeCorner(nmvs[(2 * i) + j], corners, i == 0, j == 0);
     // post-processing steps
-    std::vector<sf::Image> outputs(4);
-    for (int i = 0; i < 4; i++)
+    std::vector<sf::Image> outputs((int)CORNERS);
+    for (int i = 0; i < (int)CORNERS; i++)
         outputs[i].create(mOptions.resolution, mOptions.resolution);
-    std::vector<float> weights(4);
+    std::vector<float> weights((int)CORNERS);
     AlphaCalculatorLinear ac;
     for (size_t x = 0; x < mOptions.resolution; x++)
     {
         for (size_t y = 0; y < mOptions.resolution; y++)
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < (int)CORNERS; i++)
             {
                 weights[i] = nmvs[i].get(x, y);
             }
 
             ac.updateAlphas(weights);
             const auto& alphas = ac.getAlphas();
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < (int)CORNERS; i++)
             {
                  outputs[i].setPixel(x, y, sf::Color(255, 255, 255, alphas[i]));
             }
         }
     }
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < (int)CORNERS; i++)
     {
         sf::Texture t;
         t.loadFromImage(outputs[i]);
