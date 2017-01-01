@@ -15,12 +15,10 @@ public:
     explicit TilePartitionerPerlin(const Options& options);
     void makePartition(TilePartition& regions,
                        const Corners& corners);
+    Reseedable makeCornerModule(const Corners & corners, bool left, bool top);
     void noiseToAlpha(std::vector<noise::RasterValues<float>>& noise_values,
                       std::vector<sf::Image>& outputs,
-                      size_t resolution);
-    void makeCorner(noise::RasterValues<float> & noise_map_vector,
-                    const Corners& corners,
-                    bool left, bool top);
+                      size_t resolution) const;
 protected:
     noise::ModuleManager mNoiseModuleManager;
 };

@@ -4,9 +4,8 @@
 #include "AlphaCalculatorLinear.h"
 #include "noise/module/Pow.h"
 
-void TilePartitionerPerlin::makeCorner(noise::RasterValues<float>& noise_map_vector,
-                                       const Corners& corners,
-                                       bool left, bool top)
+Reseedable TilePartitionerPerlin::makeCornerModule(const Corners& corners,
+                                                   bool left, bool top)
 {
     TerrainID corner_id = corners[ (left ? 0 : 1) +  (top ? 0 : 2)];
     TerrainID corner_h =  corners[(!left ? 0 : 1) +  (top ? 0 : 2)];
@@ -26,12 +25,12 @@ void TilePartitionerPerlin::makeCorner(noise::RasterValues<float>& noise_map_vec
     Reseedable corner = ef.blend(stochastic_mask, deterministic);
     // postprocess should be customisable
     Reseedable postprocess = corner.pow(5.).clamp(0.,std::numeric_limits<float>::infinity());
-    noise_map_vector.build(*postprocess.module);
+    return postprocess;
 }
 
 void TilePartitionerPerlin::noiseToAlpha(std::vector<noise::RasterValues<float>>& noise_values,
                                          std::vector<sf::Image>& outputs,
-                                         size_t resolution)
+                                         size_t resolution) const
 {
     std::vector<float> weights((int)CORNERS);
     AlphaCalculatorLinear ac;
@@ -56,7 +55,7 @@ void TilePartitionerPerlin::noiseToAlpha(std::vector<noise::RasterValues<float>>
 
 void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners& corners)
 {
-    // Prepare storage
+    // Prepare noise value storage
     std::vector<noise::RasterValues<float>> noise_values;
     for (int i = 0; i < (int)CORNERS; i++)
     {
@@ -64,11 +63,18 @@ void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners
                           mOptions.resolution,
                           sf::Rect<double>{0, 0, 1, 1});
     }
-    // Construct noise modules and render them
+    // Construct noise modules and render them.
+    // Construction and rendering must be done in the same step,
+    // because module seeds will be overwritten.
+    std::vector<Reseedable> corner_modules(4);
     for (int i = 0; i < 2; i++)
         for (int j = 0; j < 2; j++)
-            makeCorner(noise_values[(2 * i) + j], corners, i == 0, j == 0);
-    // Prepare storage
+        {
+            int k = (2 * i) + j;
+            corner_modules[k] = makeCornerModule(corners, i == 0, j == 0);
+            noise_values[k].build(*corner_modules[k].module);
+        }
+    // Prepare output storage
     std::vector<sf::Image> outputs((int)CORNERS);
     for (int i = 0; i < (int)CORNERS; i++)
         outputs[i].create(mOptions.resolution, mOptions.resolution);
