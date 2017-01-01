@@ -9,9 +9,19 @@ public:
     typedef std::vector<float> Weights;
     typedef std::vector<sf::Uint8> Alphas;
 
+    AlphaCalculatorBase();
     virtual ~AlphaCalculatorBase() = default;
-    void calculateAlphas(const Weights& weights, Alphas& alphas) const;
+
+    void updateAlphas(const Weights& weights);
+    const Alphas& getAlphas() const;
 protected:
-    virtual void calculateAlphasAux(const Weights& weights, Alphas& alphas) const = 0;
+    // Implement this method to define a new AlphaCalculator.
+    // The method must set values in mAlphas which sum to 255.
+    // The method must not change the length of mAlphas.
+    virtual void updateAlphasAux(const Weights& weights) = 0;
+    void zeroAlphas();
+    sf::Uint8& getAlpha(size_t index);
+private:
+    Alphas mAlphas;
 };
 

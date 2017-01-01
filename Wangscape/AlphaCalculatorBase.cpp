@@ -1,9 +1,31 @@
 #include "AlphaCalculatorBase.h"
 #include <algorithm>
+#include "common.h"
 
-void AlphaCalculatorBase::calculateAlphas(const Weights & weights, Alphas & alphas) const
+AlphaCalculatorBase::AlphaCalculatorBase():
+    mAlphas((int)CORNERS)
 {
-    for (auto& alpha : alphas)
+    zeroAlphas();
+}
+
+void AlphaCalculatorBase::zeroAlphas()
+{
+    for (auto& alpha : mAlphas)
         alpha = 0;
-    calculateAlphasAux(weights, alphas);
+}
+
+sf::Uint8 & AlphaCalculatorBase::getAlpha(size_t index)
+{
+    return mAlphas[index];
+}
+
+const AlphaCalculatorBase::Alphas & AlphaCalculatorBase::getAlphas() const
+{
+    return mAlphas;
+}
+
+void AlphaCalculatorBase::updateAlphas(const Weights & weights)
+{
+    zeroAlphas();
+    updateAlphasAux(weights);
 }

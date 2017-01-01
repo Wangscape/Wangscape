@@ -31,7 +31,8 @@ void TilePartitionerGradient::makePartition(TilePartition & regions,
             weights[1] = (float)gradientWeight(x, y, 0, resolution_sub_1, mOptions.resolution / 4);
             weights[2] = (float)gradientWeight(x, y, resolution_sub_1, 0, mOptions.resolution / 4);
             weights[3] = (float)gradientWeight(x, y, resolution_sub_1, resolution_sub_1, mOptions.resolution / 4);
-            ac.calculateAlphas(weights, alphas);
+            ac.updateAlphas(weights);
+            const auto& alphas = ac.getAlphas();
             for (size_t i = 0; i < masks.size(); i++)
             {
                 masks[i].setPixel(x, y, sf::Color(255, 255, 255, alphas[i]));

@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <numeric>
 
-void AlphaCalculatorLinear::calculateAlphasAux(const Weights& weights, Alphas& alphas) const
+void AlphaCalculatorLinear::updateAlphasAux(const Weights& weights)
 {
     int alpha_remaining = 255;
     float total_weight = std::accumulate(weights.cbegin(), weights.cend(), 0.f);
@@ -18,15 +18,15 @@ void AlphaCalculatorLinear::calculateAlphasAux(const Weights& weights, Alphas& a
     {
         int alpha = (int)((255 * weights[i]) / total_weight);
         alpha_remaining -= alpha;
-        alphas[i] = (sf::Uint8)alpha;
+        getAlpha(i) = (sf::Uint8)alpha;
     }
     // If all the alpha is assigned, skip the last part.
     if (alpha_remaining == 0)
         return;
     // Count the number of corners that have nonzero alpha.
     size_t nonzero_alphas = std::accumulate(
-        alphas.cbegin(),
-        alphas.cend(),
+        getAlphas().cbegin(),
+        getAlphas().cend(),
         (size_t)0,
         [](const size_t& acc, const sf::Uint8& alpha)
     {
@@ -38,8 +38,9 @@ void AlphaCalculatorLinear::calculateAlphasAux(const Weights& weights, Alphas& a
     auto divmod = std::div(alpha_remaining, nonzero_alphas);
     assert(divmod.quot >= 0);
     int alphas_incremented = 0;
-    for (auto& alpha : alphas)
+    for(size_t i = 0; i < getAlphas().size(); i++)
     {
+        auto& alpha = getAlpha(i);
         if (alpha == 0)
             continue;
         alpha += divmod.quot;

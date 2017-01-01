@@ -59,7 +59,8 @@ void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners
                 weights[i] = nmvs[i].get(x, y);
             }
 
-            ac.calculateAlphas(weights, alphas);
+            ac.updateAlphas(weights);
+            const auto& alphas = ac.getAlphas();
             for (int i = 0; i < 4; i++)
             {
                  outputs[i].setPixel(x, y, sf::Color(255, 255, 255, alphas[i]));

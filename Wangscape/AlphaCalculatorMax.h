@@ -3,6 +3,6 @@
 class AlphaCalculatorMax : public AlphaCalculatorBase
 {
 protected:
-    virtual void calculateAlphasAux(const Weights& weights, Alphas& alphas) const;
+    virtual void updateAlphasAux(const Weights& weights);
 };
 
