@@ -25,7 +25,7 @@ void TilePartitionerGradient::makePartition(TilePartition & regions,
         masks.push_back(img);
     }
     std::vector<float> weights(corners.size(), 0.f);
-    int resolution_sub_1 = mOptions.resolution - 1;
+    const int resolution_sub_1 = mOptions.resolution - 1;
     alpha::AlphaCalculatorLinear ac;
     for (size_t x = 0; x < mOptions.resolution; x++)
     {
