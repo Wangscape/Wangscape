@@ -10,7 +10,6 @@ namespace noise
 class RasterBase
 {
 public:
-    typedef module::Module NoiseModule;
     typedef double Real;
     typedef sf::Rect<Real> Bounds;
 
@@ -20,7 +19,7 @@ public:
 
     const Bounds& bounds() const;
     Bounds& bounds();
-    void build(const NoiseModule& module);
+    void build(const module::Module& module);
 
     virtual size_t sizeX() const = 0;
     virtual size_t sizeY() const = 0;

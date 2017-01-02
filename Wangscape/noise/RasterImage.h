@@ -17,7 +17,7 @@ public:
 
     explicit RasterImage(Image& image);
     RasterImage(Image& image, Bounds bounds);
-    RasterImage(Image& image, Bounds bounds, const NoiseModule& module);
+    RasterImage(Image& image, Bounds bounds, const module::Module& module);
 
     virtual size_t sizeX() const;
     virtual size_t sizeY() const;

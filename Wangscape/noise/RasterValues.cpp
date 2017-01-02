@@ -17,7 +17,7 @@ RasterValues<T>::RasterValues(size_t x, size_t y, RasterBase::Bounds bounds) :
 }
 
 template<typename T>
-RasterValues<T>::RasterValues(size_t x, size_t y, RasterBase::Bounds bounds, const NoiseModule & module) :
+RasterValues<T>::RasterValues(size_t x, size_t y, RasterBase::Bounds bounds, const module::Module & module) :
     RasterBase(bounds),
     mSizeX(x), mSizeY(y),
     mData(x*y)

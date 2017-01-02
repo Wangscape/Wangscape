@@ -13,7 +13,7 @@ RasterImage::RasterImage(Image & image, Bounds bounds) :
 {
 }
 
-RasterImage::RasterImage(Image & image, Bounds bounds, const NoiseModule & module) :
+RasterImage::RasterImage(Image & image, Bounds bounds, const module::Module & module) :
     mImage(image),
     RasterBase(bounds)
 {

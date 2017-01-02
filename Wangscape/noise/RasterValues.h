@@ -18,7 +18,7 @@ public:
     typedef std::vector<T> Data;
     RasterValues(size_t x, size_t y);
     RasterValues(size_t x, size_t y, Bounds bounds);
-    RasterValues(size_t x, size_t y, Bounds bounds, const NoiseModule& module);
+    RasterValues(size_t x, size_t y, Bounds bounds, const module::Module& module);
 
     virtual size_t sizeX() const;
     virtual size_t sizeY() const;

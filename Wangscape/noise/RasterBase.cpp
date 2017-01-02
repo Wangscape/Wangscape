@@ -17,7 +17,7 @@ RasterBase::Bounds & RasterBase::bounds()
     return mBounds;
 }
 
-void RasterBase::build(const NoiseModule & module)
+void RasterBase::build(const module::Module & module)
 {
     Real step_x = bounds().width / sizeX();
     Real step_y = bounds().height / sizeY();
