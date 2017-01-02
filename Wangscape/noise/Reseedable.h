@@ -25,8 +25,6 @@ struct Reseedable final
     Reseedable exp(double base);
     Reseedable invert();
     Reseedable scaleBias(double scale, double bias);
-    //Reseedable curve(...?)
-    //Reseedable terrace(...?)
     Reseedable operator+(Reseedable& other);
     Reseedable operator+(double bias);
     Reseedable operator-(Reseedable& other);
