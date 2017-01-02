@@ -44,15 +44,7 @@ Reseedable makeLinearMovingScaleBias(Reseedable & source,
                                      double length = 1., double middle_length = 0.);
 
 // Makes a placeholder noise module (a Perlin noise module with typical parameters).
-Reseedable makePlaceholder(int seed = 0,
-                           int octaves = 5,
-                           double frequency = 1.,
-                           double lacunarity = 2.,
-                           double persistence = 0.5,
-                           NoiseQuality quality = NoiseQuality::QUALITY_FAST,
-                           double origin_x=1.1,
-                           double origin_y=2.2,
-                           double origin_z=3.3);
+Reseedable makePlaceholder(int seed = 0);
 
 } // namespace module
 } // namespace noise

@@ -85,24 +85,16 @@ Reseedable makeLinearMovingScaleBias(Reseedable & source,
     return makeMovingScaleBias(source, min, max);
 }
 
-Reseedable makePlaceholder(int seed,
-                           int octaves,
-                           double frequency,
-                           double lacunarity,
-                           double persistence,
-                           noise::NoiseQuality quality,
-                           double origin_x,
-                           double origin_y,
-                           double origin_z)
+Reseedable makePlaceholder(int seed)
 {
     std::shared_ptr<Perlin> placeholder = std::make_shared<Perlin>();
     placeholder->SetSeed(seed);
-    placeholder->SetOctaveCount(octaves);
-    placeholder->SetFrequency(frequency);
-    placeholder->SetLacunarity(lacunarity);
-    placeholder->SetPersistence(persistence);
-    placeholder->SetNoiseQuality(quality);
-    return makeReseedable(placeholder).translatePoint(origin_x, origin_y, origin_z);
+    placeholder->SetOctaveCount(5);
+    placeholder->SetFrequency(1.);
+    placeholder->SetLacunarity(2.);
+    placeholder->SetPersistence(0.5);
+    placeholder->SetNoiseQuality(NoiseQuality::QUALITY_FAST);
+    return makeReseedable(placeholder).translatePoint(1.1, 2.2, 3.3);
 }
 
 } // namespace module
