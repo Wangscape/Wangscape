@@ -45,7 +45,7 @@ T RasterValues<T>::get(size_t x, size_t y) const
 template<typename T>
 void RasterValues<T>::set(size_t x, size_t y, Real value)
 {
-    mData[index(x, y)] = (T)value;
+    mData[index(x, y)] = static_cast<T>(value);
 }
 
 template<typename T>
@@ -57,5 +57,6 @@ size_t RasterValues<T>::index(size_t x, size_t y) const
 }
 
 template class RasterValues<float>;
+template class RasterValues<double>;
 
 } // namespace noise
