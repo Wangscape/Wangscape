@@ -1,4 +1,4 @@
-#include "../Corners.h"
+#include "Corners.h"
 #include "TilesetGenerator.h"
 #include "TileGenerator.h"
 #include <functional>
@@ -7,7 +7,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/range.hpp>
-#include "../common.h"
+#include "common.h"
 
 namespace tilegen
 {

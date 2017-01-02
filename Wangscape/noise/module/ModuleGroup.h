@@ -3,7 +3,7 @@
 #include <string>
 #include <map>
 #include <memory>
-#include "../Reseedable.h"
+#include "noise/Reseedable.h"
 
 namespace noise
 {

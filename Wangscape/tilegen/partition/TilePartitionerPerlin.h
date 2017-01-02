@@ -2,9 +2,9 @@
 #include "TilePartitionerBase.h"
 #include <noise/noise.h>
 #include <SFML/Graphics.hpp>
-#include "../../Options.h"
-#include "../../noise/ModuleManager.h"
-#include "../../noise/RasterValues.h"
+#include "Options.h"
+#include "noise/ModuleManager.h"
+#include "noise/RasterValues.h"
 
 namespace tilegen
 {

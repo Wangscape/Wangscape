@@ -1,7 +1,7 @@
 #include "ModuleFactories.h"
 #include "Gradient.h"
 #include "NormLPQ.h"
-#include "../MakeReseedable.h"
+#include "noise/MakeReseedable.h"
 #include <stdexcept>
 
 namespace noise

@@ -1,8 +1,8 @@
 #include "TilePartitionerPerlin.h"
-#include "../../noise/module/ModuleFactories.h"
-#include "../../noise/RasterValues.h"
-#include "../alpha/AlphaCalculatorMax.h"
-#include "../../noise/module/Pow.h"
+#include "noise/module/ModuleFactories.h"
+#include "noise/RasterValues.h"
+#include "noise/module/Pow.h"
+#include "tilegen/alpha/AlphaCalculatorMax.h"
 
 namespace tilegen
 {

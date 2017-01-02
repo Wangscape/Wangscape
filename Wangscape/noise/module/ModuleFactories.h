@@ -1,7 +1,7 @@
 #pragma once
 #include "ModuleGroup.h"
 #include "CornerCombinerBase.h"
-#include "../Reseedable.h"
+#include "noise/Reseedable.h"
 
 namespace noise
 {

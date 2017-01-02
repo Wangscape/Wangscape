@@ -1,5 +1,5 @@
 #include "TilePartitionerGradient.h"
-#include "../alpha/AlphaCalculatorLinear.h"
+#include "tilegen/alpha/AlphaCalculatorLinear.h"
 #include <utility>
 
 namespace tilegen

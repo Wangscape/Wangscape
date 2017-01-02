@@ -1,6 +1,6 @@
 #pragma once
-#include "../Options.h"
-#include "../TerrainImages.h"
+#include "Options.h"
+#include "TerrainImages.h"
 #include <functional>
 #include "partition/TilePartitionerBase.h"
 #include <SFML/Graphics.hpp>
