@@ -134,6 +134,9 @@
     <ClInclude Include="tilegen\alpha\AlphaCalculatorLinear.h">
       <Filter>Header Files\tilegen\alpha</Filter>
     </ClInclude>
+    <ClInclude Include="Corners.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
