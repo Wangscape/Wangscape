@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <Options.h>
+#include <OptionsManager.h>
 #include <tilegen/TileGenerator.h>
 #include <tilegen/TilesetGenerator.h>
 #include <tilegen/partition/TilePartitionerSquares.h>
@@ -7,17 +7,17 @@
 class TestTilesetGenerator : public ::testing::Test {
 protected:
     std::string filename;
-    const Options options;
+    const Options& options;
+    const OptionsManager optionsManager;
     tilegen::TilesetGenerator tg;
-
     TestTilesetGenerator():
         filename("../Wangscape/example/example_options.json"),
-        options(filename),
+        optionsManager(filename),
+        options(optionsManager.getOptions()),
         tg(options, std::move(std::make_unique<tilegen::partition::TilePartitionerSquares>(options)))
     {
 
     };
-    ~TestTilesetGenerator() {};
 };
 
 // TODO test TilesetGenerator::generateClique

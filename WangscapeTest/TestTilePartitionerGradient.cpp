@@ -2,17 +2,19 @@
 
 #include <tilegen/partition/TilePartitionerGradient.h>
 #include <Options.h>
+#include <OptionsManager.h>
 
 class TestTilePartitionerGradient : public ::testing::Test{
 protected:
     std::string filename;
-    const Options options;
     tilegen::partition::TilePartitionerGradient tpg;
-
-
-    TestTilePartitionerGradient() :
+    tilegen::partition::TilePartitionerGradient::TilePartition tp;
+    const Options& options;
+    const OptionsManager optionsManager;
+    TestTilePartitionGradient() :
         filename("../Wangscape/example/example_options.json"),
-        options(filename),
+        optionsManager(filename),
+        options(optionsManager.getOptions())
         tpg(options)
     {
     };

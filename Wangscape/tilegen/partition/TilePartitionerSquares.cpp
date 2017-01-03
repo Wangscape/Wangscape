@@ -8,7 +8,7 @@ namespace partition
 void TilePartitionerSquares::makePartition(TilePartition& regions, const Corners& corners)
 {
     sf::RectangleShape quarter_tile;
-    const auto resolution = mOptions.resolution;
+    const auto resolution = options.tileFormat.resolution;
     quarter_tile.setSize(sf::Vector2f(resolution / 2.f, resolution / 2.f));
     quarter_tile.setFillColor(sf::Color::White);
     quarter_tile.setOutlineThickness(0.f);

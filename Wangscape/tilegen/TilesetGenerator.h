@@ -5,11 +5,11 @@
 #include "TileGenerator.h"
 #include "partition/TilePartitionerBase.h"
 #include "TerrainImages.h"
-#include "MetaOutput.h"
-
+#include "metaoutput/MetaOutput.h"
 
 namespace tilegen
 {
+
 class TilesetGenerator
 {
 public:
@@ -19,7 +19,7 @@ public:
     void generate(std::function<void(const sf::Texture&, std::string)> callback);
     void generateClique(const Options::Clique& clique, sf::RenderTexture& image, std::string filename);
     const Options& options;
-    MetaOutput mo;
+    metaoutput::MetaOutput mo;
     TerrainImages images;
 private:
     std::unique_ptr<tilegen::partition::TilePartitionerBase> mTilePartitioner;

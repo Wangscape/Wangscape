@@ -1,6 +1,5 @@
 set(lib-src
-    MetaOutput.cpp
-    Options.cpp
+    OptionsManager.cpp
     TerrainImages.cpp
     TileGenerator.cpp
     TilePartitionGradient.cpp
@@ -8,10 +7,16 @@ set(lib-src
     TilesetGenerator.cpp
 )
 
+add_subdirectory(metaoutput)
+
 add_library(wangscape STATIC ${lib-src})
 add_executable(Wangscape Main.cpp)
 
+target_link_libraries(wangscape metaoutput)
+target_link_libraries(wangscape spotify-json)
+
 target_link_libraries(Wangscape wangscape)
+
 
 find_package(Boost COMPONENTS system filesystem program_options REQUIRED)
 if(Boost_FOUND)
@@ -24,9 +29,4 @@ find_package(SFML 2 REQUIRED system graphics)
 if(SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})
     target_link_libraries(Wangscape ${SFML_LIBRARIES})
-endif()
-
-find_package(RapidJSON REQUIRED)
-if(RapidJSON_FOUND)
-    include_directories(${RAPIDJSON_INCLUDE_DIRS})
 endif()

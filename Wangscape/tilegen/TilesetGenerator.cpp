@@ -20,13 +20,13 @@ TilesetGenerator::TilesetGenerator(const Options& options,
     for (auto& terrain : options.terrains)
     {
         images.addTerrain(terrain.first, terrain.second.fileName, options.filename,
-                          terrain.second.offsetX, terrain.second.offsetY, options.resolution);
+                          terrain.second.offsetX, terrain.second.offsetY, options.tileFormat.resolution);
     }
 }
 
 void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::string)> callback)
 {
-    mo.setResolution(options.resolution);
+    mo.setResolution(options.tileFormat.resolution);
     boost::filesystem::path p(options.relativeOutputDirectory);
     for (const auto& clique : options.cliques)
     {
@@ -64,7 +64,7 @@ void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderT
             z += corner_clique_indices[i];
         }
         TileGenerator::generate(image, x, y, corner_terrains, images, options, *mTilePartitioner.get());
-        mo.addTile(corner_terrains, filename, x*options.resolution, y*options.resolution);
+        mo.addTile(corner_terrains, filename, x*options.tileFormat.resolution, y*options.tileFormat.resolution);
         stop = true;
         auto zip_begin = boost::make_zip_iterator(boost::make_tuple(corner_terrains.begin(),
                                                                     corner_clique_indices.begin()));
@@ -97,7 +97,7 @@ std::string TilesetGenerator::getOutputImageFilename(const Options::Clique& cliq
     {
         ss << terrain << ".";
     }
-    ss << options.fileType;
+    ss << options.tileFormat.fileType;
     return ss.str();
 }
 
@@ -116,15 +116,15 @@ std::pair<size_t, size_t> TilesetGenerator::calculateTilesetResolution(size_t cl
     switch (CORNERS)
     {
     case Corners::Triangle:
-        res_y = options.resolution*clique_size;
+        res_y = options.tileFormat.resolution*clique_size;
         res_x = res_y*clique_size;
         break;
     case Corners::Square:
-        res_x = options.resolution*clique_size*clique_size;
+        res_x = options.tileFormat.resolution*clique_size*clique_size;
         res_y = res_x;
         break;
     case Corners::Hexagon:
-        res_x = options.resolution*clique_size*clique_size*clique_size;
+        res_x = options.tileFormat.resolution*clique_size*clique_size*clique_size;
         res_y = res_x;
         break;
     default:

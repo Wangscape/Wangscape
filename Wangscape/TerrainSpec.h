@@ -2,6 +2,7 @@
 #include <string>
 struct TerrainSpec
 {
+    TerrainSpec() = default;
     TerrainSpec(const std::string& full_name,
                 const std::string& file_name,
                 unsigned int offset_x,

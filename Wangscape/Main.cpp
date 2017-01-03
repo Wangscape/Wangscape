@@ -1,12 +1,18 @@
 #include <iostream>
+#include <fstream>
 #include <memory>
+
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/parsers.hpp>
 #include <boost/program_options/variables_map.hpp>
-#include "Options.h"
+
+#include <spotify/json.hpp>
+
 #include "tilegen/TilesetGenerator.h"
 #include "tilegen/TileGenerator.h"
 #include "tilegen/partition/TilePartitionerPerlin.h"
+
+#include "OptionsManager.h"
 
 namespace po = boost::program_options;
 
@@ -55,16 +61,20 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    const Options options(filename);
+    OptionsManager optionsManager(filename);
+    const Options& options = optionsManager.getOptions();
+    
     std::unique_ptr<tilegen::partition::TilePartitionerBase> tp =
         std::make_unique<tilegen::partition::TilePartitionerPerlin>(options);
-    tilegen::TilesetGenerator tg(options, std::move(tp));
+    
+    TilesetGenerator tg(options, std::move(tp));
+    
     tg.generate([](const sf::Texture& output, std::string filename)
     {
         if (!output.copyToImage().saveToFile(filename))
             throw std::runtime_error("Couldn't write image");
     });
-    tg.mo.writeAll(options);
+    tg.mo.writeAll(optionsManager.getOptions());
 
     return 0;
 }
