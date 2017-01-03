@@ -2,7 +2,8 @@
 
 #include <noise/module/ModuleFactories.h>
 
-class TestMovingScaleBias : public ::testing::Test {
+class TestMovingScaleBias : public ::testing::Test
+{
 protected:
     noise::Reseedable x;
     noise::Reseedable y;

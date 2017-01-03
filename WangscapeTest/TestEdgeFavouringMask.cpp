@@ -2,7 +2,8 @@
 #include <noise/module/NormLPQ.h>
 #include <noise/module/ModuleFactories.h>
 
-class TestEdgeFavouringMask : public ::testing::Test {
+class TestEdgeFavouringMask : public ::testing::Test
+{
 protected:
     noise::Reseedable n1_1;
     noise::Reseedable n1_2;

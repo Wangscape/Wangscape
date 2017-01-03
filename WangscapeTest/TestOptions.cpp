@@ -7,7 +7,8 @@
 
 #include "TestRequiringOptions.h"
 
-class TestOptions : public TestRequiringOptions {
+class TestOptions : public TestRequiringOptions
+{
 protected:
     using TestRequiringOptions::TestRequiringOptions;
 };

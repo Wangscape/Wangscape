@@ -3,7 +3,8 @@
 #include <noise/MakeReseedable.h>
 #include <noise/module/ModuleFactories.h>
 
-class TestReseedable : public ::testing::Test {
+class TestReseedable : public ::testing::Test
+{
 protected:
     noise::Reseedable x;
     noise::Reseedable y;

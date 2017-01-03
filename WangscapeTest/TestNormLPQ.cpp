@@ -2,7 +2,8 @@
 #include <noise/module/NormLPQ.h>
 #include <noise/module/ModuleFactories.h>
 
-class TestNormLPQ : public ::testing::Test {
+class TestNormLPQ : public ::testing::Test
+{
 protected:
     noise::ModulePtr n1_1;
     noise::ModulePtr n1_2;
