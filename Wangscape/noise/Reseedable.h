@@ -71,7 +71,7 @@ inline Reseedable Reseedable::terrace(Iterator it, Iterator end, bool inverted)
 }
 
 template<typename Iterator>
-inline Reseedable Reseedable::curve(Iterator begin, Iterator end)
+inline Reseedable Reseedable::curve(Iterator it, Iterator end)
 {
     // TODO static_assert that Iterator is at least an input iterator
     static_assert(std::is_same<typename std::iterator_traits<Iterator>::value_type,
