@@ -19,7 +19,7 @@ public:
     void generate(std::function<void(const sf::Texture&, std::string)> callback);
     void generateClique(const Options::Clique& clique, sf::RenderTexture& image, std::string filename);
     const Options& options;
-    metaoutput::MetaOutput mo;
+    metaoutput::MetaOutput metaOutput;
     TerrainImages images;
 private:
     std::unique_ptr<tilegen::partition::TilePartitionerBase> mTilePartitioner;
