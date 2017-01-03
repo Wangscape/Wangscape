@@ -150,6 +150,16 @@
   <ItemGroup>
     <ClInclude Include="common.h" />
     <ClInclude Include="Corners.h" />
+    <ClInclude Include="metaoutput\codecs\FilenamesCodec.h" />
+    <ClInclude Include="metaoutput\codecs\TileCodec.h" />
+    <ClInclude Include="metaoutput\codecs\TileLocationCodec.h" />
+    <ClInclude Include="metaoutput\codecs\TilesetCodec.h" />
+    <ClInclude Include="metaoutput\Filenames.h" />
+    <ClInclude Include="metaoutput\MetaOutput.h" />
+    <ClInclude Include="metaoutput\Tile.h" />
+    <ClInclude Include="metaoutput\TileGroups.h" />
+    <ClInclude Include="metaoutput\TileLocation.h" />
+    <ClInclude Include="metaoutput\Tileset.h" />
     <ClInclude Include="noise\module\Pow.h" />
     <ClInclude Include="noise\MakeReseedable.h" />
     <ClInclude Include="noise\module\CornerCombinerBase.h" />
@@ -165,6 +175,7 @@
     <ClInclude Include="noise\Reseedable.h" />
     <ClInclude Include="MetaOutput.h" />
     <ClInclude Include="Options.h" />
+    <ClInclude Include="OptionsManager.h" />
     <ClInclude Include="TerrainImages.h" />
     <ClInclude Include="TerrainSpec.h" />
     <ClInclude Include="tilegen\alpha\AlphaCalculatorBase.h" />
@@ -178,6 +189,10 @@
     <ClInclude Include="tilegen\TilesetGenerator.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="metaoutput\MetaOutput.cpp" />
+    <ClCompile Include="metaoutput\Tile.cpp" />
+    <ClCompile Include="metaoutput\TileLocation.cpp" />
+    <ClCompile Include="metaoutput\Tileset.cpp" />
     <ClCompile Include="noise\MakeReseedable.cpp" />
     <ClCompile Include="noise\module\CornerCombinerBase.cpp" />
     <ClCompile Include="noise\module\ModuleFactories.cpp" />
@@ -191,6 +206,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MetaOutput.cpp" />
     <ClCompile Include="Options.cpp" />
+    <ClCompile Include="OptionsManager.cpp" />
     <ClCompile Include="TerrainImages.cpp" />
     <ClCompile Include="tilegen\alpha\AlphaCalculatorBase.cpp" />
     <ClCompile Include="tilegen\alpha\AlphaCalculatorLinear.cpp" />

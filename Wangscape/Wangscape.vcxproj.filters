@@ -137,6 +137,39 @@
     <ClInclude Include="Corners.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="OptionsManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\Filenames.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\MetaOutput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\Tile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\TileGroups.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\TileLocation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\Tileset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\codecs\FilenamesCodec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\codecs\TileCodec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\codecs\TileLocationCodec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\codecs\TilesetCodec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -207,6 +240,21 @@
     </ClCompile>
     <ClCompile Include="tilegen\alpha\AlphaCalculatorMax.cpp">
       <Filter>Source Files\tilegen\alpha</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionsManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="metaoutput\MetaOutput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="metaoutput\Tile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="metaoutput\TileLocation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="metaoutput\Tileset.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
