@@ -294,6 +294,7 @@ Reseedable Reseedable::terrace(int controlPointCount, bool inverted)
     return finaliseTerrace(terrace_p);
 }
 
+// TODO make this function generic then make all the above factories use it
 Reseedable Reseedable::finaliseTerrace(std::shared_ptr<module::Terrace>& terrace_p)
 {
     terrace_p->SetSourceModule(0, *module);
