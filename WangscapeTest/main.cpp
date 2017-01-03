@@ -12,4 +12,4 @@ int main(int argc, char** argv)
     std::cout << "Using options file at " << filename << "\n";
     assert(TestRequiringOptions::initFilename(filename));
     return RUN_ALL_TESTS();
-}
+} 
