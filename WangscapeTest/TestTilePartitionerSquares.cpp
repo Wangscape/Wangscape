@@ -2,18 +2,17 @@
 #include <tilegen/partition/TilePartitionerSquares.h>
 #include <Options.h>
 #include <OptionsManager.h>
-class TestTilePartitionerSquares : public ::testing::Test {
+
+#include "TestRequiringOptions.h"
+
+class TestTilePartitionerSquares : public TestRequiringOptions
+{
 protected:
-    std::string filename;
-    const Options& options;
-    const OptionsManager optionsManager;
     tilegen::partition::TilePartitionerSquares tps;
     tilegen::partition::TilePartitionerSquares::TilePartition tp;
     
     TestTilePartitionerSquares() :
-        filename("../Wangscape/example/example_options.json"),
-        optionsManager(filename),
-        options(optionsManager.getOptions()),
+        TestRequiringOptions(),
         tps(options)
     {
         tps.makePartition(tp, { "g","g","s","s" });

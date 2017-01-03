@@ -5,28 +5,23 @@
 #include <Options.h>
 #include <OptionsManager.h>
 
-class TestOptions : public ::testing::Test {
-protected:
-    std::string filename;
-    const Options& options;
-    const OptionsManager optionsManager;
+#include "TestRequiringOptions.h"
 
-    TestOptions() :
-        filename("../../Wangscape/example/example_options.json"),
-        optionsManager(filename),
-        options(optionsManager.getOptions())
-    {
-    };
-    ~TestOptions() {};
+class TestOptions : public TestRequiringOptions {
+protected:
+    using TestRequiringOptions::TestRequiringOptions;
 };
 
 TEST_F(TestOptions, TestOptionsValues)
 {
     EXPECT_EQ(options.filename, filename) <<
         "Incorrect options filename";
+    boost::filesystem::path expected_output_dir(filename);
+    expected_output_dir.remove_filename();
+    expected_output_dir /= "output";
     EXPECT_TRUE(boost::filesystem::equivalent(
         boost::filesystem::path(options.relativeOutputDirectory),
-        boost::filesystem::path("../../Wangscape/example/output"))) <<
+        expected_output_dir)) <<
         "Incorrect relative output directory";
     EXPECT_STREQ(options.outputDirectory.c_str(),
                  "output") <<
