@@ -13,7 +13,7 @@ protected:
     TestTilePartitionerSquares() :
         filename("../Wangscape/example/example_options.json"),
         optionsManager(filename),
-        options(optionsManager.getOptions())
+        options(optionsManager.getOptions()),
         tps(options)
     {
         tps.makePartition(tp, { "g","g","s","s" });

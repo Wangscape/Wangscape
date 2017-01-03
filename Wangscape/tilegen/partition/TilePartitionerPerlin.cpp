@@ -64,8 +64,8 @@ void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners
     std::vector<noise::RasterValues<float>> noise_values;
     for (int i = 0; i < (int)CORNERS; i++)
     {
-        noise_values.emplace_back(mOptions.resolution,
-                          mOptions.resolution,
+        noise_values.emplace_back(mOptions.tileFormat.resolution,
+                          mOptions.tileFormat.resolution,
                           sf::Rect<double>{0, 0, 1, 1});
     }
     // Construct noise modules and render them.
@@ -82,9 +82,9 @@ void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners
     // Prepare output storage
     std::vector<sf::Image> outputs((int)CORNERS);
     for (int i = 0; i < (int)CORNERS; i++)
-        outputs[i].create(mOptions.resolution, mOptions.resolution);
+        outputs[i].create(mOptions.tileFormat.resolution, mOptions.tileFormat.resolution);
     // Convert noise values to alpha values
-    noiseToAlpha(noise_values, outputs, mOptions.resolution);
+    noiseToAlpha(noise_values, outputs, mOptions.tileFormat.resolution);
     // Convert output images to required format
     for (int i = 0; i < (int)CORNERS; i++)
     {

@@ -11,10 +11,10 @@ protected:
     tilegen::partition::TilePartitionerGradient::TilePartition tp;
     const Options& options;
     const OptionsManager optionsManager;
-    TestTilePartitionGradient() :
+    TestTilePartitionerGradient() :
         filename("../Wangscape/example/example_options.json"),
         optionsManager(filename),
-        options(optionsManager.getOptions())
+        options(optionsManager.getOptions()),
         tpg(options)
     {
     };
