@@ -43,6 +43,18 @@
     <Filter Include="Header Files\tilegen\partition">
       <UniqueIdentifier>{e9cdf625-950d-4725-b6fe-99b0835897c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\metaoutput">
+      <UniqueIdentifier>{94ccf969-d42b-4795-9302-3ac3415b259c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\metaoutput">
+      <UniqueIdentifier>{3b8b7fed-f49a-4386-9908-5932605e4d35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\codecs">
+      <UniqueIdentifier>{da103928-cf64-443b-924e-f887cf7939b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\metaoutput\codecs">
+      <UniqueIdentifier>{1e94c3a5-af80-4fdc-8c58-75944ee6b79d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -63,9 +75,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TerrainImages.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MetaOutput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="noise\MakeReseedable.h">
@@ -140,34 +149,46 @@
     <ClInclude Include="OptionsManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="metaoutput\Filenames.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="metaoutput\MetaOutput.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="metaoutput\Tile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="metaoutput\TileGroups.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="metaoutput\TileLocation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="metaoutput\Tileset.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="metaoutput\codecs\FilenamesCodec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="metaoutput\codecs\TileCodec.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\metaoutput\codecs</Filter>
     </ClInclude>
     <ClInclude Include="metaoutput\codecs\TileLocationCodec.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\metaoutput\codecs</Filter>
     </ClInclude>
     <ClInclude Include="metaoutput\codecs\TilesetCodec.h">
+      <Filter>Header Files\metaoutput\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\codecs\TileCodec.h">
+      <Filter>Header Files\metaoutput\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="codecs\TerrainSpecCodec.h">
+      <Filter>Header Files\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="codecs\TileFormatCodec.h">
+      <Filter>Header Files\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="codecs\OptionsCodec.h">
+      <Filter>Header Files\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\Filenames.h">
+      <Filter>Header Files\metaoutput</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\MetaOutput.h">
+      <Filter>Header Files\metaoutput</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\Tile.h">
+      <Filter>Header Files\metaoutput</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\TileGroups.h">
+      <Filter>Header Files\metaoutput</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\TileLocation.h">
+      <Filter>Header Files\metaoutput</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\Tileset.h">
+      <Filter>Header Files\metaoutput</Filter>
+    </ClInclude>
+    <ClInclude Include="TileFormat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -175,13 +196,7 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Options.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TerrainImages.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MetaOutput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="noise\MakeReseedable.cpp">
@@ -245,16 +260,16 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="metaoutput\MetaOutput.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\metaoutput</Filter>
     </ClCompile>
     <ClCompile Include="metaoutput\Tile.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\metaoutput</Filter>
     </ClCompile>
     <ClCompile Include="metaoutput\TileLocation.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\metaoutput</Filter>
     </ClCompile>
     <ClCompile Include="metaoutput\Tileset.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\metaoutput</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
