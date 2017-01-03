@@ -158,6 +158,7 @@
     <ClCompile Include="TestMovingScaleBias.cpp" />
     <ClCompile Include="TestNormLPQ.cpp" />
     <ClCompile Include="TestOptions.cpp" />
+    <ClCompile Include="TestRequiringOptions.cpp" />
     <ClCompile Include="TestReseedable.cpp" />
     <ClCompile Include="TestTileGenerationPlan.cpp" />
     <ClCompile Include="TestTilePartitionerGradient.cpp" />
