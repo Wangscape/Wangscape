@@ -23,7 +23,7 @@ public:
     void noiseToAlpha(std::vector<noise::RasterValues<float>>& noise_values,
                       std::vector<sf::Image>& outputs,
                       size_t resolution) const;
-protected:
+private:
     noise::ModuleManager mNoiseModuleManager;
 };
 

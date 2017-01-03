@@ -22,7 +22,7 @@ public:
     Reseedable getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive);
     Reseedable getBorderHorizontal(TerrainID left, TerrainID right, bool y_positive);
     Reseedable& getStochastic(TerrainID terrain);
-protected:
+private:
     std::mt19937 mRNG;
 
     // User-defined masks specifying how two corner terrain types

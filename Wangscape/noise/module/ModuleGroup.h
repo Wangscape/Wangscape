@@ -46,7 +46,7 @@ public:
     virtual int GetSourceModuleCount() const;
     virtual double GetValue(double x, double y, double z) const;
     void SetSeed(int seed);
-protected:
+private:
     ModuleContainer mModules;
 
 };

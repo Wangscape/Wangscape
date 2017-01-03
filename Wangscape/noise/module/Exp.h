@@ -41,7 +41,7 @@ public:
     {
         return pow(mBase, GetSourceModule(0).GetValue(x,y,z));
     };
-protected:
+private:
     double mBase;
 };
 

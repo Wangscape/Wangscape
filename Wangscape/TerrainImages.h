@@ -10,7 +10,7 @@ public:
     static void rearrangeTile(sf::Texture& t);
     void addTerrain(TerrainID tid, std::string image_filename, std::string json_filename,
                     size_t offset_x, size_t offset_y, size_t resolution);
-protected:
+private:
     std::map<std::string, sf::Image> source_images;
 };
 

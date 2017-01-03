@@ -22,7 +22,7 @@ public:
     virtual double GetValue(double x, double y, double z) const;
     void setPQ(double p, double q);
     void setQ(double q);
-protected:
+private:
     double mP;
     double mQP;
 };

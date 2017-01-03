@@ -39,7 +39,7 @@ public:
     {
         return pow(GetSourceModule(0).GetValue(x, y, z), mExponent);
     };
-protected:
+private:
     double mExponent;
 };
 
