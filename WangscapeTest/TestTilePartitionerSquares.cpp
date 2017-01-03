@@ -1,27 +1,27 @@
 #include <gtest/gtest.h>
-#include <TilePartitionSquares.h>
-
+#include <tilegen/partition/TilePartitionerSquares.h>
 #include <Options.h>
 #include <OptionsManager.h>
-
-class TestTilePartitionSquares : public ::testing::Test {
+class TestTilePartitionerSquares : public ::testing::Test {
 protected:
     std::string filename;
     const Options& options;
     const OptionsManager optionsManager;
-    TilePartition tp;
-
-    TestTilePartitionSquares() :
-        filename("../../Wangscape/example/example_options.json"),
+    tilegen::partition::TilePartitionerSquares tps;
+    tilegen::partition::TilePartitionerSquares::TilePartition tp;
+    
+    TestTilePartitionerSquares() :
+        filename("../Wangscape/example/example_options.json"),
         optionsManager(filename),
-        options(optionsManager.getOptions())
+        options(optionsManager.getOptions()),
+        tps(options)
     {
-        tile_partition_squares(tp, { "g","g","s","s" }, options);
+        tps.makePartition(tp, { "g","g","s","s" });
     };
-    ~TestTilePartitionSquares() {};
+    ~TestTilePartitionerSquares() {};
 };
 
-TEST_F(TestTilePartitionSquares, TestSquarePartition)
+TEST_F(TestTilePartitionerSquares, TestSquarePartition)
 {
     sf::Image mask = tp[0].first.copyToImage();
     EXPECT_EQ(mask.getPixel(0, 0), sf::Color(255, 255, 255, 255)) <<

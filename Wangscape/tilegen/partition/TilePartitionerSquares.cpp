@@ -1,11 +1,14 @@
-#include "TilePartitionSquares.h"
+#include "TilePartitionerSquares.h"
 
-void tile_partition_squares(TilePartition& regions,
-                            std::vector<TerrainID> corners,
-                            const Options& options)
+namespace tilegen
+{
+namespace partition
+{
+
+void TilePartitionerSquares::makePartition(TilePartition& regions, const Corners& corners)
 {
     sf::RectangleShape quarter_tile;
-    auto resolution = options.tileFormat.resolution;
+    const auto resolution = mOptions.tileFormat.resolution;
     quarter_tile.setSize(sf::Vector2f(resolution / 2.f, resolution / 2.f));
     quarter_tile.setFillColor(sf::Color::White);
     quarter_tile.setOutlineThickness(0.f);
@@ -26,3 +29,6 @@ void tile_partition_squares(TilePartition& regions,
     make_mask(sf::Vector2f(resolution / 2.f, 0), corners[2]);
     make_mask(sf::Vector2f(resolution / 2.f, resolution / 2.f), corners[3]);
 };
+
+} // namespace partition
+} // namespace tilegen

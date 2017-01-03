@@ -9,18 +9,19 @@
 #include <boost/range.hpp>
 #include "common.h"
 
-TilesetGenerator::TilesetGenerator(const Options& options) :
-    options(options)
+namespace tilegen
+{
+
+TilesetGenerator::TilesetGenerator(const Options& options,
+                                   std::unique_ptr<partition::TilePartitionerBase> tile_partitioner) :
+    options(options),
+    mTilePartitioner(std::move(tile_partitioner))
 {
     for (auto& terrain : options.terrains)
     {
         images.addTerrain(terrain.first, terrain.second.fileName, options.filename,
                           terrain.second.offsetX, terrain.second.offsetY, options.tileFormat.resolution);
     }
-}
-
-TilesetGenerator::~TilesetGenerator()
-{
 }
 
 void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::string)> callback)
@@ -39,7 +40,7 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
         // MetaOutput.addTileset, addTile should use this version of filename;
         // relative to output dir, not options dir!
         mo.addTileset(clique, filename, res_x, res_y);
-        generateClique(clique, *output, filename, TileGenerator::generate);
+        generateClique(clique, *output, filename);
         output->display();
 
         p.append(filename);
@@ -48,8 +49,7 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
     }
 }
 
-void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderTexture& image, std::string filename,
-                                      TileGenerator::TileGenerateFunction callback)
+void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderTexture& image, std::string filename)
 {
     std::vector<TerrainID> corner_terrains(static_cast<size_t>(CORNERS), clique[0]);
     std::vector<size_t> corner_clique_indices(static_cast<size_t>(CORNERS), 0);
@@ -63,7 +63,7 @@ void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderT
             z *= clique.size();
             z += corner_clique_indices[i];
         }
-        callback(image, x, y, corner_terrains, images, options);
+        TileGenerator::generate(image, x, y, corner_terrains, images, options, *mTilePartitioner.get());
         mo.addTile(corner_terrains, filename, x*options.tileFormat.resolution, y*options.tileFormat.resolution);
         stop = true;
         auto zip_begin = boost::make_zip_iterator(boost::make_tuple(corner_terrains.begin(),
@@ -132,3 +132,5 @@ std::pair<size_t, size_t> TilesetGenerator::calculateTilesetResolution(size_t cl
     }
     return{ res_x, res_y };
 }
+
+} // namespace tilegen

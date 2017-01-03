@@ -18,6 +18,9 @@ public:
     typedef std::vector<TerrainID> TerrainSet;
     typedef std::set<TerrainSet> TerrainSetSet;
     typedef std::map<TerrainID, TerrainSetSet> TerrainHypergraph;
+    
+    virtual ~MetaOutput() = default;
+    
     void addTile(std::vector<TerrainID> corners,
                  std::string filename, size_t offset_x, size_t offset_y);
     void addTileset(std::vector<TerrainID> terrains,

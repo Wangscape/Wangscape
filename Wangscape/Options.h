@@ -22,5 +22,7 @@ public:
     metaoutput::Filenames outputFilenames;
     TerrainSpecMap terrains;
     CliqueList cliques;
+    
+    virtual ~Options() = default;
 };
 

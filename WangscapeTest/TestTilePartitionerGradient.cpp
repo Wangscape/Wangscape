@@ -1,38 +1,39 @@
 #include <gtest/gtest.h>
 
-#include <TilePartitionGradient.h>
+#include <tilegen/partition/TilePartitionerGradient.h>
 #include <Options.h>
 #include <OptionsManager.h>
 
-class TestTilePartitionGradient: public ::testing::Test{
+class TestTilePartitionerGradient : public ::testing::Test{
 protected:
     std::string filename;
+    tilegen::partition::TilePartitionerGradient tpg;
+    tilegen::partition::TilePartitionerGradient::TilePartition tp;
     const Options& options;
     const OptionsManager optionsManager;
-    TilePartition tp;
-
-    TestTilePartitionGradient() :
-        filename("../../Wangscape/example/example_options.json"),
+    TestTilePartitionerGradient() :
+        filename("../Wangscape/example/example_options.json"),
         optionsManager(filename),
-        options(optionsManager.getOptions())
+        options(optionsManager.getOptions()),
+        tpg(options)
     {
-        tile_partition_gradient(tp,{ "g","g","s","s" }, options);
     };
-    ~TestTilePartitionGradient() {};
+    ~TestTilePartitionerGradient() {};
 };
 
  
-TEST_F(TestTilePartitionGradient, TestGradientWeight)
+TEST_F(TestTilePartitionerGradient, TestGradientWeight)
 {
-    // Doesn't use the test fixture - move to a different test case?
-    EXPECT_EQ(31, gradient_weight(0, 0, 0, 0, 31));
-    EXPECT_EQ(0, gradient_weight(0, 0, 31, 0, 31));
-    EXPECT_EQ(0, gradient_weight(0, 0, 0, 31, 31));
-    EXPECT_EQ(0, gradient_weight(0, 0, 31, 31, 31));
+    EXPECT_LT(0, tpg.gradientWeight(0, 0, 0, 0, 8));
+    EXPECT_EQ(0, tpg.gradientWeight(0, 0, 31, 0, 8));
+    EXPECT_EQ(0, tpg.gradientWeight(0, 0, 0, 31, 8));
+    EXPECT_EQ(0, tpg.gradientWeight(0, 0, 31, 31, 8));
 }
 
-TEST_F(TestTilePartitionGradient, TestGradientPartition)
+TEST_F(TestTilePartitionerGradient, TestGradientPartition)
 {
+    tilegen::partition::TilePartitionerGradient::TilePartition tp;
+    tpg.makePartition(tp, { "g","g","s","s" });
     sf::Image mask = tp[0].first.copyToImage();
     EXPECT_EQ(mask.getPixel(0, 0), sf::Color(255, 255, 255, 255)) <<
         "Mask 0: Wrong colour in top left pixel";

@@ -1,33 +1,36 @@
 #include <gtest/gtest.h>
 
+#include <algorithm>
+#include <algorithm>
+
+#include <spotify/json.hpp>
+
 #include <OptionsManager.h>
-#include <TilesetGenerator.h>
 #include <metaoutput/MetaOutput.h>
 #include <codecs/OptionsCodec.h>
 
-#include <algorithm>
-#include <fstream>
-
-#include <spotify/json.hpp>
+#include <tilegen/TilesetGenerator.h>
+#include <tilegen/partition/TilePartitionerSquares.h>
 
 class TestMetaOutput : public ::testing::Test {
 protected:
     std::string filename;
-    std::ifstream ifs;
-    const OptionsManager& optionsManager;
-    TilesetGenerator tg;
+    tilegen::TilesetGenerator tg;
+    const OptionsManager optionsManager;
     const metaoutput::MetaOutput& mo;
     TestMetaOutput() :
-        filename("../../Wangscape/example/example_options.json"),
+        filename("../Wangscape/example/example_options.json"),
         optionsManager(filename),
-        tg{optionsManager.getOptions()},
-        mo{tg.mo}
+        tg(optionsManager.getOptions(),
+           std::move(std::make_unique<tilegen::partition::TilePartitionerSquares>(optionsManager.getOptions()))),
+        mo(tg.mo)
     {
         tg.generate([&](const sf::Texture& output, std::string filename) {});
     };
     ~TestMetaOutput() {};
 };
 
+// TODO replace this test with something faster
 TEST_F(TestMetaOutput, TestMetaOutputCorrect)
 {
     const auto& td = mo.getTileData();

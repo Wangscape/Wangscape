@@ -57,23 +57,27 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Wangscape\rapidjson.props" />
     <Import Project="..\Wangscape\libnoise.props" />
+    <Import Project="..\Wangscape\spotify-json.props" />
+    <Import Project="..\Wangscape\double-conversion.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Wangscape\rapidjson.props" />
     <Import Project="..\Wangscape\libnoise.props" />
+    <Import Project="..\Wangscape\spotify-json.props" />
+    <Import Project="..\Wangscape\double-conversion.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Wangscape\rapidjson.props" />
     <Import Project="..\Wangscape\libnoise.props" />
+    <Import Project="..\Wangscape\spotify-json.props" />
+    <Import Project="..\Wangscape\double-conversion.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\Wangscape\rapidjson.props" />
     <Import Project="..\Wangscape\libnoise.props" />
+    <Import Project="..\Wangscape\spotify-json.props" />
+    <Import Project="..\Wangscape\double-conversion.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -127,6 +131,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>Wangscape.exe.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/ignore:4099 %(AdditionalOptions)</AdditionalOptions>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -146,10 +151,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestCornerCombiner.cpp" />
+    <ClCompile Include="TestEdgeFavouringMask.cpp" />
     <ClCompile Include="TestMetaOutput.cpp" />
+    <ClCompile Include="TestModuleGroup.cpp" />
+    <ClCompile Include="TestMovingScaleBias.cpp" />
+    <ClCompile Include="TestNormLPQ.cpp" />
     <ClCompile Include="TestOptions.cpp" />
-    <ClCompile Include="TestTilePartitionGradient.cpp" />
-    <ClCompile Include="TestTilePartitionSquares.cpp" />
+    <ClCompile Include="TestReseedable.cpp" />
+    <ClCompile Include="TestTileGenerationPlan.cpp" />
+    <ClCompile Include="TestTilePartitionerGradient.cpp" />
+    <ClCompile Include="TestTilePartitionerSquares.cpp" />
     <ClCompile Include="TestTilesetGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>

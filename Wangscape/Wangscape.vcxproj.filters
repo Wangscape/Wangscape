@@ -13,6 +13,48 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\noise">
+      <UniqueIdentifier>{be3de1a4-71b3-4957-8d8f-590a878aed20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\noise\module">
+      <UniqueIdentifier>{4236ccda-39ff-4fa3-acd5-dde38c74be56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\noise">
+      <UniqueIdentifier>{8fa5b0f7-e6fb-4f79-90bc-45c2e56f2793}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\noise\module">
+      <UniqueIdentifier>{94d5ebed-8131-4bbd-b583-ffbc7dafe754}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tilegen">
+      <UniqueIdentifier>{5f639257-d582-4425-b642-9a02be1deef7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tilegen">
+      <UniqueIdentifier>{5bfd1d56-edb2-4bc5-9e71-4dc9a7df24cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tilegen\alpha">
+      <UniqueIdentifier>{233a9ecb-0c66-46ae-9b43-ced7ec62eced}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tilegen\alpha">
+      <UniqueIdentifier>{7c3fcd13-63a1-48b9-b4af-2fd56dcbfe71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tilegen\partition">
+      <UniqueIdentifier>{92408afe-ebb3-4feb-8a43-0e53b21a5328}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\tilegen\partition">
+      <UniqueIdentifier>{e9cdf625-950d-4725-b6fe-99b0835897c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\metaoutput">
+      <UniqueIdentifier>{94ccf969-d42b-4795-9302-3ac3415b259c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\metaoutput">
+      <UniqueIdentifier>{3b8b7fed-f49a-4386-9908-5932605e4d35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\codecs">
+      <UniqueIdentifier>{da103928-cf64-443b-924e-f887cf7939b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\metaoutput\codecs">
+      <UniqueIdentifier>{1e94c3a5-af80-4fdc-8c58-75944ee6b79d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -32,28 +74,121 @@
     <ClInclude Include="Options.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TilesetGenerator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TilePartition.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TileGenerator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TerrainImages.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TilePartitionSquares.h">
+    <ClInclude Include="noise\MakeReseedable.h">
+      <Filter>Header Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\Reseedable.h">
+      <Filter>Header Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\CornerCombinerBase.h">
+      <Filter>Header Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\Exp.h">
+      <Filter>Header Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\Gradient.h">
+      <Filter>Header Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\ModuleFactories.h">
+      <Filter>Header Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\ModuleGroup.h">
+      <Filter>Header Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\NormLPQ.h">
+      <Filter>Header Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\Pow.h">
+      <Filter>Header Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\ModuleManager.h">
+      <Filter>Header Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\RasterBase.h">
+      <Filter>Header Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\RasterImage.h">
+      <Filter>Header Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\RasterValues.h">
+      <Filter>Header Files\noise</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\TileGenerator.h">
+      <Filter>Header Files\tilegen</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\TilesetGenerator.h">
+      <Filter>Header Files\tilegen</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\partition\TilePartitionerSquares.h">
+      <Filter>Header Files\tilegen\partition</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\partition\TilePartitionerBase.h">
+      <Filter>Header Files\tilegen\partition</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\partition\TilePartitionerGradient.h">
+      <Filter>Header Files\tilegen\partition</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\partition\TilePartitionerPerlin.h">
+      <Filter>Header Files\tilegen\partition</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\alpha\AlphaCalculatorMax.h">
+      <Filter>Header Files\tilegen\alpha</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\alpha\AlphaCalculatorBase.h">
+      <Filter>Header Files\tilegen\alpha</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\alpha\AlphaCalculatorLinear.h">
+      <Filter>Header Files\tilegen\alpha</Filter>
+    </ClInclude>
+    <ClInclude Include="Corners.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TilePartitionGradient.h">
+    <ClInclude Include="OptionsManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MetaOutput.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="metaoutput\codecs\FilenamesCodec.h">
+      <Filter>Header Files\metaoutput\codecs</Filter>
     </ClInclude>
-    <ClInclude Include="TilePartitionPerlin.h">
+    <ClInclude Include="metaoutput\codecs\TileLocationCodec.h">
+      <Filter>Header Files\metaoutput\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\codecs\TilesetCodec.h">
+      <Filter>Header Files\metaoutput\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\codecs\TileCodec.h">
+      <Filter>Header Files\metaoutput\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="codecs\TerrainSpecCodec.h">
+      <Filter>Header Files\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="codecs\TileFormatCodec.h">
+      <Filter>Header Files\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="codecs\OptionsCodec.h">
+      <Filter>Header Files\codecs</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\Filenames.h">
+      <Filter>Header Files\metaoutput</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\MetaOutput.h">
+      <Filter>Header Files\metaoutput</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\Tile.h">
+      <Filter>Header Files\metaoutput</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\TileGroups.h">
+      <Filter>Header Files\metaoutput</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\TileLocation.h">
+      <Filter>Header Files\metaoutput</Filter>
+    </ClInclude>
+    <ClInclude Include="metaoutput\Tileset.h">
+      <Filter>Header Files\metaoutput</Filter>
+    </ClInclude>
+    <ClInclude Include="TileFormat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -61,26 +196,80 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Options.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TilesetGenerator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TileGenerator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TerrainImages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TilePartitionSquares.cpp">
+    <ClCompile Include="noise\MakeReseedable.cpp">
+      <Filter>Source Files\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\Reseedable.cpp">
+      <Filter>Source Files\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\CornerCombinerBase.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\ModuleFactories.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\ModuleGroup.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\NormLPQ.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\ModuleManager.cpp">
+      <Filter>Source Files\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\RasterBase.cpp">
+      <Filter>Source Files\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\RasterImage.cpp">
+      <Filter>Source Files\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\RasterValues.cpp">
+      <Filter>Source Files\noise</Filter>
+    </ClCompile>
+    <ClCompile Include="tilegen\TilesetGenerator.cpp">
+      <Filter>Source Files\tilegen</Filter>
+    </ClCompile>
+    <ClCompile Include="tilegen\TileGenerator.cpp">
+      <Filter>Source Files\tilegen</Filter>
+    </ClCompile>
+    <ClCompile Include="tilegen\partition\TilePartitionerBase.cpp">
+      <Filter>Source Files\tilegen\partition</Filter>
+    </ClCompile>
+    <ClCompile Include="tilegen\partition\TilePartitionerGradient.cpp">
+      <Filter>Source Files\tilegen\partition</Filter>
+    </ClCompile>
+    <ClCompile Include="tilegen\partition\TilePartitionerPerlin.cpp">
+      <Filter>Source Files\tilegen\partition</Filter>
+    </ClCompile>
+    <ClCompile Include="tilegen\partition\TilePartitionerSquares.cpp">
+      <Filter>Source Files\tilegen\partition</Filter>
+    </ClCompile>
+    <ClCompile Include="tilegen\alpha\AlphaCalculatorBase.cpp">
+      <Filter>Source Files\tilegen\alpha</Filter>
+    </ClCompile>
+    <ClCompile Include="tilegen\alpha\AlphaCalculatorLinear.cpp">
+      <Filter>Source Files\tilegen\alpha</Filter>
+    </ClCompile>
+    <ClCompile Include="tilegen\alpha\AlphaCalculatorMax.cpp">
+      <Filter>Source Files\tilegen\alpha</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TilePartitionGradient.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="metaoutput\MetaOutput.cpp">
+      <Filter>Source Files\metaoutput</Filter>
     </ClCompile>
-    <ClCompile Include="MetaOutput.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="metaoutput\Tile.cpp">
+      <Filter>Source Files\metaoutput</Filter>
+    </ClCompile>
+    <ClCompile Include="metaoutput\TileLocation.cpp">
+      <Filter>Source Files\metaoutput</Filter>
+    </ClCompile>
+    <ClCompile Include="metaoutput\Tileset.cpp">
+      <Filter>Source Files\metaoutput</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

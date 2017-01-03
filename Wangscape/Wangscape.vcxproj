@@ -57,23 +57,27 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="rapidjson.props" />
     <Import Project="libnoise.props" />
+    <Import Project="spotify-json.props" />
+    <Import Project="double-conversion.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="rapidjson.props" />
     <Import Project="libnoise.props" />
+    <Import Project="spotify-json.props" />
+    <Import Project="double-conversion.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="rapidjson.props" />
     <Import Project="libnoise.props" />
+    <Import Project="spotify-json.props" />
+    <Import Project="double-conversion.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="rapidjson.props" />
     <Import Project="libnoise.props" />
+    <Import Project="spotify-json.props" />
+    <Import Project="double-conversion.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
@@ -112,12 +116,12 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
       <Command>lib /NOLOGO /OUT:"$(TargetPath).lib" "$(ProjectDir)\$(Configuration)\*.obj"</Command>
@@ -131,8 +135,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -149,27 +152,76 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="codecs\OptionsCodec.h" />
+    <ClInclude Include="codecs\TerrainSpecCodec.h" />
+    <ClInclude Include="codecs\TileFormatCodec.h" />
     <ClInclude Include="common.h" />
-    <ClInclude Include="MetaOutput.h" />
+    <ClInclude Include="Corners.h" />
+    <ClInclude Include="metaoutput\codecs\FilenamesCodec.h" />
+    <ClInclude Include="metaoutput\codecs\TileCodec.h" />
+    <ClInclude Include="metaoutput\codecs\TileLocationCodec.h" />
+    <ClInclude Include="metaoutput\codecs\TilesetCodec.h" />
+    <ClInclude Include="metaoutput\Filenames.h" />
+    <ClInclude Include="metaoutput\MetaOutput.h" />
+    <ClInclude Include="metaoutput\Tile.h" />
+    <ClInclude Include="metaoutput\TileGroups.h" />
+    <ClInclude Include="metaoutput\TileLocation.h" />
+    <ClInclude Include="metaoutput\Tileset.h" />
+    <ClInclude Include="noise\module\Pow.h" />
+    <ClInclude Include="noise\MakeReseedable.h" />
+    <ClInclude Include="noise\module\CornerCombinerBase.h" />
+    <ClInclude Include="noise\module\Exp.h" />
+    <ClInclude Include="noise\module\Gradient.h" />
+    <ClInclude Include="noise\module\ModuleFactories.h" />
+    <ClInclude Include="noise\module\ModuleGroup.h" />
+    <ClInclude Include="noise\module\NormLPQ.h" />
+    <ClInclude Include="noise\RasterBase.h" />
+    <ClInclude Include="noise\ModuleManager.h" />
+    <ClInclude Include="noise\RasterImage.h" />
+    <ClInclude Include="noise\RasterValues.h" />
+    <ClInclude Include="noise\Reseedable.h" />
     <ClInclude Include="Options.h" />
+    <ClInclude Include="OptionsManager.h" />
     <ClInclude Include="TerrainImages.h" />
     <ClInclude Include="TerrainSpec.h" />
-    <ClInclude Include="TileGenerator.h" />
-    <ClInclude Include="TilePartition.h" />
-    <ClInclude Include="TilePartitionGradient.h" />
-    <ClInclude Include="TilePartitionPerlin.h" />
-    <ClInclude Include="TilePartitionSquares.h" />
-    <ClInclude Include="TilesetGenerator.h" />
+    <ClInclude Include="TileFormat.h" />
+    <ClInclude Include="tilegen\alpha\AlphaCalculatorBase.h" />
+    <ClInclude Include="tilegen\alpha\AlphaCalculatorLinear.h" />
+    <ClInclude Include="tilegen\alpha\AlphaCalculatorMax.h" />
+    <ClInclude Include="tilegen\partition\TilePartitionerBase.h" />
+    <ClInclude Include="tilegen\partition\TilePartitionerGradient.h" />
+    <ClInclude Include="tilegen\partition\TilePartitionerPerlin.h" />
+    <ClInclude Include="tilegen\partition\TilePartitionerSquares.h" />
+    <ClInclude Include="tilegen\TileGenerator.h" />
+    <ClInclude Include="tilegen\TilesetGenerator.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="metaoutput\MetaOutput.cpp" />
+    <ClCompile Include="metaoutput\Tile.cpp" />
+    <ClCompile Include="metaoutput\TileLocation.cpp" />
+    <ClCompile Include="metaoutput\Tileset.cpp" />
+    <ClCompile Include="noise\MakeReseedable.cpp" />
+    <ClCompile Include="noise\module\CornerCombinerBase.cpp" />
+    <ClCompile Include="noise\module\ModuleFactories.cpp" />
+    <ClCompile Include="noise\module\ModuleGroup.cpp" />
+    <ClCompile Include="noise\module\NormLPQ.cpp" />
+    <ClCompile Include="noise\RasterBase.cpp" />
+    <ClCompile Include="noise\ModuleManager.cpp" />
+    <ClCompile Include="noise\RasterImage.cpp" />
+    <ClCompile Include="noise\RasterValues.cpp" />
+    <ClCompile Include="noise\Reseedable.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MetaOutput.cpp" />
-    <ClCompile Include="Options.cpp" />
+    <ClCompile Include="OptionsManager.cpp" />
     <ClCompile Include="TerrainImages.cpp" />
-    <ClCompile Include="TileGenerator.cpp" />
-    <ClCompile Include="TilePartitionGradient.cpp" />
-    <ClCompile Include="TilePartitionSquares.cpp" />
-    <ClCompile Include="TilesetGenerator.cpp" />
+    <ClCompile Include="tilegen\alpha\AlphaCalculatorBase.cpp" />
+    <ClCompile Include="tilegen\alpha\AlphaCalculatorLinear.cpp" />
+    <ClCompile Include="tilegen\alpha\AlphaCalculatorMax.cpp" />
+    <ClCompile Include="tilegen\partition\TilePartitionerBase.cpp" />
+    <ClCompile Include="tilegen\partition\TilePartitionerGradient.cpp" />
+    <ClCompile Include="tilegen\partition\TilePartitionerPerlin.cpp" />
+    <ClCompile Include="tilegen\partition\TilePartitionerSquares.cpp" />
+    <ClCompile Include="tilegen\TileGenerator.cpp" />
+    <ClCompile Include="tilegen\TilesetGenerator.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
