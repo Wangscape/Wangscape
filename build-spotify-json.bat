@@ -1,5 +1,5 @@
+git submodule update --init --recursive
 cd lib\spotify-json
-git submodule update --init
 rmdir build32 /S /Q
 mkdir build32
 cd build32
