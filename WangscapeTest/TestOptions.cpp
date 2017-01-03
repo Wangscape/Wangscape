@@ -14,9 +14,9 @@ protected:
 
 TEST_F(TestOptions, TestOptionsValues)
 {
-    EXPECT_EQ(options.filename, filename) <<
+    EXPECT_EQ(options.filename, getFilename()) <<
         "Incorrect options filename";
-    boost::filesystem::path expected_output_dir(filename);
+    boost::filesystem::path expected_output_dir(getFilename());
     expected_output_dir.remove_filename();
     expected_output_dir /= "output";
     EXPECT_TRUE(boost::filesystem::equivalent(

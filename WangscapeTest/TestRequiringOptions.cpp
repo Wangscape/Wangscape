@@ -1,8 +1,24 @@
 #include "TestRequiringOptions.h"
 
+bool TestRequiringOptions::initFilename(std::string filename)
+{
+    if(mFilenameSet)
+        return false;
+    mFilename = filename;
+    mFilenameSet = true;
+    return true;
+}
+
 TestRequiringOptions::TestRequiringOptions() :
-    filename("Wangscape/example/example_options.json"),
-    optionsManager(filename),
+    optionsManager(mFilename),
     options(optionsManager.getOptions())
 {
 }
+
+const std::string & TestRequiringOptions::getFilename()
+{
+    return mFilename;
+}
+
+bool TestRequiringOptions::mFilenameSet;
+std::string TestRequiringOptions::mFilename;
