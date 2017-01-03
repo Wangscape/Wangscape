@@ -286,6 +286,34 @@ Reseedable Reseedable::turbulence(double frequency, double power, int roughness,
     return makeReseedable(result);
 }
 
+Reseedable Reseedable::terrace(int controlPointCount, bool inverted)
+{
+    auto terrace_p = std::make_shared<module::Terrace>();
+    terrace_p->InvertTerraces(inverted);
+    terrace_p->MakeControlPoints(controlPointCount);
+    return finaliseTerrace(terrace_p);
+}
+
+Reseedable Reseedable::finaliseTerrace(std::shared_ptr<module::Terrace>& terrace_p)
+{
+    terrace_p->SetSourceModule(0, *module);
+
+    auto result = std::make_shared<module::ModuleGroup>();
+    result->insert("source", *this)
+           .insert("output", makeReseedable(terrace_p));
+    return makeReseedable(result);
+}
+
+Reseedable Reseedable::finaliseCurve(std::shared_ptr<module::Curve>& curve_p)
+{
+    curve_p->SetSourceModule(0, *module);
+
+    auto result = std::make_shared<module::ModuleGroup>();
+    result->insert("source", *this)
+           .insert("output", makeReseedable(curve_p));
+    return makeReseedable(result);
+}
+
 Reseedable Reseedable::displace(Reseedable & x_displace, Reseedable & y_displace, Reseedable & z_displace)
 {
     auto displace_p = std::make_shared<module::Displace>();
