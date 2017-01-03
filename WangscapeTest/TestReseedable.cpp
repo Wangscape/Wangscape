@@ -206,3 +206,30 @@ TEST_F(TestReseedable, TestReseedableConst)
     EXPECT_EQ(3.6345, noise::module::makeConst(3.6345).getValue(52935874, 57432895, 2549));
     EXPECT_EQ(-3045.25, noise::module::makeConst(-3045.25).getValue(259, 594, 239587));
 }
+
+TEST_F(TestReseedable, TestReseedableTerraceManual)
+{
+    std::vector<double> control_points{0., 0.5, 1.};
+    noise::Reseedable terrace = x.terrace(control_points.cbegin(), control_points.cend());
+
+    EXPECT_NEAR(0., terrace.getValue(0., 239478, -23984), 0.00001);
+    EXPECT_NEAR(0.5, terrace.getValue(0.5, -239478, -23984), 0.00001);
+    EXPECT_NEAR(1., terrace.getValue(1., -239478, 23984), 0.00001);
+
+    EXPECT_GT(0.25, terrace.getValue(0.25, 3957, -9723));
+    EXPECT_GT(0.75, terrace.getValue(0.75, -3957, 9723));
+}
+
+TEST_F(TestReseedable, TestReseedableTerraceAuto)
+{
+    noise::Reseedable terrace = y.terrace(4, true);
+
+    EXPECT_NEAR(-1., terrace.getValue(239478, -1, -23984), 0.00001);
+    EXPECT_NEAR(-1. / 3., terrace.getValue(-239478, -1. / 3., -23984), 0.00001);
+    EXPECT_NEAR(1. / 3., terrace.getValue(-239478, 1. / 3., 23984), 0.00001);
+    EXPECT_NEAR(1., terrace.getValue(239478, 1., 23984), 0.00001);
+
+    EXPECT_LT(-2. / 3., terrace.getValue(3957, -2. / 3., -9723));
+    EXPECT_LT(0., terrace.getValue(-3957, 0., -9723));
+    EXPECT_LT(2. / 3., terrace.getValue(-3957, 2. / 3., 9723));
+}
