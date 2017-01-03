@@ -233,3 +233,19 @@ TEST_F(TestReseedable, TestReseedableTerraceAuto)
     EXPECT_LT(0., terrace.getValue(-3957, 0., -9723));
     EXPECT_LT(2. / 3., terrace.getValue(-3957, 2. / 3., 9723));
 }
+
+
+TEST_F(TestReseedable, TestReseedableCurve)
+{
+    std::vector<std::pair<double, double>> control_points{{-1, 1}, {0, -1}, {1, 1}};
+    noise::Reseedable terrace = x.curve(control_points.cbegin(), control_points.cend());
+
+    EXPECT_NEAR(1., terrace.getValue(-1., 239478, -23984), 0.00001);
+    EXPECT_NEAR(-1, terrace.getValue(0., -239478, -23984), 0.00001);
+    EXPECT_NEAR(1., terrace.getValue(1., -239478, 23984), 0.00001);
+
+    EXPECT_GT(0.9, terrace.getValue(-0.5, 3957, -9723));
+    EXPECT_LT(-0.9, terrace.getValue(-0.5, -3957, -9723));
+    EXPECT_GT(0.9, terrace.getValue(0.5, -3957, 9723));
+    EXPECT_LT(-0.9, terrace.getValue(0.5, -3957, 9723));
+}
