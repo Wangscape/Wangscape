@@ -56,7 +56,6 @@ size_t RasterValues<T>::index(size_t x, size_t y) const
     return y*mSizeX + x;
 }
 
-template class RasterValues<float>;
 template class RasterValues<double>;
 
 } // namespace noise
