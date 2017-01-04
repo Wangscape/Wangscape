@@ -45,17 +45,17 @@ struct Reseedable final
     Reseedable translatePoint(double x_displace, double y_displace, double z_displace);
     Reseedable turbulence(double frequency, double power, int roughness, int seed);
     template<typename Iterator>
-    Reseedable terrace(Iterator begin, Iterator end, bool inverted = false);
+    Reseedable terrace(Iterator first, Iterator last, bool inverted = false);
     Reseedable terrace(int controlPointCount, bool inverted = false);
     template<typename Iterator>
-    Reseedable curve(Iterator begin, Iterator end);
+    Reseedable curve(Iterator first, Iterator last);
 private:
     Reseedable finaliseTerrace(std::shared_ptr<module::Terrace>& terrace_ptr);
     Reseedable finaliseCurve(std::shared_ptr<module::Curve>& curve_ptr);
 };
 
 template<typename Iterator>
-inline Reseedable Reseedable::terrace(Iterator it, Iterator end, bool inverted)
+inline Reseedable Reseedable::terrace(Iterator first, Iterator last, bool inverted)
 {
     // TODO static_assert that Iterator is at least an input iterator
     static_assert(std::is_same<typename std::iterator_traits<Iterator>::value_type,
@@ -63,24 +63,24 @@ inline Reseedable Reseedable::terrace(Iterator it, Iterator end, bool inverted)
                   "Iterator must yield values of type double");
     auto terrace_p = std::make_shared<module::Terrace>();
     terrace_p->InvertTerraces(inverted);
-    for (; it != end; ++it)
+    for (; first != last; ++first)
     {
-        terrace_p->AddControlPoint(*it);
+        terrace_p->AddControlPoint(*first);
     }
     return finaliseTerrace(terrace_p);
 }
 
 template<typename Iterator>
-inline Reseedable Reseedable::curve(Iterator it, Iterator end)
+inline Reseedable Reseedable::curve(Iterator first, Iterator last)
 {
     // TODO static_assert that Iterator is at least an input iterator
     static_assert(std::is_same<typename std::iterator_traits<Iterator>::value_type,
                                std::pair<double, double>>::value,
                   "Iterator must yield values of type std::pair<double, double>");
     auto curve_p = std::make_shared<module::Curve>();
-    for (; it != end; ++it)
+    for (; first != last; ++first)
     {
-        const std::pair<double, double> value = *it;
+        const std::pair<double, double> value = *first;
         curve_p->AddControlPoint(value.first, value.second);
     }
     return finaliseCurve(curve_p);
