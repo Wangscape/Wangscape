@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <utility>
+#include <algorithm>
 #include <functional>
 #include <iterator>
 #include <noise/noise.h>
@@ -63,10 +64,10 @@ inline Reseedable Reseedable::terrace(Iterator first, Iterator last, bool invert
                   "Iterator must yield values of type double");
     auto terrace_p = std::make_shared<module::Terrace>();
     terrace_p->InvertTerraces(inverted);
-    for (; first != last; ++first)
+    std::for_each(first, last, [&terrace_p](const auto control_point)
     {
-        terrace_p->AddControlPoint(*first);
-    }
+        terrace_p->AddControlPoint(control_point);
+    });
     return finaliseTerrace(terrace_p);
 }
 
@@ -78,11 +79,10 @@ inline Reseedable Reseedable::curve(Iterator first, Iterator last)
                                std::pair<double, double>>::value,
                   "Iterator must yield values of type std::pair<double, double>");
     auto curve_p = std::make_shared<module::Curve>();
-    for (; first != last; ++first)
+    std::for_each(first, last, [&curve_p](const auto control_point)
     {
-        const std::pair<double, double> value = *first;
-        curve_p->AddControlPoint(value.first, value.second);
-    }
+        curve_p->AddControlPoint(control_point.first, control_point.second);
+    });
     return finaliseCurve(curve_p);
 }
 
