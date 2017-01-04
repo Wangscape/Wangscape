@@ -42,6 +42,8 @@ public:
     ModuleContainer::const_iterator cbegin() const;
 
     ModuleGroup(ModuleID output_id="output");
+    ModuleGroup(std::initializer_list<ModuleContainer::value_type> modules,
+                ModuleID output_id="output");
     virtual ~ModuleGroup() = default;
     virtual int GetSourceModuleCount() const;
     virtual double GetValue(double x, double y, double z) const;
