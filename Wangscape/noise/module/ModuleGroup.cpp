@@ -32,8 +32,7 @@ ModuleGroup::ModuleGroup(ModuleID output_id) :
 {
 }
 
-ModuleGroup::ModuleGroup(std::initializer_list<ModuleContainer::value_type> modules,
-                         ModuleID output_id) :
+ModuleGroup::ModuleGroup(ModuleList modules, ModuleID output_id) :
     Module(GetSourceModuleCount()),
     output_id(output_id),
     mModules(modules)
