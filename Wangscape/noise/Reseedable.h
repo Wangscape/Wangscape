@@ -70,6 +70,7 @@ inline Reseedable Reseedable::terrace(InputIt first, InputIt last, bool inverted
     {
         terrace_p->AddControlPoint(control_point);
     });
+    terrace_p->SetSourceModule(0, *module);
     return finaliseTerrace(terrace_p);
 }
 
@@ -87,6 +88,7 @@ inline Reseedable Reseedable::curve(InputIt first, InputIt last)
     {
         curve_p->AddControlPoint(control_point.first, control_point.second);
     });
+    curve_p->SetSourceModule(0, *module);
     return finaliseCurve(curve_p);
 }
 

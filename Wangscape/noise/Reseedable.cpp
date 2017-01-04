@@ -296,8 +296,6 @@ Reseedable Reseedable::terrace(int controlPointCount, bool inverted)
 
 Reseedable Reseedable::finaliseTerrace(std::shared_ptr<module::Terrace> terrace_p)
 {
-    terrace_p->SetSourceModule(0, *module);
-
     auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source", *this)
            .insert("output", makeReseedable(terrace_p));
@@ -306,8 +304,6 @@ Reseedable Reseedable::finaliseTerrace(std::shared_ptr<module::Terrace> terrace_
 
 Reseedable Reseedable::finaliseCurve(std::shared_ptr<module::Curve> curve_p)
 {
-    curve_p->SetSourceModule(0, *module);
-
     auto result = std::make_shared<module::ModuleGroup>();
     result->insert("source", *this)
            .insert("output", makeReseedable(curve_p));
