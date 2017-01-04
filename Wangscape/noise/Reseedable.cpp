@@ -291,6 +291,7 @@ Reseedable Reseedable::terrace(int controlPointCount, bool inverted)
     auto terrace_p = std::make_shared<module::Terrace>();
     terrace_p->InvertTerraces(inverted);
     terrace_p->MakeControlPoints(controlPointCount);
+    terrace_p->SetSourceModule(0, *module);
     return finaliseTerrace(terrace_p);
 }
 
