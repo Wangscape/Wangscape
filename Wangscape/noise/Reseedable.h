@@ -45,21 +45,21 @@ struct Reseedable final
     Reseedable scalePoint(double x_scale, double y_scale, double z_scale);
     Reseedable translatePoint(double x_displace, double y_displace, double z_displace);
     Reseedable turbulence(double frequency, double power, int roughness, int seed);
-    template<typename Iterator>
-    Reseedable terrace(Iterator first, Iterator last, bool inverted = false);
+    template<typename InputIt>
+    Reseedable terrace(InputIt first, InputIt last, bool inverted = false);
     Reseedable terrace(int controlPointCount, bool inverted = false);
-    template<typename Iterator>
-    Reseedable curve(Iterator first, Iterator last);
+    template<typename InputIt>
+    Reseedable curve(InputIt first, InputIt last);
 private:
     Reseedable finaliseTerrace(std::shared_ptr<module::Terrace>& terrace_ptr);
     Reseedable finaliseCurve(std::shared_ptr<module::Curve>& curve_ptr);
 };
 
-template<typename Iterator>
-inline Reseedable Reseedable::terrace(Iterator first, Iterator last, bool inverted)
+template<typename InputIt>
+inline Reseedable Reseedable::terrace(InputIt first, InputIt last, bool inverted)
 {
     // TODO static_assert that Iterator is at least an input iterator
-    static_assert(std::is_same<typename std::iterator_traits<Iterator>::value_type,
+    static_assert(std::is_same<typename std::iterator_traits<InputIt>::value_type,
                                double>::value,
                   "Iterator must yield values of type double");
     auto terrace_p = std::make_shared<module::Terrace>();
@@ -71,11 +71,11 @@ inline Reseedable Reseedable::terrace(Iterator first, Iterator last, bool invert
     return finaliseTerrace(terrace_p);
 }
 
-template<typename Iterator>
-inline Reseedable Reseedable::curve(Iterator first, Iterator last)
+template<typename InputIt>
+inline Reseedable Reseedable::curve(InputIt first, InputIt last)
 {
     // TODO static_assert that Iterator is at least an input iterator
-    static_assert(std::is_same<typename std::iterator_traits<Iterator>::value_type,
+    static_assert(std::is_same<typename std::iterator_traits<InputIt>::value_type,
                                std::pair<double, double>>::value,
                   "Iterator must yield values of type std::pair<double, double>");
     auto curve_p = std::make_shared<module::Curve>();
