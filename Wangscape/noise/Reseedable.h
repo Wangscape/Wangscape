@@ -61,7 +61,7 @@ inline Reseedable Reseedable::terrace(InputIt first, InputIt last, bool inverted
     // TODO static_assert that Iterator is at least an input iterator
     static_assert(std::is_same<typename std::iterator_traits<InputIt>::value_type,
                                double>::value,
-                  "Iterator must yield values of type double");
+                  "InputIt must yield values of type double");
     auto terrace_p = std::make_shared<module::Terrace>();
     terrace_p->InvertTerraces(inverted);
     std::for_each(first, last, [&terrace_p](const auto control_point)
@@ -77,7 +77,7 @@ inline Reseedable Reseedable::curve(InputIt first, InputIt last)
     // TODO static_assert that Iterator is at least an input iterator
     static_assert(std::is_same<typename std::iterator_traits<InputIt>::value_type,
                                std::pair<double, double>>::value,
-                  "Iterator must yield values of type std::pair<double, double>");
+                  "InputIt must yield values of type std::pair<double, double>");
     auto curve_p = std::make_shared<module::Curve>();
     std::for_each(first, last, [&curve_p](const auto control_point)
     {
