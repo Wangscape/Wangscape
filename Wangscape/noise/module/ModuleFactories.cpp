@@ -97,5 +97,11 @@ Reseedable makePlaceholder(int seed)
     return makeReseedable(placeholder).translatePoint(1.1, 2.2, 3.3);
 }
 
+Reseedable makeModuleGroup(ModuleGroup::ModuleList modules)
+{
+    auto result = std::make_shared<module::ModuleGroup>(modules);
+    return makeReseedable(result);
+}
+
 } // namespace module
 } // namespace noise
