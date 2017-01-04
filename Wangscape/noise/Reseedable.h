@@ -51,8 +51,8 @@ struct Reseedable final
     template<typename InputIt>
     Reseedable curve(InputIt first, InputIt last);
 private:
-    Reseedable finaliseTerrace(std::shared_ptr<module::Terrace>& terrace_ptr);
-    Reseedable finaliseCurve(std::shared_ptr<module::Curve>& curve_ptr);
+    Reseedable finaliseTerrace(std::shared_ptr<module::Terrace> terrace_ptr);
+    Reseedable finaliseCurve(std::shared_ptr<module::Curve> curve_ptr);
 };
 
 template<typename InputIt>

@@ -295,7 +295,7 @@ Reseedable Reseedable::terrace(int controlPointCount, bool inverted)
 }
 
 // TODO make this function generic then make all the above factories use it
-Reseedable Reseedable::finaliseTerrace(std::shared_ptr<module::Terrace>& terrace_p)
+Reseedable Reseedable::finaliseTerrace(std::shared_ptr<module::Terrace> terrace_p)
 {
     terrace_p->SetSourceModule(0, *module);
 
@@ -305,7 +305,7 @@ Reseedable Reseedable::finaliseTerrace(std::shared_ptr<module::Terrace>& terrace
     return makeReseedable(result);
 }
 
-Reseedable Reseedable::finaliseCurve(std::shared_ptr<module::Curve>& curve_p)
+Reseedable Reseedable::finaliseCurve(std::shared_ptr<module::Curve> curve_p)
 {
     curve_p->SetSourceModule(0, *module);
 
