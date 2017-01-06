@@ -1,18 +1,18 @@
 set(lib-src
     OptionsManager.cpp
     TerrainImages.cpp
-    TileGenerator.cpp
-    TilePartitionGradient.cpp
-    TilePartitionSquares.cpp
-    TilesetGenerator.cpp
 )
 
 add_subdirectory(metaoutput)
+add_subdirectory(noise)
+add_subdirectory(tilegen)
 
 add_library(wangscape STATIC ${lib-src})
 add_executable(Wangscape Main.cpp)
 
 target_link_libraries(wangscape metaoutput)
+target_link_libraries(wangscape noise)
+target_link_libraries(wangscape tilegen)
 target_link_libraries(wangscape spotify-json)
 
 target_link_libraries(Wangscape wangscape)
