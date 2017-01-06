@@ -103,6 +103,26 @@ TEST_F(TestReseedable, TestReseedableAddDouble)
     EXPECT_EQ(-6., (y + (-3)).getValue(-5., -3., 0));
 }
 
+TEST_F(TestReseedable, TestReseedableAddAssign)
+{
+    noise::Reseedable r1 = x;
+    r1 += y;
+    noise::Reseedable r2 = y;
+    r2 += x;
+    EXPECT_EQ(-16., x.getValue(-16., 90., 999.));
+    EXPECT_EQ(74., r1.getValue(-16., 90., 999.));
+    EXPECT_EQ(-3., y.getValue(-5., -3, 999.));
+    EXPECT_EQ(-8., r2.getValue(-5., -3., 999.));
+}
+
+TEST_F(TestReseedable, TestReseedableAddAssignDouble)
+{
+    noise::Reseedable r = x;
+    r += 24;
+    EXPECT_EQ(-16., x.getValue(-16., 345., 876.));
+    EXPECT_EQ(19., r.getValue(-5., -365., 195.));
+}
+
 TEST_F(TestReseedable, TestReseedableMaxReseedable)
 {
     EXPECT_EQ(-3., x.max(y).getValue(-5., -3., 0));
@@ -149,6 +169,27 @@ TEST_F(TestReseedable, TestReseedableSubUnary)
     EXPECT_EQ(-5, (-x).getValue(5, 43, 3));
     EXPECT_EQ(4, (-y).getValue(5, -4, 34));
 }
+
+TEST_F(TestReseedable, TestReseedableSubAssign)
+{
+    noise::Reseedable r1 = x;
+    r1 -= y;
+    noise::Reseedable r2 = y;
+    r2 -= x;
+    EXPECT_EQ(-16., x.getValue(-16., 90., 999.));
+    EXPECT_EQ(-106., r1.getValue(-16., 90., 999.));
+    EXPECT_EQ(-3., y.getValue(-5., -3, 999.));
+    EXPECT_EQ(2., r2.getValue(-5., -3., 999.));
+}
+
+TEST_F(TestReseedable, TestReseedableSubAssignDouble)
+{
+    noise::Reseedable r = x;
+    r -= 24.;
+    EXPECT_EQ(-16., x.getValue(-16., 345., 876.));
+    EXPECT_EQ(-40., r.getValue(-16., -365., 195.));
+}
+
 TEST_F(TestReseedable, TestReseedableMulReseedable)
 {
     EXPECT_EQ(-1440, (x * y).getValue(-16., 90., 0));
@@ -161,6 +202,27 @@ TEST_F(TestReseedable, TestReseedableMulDouble)
     EXPECT_EQ(-80., (x * 5.).getValue(-16., 0, 0));
     EXPECT_EQ(12., (y * (-4)).getValue(-5., -3., 0));
 }
+
+TEST_F(TestReseedable, TestReseedableMulAssign)
+{
+    noise::Reseedable r1 = x;
+    r1 *= y;
+    noise::Reseedable r2 = y;
+    r2 *= x;
+    EXPECT_EQ(-16., x.getValue(-16., 90., 999.));
+    EXPECT_EQ(-1440., r1.getValue(-16., 90., 999.));
+    EXPECT_EQ(-3., y.getValue(-5., -3, 999.));
+    EXPECT_EQ(15., r2.getValue(-5., -3., 999.));
+}
+
+TEST_F(TestReseedable, TestReseedableMulAssignDouble)
+{
+    noise::Reseedable r = x;
+    r *= 2.5;
+    EXPECT_EQ(-16., x.getValue(-16., 345., 876.));
+    EXPECT_EQ(-40., r.getValue(-16., -365., 195.));
+}
+
 TEST_F(TestReseedable, TestReseedableBlend)
 {
     EXPECT_EQ(0.75, c05.blend(x, y).getValue(0., 1., 5.));
