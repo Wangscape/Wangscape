@@ -64,8 +64,8 @@ private:
 template<typename InputIt>
 inline Reseedable Reseedable::terrace(InputIt first, InputIt last, bool inverted)
 {
-    static_assert(std::is_same<std::iterator_traits<InputIt>::iterator_category::input_iterator_tag,
-                  std::input_iterator_tag>::value,
+    static_assert(std::is_base_of<std::input_iterator_tag,
+                    typename std::iterator_traits<InputIt>::iterator_category>::value,
                   "InputIt must have input_iterator_tag");
     static_assert(std::is_same<typename std::iterator_traits<InputIt>::value_type,
                                double>::value,
@@ -82,8 +82,8 @@ inline Reseedable Reseedable::terrace(InputIt first, InputIt last, bool inverted
 template<typename InputIt>
 inline Reseedable Reseedable::curve(InputIt first, InputIt last)
 {
-    static_assert(std::is_same<std::iterator_traits<InputIt>::iterator_category::input_iterator_tag,
-                               std::input_iterator_tag>::value,
+    static_assert(std::is_base_of<std::input_iterator_tag,
+                    typename std::iterator_traits<InputIt>::iterator_category>::value,
                   "InputIt must have input_iterator_tag");
     static_assert(std::is_same<typename std::iterator_traits<InputIt>::value_type,
                                std::pair<double, double>>::value,
