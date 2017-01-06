@@ -1,9 +1,16 @@
 set(tst-src
     main.cpp
+    TestCornerCombiner.cpp
+    TestEdgeFavouringMask.cpp
     TestMetaOutput.cpp
+    TestModuleGroup.cpp
+    TestMovingScaleBias.cpp
     TestOptions.cpp
-    TestTilePartitionGradient.cpp
-    TestTilePartitionSquares.cpp
+    TestNormLPQ.cpp
+    TestReseedable.cpp
+    TestTileGenerationPlan.cpp
+    TestTilePartitionerGradient.cpp
+    TestTilePartitionerSquares.cpp
     TestTilesetGenerator.cpp)
 
 add_executable(WangscapeTest ${tst-src})
