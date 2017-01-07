@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <functional>
-#include "ProductIterator.h"
+#include "CartesianPowerIterator.h"
 
 template<typename T, typename Container>
 class Product
