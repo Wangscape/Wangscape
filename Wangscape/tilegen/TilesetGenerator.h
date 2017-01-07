@@ -6,6 +6,7 @@
 #include "partition/TilePartitionerBase.h"
 #include "TerrainImages.h"
 #include "metaoutput/MetaOutput.h"
+#include "CartesianPower.h"
 
 namespace tilegen
 {

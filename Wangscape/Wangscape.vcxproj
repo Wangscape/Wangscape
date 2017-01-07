@@ -216,6 +216,7 @@
     <ClCompile Include="tilegen\alpha\AlphaCalculatorBase.cpp" />
     <ClCompile Include="tilegen\alpha\AlphaCalculatorLinear.cpp" />
     <ClCompile Include="tilegen\alpha\AlphaCalculatorMax.cpp" />
+    <ClCompile Include="tilegen\CartesianPower.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerBase.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerGradient.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerPerlin.cpp" />
