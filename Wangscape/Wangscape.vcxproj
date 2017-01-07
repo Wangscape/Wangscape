@@ -180,8 +180,8 @@
     <ClInclude Include="noise\Reseedable.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="OptionsManager.h" />
-    <ClInclude Include="Product.h" />
-    <ClInclude Include="ProductIterator.h" />
+    <ClInclude Include="tilegen\CartesianPower.h" />
+    <ClInclude Include="tilegen\CartesianPowerIterator.h" />
     <ClInclude Include="TerrainImages.h" />
     <ClInclude Include="TerrainSpec.h" />
     <ClInclude Include="TileFormat.h" />

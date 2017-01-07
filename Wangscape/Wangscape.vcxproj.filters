@@ -191,11 +191,11 @@
     <ClInclude Include="TileFormat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Product.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="tilegen\CartesianPower.h">
+      <Filter>Header Files\tilegen</Filter>
     </ClInclude>
-    <ClInclude Include="ProductIterator.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="tilegen\CartesianPowerIterator.h">
+      <Filter>Header Files\tilegen</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
