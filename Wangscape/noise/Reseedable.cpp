@@ -70,7 +70,7 @@ Reseedable Reseedable::scaleBias(double scale, double bias)
     return makeReseedable(result);
 }
 
-Reseedable Reseedable::operator+(Reseedable & other)
+Reseedable Reseedable::operator+(Reseedable other)
 {
     auto add_p = std::make_shared<module::Add>();
     add_p->SetSourceModule(0, *module);
@@ -96,7 +96,19 @@ Reseedable Reseedable::operator+(double bias)
     return makeReseedable(result);
 }
 
-Reseedable Reseedable::operator-(Reseedable & other)
+Reseedable & Reseedable::operator+=(Reseedable & other)
+{
+    *this = *this + other;
+    return *this;
+}
+
+Reseedable & Reseedable::operator+=(double other)
+{
+    *this = *this + other;
+    return *this;
+}
+
+Reseedable Reseedable::operator-(Reseedable other)
 {
     return operator+(other.invert());
 }
@@ -111,7 +123,19 @@ Reseedable Reseedable::operator-()
     return invert();
 }
 
-Reseedable Reseedable::max(Reseedable & other)
+Reseedable & Reseedable::operator-=(Reseedable & other)
+{
+    *this = *this - other;
+    return *this;
+}
+
+Reseedable & Reseedable::operator-=(double other)
+{
+    *this = *this - other;
+    return *this;
+}
+
+Reseedable Reseedable::max(Reseedable other)
 {
     auto max_p = std::make_shared<module::Max>();
     max_p->SetSourceModule(0, *module);
@@ -132,7 +156,7 @@ Reseedable Reseedable::max(double other)
 }
 
 
-Reseedable Reseedable::min(Reseedable & other)
+Reseedable Reseedable::min(Reseedable other)
 {
     auto min_p = std::make_shared<module::Min>();
     min_p->SetSourceModule(0, *module);
@@ -152,7 +176,7 @@ Reseedable Reseedable::min(double other)
     return min(makeReseedable(c));
 }
 
-Reseedable Reseedable::operator*(Reseedable & other)
+Reseedable Reseedable::operator*(Reseedable other)
 {
     auto multiply_p = std::make_shared<module::Multiply>();
     multiply_p->SetSourceModule(0, *module);
@@ -177,7 +201,19 @@ Reseedable Reseedable::operator*(double scale)
     return makeReseedable(result);
 }
 
-Reseedable Reseedable::pow(Reseedable & exponent)
+Reseedable & Reseedable::operator*=(Reseedable & other)
+{
+    *this = *this * other;
+    return *this;
+}
+
+Reseedable & Reseedable::operator*=(double other)
+{
+    *this = *this * other;
+    return *this;
+}
+
+Reseedable Reseedable::pow(Reseedable exponent)
 {
     auto power_p = std::make_shared<module::Power>();
     power_p->SetSourceModule(0, *module);
@@ -202,7 +238,7 @@ Reseedable Reseedable::pow(double exponent)
     return makeReseedable(result);
 }
 
-Reseedable Reseedable::blend(Reseedable& source_a, Reseedable& source_b)
+Reseedable Reseedable::blend(Reseedable source_a, Reseedable source_b)
 {
     auto blend_p = std::make_shared<noise::module::Blend>();
     blend_p->SetSourceModule(0, *source_a.module);
@@ -217,7 +253,7 @@ Reseedable Reseedable::blend(Reseedable& source_a, Reseedable& source_b)
     return makeReseedable(result);
 }
 
-Reseedable Reseedable::select(Reseedable& source_a, Reseedable& source_b)
+Reseedable Reseedable::select(Reseedable source_a, Reseedable source_b)
 {
     auto select_p = std::make_shared<module::Select>();
     select_p->SetSourceModule(0, *source_a.module);
@@ -314,7 +350,7 @@ Reseedable Reseedable::finaliseCurve(std::shared_ptr<module::Curve> curve_p)
     return makeReseedable(result);
 }
 
-Reseedable Reseedable::displace(Reseedable & x_displace, Reseedable & y_displace, Reseedable & z_displace)
+Reseedable Reseedable::displace(Reseedable x_displace, Reseedable y_displace, Reseedable z_displace)
 {
     auto displace_p = std::make_shared<module::Displace>();
     displace_p->SetSourceModule(0, *module);
