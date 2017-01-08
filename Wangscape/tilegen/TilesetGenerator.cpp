@@ -6,7 +6,6 @@
 #include <sstream>
 #include <boost/filesystem.hpp>
 #include "common.h"
-#include "CartesianPower.h"
 
 namespace tilegen
 {
@@ -29,7 +28,8 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
     boost::filesystem::path p(options.relativeOutputDirectory);
     for (const auto& clique : options.cliques)
     {
-        std::pair<size_t, size_t> tileset_resolution = calculateTilesetResolution(clique.size());
+        CornersGenerator cp(clique, static_cast<size_t>(CORNERS));
+        std::pair<size_t, size_t> tileset_resolution = cp.size_2d(options.tileFormat.resolution);
         size_t res_x = tileset_resolution.first;
         size_t res_y = tileset_resolution.second;
         std::unique_ptr<sf::RenderTexture> output{getBlankImage(res_x, res_y)};
@@ -50,7 +50,6 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
 
 void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderTexture& image, std::string filename)
 {
-    typedef CartesianPower<Options::Clique::const_iterator> CornersGenerator;
     CornersGenerator cp(clique, static_cast<size_t>(CORNERS));
     for (auto it = cp.cbegin(); it != cp.cend(); ++it)
     {
@@ -77,30 +76,6 @@ std::unique_ptr<sf::RenderTexture> TilesetGenerator::getBlankImage(size_t res_x,
     output->create(res_x, res_y);
     output->clear(sf::Color(0,0,0,255));
     return output;
-}
-
-std::pair<size_t, size_t> TilesetGenerator::calculateTilesetResolution(size_t clique_size) const
-{
-    size_t res_x;
-    size_t res_y;
-    switch (CORNERS)
-    {
-    case Corners::Triangle:
-        res_y = options.tileFormat.resolution*clique_size;
-        res_x = res_y*clique_size;
-        break;
-    case Corners::Square:
-        res_x = options.tileFormat.resolution*clique_size*clique_size;
-        res_y = res_x;
-        break;
-    case Corners::Hexagon:
-        res_x = options.tileFormat.resolution*clique_size*clique_size*clique_size;
-        res_y = res_x;
-        break;
-    default:
-        throw std::out_of_range("Unsupported value of CORNERS variable");
-    }
-    return{ res_x, res_y };
 }
 
 } // namespace tilegen

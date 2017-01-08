@@ -14,6 +14,7 @@ namespace tilegen
 class TilesetGenerator
 {
 public:
+    typedef CartesianPower<Options::Clique::const_iterator> CornersGenerator;
     TilesetGenerator(const Options& options,
                      std::unique_ptr<partition::TilePartitionerBase> tile_partitioner);
     virtual ~TilesetGenerator() = default;

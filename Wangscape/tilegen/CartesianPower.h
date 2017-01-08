@@ -19,7 +19,9 @@ public:
     const_iterator cend() const;
     const_iterator begin() const;
     const_iterator end() const;
+
     size_t size() const;
+    std::pair<size_t, size_t> size_2d(size_t resolution) const;
 
     InputIt first;
     InputIt last;
@@ -68,6 +70,32 @@ inline size_t CartesianPower<InputIt>::size() const
         result *= base_size;
     }
     return result;
+}
+
+template<typename InputIt>
+inline std::pair<size_t, size_t> CartesianPower<InputIt>::size_2d(size_t resolution) const
+{
+    size_t clique_size = std::distance(first, last);
+    size_t res_x;
+    size_t res_y;
+    switch (CORNERS)
+    {
+    case Corners::Triangle:
+        res_y = resolution*clique_size;
+        res_x = res_y*clique_size;
+        break;
+    case Corners::Square:
+        res_x = resolution*clique_size*clique_size;
+        res_y = res_x;
+        break;
+    case Corners::Hexagon:
+        res_x = resolution*clique_size*clique_size*clique_size;
+        res_y = res_x;
+        break;
+    default:
+        throw std::out_of_range("Unsupported value of CORNERS variable");
+    }
+    return{res_x, res_y};
 }
 
 template<typename InputIt>
