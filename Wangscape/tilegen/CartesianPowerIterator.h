@@ -62,7 +62,7 @@ inline CartesianPowerIterator<InputIt>& CartesianPowerIterator<typename InputIt>
                 break;
             }
         }
-        else
+        else if (mIterators[i] != getLast())
         {
             mValues[i] = *mIterators[i];
         }
