@@ -10,6 +10,12 @@ add_executable(WangscapeTest ${tst-src})
 
 target_link_libraries(WangscapeTest wangscape)
 
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+if(Threads_FOUND)
+    target_link_libraries(WangscapeTest Threads::Threads)
+endif()
+
 find_package(GTest REQUIRED)
 if(GTest_FOUND)
     include_directories(${GTest_INCLUDE_DIR})
