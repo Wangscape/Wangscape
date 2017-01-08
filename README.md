@@ -3,6 +3,8 @@ Converts terrain tiles to procedural corner Wang tilesets.
 
 Procjam 2016 project (in progress)
 
+Discussion: https://gitter.im/Wangscape/
+
 # What is Wangscape for?
 Let's say you've drawn or procedurally generated a set of beautiful square terrain tiles to use in a game. But you don't have any nice-looking borders between them, or the borders you do have are all straight and boring, or the borders are all on the same side of the line dividing the in-game tiles.
 
