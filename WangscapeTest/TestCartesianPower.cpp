@@ -167,10 +167,16 @@ TEST_F(TestCartesianPower, TestCartesianPowerValues)
 
 TEST_F(TestCartesianPower, TestCartesianPowerSize2D)
 {
-
+    std::pair<size_t, size_t> size{45, 45};
+    EXPECT_EQ(size, cp.size_2d(5));
+    size = {45, 15};
+    EXPECT_EQ(size, tilegen::CartesianPower<Iterator>(base, 3).size_2d(5));
 }
 
 TEST_F(TestCartesianPower, TestCartesianPowerCoordinates2D)
 {
-
+    auto it = cp.cbegin();
+    std::advance(it, 15);
+    std::pair<size_t, size_t> coordinates{1, 6};
+    EXPECT_EQ(coordinates, it.coordinates_2d());
 }
