@@ -8,6 +8,7 @@
 #include <boost/iterator/zip_iterator.hpp>
 #include <boost/range.hpp>
 #include "common.h"
+#include "CartesianPower.h"
 
 namespace tilegen
 {
@@ -51,42 +52,19 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
 
 void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderTexture& image, std::string filename)
 {
-    std::vector<TerrainID> corner_terrains(static_cast<size_t>(CORNERS), clique[0]);
-    std::vector<size_t> corner_clique_indices(static_cast<size_t>(CORNERS), 0);
-    bool stop = false;
-    while (!stop)
+    typedef CartesianPower<Options::Clique::const_iterator> CornersGenerator;
+    CornersGenerator cp(clique, static_cast<size_t>(CORNERS));
+    for (auto it = cp.cbegin(); it != cp.cend(); ++it)
     {
+        const auto& corner_terrains = *it;
         size_t x = 0; size_t y = 0;
-        for (size_t i = 0; i < corner_clique_indices.size(); i++)
+        for (size_t i = 0; i < static_cast<size_t>(CORNERS); i++)
         {
             size_t& z = ((i + 1) % 2) ? x : y;
             z *= clique.size();
-            z += corner_clique_indices[i];
+            z += it.coordinate(i);
         }
         TileGenerator::generate(image, x, y, corner_terrains, images, options, *mTilePartitioner.get());
-        mo.addTile(corner_terrains, filename, x*options.tileFormat.resolution, y*options.tileFormat.resolution);
-        stop = true;
-        auto zip_begin = boost::make_zip_iterator(boost::make_tuple(corner_terrains.begin(),
-                                                                    corner_clique_indices.begin()));
-        auto zip_end = boost::make_zip_iterator(boost::make_tuple(corner_terrains.end(),
-                                                                  corner_clique_indices.end()));
-        for (auto it : boost::make_iterator_range(zip_begin,zip_end))
-        {
-            size_t& i = it.tail.head;
-            TerrainID& t = it.head;
-            i++;
-            if (i >= clique.size())
-            {
-                i = 0;
-                t = clique[i];
-            }
-            else
-            {
-                stop = false;
-                t = clique[i];
-                break;
-            }
-        }
     }
 }
 
