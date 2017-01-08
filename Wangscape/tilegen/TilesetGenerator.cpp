@@ -5,8 +5,6 @@
 #include <stdexcept>
 #include <sstream>
 #include <boost/filesystem.hpp>
-#include <boost/iterator/zip_iterator.hpp>
-#include <boost/range.hpp>
 #include "common.h"
 #include "CartesianPower.h"
 
