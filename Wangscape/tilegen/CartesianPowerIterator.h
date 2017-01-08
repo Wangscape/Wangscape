@@ -2,6 +2,8 @@
 #include <vector>
 #include <iterator>
 #include <algorithm>
+#include <utility>
+#include "common.h"
 
 namespace tilegen
 {
@@ -26,6 +28,7 @@ public:
     const typename InputIt::difference_type coordinate(size_t n) const;
     const InputIt& getFirst() const;
     const InputIt& getLast() const;
+    std::pair<size_t, size_t> coordinates_2d() const;
 private:
     const InputIt mFirst;
     const InputIt mLast;
@@ -135,5 +138,20 @@ inline const InputIt& CartesianPowerIterator<InputIt>::getLast() const
 {
     return mLast;
 }
+
+template<typename InputIt>
+inline std::pair<size_t, size_t> CartesianPowerIterator<InputIt>::coordinates_2d() const
+{
+    size_t clique_size = std::distance(getFirst(), getLast());
+    size_t x = 0; size_t y = 0;
+    for (size_t i = 0; i < static_cast<size_t>(CORNERS); i++)
+    {
+        size_t& z = ((i + 1) % 2) ? x : y;
+        z *= clique_size;
+        z += coordinate(i);
+    }
+    return{x, y};
+}
+
 
 } // namespace tilegen

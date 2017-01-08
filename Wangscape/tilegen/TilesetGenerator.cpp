@@ -57,14 +57,8 @@ void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderT
     for (auto it = cp.cbegin(); it != cp.cend(); ++it)
     {
         const auto& corner_terrains = *it;
-        size_t x = 0; size_t y = 0;
-        for (size_t i = 0; i < static_cast<size_t>(CORNERS); i++)
-        {
-            size_t& z = ((i + 1) % 2) ? x : y;
-            z *= clique.size();
-            z += it.coordinate(i);
-        }
-        TileGenerator::generate(image, x, y, corner_terrains, images, options, *mTilePartitioner.get());
+        std::pair<size_t, size_t> tp = it.coordinates_2d();
+        TileGenerator::generate(image, tp.first, tp.second, corner_terrains, images, options, *mTilePartitioner.get());
     }
 }
 
