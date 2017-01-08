@@ -48,9 +48,7 @@ TEST_F(TestCartesianPower, TestCartesianPowerComparisonLast)
 {
     auto it = cp.cbegin();
     for (size_t i = 0; i < cp.size(); i++)
-    {
         ++it;
-    }
     EXPECT_EQ(it, it);
     EXPECT_EQ(it, cp.cend());
     EXPECT_EQ(cp.cend(), it);
@@ -77,41 +75,92 @@ TEST_F(TestCartesianPower, TestCartesianPowerComparisonOtherMid)
     EXPECT_NE(cp.cend(), it);
 }
 
+TEST_F(TestCartesianPower, TestCartesianPowerRange)
+{
+    auto first = base.cbegin();
+    auto last = base.cend();
+    EXPECT_EQ(first, cp.first);
+    EXPECT_EQ(last, cp.last);
+    EXPECT_EQ(first, cp.cbegin().getFirst());
+    EXPECT_EQ(last, cp.cbegin().getLast());
+}
+
 TEST_F(TestCartesianPower, TestCartesianPowerValueBegin)
 {
     auto it = cp.cbegin();
-    EXPECT_EQ(4, *it.get(0));
-    EXPECT_EQ(4, *it.get(1));
-    EXPECT_EQ(4, *it.get(2));
-    EXPECT_EQ(4, *it.get(3));
+    EXPECT_EQ(4, it.get(0));
+    EXPECT_EQ(4, it.get(1));
+    EXPECT_EQ(4, it.get(2));
+    EXPECT_EQ(4, it.get(3));
 }
 
 TEST_F(TestCartesianPower, TestCartesianPowerValueBegin1)
 {
     auto it = cp.cbegin();
     ++it;
-    EXPECT_EQ(5, *it.get(0));
-    EXPECT_EQ(4, *it.get(1));
-    EXPECT_EQ(4, *it.get(2));
-    EXPECT_EQ(4, *it.get(3));
+    EXPECT_EQ(5, it.get(0));
+    EXPECT_EQ(4, it.get(1));
+    EXPECT_EQ(4, it.get(2));
+    EXPECT_EQ(4, it.get(3));
 }
 
 TEST_F(TestCartesianPower, TestCartesianPowerValueBegin01)
 {
     auto it = cp.cbegin();
     std::advance(it, 3);
-    EXPECT_EQ(4, *it.get(0));
-    EXPECT_EQ(5, *it.get(1));
-    EXPECT_EQ(4, *it.get(2));
-    EXPECT_EQ(4, *it.get(3));
+    EXPECT_EQ(4, it.get(0));
+    EXPECT_EQ(5, it.get(1));
+    EXPECT_EQ(4, it.get(2));
+    EXPECT_EQ(4, it.get(3));
 }
 
 TEST_F(TestCartesianPower, TestCartesianPowerValueLast)
 {
     auto it = cp.cbegin();
     std::advance(it, 80);
-    EXPECT_EQ(6, *it.get(0));
-    EXPECT_EQ(6, *it.get(1));
-    EXPECT_EQ(6, *it.get(2));
-    EXPECT_EQ(6, *it.get(3));
+    EXPECT_EQ(6, it.get(0));
+    EXPECT_EQ(6, it.get(1));
+    EXPECT_EQ(6, it.get(2));
+    EXPECT_EQ(6, it.get(3));
+    ++it;
+    EXPECT_EQ(it, cp.cend());
+}
+
+TEST_F(TestCartesianPower, TestCartesianPowerCoordinates)
+{
+    auto it = cp.cbegin();
+    std::advance(it, 15);
+
+    EXPECT_EQ(0, it.coordinate(0));
+    EXPECT_EQ(2, it.coordinate(1));
+    EXPECT_EQ(1, it.coordinate(2));
+    EXPECT_EQ(0, it.coordinate(3));
+}
+
+TEST_F(TestCartesianPower, TestCartesianPowerValues)
+{
+    auto it = cp.cbegin();
+    std::advance(it, 15);
+    const std::vector<int>& values = *it;
+
+    EXPECT_EQ(4, values[0]);
+    EXPECT_EQ(6, values[1]);
+    EXPECT_EQ(5, values[2]);
+    EXPECT_EQ(4, values[3]);
+
+    for (size_t i = 0; i < values.size(); i++)
+    {
+        EXPECT_EQ(values[i], it.get(i));
+    }
+
+    for (size_t i = 0; i < values.size(); i++)
+    {
+        EXPECT_EQ(values[i], *it.getIterator(i));
+    }
+
+    for (size_t i = 0; i < values.size(); i++)
+    {
+        EXPECT_EQ(values[i], *it.getIterators()[i]);
+    }
+
 }

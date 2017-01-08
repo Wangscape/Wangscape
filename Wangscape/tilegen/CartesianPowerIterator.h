@@ -7,87 +7,133 @@ namespace tilegen
 {
 template<typename InputIt>
 class CartesianPowerIterator : public std::iterator<std::input_iterator_tag,
-                                                    std::vector<InputIt>>
+                                                    std::vector<typename InputIt::value_type>>
 {
 public:
-    const InputIt first;
-    const InputIt last;
+    typedef std::vector<typename InputIt::value_type> Values;
+    typedef std::vector<InputIt> Iterators;
 
     CartesianPowerIterator(InputIt first_, InputIt last_, InputIt init, size_t power);
     CartesianPowerIterator& operator++();
+
     bool operator==(const CartesianPowerIterator& other) const;
     bool operator!=(const CartesianPowerIterator& other) const;
-    const value_type& operator*() const;
-    const InputIt& get(size_t n) const;
+
+    const Values& operator*() const;
+    const typename InputIt::value_type& get(size_t n) const;
+    const Iterators& getIterators() const;
+    const InputIt& getIterator(size_t n) const;
     const typename InputIt::difference_type coordinate(size_t n) const;
+    const InputIt& getFirst() const;
+    const InputIt& getLast() const;
 private:
-    std::vector<InputIt> mComponents;
+    const InputIt mFirst;
+    const InputIt mLast;
+    std::vector<InputIt> mIterators;
+    std::vector<typename InputIt::value_type> mValues;
 };
 
 template<typename InputIt>
-inline CartesianPowerIterator<InputIt>::CartesianPowerIterator(InputIt first_, InputIt last_, InputIt init, size_t power) :
-    first(first_), last(last_),
-    mComponents(power, init)
+inline CartesianPowerIterator<InputIt>::CartesianPowerIterator(InputIt first, InputIt last, InputIt init, size_t power) :
+    mFirst(first), mLast(last),
+    mIterators(power, init)
 {
+    if (init != last)
+        for (const auto& it : mIterators)
+            mValues.push_back(*it);
 }
 
 template<typename InputIt>
-inline CartesianPowerIterator<typename InputIt> & CartesianPowerIterator<typename InputIt>::operator++()
+inline CartesianPowerIterator<InputIt>& CartesianPowerIterator<typename InputIt>::operator++()
 {
-    size_t i = 0;
-    while (true)
+    for (size_t i = 0; i < mIterators.size(); i++)
     {
-        ++mComponents[i];
-        if (mComponents[i] == last && i < mComponents.size() - 1)
+        ++mIterators[i];
+        if (i < mIterators.size() - 1)
         {
-            mComponents[i] = first;
-            i++;
-            continue;
+            if (mIterators[i] == getLast())
+            {
+                mIterators[i] = getFirst();
+                mValues[i] = *mIterators[i];
+            }
+            else
+            {
+                mValues[i] = *mIterators[i];
+                break;
+            }
         }
-        break;
+        else
+        {
+            mValues[i] = *mIterators[i];
+        }
     }
     return *this;
 }
 
 template<typename InputIt>
-inline bool CartesianPowerIterator<typename InputIt>::operator==(const CartesianPowerIterator & other) const
+inline bool CartesianPowerIterator<InputIt>::operator==(const CartesianPowerIterator& other) const
 {
-    if (first != other.first)
+    if (getFirst() != other.getFirst())
         return false; // different ranges
-    if (last != other.last)
+    if (getLast() != other.getLast())
         return false; // different ranges
-    if (mComponents.size() != (*other).size())
+    if (getIterators().size() != other.getIterators().size())
         return false; // different powers
-    if (*mComponents.crbegin() == last && *(*other).crbegin() == last)
+    if (*getIterators().crbegin() == getLast() &&
+        *other.getIterators().crbegin() == getLast())
         return true; // both are cend
-    for (size_t i = 0; i < mComponents.size(); i++)
-        if (get(i) != other.get(i))
+    for (size_t i = 0; i < getIterators().size(); i++)
+        if (getIterator(i) != other.getIterator(i))
             return false; // different phases
     return true;
 }
 
 template<typename InputIt>
-inline bool CartesianPowerIterator<InputIt>::operator!=(const CartesianPowerIterator & other) const
+inline bool CartesianPowerIterator<InputIt>::operator!=(const CartesianPowerIterator& other) const
 {
     return !(*this == other);
 }
 
 template<typename InputIt>
-inline const typename CartesianPowerIterator<InputIt>::value_type & CartesianPowerIterator<InputIt>::operator*() const
+inline const typename CartesianPowerIterator<InputIt>::Values& CartesianPowerIterator<InputIt>::operator*() const
 {
-    return mComponents;
+    return mValues;
 }
 
 template<typename InputIt>
-inline const InputIt & CartesianPowerIterator<InputIt>::get(size_t n) const
+inline const typename InputIt::value_type& CartesianPowerIterator<InputIt>::get(size_t n) const
 {
-    return mComponents[n];
+    return mValues[n];
+}
+
+template<typename InputIt>
+inline const InputIt& CartesianPowerIterator<InputIt>::getIterator(size_t n) const
+{
+    return mIterators[n];
+}
+
+template<typename InputIt>
+inline const typename CartesianPowerIterator<InputIt>::Iterators& CartesianPowerIterator<InputIt>::getIterators() const
+{
+    return mIterators;
 }
 
 template<typename InputIt>
 inline const typename InputIt::difference_type CartesianPowerIterator<InputIt>::coordinate(size_t n) const
 {
-    return std::distance(first, mComponents[n]);
+    return std::distance(getFirst(), mIterators[n]);
+}
+
+template<typename InputIt>
+inline const InputIt& CartesianPowerIterator<InputIt>::getFirst() const
+{
+    return mFirst;
+}
+
+template<typename InputIt>
+inline const InputIt& CartesianPowerIterator<InputIt>::getLast() const
+{
+    return mLast;
 }
 
 } // namespace tilegen
