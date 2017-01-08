@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <iterator>
+#include <type_traits>
 #include <algorithm>
 #include <utility>
 #include "common.h"
@@ -12,6 +13,9 @@ class CartesianPowerIterator : public std::iterator<std::input_iterator_tag,
                                                     std::vector<typename InputIt::value_type>>
 {
 public:
+    static_assert(std::is_base_of<std::input_iterator_tag,
+                                  typename std::iterator_traits<InputIt>::iterator_category>::value,
+                  "InputIt must be at least an InputIterator");
     typedef std::vector<typename InputIt::value_type> Values;
     typedef std::vector<InputIt> Iterators;
 

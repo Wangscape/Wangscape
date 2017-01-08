@@ -9,6 +9,9 @@ template<typename InputIt>
 class CartesianPower
 {
 public:
+    static_assert(std::is_base_of<std::input_iterator_tag, 
+                                  typename std::iterator_traits<InputIt>::iterator_category>::value,
+                  "InputIt must be at least an InputIterator");
     typedef CartesianPowerIterator<InputIt> const_iterator;
 
     CartesianPower(InputIt first_, InputIt last_, size_t power_);
@@ -42,6 +45,9 @@ template<typename Container>
 inline CartesianPower<InputIt>::CartesianPower(const Container & container, size_t power_) :
     CartesianPower(container.cbegin(), container.cend(), power_)
 {
+    static_assert(std::is_same<typename Container::const_iterator,
+                               InputIt>::value,
+                  "Container::const_iterator must be the same as InputIt");
 }
 
 template<typename InputIt>
