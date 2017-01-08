@@ -34,6 +34,14 @@ inline CartesianPower<InputIt>::CartesianPower(InputIt first_, InputIt last_, si
     last(last_),
     power(power_)
 {
+    // TODO add warning to log if power is not 3, 4, or 6
+}
+
+template<typename InputIt>
+template<typename Container>
+inline CartesianPower<InputIt>::CartesianPower(const Container & container, size_t power_) :
+    CartesianPower(container.cbegin(), container.cend(), power_)
+{
 }
 
 template<typename InputIt>
@@ -77,32 +85,14 @@ inline std::pair<size_t, size_t> CartesianPower<InputIt>::size_2d(size_t resolut
 {
     size_t clique_size = std::distance(first, last);
     size_t res_x;
-    size_t res_y;
-    switch (CORNERS)
-    {
-    case Corners::Triangle:
-        res_y = resolution*clique_size;
-        res_x = res_y*clique_size;
-        break;
-    case Corners::Square:
-        res_x = resolution*clique_size*clique_size;
-        res_y = res_x;
-        break;
-    case Corners::Hexagon:
-        res_x = resolution*clique_size*clique_size*clique_size;
-        res_y = res_x;
-        break;
-    default:
-        throw std::out_of_range("Unsupported value of CORNERS variable");
-    }
+    auto div_mod = std::div((int)power, 2);
+    size_t res_y = resolution;
+    for (int i = 0; i < div_mod.quot; i++)
+        res_y *= clique_size;
+    res_x = res_y;
+    if (div_mod.rem != 0)
+        res_x *= clique_size;
     return{res_x, res_y};
-}
-
-template<typename InputIt>
-template<typename Container>
-inline CartesianPower<InputIt>::CartesianPower(const Container & container, size_t power_) :
-    CartesianPower(container.cbegin(), container.cend(), power_)
-{
 }
 
 } // namespace tilegen

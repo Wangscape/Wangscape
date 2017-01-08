@@ -164,3 +164,13 @@ TEST_F(TestCartesianPower, TestCartesianPowerValues)
     }
 
 }
+
+TEST_F(TestCartesianPower, TestCartesianPowerSize2D)
+{
+
+}
+
+TEST_F(TestCartesianPower, TestCartesianPowerCoordinates2D)
+{
+
+}
