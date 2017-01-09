@@ -46,5 +46,8 @@ Reseedable makeLinearMovingScaleBias(Reseedable source,
 // Makes a placeholder noise module (a Perlin noise module with typical parameters).
 Reseedable makePlaceholder(int seed = 0);
 
+// Allows more terse syntax than calling makeReseedable(std::make_shared<ModuleGroup>(...)).
+Reseedable makeModuleGroup(ModuleGroup::ModuleList modules);
+
 } // namespace module
 } // namespace noise

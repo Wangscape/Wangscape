@@ -1,6 +1,7 @@
 #include "Reseedable.h"
 #include "MakeReseedable.h"
 #include "module/ModuleGroup.h"
+#include "module/ModuleFactories.h"
 #include "module/Exp.h"
 #include "module/Pow.h"
 
@@ -16,10 +17,10 @@ Reseedable Reseedable::abs()
     auto abs_p = std::make_shared<module::Abs>();
     abs_p->SetSourceModule(0, *module);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source", *this)
-              .insert("output", makeReseedable(abs_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source", *this},
+        {"output", makeReseedable(abs_p)}
+    });
 }
 
 Reseedable Reseedable::clamp(double lower, double upper)
@@ -28,10 +29,10 @@ Reseedable Reseedable::clamp(double lower, double upper)
     clamp_p->SetSourceModule(0, *module);
     clamp_p->SetBounds(lower, upper);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source", *this)
-           .insert("output", makeReseedable(clamp_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source", *this},
+        {"output", makeReseedable(clamp_p)}
+    });
 }
 
 Reseedable Reseedable::exp(double base)
@@ -40,10 +41,10 @@ Reseedable Reseedable::exp(double base)
     exponent_p->SetSourceModule(0, *module);
     exponent_p->SetBase(base);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source", *this)
-           .insert("output", makeReseedable(exponent_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source", *this},
+        {"output", makeReseedable(exponent_p)}
+    });
 }
 
 Reseedable Reseedable::invert()
@@ -51,10 +52,10 @@ Reseedable Reseedable::invert()
     auto invert_p = std::make_shared<module::Invert>();
     invert_p->SetSourceModule(0, *module);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source", *this)
-           .insert("output", makeReseedable(invert_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source", *this},
+        {"output", makeReseedable(invert_p)}
+    });
 }
 
 Reseedable Reseedable::scaleBias(double scale, double bias)
@@ -64,10 +65,10 @@ Reseedable Reseedable::scaleBias(double scale, double bias)
     scale_bias_p->SetScale(scale);
     scale_bias_p->SetBias(bias);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source", *this)
-           .insert("output", makeReseedable(scale_bias_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source", *this},
+        {"output", makeReseedable(scale_bias_p)}
+    });
 }
 
 Reseedable Reseedable::operator+(Reseedable other)
@@ -76,11 +77,11 @@ Reseedable Reseedable::operator+(Reseedable other)
     add_p->SetSourceModule(0, *module);
     add_p->SetSourceModule(1, *other.module);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source0", *this)
-           .insert("source1", other)
-           .insert("output", makeReseedable(add_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source0", *this},
+        {"source1", other},
+        {"output", makeReseedable(add_p)}
+    });
 }
 
 Reseedable Reseedable::operator+(double bias)
@@ -90,10 +91,10 @@ Reseedable Reseedable::operator+(double bias)
     scale_bias_p->SetScale(1.);
     scale_bias_p->SetBias(bias);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source", *this)
-           .insert("output", makeReseedable(scale_bias_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source", *this},
+        {"output", makeReseedable(scale_bias_p)}
+    });
 }
 
 Reseedable & Reseedable::operator+=(Reseedable & other)
@@ -141,11 +142,11 @@ Reseedable Reseedable::max(Reseedable other)
     max_p->SetSourceModule(0, *module);
     max_p->SetSourceModule(1, *other.module);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source0", *this)
-           .insert("source1", other)
-           .insert("output", makeReseedable(max_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source0", *this},
+        {"source1", other},
+        {"output", makeReseedable(max_p)}
+    });
 }
 
 Reseedable Reseedable::max(double other)
@@ -162,11 +163,11 @@ Reseedable Reseedable::min(Reseedable other)
     min_p->SetSourceModule(0, *module);
     min_p->SetSourceModule(1, *other.module);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source0", *this)
-           .insert("source1", other)
-           .insert("output", makeReseedable(min_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source0", *this},
+        {"source1", other},
+        {"output", makeReseedable(min_p)}
+    });
 }
 
 Reseedable Reseedable::min(double other)
@@ -182,11 +183,11 @@ Reseedable Reseedable::operator*(Reseedable other)
     multiply_p->SetSourceModule(0, *module);
     multiply_p->SetSourceModule(1, *other.module);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source0", *this)
-           .insert("source1", other)
-           .insert("output", makeReseedable(multiply_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source0", *this},
+        {"source1", other},
+        {"output", makeReseedable(multiply_p)}
+    });
 }
 
 Reseedable Reseedable::operator*(double scale)
@@ -195,10 +196,10 @@ Reseedable Reseedable::operator*(double scale)
     scale_bias_p->SetSourceModule(0, *module);
     scale_bias_p->SetScale(scale);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source", *this)
-           .insert("output", makeReseedable(scale_bias_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source", *this},
+        {"output", makeReseedable(scale_bias_p)}
+    });
 }
 
 Reseedable & Reseedable::operator*=(Reseedable & other)
@@ -215,15 +216,14 @@ Reseedable & Reseedable::operator*=(double other)
 
 Reseedable Reseedable::pow(Reseedable exponent)
 {
-    auto power_p = std::make_shared<module::Power>();
-    power_p->SetSourceModule(0, *module);
-    power_p->SetSourceModule(1, *exponent.module);
+    auto pow_p = std::make_shared<module::Power>();
+    pow_p->SetSourceModule(0, *module);
+    pow_p->SetSourceModule(1, *exponent.module);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("base", *this)
-           .insert("exponent", exponent)
-           .insert("output", makeReseedable(power_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source", *this},
+        {"output", makeReseedable(pow_p)}
+    });
 }
 
 Reseedable Reseedable::pow(double exponent)
@@ -232,10 +232,10 @@ Reseedable Reseedable::pow(double exponent)
     exponent_p->SetSourceModule(0, *module);
     exponent_p->SetExponent(exponent);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source", *this)
-           .insert("output", makeReseedable(exponent_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source", *this},
+        {"output", makeReseedable(exponent_p)}
+    });
 }
 
 Reseedable Reseedable::blend(Reseedable source_a, Reseedable source_b)
@@ -245,12 +245,12 @@ Reseedable Reseedable::blend(Reseedable source_a, Reseedable source_b)
     blend_p->SetSourceModule(1, *source_b.module);
     blend_p->SetControlModule(*module);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("control", *this)
-           .insert("source0", source_a)
-           .insert("source1", source_b)
-           .insert("output", makeReseedable(blend_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"control", *this},
+        {"source0", source_a},
+        {"source1", source_b},
+        {"output", makeReseedable(blend_p)}
+    });
 }
 
 Reseedable Reseedable::select(Reseedable source_a, Reseedable source_b)
@@ -260,12 +260,12 @@ Reseedable Reseedable::select(Reseedable source_a, Reseedable source_b)
     select_p->SetSourceModule(1, *source_b.module);
     select_p->SetControlModule(*module);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("control", *this)
-           .insert("source0", source_a)
-           .insert("source1", source_b)
-           .insert("output", makeReseedable(select_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"control", *this},
+        {"source0", source_a},
+        {"source1", source_b},
+        {"output", makeReseedable(select_p)}
+    });
 }
 
 Reseedable Reseedable::rotatePoint(double x_angle, double y_angle, double z_angle)
@@ -274,10 +274,10 @@ Reseedable Reseedable::rotatePoint(double x_angle, double y_angle, double z_angl
     rotate_point_p->SetSourceModule(0, *module);
     rotate_point_p->SetAngles(x_angle, y_angle, z_angle);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source", *this)
-           .insert("output", makeReseedable(rotate_point_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source", *this},
+        {"output", makeReseedable(rotate_point_p)}
+    });
 }
 
 Reseedable Reseedable::scalePoint(double x_scale, double y_scale, double z_scale)
@@ -288,10 +288,10 @@ Reseedable Reseedable::scalePoint(double x_scale, double y_scale, double z_scale
     scale_point_p->SetYScale(y_scale);
     scale_point_p->SetZScale(z_scale);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source", *this)
-           .insert("output", makeReseedable(scale_point_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source", *this},
+        {"output", makeReseedable(scale_point_p)}
+    });
 }
 
 Reseedable Reseedable::translatePoint(double x_displace, double y_displace, double z_displace)
@@ -302,10 +302,10 @@ Reseedable Reseedable::translatePoint(double x_displace, double y_displace, doub
     translate_point_p->SetYTranslation(y_displace);
     translate_point_p->SetZTranslation(z_displace);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source", *this)
-           .insert("output", makeReseedable(translate_point_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source", *this},
+        {"output", makeReseedable(translate_point_p)}
+    });
 }
 
 Reseedable Reseedable::turbulence(double frequency, double power, int roughness, int seed)
@@ -316,10 +316,10 @@ Reseedable Reseedable::turbulence(double frequency, double power, int roughness,
     turbulence_p->SetRoughness(roughness);
     turbulence_p->SetSeed(seed);
     turbulence_p->SetSourceModule(0, *module);
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source", *this)
-           .insert("output", makeReseedable(turbulence_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source", *this},
+        {"output", makeReseedable(turbulence_p)}
+    });
 }
 
 Reseedable Reseedable::terrace(int controlPointCount, bool inverted)
@@ -327,27 +327,24 @@ Reseedable Reseedable::terrace(int controlPointCount, bool inverted)
     auto terrace_p = std::make_shared<module::Terrace>();
     terrace_p->InvertTerraces(inverted);
     terrace_p->MakeControlPoints(controlPointCount);
+    terrace_p->SetSourceModule(0, *module);
     return finaliseTerrace(terrace_p);
 }
 
 Reseedable Reseedable::finaliseTerrace(std::shared_ptr<module::Terrace> terrace_p)
 {
-    terrace_p->SetSourceModule(0, *module);
-
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source", *this)
-           .insert("output", makeReseedable(terrace_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source", *this},
+        {"output", makeReseedable(terrace_p)}
+    });
 }
 
 Reseedable Reseedable::finaliseCurve(std::shared_ptr<module::Curve> curve_p)
 {
-    curve_p->SetSourceModule(0, *module);
-
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source", *this)
-           .insert("output", makeReseedable(curve_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source", *this},
+        {"output", makeReseedable(curve_p)}
+    });
 }
 
 Reseedable Reseedable::displace(Reseedable x_displace, Reseedable y_displace, Reseedable z_displace)
@@ -358,13 +355,10 @@ Reseedable Reseedable::displace(Reseedable x_displace, Reseedable y_displace, Re
     displace_p->SetYDisplaceModule(*y_displace.module);
     displace_p->SetZDisplaceModule(*z_displace.module);
 
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source", *this)
-           .insert("displaceX", x_displace)
-           .insert("displaceY", y_displace)
-           .insert("displaceZ", z_displace)
-           .insert("output", makeReseedable(displace_p));
-    return makeReseedable(result);
+    return module::makeModuleGroup({
+        {"source", *this},
+        {"output", makeReseedable(displace_p)}
+    });
 }
 
 } // namespace noise

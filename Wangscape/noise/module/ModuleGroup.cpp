@@ -30,8 +30,15 @@ ModuleGroup::ModuleGroup(ModuleID output_id) :
     Module(GetSourceModuleCount()),
     output_id(output_id)
 {
+}
 
-};
+ModuleGroup::ModuleGroup(ModuleList modules, ModuleID output_id) :
+    Module(GetSourceModuleCount()),
+    output_id(output_id),
+    mModules(modules)
+{
+}
+
 
 int ModuleGroup::GetSourceModuleCount() const
 {
