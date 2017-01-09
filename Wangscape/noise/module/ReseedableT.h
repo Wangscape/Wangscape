@@ -1,5 +1,6 @@
 #pragma once
 #include <noise/noise.h>
+#include <memory>
 #include "ModuleGroup.h"
 
 namespace noise
@@ -7,67 +8,69 @@ namespace noise
 namespace module
 {
 
-class ReseedableBase : public virtual Module
+class ReseedableBase
 {
 public:
     virtual void SetSeed(int seed) = 0;
+    virtual Module& getModule();
+    virtual const Module& getModule() const;
 };
 
 template<typename M>
-class ReseedableT :
-    public virtual ReseedableBase,
-    public virtual M
+class ReseedableT : public ReseedableBase
 {
 public:
-    ReseedableT() :
-        M::Module(GetSourceModuleCount()),
-        M()
-    { }
-    virtual int GetSourceModuleCount() const
-    {
-        return M::GetSourceModuleCount();
-    }
-    virtual double GetValue(double x, double y, double z) const
-    {
-        return M::GetValue(x, y, z);
-    }
     virtual void SetSeed(int seed);
+    virtual Module& getModule();
+    virtual const Module& getModule() const;
+
+    M module;
 };
 
 template<typename M> void ReseedableT<M>::SetSeed(int seed)
 { }
 
+template<typename M>
+inline Module & ReseedableT<M>::getModule()
+{
+    return module;
+}
+
+template<typename M>
+inline const Module & ReseedableT<M>::getModule() const
+{
+    return module;
+}
+
 template<> void ReseedableT<ModuleGroup>::SetSeed(int seed)
 {
-    ModuleGroup::SetSeed(seed);
+    module.SetSeed(seed);
 }
 
 template<> void ReseedableT<Billow>::SetSeed(int seed)
 {
-    Billow::SetSeed(seed);
+    module.SetSeed(seed);
 }
 
 template<> void ReseedableT<Perlin>::SetSeed(int seed)
 {
-    Perlin::SetSeed(seed);
+    module.SetSeed(seed);
 }
 
 template<> void ReseedableT<RidgedMulti>::SetSeed(int seed)
 {
-    RidgedMulti::SetSeed(seed);
+    module.SetSeed(seed);
 }
 
 template<> void ReseedableT<Turbulence>::SetSeed(int seed)
 {
-    Turbulence::SetSeed(seed);
+    module.SetSeed(seed);
 }
 
 template<> void ReseedableT<Voronoi>::SetSeed(int seed)
 {
-    Voronoi::SetSeed(seed);
+    module.SetSeed(seed);
 }
-
-typedef std::shared_ptr<ReseedableBase> ReseedablePtr;
 
 } // namespace module
 

@@ -194,6 +194,9 @@
     <ClInclude Include="noise\module\ReseedableT.h">
       <Filter>Header Files\noise\module</Filter>
     </ClInclude>
+    <ClInclude Include="noise\module\ReseedablePtr.h">
+      <Filter>Header Files\noise\module</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

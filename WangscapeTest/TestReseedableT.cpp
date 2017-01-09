@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <noise/module/ReseedableT.h>
+#include <noise/module/ReseedablePtr.h>
 
 class TestReseedable : public ::testing::Test {
 protected:

@@ -183,6 +183,7 @@
     <ClInclude Include="Options.h" />
     <ClInclude Include="OptionsManager.h" />
     <ClInclude Include="noise\module\ReseedableT.h" />
+    <ClInclude Include="noise\module\ReseedablePtr.h" />
     <ClInclude Include="TerrainImages.h" />
     <ClInclude Include="TerrainSpec.h" />
     <ClInclude Include="TileFormat.h" />
