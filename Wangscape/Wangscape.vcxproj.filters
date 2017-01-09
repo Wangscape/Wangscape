@@ -191,6 +191,9 @@
     <ClInclude Include="TileFormat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="noise\module\ReseedableT.h">
+      <Filter>Header Files\noise\module</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
