@@ -2,3 +2,6 @@
 	path = lib/spotify-json
 	url = https://github.com/Wangscape/spotify-json.git
 	ignore = dirty
+[submodule "lib/libnoise"]
+	path = lib/libnoise
+	url = https://github.com/qknight/libnoise.git
