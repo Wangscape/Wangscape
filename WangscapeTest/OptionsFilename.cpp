@@ -15,7 +15,12 @@ const std::string& getOptionsFilename()
 void setOptionsFilename(const std::string & optionsFilename)
 {
     if (filenameSet)
+    {
         throw std::runtime_error("Options filename already set");
-    filename = optionsFilename;
-    filenameSet = true;
+    }
+    else
+    {
+        filename = optionsFilename;
+        filenameSet = true;
+    }
 }
