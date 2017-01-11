@@ -3,7 +3,7 @@
 #include <string>
 #include <map>
 #include <memory>
-#include "noise/Reseedable.h"
+#include "ReseedablePtr.h"
 
 namespace noise
 {
@@ -32,12 +32,12 @@ class ModuleGroup : public Module
 {
 public:
     typedef std::string ModuleID;
-    typedef std::map<ModuleID, Reseedable> ModuleContainer;
+    typedef std::map<ModuleID, ReseedablePtr> ModuleContainer;
 
     const static ModuleID DEFAULT_OUT;
     ModuleID output_id;
-    ModuleGroup& insert(ModuleID name, Reseedable module);
-    const Reseedable& at(ModuleID name) const;
+    ModuleGroup& insert(ModuleID name, ReseedablePtr module);
+    const ReseedablePtr& at(ModuleID name) const;
     ModuleContainer::const_iterator cend() const;
     ModuleContainer::const_iterator cbegin() const;
 

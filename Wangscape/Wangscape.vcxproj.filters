@@ -77,12 +77,6 @@
     <ClInclude Include="TerrainImages.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="noise\MakeReseedable.h">
-      <Filter>Header Files\noise</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\Reseedable.h">
-      <Filter>Header Files\noise</Filter>
-    </ClInclude>
     <ClInclude Include="noise\module\CornerCombinerBase.h">
       <Filter>Header Files\noise\module</Filter>
     </ClInclude>
@@ -90,9 +84,6 @@
       <Filter>Header Files\noise\module</Filter>
     </ClInclude>
     <ClInclude Include="noise\module\Gradient.h">
-      <Filter>Header Files\noise\module</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\ModuleFactories.h">
       <Filter>Header Files\noise\module</Filter>
     </ClInclude>
     <ClInclude Include="noise\module\ModuleGroup.h">
@@ -191,10 +182,16 @@
     <ClInclude Include="TileFormat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="noise\module\ReseedableT.h">
+    <ClInclude Include="noise\module\ReseedableBase.h">
+      <Filter>Header Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\Reseedable.h">
       <Filter>Header Files\noise\module</Filter>
     </ClInclude>
     <ClInclude Include="noise\module\ReseedablePtr.h">
+      <Filter>Header Files\noise\module</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\ReseedableOps.h">
       <Filter>Header Files\noise\module</Filter>
     </ClInclude>
   </ItemGroup>
@@ -205,16 +202,7 @@
     <ClCompile Include="TerrainImages.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="noise\MakeReseedable.cpp">
-      <Filter>Source Files\noise</Filter>
-    </ClCompile>
-    <ClCompile Include="noise\Reseedable.cpp">
-      <Filter>Source Files\noise</Filter>
-    </ClCompile>
     <ClCompile Include="noise\module\CornerCombinerBase.cpp">
-      <Filter>Source Files\noise\module</Filter>
-    </ClCompile>
-    <ClCompile Include="noise\module\ModuleFactories.cpp">
       <Filter>Source Files\noise\module</Filter>
     </ClCompile>
     <ClCompile Include="noise\module\ModuleGroup.cpp">
@@ -276,6 +264,12 @@
     </ClCompile>
     <ClCompile Include="metaoutput\Tileset.cpp">
       <Filter>Source Files\metaoutput</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\ReseedableOps.cpp">
+      <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\Reseedable.cpp">
+      <Filter>Source Files\noise\module</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

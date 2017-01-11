@@ -37,7 +37,7 @@ public:
 
     virtual double GetValue(double x, double y, double z) const
     {
-        return pow(GetSourceModule(0).GetValue(x, y, z), mExponent);
+        return std::pow(GetSourceModule(0).GetValue(x, y, z), mExponent);
     };
 private:
     double mExponent;

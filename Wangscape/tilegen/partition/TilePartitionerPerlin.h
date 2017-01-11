@@ -11,15 +11,15 @@ namespace tilegen
 namespace partition
 {
 
-using Reseedable = noise::Reseedable;
 
 class TilePartitionerPerlin : public TilePartitionerBase
 {
 public:
+    using ReseedablePtr = noise::module::ReseedablePtr;
     explicit TilePartitionerPerlin(const Options& options);
     void makePartition(TilePartition& regions,
                        const Corners& corners);
-    Reseedable makeCornerModule(const Corners & corners, bool left, bool top);
+    ReseedablePtr makeCornerModule(const Corners & corners, bool left, bool top);
     void noiseToAlpha(std::vector<noise::RasterValues<float>>& noise_values,
                       std::vector<sf::Image>& outputs,
                       size_t resolution) const;

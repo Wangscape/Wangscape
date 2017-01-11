@@ -39,7 +39,7 @@ public:
 
     virtual double GetValue(double x, double y, double z) const
     {
-        return pow(mBase, GetSourceModule(0).GetValue(x,y,z));
+        return std::pow(mBase, GetSourceModule(0).GetValue(x,y,z));
     };
 private:
     double mBase;

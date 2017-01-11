@@ -1,5 +1,5 @@
 #include "ModuleManager.h"
-#include "module/ModuleFactories.h"
+#include "module/ReseedableOps.h"
 #include <random>
 #include <time.h>
 #include <algorithm>
@@ -11,7 +11,7 @@ ModuleManager::ModuleManager(const Options & options) :
 {
     for (const auto& terrain : options.terrains)
     {
-        mStochasticMasks.insert({terrain.first, module::makePlaceholder().scaleBias(0.5, 0.5)});
+        mStochasticMasks.insert({terrain.first, module::scaleBias(module::makePlaceholder(), 0.5, 0.5)});
     }
     for (const auto& clique : options.cliques)
     {
@@ -28,22 +28,22 @@ ModuleManager::ModuleManager(const Options & options) :
     }
 }
 
-Reseedable ModuleManager::getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive)
+module::ReseedablePtr ModuleManager::getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive)
 {
-    Reseedable& r = mBordersVertical.at({top, bottom});
+    ReseedablePtr& r = mBordersVertical.at({top, bottom});
     return module::makeQuadrantSelector(r, x_positive, true);
 }
 
-Reseedable ModuleManager::getBorderHorizontal(TerrainID left, TerrainID right, bool y_positive)
+module::ReseedablePtr ModuleManager::getBorderHorizontal(TerrainID left, TerrainID right, bool y_positive)
 {
-    Reseedable& r = mBordersHorizontal.at({left, right});
+    ReseedablePtr& r = mBordersHorizontal.at({left, right});
     return module::makeQuadrantSelector(r, true, y_positive);
 }
 
-Reseedable& ModuleManager::getStochastic(TerrainID terrain)
+module::ReseedablePtr& ModuleManager::getStochastic(TerrainID terrain)
 {
-    Reseedable& r = mStochasticMasks.at(terrain);
-    r.setSeed(mRNG());
+    ReseedablePtr& r = mStochasticMasks.at(terrain);
+    r->setSeed(mRNG());
     return r;
 }
 

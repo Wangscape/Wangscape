@@ -1,5 +1,5 @@
 #include "TilePartitionerPerlin.h"
-#include "noise/module/ModuleFactories.h"
+#include "noise/module/ReseedableOps.h"
 #include "noise/RasterValues.h"
 #include "noise/module/Pow.h"
 #include "tilegen/alpha/AlphaCalculatorMax.h"
@@ -9,27 +9,28 @@ namespace tilegen
 namespace partition
 {
 
-Reseedable TilePartitionerPerlin::makeCornerModule(const Corners& corners,
+TilePartitionerPerlin::ReseedablePtr TilePartitionerPerlin::makeCornerModule(const Corners& corners,
                                                    bool left, bool top)
 {
     TerrainID corner_id = corners[ (left ? 0 : 1) +  (top ? 0 : 2)];
     TerrainID corner_h =  corners[(!left ? 0 : 1) +  (top ? 0 : 2)];
     TerrainID corner_v =  corners[ (left ? 0 : 1) + (!top ? 0 : 2)];
 
-    Reseedable& stochastic_mask = mNoiseModuleManager.getStochastic(corner_id);
-    Reseedable border_h = mNoiseModuleManager.getBorderHorizontal(left ? corner_id : corner_h,
+    ReseedablePtr& stochastic_mask = mNoiseModuleManager.getStochastic(corner_id);
+    ReseedablePtr border_h = mNoiseModuleManager.getBorderHorizontal(left ? corner_id : corner_h,
                                                                   left ? corner_h : corner_id,
                                                                   top);
-    Reseedable border_v = mNoiseModuleManager.getBorderVertical(top ? corner_id : corner_v,
+    ReseedablePtr border_v = mNoiseModuleManager.getBorderVertical(top ? corner_id : corner_v,
                                                                 top ? corner_v : corner_id,
                                                                 left);
-    Reseedable cc = noise::module::makeCornerCombiner(left,top);
-    Reseedable border_xy = cc.blend(border_v, border_h);
-    Reseedable deterministic = noise::module::makeLinearMovingScaleBias(border_xy, left, top, 0.85, 0.15);
-    Reseedable ef = noise::module::makeEdgeFavouringMask(1.5, 1.);
-    Reseedable corner = ef.blend(stochastic_mask, deterministic);
+    ReseedablePtr cc = noise::module::makeCornerCombiner(left,top);
+    ReseedablePtr border_xy = noise::module::blend(cc, border_v, border_h);
+    ReseedablePtr deterministic = noise::module::makeLinearMovingScaleBias(border_xy, left, top, 0.85, 0.15);
+    ReseedablePtr ef = noise::module::makeEdgeFavouringMask(1.5, 1.);
+    ReseedablePtr corner = noise::module::blend(ef, stochastic_mask, deterministic);
     // postprocess should be customisable
-    Reseedable postprocess = corner.pow(5.).clamp(0.,std::numeric_limits<float>::infinity());
+    ReseedablePtr postprocess = pow(corner, 5.);
+    postprocess = clamp(postprocess, 0., std::numeric_limits<float>::infinity());
     return postprocess;
 }
 
@@ -71,13 +72,13 @@ void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners
     // Construct noise modules and render them.
     // Construction and rendering must be done in the same step,
     // because module seeds will be overwritten.
-    std::vector<Reseedable> corner_modules(4);
+    std::vector<ReseedablePtr> corner_modules(4);
     for (int i = 0; i < 2; i++)
         for (int j = 0; j < 2; j++)
         {
             int k = (2 * i) + j;
             corner_modules[k] = makeCornerModule(corners, i == 0, j == 0);
-            noise_values[k].build(*corner_modules[k].module);
+            noise_values[k].build(corner_modules[k]->getModule());
         }
     // Prepare output storage
     std::vector<sf::Image> outputs((int)CORNERS);

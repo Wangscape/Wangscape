@@ -5,13 +5,13 @@ namespace noise
 namespace module
 {
 
-ModuleGroup& ModuleGroup::insert(ModuleID name, Reseedable module)
+ModuleGroup& ModuleGroup::insert(ModuleID name, ReseedablePtr module)
 {
     mModules.insert({ name, module });
     return *this;
 }
 
-const Reseedable & ModuleGroup::at(ModuleID name) const
+const ReseedablePtr & ModuleGroup::at(ModuleID name) const
 {
     return mModules.at(name);
 }
@@ -40,7 +40,7 @@ int ModuleGroup::GetSourceModuleCount() const
 
 double ModuleGroup::GetValue(double x, double y, double z) const
 {
-    return mModules.at(output_id).module.get()->GetValue(x, y, z);
+    return mModules.at(output_id)->getModule().GetValue(x, y, z);
 }
 
 void ModuleGroup::SetSeed(int seed)
@@ -49,7 +49,7 @@ void ModuleGroup::SetSeed(int seed)
     {
         // Use a different seed for each submodule
         int hash = (int)std::hash<ModuleID>{}(it.first);
-        it.second.setSeed(seed^hash);
+        it.second->setSeed(seed^hash);
     }
 };
 

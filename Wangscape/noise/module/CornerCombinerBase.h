@@ -27,7 +27,7 @@ namespace module
 class CornerCombinerBase : public Module
 {
 public:
-    CornerCombinerBase(double power_ = 1.);
+    explicit CornerCombinerBase(double power_ = 1.);
     virtual int GetSourceModuleCount() const
     {
         return 0;
