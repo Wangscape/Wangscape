@@ -6,7 +6,8 @@
 #include <random>
 
 using Reseedable = noise::Reseedable;
-class TestTileGenerationPlan : public ::testing::Test {
+class TestTileGenerationPlan : public ::testing::Test
+{
 protected:
     Reseedable x;
     Reseedable y;

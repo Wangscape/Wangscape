@@ -2,7 +2,8 @@
 
 #include <noise/module/ModuleFactories.h>
 
-class TestModuleGroup : public ::testing::Test {
+class TestModuleGroup : public ::testing::Test
+{
 protected:
     noise::Reseedable rs;
     TestModuleGroup() :

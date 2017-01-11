@@ -12,17 +12,17 @@
 #include <tilegen/TilesetGenerator.h>
 #include <tilegen/partition/TilePartitionerSquares.h>
 
-class TestMetaOutput : public ::testing::Test {
+#include "TestRequiringOptions.h"
+
+class TestMetaOutput : public TestRequiringOptions
+{
 protected:
-    std::string filename;
     tilegen::TilesetGenerator tg;
-    const OptionsManager optionsManager;
     const metaoutput::MetaOutput& mo;
     TestMetaOutput() :
-        filename("../Wangscape/example/example_options.json"),
-        optionsManager(filename),
-        tg(optionsManager.getOptions(),
-           std::move(std::make_unique<tilegen::partition::TilePartitionerSquares>(optionsManager.getOptions()))),
+        TestRequiringOptions(),
+        tg(options,
+           std::move(std::make_unique<tilegen::partition::TilePartitionerSquares>(options))),
         mo(tg.mo)
     {
         tg.generate([&](const sf::Texture& output, std::string filename) {});

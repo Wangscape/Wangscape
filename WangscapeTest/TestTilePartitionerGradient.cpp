@@ -4,17 +4,15 @@
 #include <Options.h>
 #include <OptionsManager.h>
 
-class TestTilePartitionerGradient : public ::testing::Test{
+#include "TestRequiringOptions.h"
+
+class TestTilePartitionerGradient : public TestRequiringOptions
+{
 protected:
-    std::string filename;
     tilegen::partition::TilePartitionerGradient tpg;
     tilegen::partition::TilePartitionerGradient::TilePartition tp;
-    const Options& options;
-    const OptionsManager optionsManager;
     TestTilePartitionerGradient() :
-        filename("../Wangscape/example/example_options.json"),
-        optionsManager(filename),
-        options(optionsManager.getOptions()),
+        TestRequiringOptions(),
         tpg(options)
     {
     };
