@@ -11,7 +11,7 @@ namespace alpha
 class AlphaCalculatorBase
 {
 public:
-    typedef std::vector<float> Weights;
+    typedef std::vector<double> Weights;
     typedef std::vector<sf::Uint8> Alphas;
 
     AlphaCalculatorBase();
