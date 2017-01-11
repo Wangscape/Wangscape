@@ -121,10 +121,10 @@ ReseedablePtr terrace(ReseedablePtr source, InputIt first, InputIt last, bool in
     {
         terrace_p->module.AddControlPoint(control_point);
     });
-    auto result = std::make_shared<Reseedable<module::ModuleGroup>>();
-    result->module.insert("source", source)
-        .insert("output", terrace_p);
-    return result;
+    return makeModuleGroup({
+        {"source", source},
+        {"output", terrace_p}
+    });
 }
 
 template<typename InputIt>
@@ -141,10 +141,10 @@ ReseedablePtr curve(ReseedablePtr source, InputIt first, InputIt last)
     {
         curve_p->AddControlPoint(control_point.first, control_point.second);
     });
-    auto result = std::make_shared<Reseedable<module::ModuleGroup>>();
-    result->module.insert("source", source)
-        .insert("output", curve_p);
-    return result;
+    return makeModuleGroup({
+        {"source", source},
+        {"output", curve_p}
+    });
 }
 
 } // namespace module

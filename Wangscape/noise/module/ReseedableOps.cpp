@@ -16,11 +16,11 @@ ReseedablePtr operator+(ReseedablePtr left, ReseedablePtr right)
     add_p->getModule().SetSourceModule(0, left->getModule());
     add_p->getModule().SetSourceModule(1, right->getModule());
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source0", left)
-        .insert("source1", right)
-        .insert("output", add_p);
-    return result;
+    return makeModuleGroup({
+        {"source0", left},
+        {"source1", right},
+        {"output", add_p}
+    });
 }
 
 ReseedablePtr operator+(ReseedablePtr left, double right)
@@ -30,10 +30,11 @@ ReseedablePtr operator+(ReseedablePtr left, double right)
     scale_bias_p->module.SetScale(1.);
     scale_bias_p->module.SetBias(right);
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source", left)
-        .insert("output", scale_bias_p);
-    return result;
+    return makeModuleGroup({
+        {"source0", left},
+        {"source1", right},
+        {"output", scale_bias_p}
+    });
 }
 
 ReseedablePtr operator+(double left, ReseedablePtr right)
@@ -71,10 +72,10 @@ ReseedablePtr invert(ReseedablePtr source)
     auto invert_p = std::make_shared<Reseedable<Invert>>();
     invert_p->module.SetSourceModule(0, source->getModule());
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source", source)
-        .insert("output", invert_p);
-    return result;
+    return makeModuleGroup({
+        {"source", source},
+        {"output", invert_p}
+    });
 }
 
 ReseedablePtr& operator-=(ReseedablePtr& left, ReseedablePtr right)
@@ -93,11 +94,11 @@ ReseedablePtr operator*(ReseedablePtr left, ReseedablePtr right)
     multiply_p->module.SetSourceModule(0, left->getModule());
     multiply_p->module.SetSourceModule(1, right->getModule());
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source0", left)
-        .insert("source1", right)
-        .insert("output", multiply_p);
-    return result;
+    return makeModuleGroup({
+        {"source0", left},
+        {"source1", right},
+        {"output", multiply_p}
+    });
 }
 
 ReseedablePtr operator*(ReseedablePtr left, double right)
@@ -106,10 +107,10 @@ ReseedablePtr operator*(ReseedablePtr left, double right)
     scale_bias_p->module.SetSourceModule(0, left->getModule());
     scale_bias_p->module.SetScale(right);
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source", left)
-        .insert("output", scale_bias_p);
-    return result;
+    return makeModuleGroup({
+        {"source", source},
+        {"output", scale_bias_p}
+    });
 }
 
 ReseedablePtr operator*(double left, ReseedablePtr right)
@@ -133,11 +134,11 @@ ReseedablePtr operator/(ReseedablePtr left, ReseedablePtr right)
     multiply_p->module.SetSourceModule(0, left->getModule());
     multiply_p->module.SetSourceModule(1, right->getModule());
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source0", left)
-        .insert("source1", right)
-        .insert("output", multiply_p);
-    return result;
+    return makeModuleGroup({
+        {"source0", left},
+        {"source1", right},
+        {"output", multiply_p}
+    });
 }
 
 ReseedablePtr operator/(ReseedablePtr left, double right)
@@ -166,11 +167,11 @@ ReseedablePtr pow(ReseedablePtr base, ReseedablePtr exponent)
     power_p->module.SetSourceModule(0, base->getModule());
     power_p->module.SetSourceModule(1, exponent->getModule());
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("base", base)
-        .insert("exponent", exponent)
-        .insert("output", power_p);
-    return result;
+    return makeModuleGroup({
+        {"base", base},
+        {"exponent", exponent},
+        {"output", power_p}
+    });
 }
 
 ReseedablePtr pow(ReseedablePtr base, double exponent)
@@ -179,10 +180,10 @@ ReseedablePtr pow(ReseedablePtr base, double exponent)
     pow_p->module.SetSourceModule(0, base->getModule());
     pow_p->module.SetExponent(exponent);
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source", base)
-        .insert("output", pow_p);
-    return result;
+    return makeModuleGroup({
+        {"source", base},
+        {"output", pow_p}
+    });
 }
 
 ReseedablePtr pow(double base, ReseedablePtr exponent)
@@ -191,10 +192,10 @@ ReseedablePtr pow(double base, ReseedablePtr exponent)
     exp_p->module.SetSourceModule(0, exponent->getModule());
     exp_p->module.SetBase(base);
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source", exponent)
-        .insert("output", exp_p);
-    return result;
+    return makeModuleGroup({
+        {"source", exponent},
+        {"output", exp_p}
+    });
 }
 
 ReseedablePtr blend(ReseedablePtr control, ReseedablePtr source_a, ReseedablePtr source_b)
@@ -204,12 +205,11 @@ ReseedablePtr blend(ReseedablePtr control, ReseedablePtr source_a, ReseedablePtr
     blend_p->module.SetSourceModule(1, source_b->getModule());
     blend_p->module.SetControlModule(control->getModule());
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("control", control)
-        .insert("source0", source_a)
-        .insert("source1", source_b)
-        .insert("output", blend_p);
-    return result;
+    return makeModuleGroup({
+        {"source0", source_a},
+        {"source1", source_b},
+        {"output", blend_p}
+    });
 }
 
 ReseedablePtr select(ReseedablePtr control, ReseedablePtr source_a, ReseedablePtr source_b)
@@ -219,12 +219,11 @@ ReseedablePtr select(ReseedablePtr control, ReseedablePtr source_a, ReseedablePt
     select_p->module.SetSourceModule(1, source_b->getModule());
     select_p->module.SetControlModule(control->getModule());
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("control", control)
-        .insert("source0", source_a)
-        .insert("source1", source_b)
-        .insert("output", select_p);
-    return result;
+    return makeModuleGroup({
+        {"source0", source_a},
+        {"source1", source_b},
+        {"output", select_p}
+    });
 }
 
 ReseedablePtr translate(ReseedablePtr source, ReseedablePtr x_displace, ReseedablePtr y_displace, ReseedablePtr z_displace)
@@ -235,13 +234,13 @@ ReseedablePtr translate(ReseedablePtr source, ReseedablePtr x_displace, Reseedab
     displace_p->module.SetYDisplaceModule(y_displace->getModule());
     displace_p->module.SetZDisplaceModule(z_displace->getModule());
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source", source)
-        .insert("displaceX", x_displace)
-        .insert("displaceY", y_displace)
-        .insert("displaceZ", z_displace)
-        .insert("output", displace_p);
-    return result;
+    return makeModuleGroup({
+        {"source", source},
+        {"displaceX", x_displace},
+        {"displaceY", y_displace},
+        {"displaceZ", z_displace},
+        {"output", displace_p}
+    });
 }
 
 ReseedablePtr translate(ReseedablePtr source, double x_displace, double y_displace, double z_displace)
@@ -252,10 +251,10 @@ ReseedablePtr translate(ReseedablePtr source, double x_displace, double y_displa
     translate_point_p->module.SetYTranslation(y_displace);
     translate_point_p->module.SetZTranslation(z_displace);
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source", source)
-        .insert("output", translate_point_p);
-    return result;
+    return makeModuleGroup({
+        {"source", source},
+        {"output", translate_point_p}
+    });
 }
 
 ReseedablePtr scalePoint(ReseedablePtr source, double x_scale, double y_scale, double z_scale)
@@ -266,10 +265,10 @@ ReseedablePtr scalePoint(ReseedablePtr source, double x_scale, double y_scale, d
     scale_point_p->module.SetYScale(y_scale);
     scale_point_p->module.SetZScale(z_scale);
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source", source)
-        .insert("output", scale_point_p);
-    return result;
+    return makeModuleGroup({
+        {"source", source},
+        {"output", scale_point_p}
+    });
 }
 
 ReseedablePtr rotatePoint(ReseedablePtr source, double x_angle, double y_angle, double z_angle)
@@ -278,10 +277,10 @@ ReseedablePtr rotatePoint(ReseedablePtr source, double x_angle, double y_angle, 
     rotate_point_p->module.SetSourceModule(0, source->getModule());
     rotate_point_p->module.SetAngles(x_angle, y_angle, z_angle);
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source", source)
-        .insert("output", rotate_point_p);
-    return result;
+    return makeModuleGroup({
+        {"source", source},
+        {"output", rotate_point_p}
+    });
 }
 
 ReseedablePtr turbulence(ReseedablePtr source, double frequency, double power, int roughness, int seed)
@@ -292,10 +291,11 @@ ReseedablePtr turbulence(ReseedablePtr source, double frequency, double power, i
     turbulence_p->module.SetRoughness(roughness);
     turbulence_p->module.SetSeed(seed);
     turbulence_p->module.SetSourceModule(0, source->getModule());
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source", source)
-        .insert("output", turbulence_p);
-    return result;
+
+    return makeModuleGroup({
+        {"source", source},
+        {"output", turbulence_p}
+    });
 }
 
 ReseedablePtr abs(ReseedablePtr source)
@@ -303,10 +303,10 @@ ReseedablePtr abs(ReseedablePtr source)
     auto abs_p = std::make_shared<Reseedable<Abs>>();
     abs_p->module.SetSourceModule(0, source->getModule());
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source", source)
-        .insert("output", abs_p);
-    return result;
+    return makeModuleGroup({
+        {"source", source},
+        {"output", abs_p}
+    });
 }
 
 ReseedablePtr max(ReseedablePtr a, ReseedablePtr b)
@@ -315,11 +315,11 @@ ReseedablePtr max(ReseedablePtr a, ReseedablePtr b)
     max_p->module.SetSourceModule(0, a->getModule());
     max_p->module.SetSourceModule(1, b->getModule());
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source0", a)
-        .insert("source1", b)
-        .insert("output", max_p);
-    return result;
+    return makeModuleGroup({
+        {"source0", a},
+        {"source1", b},
+        {"output", max_p}
+    });
 }
 
 ReseedablePtr max(ReseedablePtr a, double b)
@@ -339,11 +339,11 @@ ReseedablePtr min(ReseedablePtr a, ReseedablePtr b)
     min_p->module.SetSourceModule(0, a->getModule());
     min_p->module.SetSourceModule(1, b->getModule());
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source0", a)
-        .insert("source1", b)
-        .insert("output", min_p);
-    return result;
+    return makeModuleGroup({
+        {"source0", a},
+        {"source1", b},
+        {"output", min_p}
+    });
 }
 
 ReseedablePtr min(ReseedablePtr a, double b)
@@ -363,10 +363,10 @@ ReseedablePtr clamp(ReseedablePtr source, double lower, double upper)
     clamp_p->module.SetSourceModule(0, source->getModule());
     clamp_p->module.SetBounds(lower, upper);
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source", source)
-        .insert("output", clamp_p);
-    return result;
+    return makeModuleGroup({
+        {"source", source},
+        {"output", clamp_p}
+    });
 }
 
 ReseedablePtr scaleBias(ReseedablePtr source, double scale, double bias)
@@ -376,10 +376,10 @@ ReseedablePtr scaleBias(ReseedablePtr source, double scale, double bias)
     scale_bias_p->module.SetScale(scale);
     scale_bias_p->module.SetBias(bias);
 
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source", source)
-        .insert("output", scale_bias_p);
-    return result;
+    return makeModuleGroup({
+        {"source", source},
+        {"output", scale_bias_p}
+    });
 }
 
 ReseedablePtr terrace(ReseedablePtr source, int controlPointCount, bool inverted)
@@ -387,13 +387,11 @@ ReseedablePtr terrace(ReseedablePtr source, int controlPointCount, bool inverted
     auto terrace_p = std::make_shared<Reseedable<Terrace>>();
     terrace_p->module.InvertTerraces(inverted);
     terrace_p->module.MakeControlPoints(controlPointCount);
-
-    auto result = std::make_shared<Reseedable<ModuleGroup>>();
-    result->module.insert("source", source)
-        .insert("output", terrace_p);
-    return result;
+    return makeModuleGroup({
+        {"source", source},
+        {"output", terrace_p}
+    });
 }
-
 
 ReseedablePtr makeModuleGroup(std::initializer_list<std::pair<ModuleGroup::ModuleID, ReseedablePtr>> modules)
 {
