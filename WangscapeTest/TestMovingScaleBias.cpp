@@ -1,15 +1,15 @@
 #include <gtest/gtest.h>
 
-#include <noise/module/ModuleFactories.h>
+#include <noise/module/ReseedableOps.h>
 
 class TestMovingScaleBias : public ::testing::Test {
 protected:
-    noise::Reseedable x;
-    noise::Reseedable y;
-    noise::Reseedable z;
-    noise::Reseedable msb;
-    noise::Reseedable lmsb1;
-    noise::Reseedable lmsb2;
+    noise::module::ReseedablePtr x;
+    noise::module::ReseedablePtr y;
+    noise::module::ReseedablePtr z;
+    noise::module::ReseedablePtr msb;
+    noise::module::ReseedablePtr lmsb1;
+    noise::module::ReseedablePtr lmsb2;
 
     TestMovingScaleBias() :
         x(noise::module::makeX()),

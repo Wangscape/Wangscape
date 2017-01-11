@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <noise/module/NormLPQ.h>
-#include <noise/module/ModuleFactories.h>
+#include <noise/module/ReseedableOps.h>
 
 class TestNormLPQ : public ::testing::Test {
 protected:
