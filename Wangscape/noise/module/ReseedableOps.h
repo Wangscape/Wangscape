@@ -64,6 +64,9 @@ ReseedablePtr terrace(ReseedablePtr source, InputIt first, InputIt last, bool in
 template<typename InputIt>
 ReseedablePtr curve(ReseedablePtr source, InputIt first, InputIt last);
 
+// Makes a ModuleGroup with concise syntax.
+ReseedablePtr makeModuleGroup(std::initializer_list<std::pair<ModuleGroup::ModuleID, ReseedablePtr>> modules);
+
 // Makes a TranslatePoint module with x and y displacements 0 or -1.
 ReseedablePtr makeQuadrantSelector(ReseedablePtr source, bool x_positive, bool y_positive);
 

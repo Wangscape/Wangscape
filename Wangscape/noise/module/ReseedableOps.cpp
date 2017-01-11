@@ -395,6 +395,16 @@ ReseedablePtr terrace(ReseedablePtr source, int controlPointCount, bool inverted
 }
 
 
+ReseedablePtr makeModuleGroup(std::initializer_list<std::pair<ModuleGroup::ModuleID, ReseedablePtr>> modules)
+{
+    auto module_group = std::make_shared<Reseedable<ModuleGroup>>();
+    for (auto name_module : modules)
+    {
+        module_group->module.insert(name_module.first, name_module.second);
+    }
+    return module_group;
+}
+
 ReseedablePtr makeQuadrantSelector(ReseedablePtr source, bool x_positive, bool y_positive)
 {
     if (x_positive && y_positive)
