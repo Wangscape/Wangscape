@@ -359,14 +359,10 @@ ReseedablePtr min(double a, ReseedablePtr b)
 
 ReseedablePtr clamp(ReseedablePtr source, double lower, double upper)
 {
-    auto clamp_p = std::make_shared<Reseedable<Clamp>>();
-    clamp_p->module.SetSourceModule(0, source->getModule());
-    clamp_p->module.SetBounds(lower, upper);
-
-    return makeModuleGroup({
-        {"source", source},
-        {"output", clamp_p}
-    });
+    assert(lower <= upper);
+    // noise::module::Clamp cannot be used here because it asserts
+    // lower < upper
+    return max(lower, min(upper, source));
 }
 
 ReseedablePtr scaleBias(ReseedablePtr source, double scale, double bias)
