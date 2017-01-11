@@ -1,5 +1,6 @@
 set(tst-src
     main.cpp
+    OptionsFilename.cpp
     TestCornerCombiner.cpp
     TestEdgeFavouringMask.cpp
     TestMetaOutput.cpp
@@ -7,6 +8,7 @@ set(tst-src
     TestMovingScaleBias.cpp
     TestOptions.cpp
     TestNormLPQ.cpp
+    TestRequiringOptions.cpp
     TestReseedable.cpp
     TestTileGenerationPlan.cpp
     TestTilePartitionerGradient.cpp
