@@ -24,14 +24,10 @@ Reseedable Reseedable::abs()
 
 Reseedable Reseedable::clamp(double lower, double upper)
 {
-    auto clamp_p = std::make_shared<module::Clamp>();
-    clamp_p->SetSourceModule(0, *module);
-    clamp_p->SetBounds(lower, upper);
-
-    auto result = std::make_shared<module::ModuleGroup>();
-    result->insert("source", *this)
-           .insert("output", makeReseedable(clamp_p));
-    return makeReseedable(result);
+    assert(lower <= upper);
+    // noise::module::Clamp cannot be used here because it asserts
+    // lower < upper
+    return max(lower).min(upper);
 }
 
 Reseedable Reseedable::exp(double base)
