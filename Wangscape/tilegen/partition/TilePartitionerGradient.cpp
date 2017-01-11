@@ -33,10 +33,10 @@ void TilePartitionerGradient::makePartition(TilePartition & regions,
     {
         for (size_t y = 0; y < mOptions.tileFormat.resolution; y++)
         {
-            weights[0] = (double)gradientWeight(x, y, 0, 0, quarter_res);
-            weights[1] = (double)gradientWeight(x, y, 0, resolution_sub_1, quarter_res);
-            weights[2] = (double)gradientWeight(x, y, resolution_sub_1, 0, quarter_res);
-            weights[3] = (double)gradientWeight(x, y, resolution_sub_1, resolution_sub_1, quarter_res);
+            weights[0] = static_cast<double>(gradientWeight(x, y, 0, 0, quarter_res));
+            weights[1] = static_cast<double>(gradientWeight(x, y, 0, resolution_sub_1, quarter_res));
+            weights[2] = static_cast<double>(gradientWeight(x, y, resolution_sub_1, 0, quarter_res));
+            weights[3] = static_cast<double>(gradientWeight(x, y, resolution_sub_1, resolution_sub_1, quarter_res));
             ac.updateAlphas(weights);
             const auto& alphas = ac.getAlphas();
             for (size_t i = 0; i < masks.size(); i++)
