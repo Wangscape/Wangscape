@@ -4,13 +4,13 @@
 #include <noise/RasterImage.h>
 #include <random>
 
-using Reseedable = noise::Reseedable;
+using noise::module::ReseedablePtr;
 class TestTileGenerationPlan : public ::testing::Test {
 protected:
-    Reseedable x;
-    Reseedable y;
-    Reseedable c0;
-    Reseedable c1;
+    ReseedablePtr x;
+    ReseedablePtr y;
+    ReseedablePtr c0;
+    ReseedablePtr c1;
     TestTileGenerationPlan() :
         x(noise::module::makeX()),
         y(noise::module::makeY()),
@@ -36,11 +36,11 @@ TEST_F(TestTileGenerationPlan, TestTileGenerationPlan)
     noise::RasterImage nmix_y(output, x_y);
     noise::RasterImage nmix_y_(output, x_y_);
 
-    auto write_map = [&](const Reseedable module,
+    auto write_map = [&](const ReseedablePtr module,
                         std::string filename,
                         noise::RasterImage& nmi)
     {
-        nmi.build(*module.module);
+        nmi.build(module->getModule());
         output.saveToFile("test/"+filename+".png");
     };
 
@@ -49,14 +49,14 @@ TEST_F(TestTileGenerationPlan, TestTileGenerationPlan)
     write_map(y, "y", nmixy);
     write_map(y, "y_", nmixy_);
 
-    Reseedable msb_max_xy = noise::module::makeLinearMovingScaleBias(c1, true, true, 0.7, 0.25);
-    Reseedable msb_max_xy_ = noise::module::makeLinearMovingScaleBias(c1, true, false, 0.7, 0.25);
-    Reseedable msb_max_x_y = noise::module::makeLinearMovingScaleBias(c1, false, true, 0.7, 0.25);
-    Reseedable msb_max_x_y_ = noise::module::makeLinearMovingScaleBias(c1, false, false, 0.7, 0.25);
-    Reseedable msb_min_xy = noise::module::makeLinearMovingScaleBias(-c1, true, true, 0.7, 0.25);
-    Reseedable msb_min_xy_ = noise::module::makeLinearMovingScaleBias(-c1, true, false, 0.7, 0.25);
-    Reseedable msb_min_x_y = noise::module::makeLinearMovingScaleBias(-c1, false, true, 0.7, 0.25);
-    Reseedable msb_min_x_y_ = noise::module::makeLinearMovingScaleBias(-c1, false, false, 0.7, 0.25);
+    ReseedablePtr msb_max_xy = noise::module::makeLinearMovingScaleBias(c1, true, true, 0.7, 0.25);
+    ReseedablePtr msb_max_xy_ = noise::module::makeLinearMovingScaleBias(c1, true, false, 0.7, 0.25);
+    ReseedablePtr msb_max_x_y = noise::module::makeLinearMovingScaleBias(c1, false, true, 0.7, 0.25);
+    ReseedablePtr msb_max_x_y_ = noise::module::makeLinearMovingScaleBias(c1, false, false, 0.7, 0.25);
+    ReseedablePtr msb_min_xy = noise::module::makeLinearMovingScaleBias(-c1, true, true, 0.7, 0.25);
+    ReseedablePtr msb_min_xy_ = noise::module::makeLinearMovingScaleBias(-c1, true, false, 0.7, 0.25);
+    ReseedablePtr msb_min_x_y = noise::module::makeLinearMovingScaleBias(-c1, false, true, 0.7, 0.25);
+    ReseedablePtr msb_min_x_y_ = noise::module::makeLinearMovingScaleBias(-c1, false, false, 0.7, 0.25);
 
     write_map(msb_max_xy, "msb_max_xy", nmixy);
     write_map(msb_max_x_y, "msb_max_x_y", nmixy);
@@ -67,7 +67,7 @@ TEST_F(TestTileGenerationPlan, TestTileGenerationPlan)
     write_map(msb_min_xy_, "msb_min_xy_", nmixy);
     write_map(msb_min_x_y_, "msb_min_x_y_", nmixy);
 
-    Reseedable cc = noise::module::makeCornerCombiner(true, true);
+    ReseedablePtr cc = noise::module::makeCornerCombiner(true, true);
     write_map(cc, "ccxy", nmixy);
     write_map(cc, "ccxy_", nmixy_);
     write_map(cc, "ccx_y", nmix_y);
@@ -77,11 +77,11 @@ TEST_F(TestTileGenerationPlan, TestTileGenerationPlan)
     rng.seed((unsigned int)time(nullptr));
     
     // this corner's weight in the tile centre
-    Reseedable stochastic = noise::module::makePlaceholder(rng()).scaleBias(0.5,0.5);
+    ReseedablePtr stochastic = scaleBias(noise::module::makePlaceholder(rng()), 0.5, 0.5);
     // this corner's weight along its adjacent horizontal border
-    Reseedable border_x = noise::module::makePlaceholder(rng());
+    ReseedablePtr border_x = noise::module::makePlaceholder(rng());
     // this corner's weight along its adjacent vertical border
-    Reseedable border_y = noise::module::makePlaceholder(rng());
+    ReseedablePtr border_y = noise::module::makePlaceholder(rng());
 
     write_map(stochastic, "stochastic", nmixy);
     write_map(border_x, "borderx_y", nmixy);
@@ -89,15 +89,15 @@ TEST_F(TestTileGenerationPlan, TestTileGenerationPlan)
     write_map(border_y, "bordery_x", nmixy);
     write_map(border_y, "bordery_x_", nmix_y);
 
-    Reseedable border_xy = cc.blend(border_y, border_x);
+    ReseedablePtr border_xy = blend(cc, border_y, border_x);
     write_map(border_xy, "border_xy", nmixy);
 
-    Reseedable deterministic = noise::module::makeLinearMovingScaleBias(border_xy, true, true, 0.7, 0.25);
+    ReseedablePtr deterministic = noise::module::makeLinearMovingScaleBias(border_xy, true, true, 0.7, 0.25);
     write_map(deterministic, "deterministic", nmixy);
 
-    Reseedable ef = noise::module::makeEdgeFavouringMask(1.5, 1.);
+    ReseedablePtr ef = noise::module::makeEdgeFavouringMask(1.5, 1.);
     write_map(ef, "ef", nmixy);
 
-    Reseedable corner = ef.blend(stochastic, deterministic);
+    ReseedablePtr corner = blend(ef, stochastic, deterministic);
     write_map(corner, "corner", nmixy);
 }

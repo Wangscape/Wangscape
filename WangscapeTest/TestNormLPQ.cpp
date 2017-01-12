@@ -4,14 +4,14 @@
 
 class TestNormLPQ : public ::testing::Test {
 protected:
-    noise::ModulePtr n1_1;
-    noise::ModulePtr n1_2;
+    std::shared_ptr<noise::module::NormLPQ> n1_1;
+    std::shared_ptr<noise::module::NormLPQ> n1_2;
 
-    noise::ModulePtr n2_1;
-    noise::ModulePtr n2_2;
+    std::shared_ptr<noise::module::NormLPQ> n2_1;
+    std::shared_ptr<noise::module::NormLPQ> n2_2;
 
-    noise::ModulePtr n05_1;
-    noise::ModulePtr n05_05;
+    std::shared_ptr<noise::module::NormLPQ> n05_1;
+    std::shared_ptr<noise::module::NormLPQ> n05_05;
 
     TestNormLPQ() :
         n1_1(std::make_shared<noise::module::NormLPQ>(1)),
