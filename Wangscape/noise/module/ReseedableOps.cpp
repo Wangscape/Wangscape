@@ -107,7 +107,7 @@ ReseedablePtr operator*(ReseedablePtr left, double right)
     scale_bias_p->module.SetScale(right);
 
     return makeModuleGroup({
-        {"source", source},
+        {"source", left},
         {"output", scale_bias_p}
     });
 }
