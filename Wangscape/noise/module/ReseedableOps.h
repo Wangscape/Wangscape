@@ -136,10 +136,10 @@ ReseedablePtr curve(ReseedablePtr source, InputIt first, InputIt last)
     static_assert(std::is_same<typename std::iterator_traits<InputIt>::value_type,
                   std::pair<double, double>>::value,
                   "InputIt must yield values of type std::pair<double, double>");
-    auto curve_p = std::make_shared<module::Curve>();
+    auto curve_p = std::make_shared<Reseedable<module::Curve>>();
     std::for_each(first, last, [&curve_p](const auto control_point)
     {
-        curve_p->AddControlPoint(control_point.first, control_point.second);
+        curve_p->module.AddControlPoint(control_point.first, control_point.second);
     });
     return makeModuleGroup({
         {"source", source},
