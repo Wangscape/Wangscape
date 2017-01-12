@@ -382,6 +382,7 @@ ReseedablePtr terrace(ReseedablePtr source, int controlPointCount, bool inverted
     auto terrace_p = std::make_shared<Reseedable<Terrace>>();
     terrace_p->module.InvertTerraces(inverted);
     terrace_p->module.MakeControlPoints(controlPointCount);
+    terrace_p->module.SetSourceModule(0, source->getModule());
     return makeModuleGroup({
         {"source", source},
         {"output", terrace_p}

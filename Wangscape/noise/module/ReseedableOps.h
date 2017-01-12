@@ -121,6 +121,7 @@ ReseedablePtr terrace(ReseedablePtr source, InputIt first, InputIt last, bool in
     {
         terrace_p->module.AddControlPoint(control_point);
     });
+    terrace_p->module.SetSourceModule(0, source->getModule());
     return makeModuleGroup({
         {"source", source},
         {"output", terrace_p}
@@ -141,6 +142,7 @@ ReseedablePtr curve(ReseedablePtr source, InputIt first, InputIt last)
     {
         curve_p->module.AddControlPoint(control_point.first, control_point.second);
     });
+    curve_p->module.SetSourceModule(0, source->getModule());
     return makeModuleGroup({
         {"source", source},
         {"output", curve_p}
