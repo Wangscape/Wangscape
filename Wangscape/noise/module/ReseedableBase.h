@@ -14,7 +14,7 @@ public:
     virtual const Module& getModule() const = 0;
     double getValue(double x, double y, double z) const
     {
-        return getValue(x, y, z);
+        return getModule().GetValue(x, y, z);
     };
 };
 
