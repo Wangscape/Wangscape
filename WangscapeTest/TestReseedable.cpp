@@ -39,7 +39,7 @@ TEST_F(TestReseedable, TestAbsReseedable)
     EXPECT_EQ(2., abs(y)->getModule().GetValue(4., -2., 0));
 }
 
-TEST_F(TestReseedable, TestReseedableClamp)
+TEST_F(TestReseedable, TestClampReseedable)
 {
     EXPECT_EQ(-1., clamp(x, -1., 1.)->getModule().GetValue(-5., 0, 0));
     EXPECT_EQ(1., clamp(y, -1., 1.)->getModule().GetValue(-1., 3., 0));
@@ -281,19 +281,19 @@ TEST_F(TestReseedable, TestScalePointReseedable)
     EXPECT_EQ(200., scalePoint(y, -1, -10, -100)->getModule().GetValue(2, -20, 200));
 
 }
-TEST_F(TestReseedable, TestReseedableTurbulence)
+TEST_F(TestReseedable, TestTurbulenceReseedable)
 {
     auto turbulence_p = turbulence(c05, 2., 2., 3, 0);
     EXPECT_EQ(0.5, turbulence_p->getModule().GetValue(346980., 0.63, 696.346));
 }
 
-TEST_F(TestReseedable, TestReseedableConst)
+TEST_F(TestReseedable, TestConstReseedable)
 {
     EXPECT_EQ(3.6345, noise::module::makeConst(3.6345)->getModule().GetValue(52935874, 57432895, 2549));
     EXPECT_EQ(-3045.25, noise::module::makeConst(-3045.25)->getModule().GetValue(259, 594, 239587));
 }
 
-TEST_F(TestReseedable, TestReseedableTerraceIter)
+TEST_F(TestReseedable, TestTerraceReseedableIter)
 {
     std::vector<double> control_points{0., 0.5, 1.};
     noise::module::ReseedablePtr terrace_p = terrace(x, control_points.cbegin(), control_points.cend());
@@ -306,7 +306,7 @@ TEST_F(TestReseedable, TestReseedableTerraceIter)
     EXPECT_GT(0.75, terrace_p->getModule().GetValue(0.75, -3957, 9723));
 }
 
-TEST_F(TestReseedable, TestReseedableTerraceInt)
+TEST_F(TestReseedable, TestTerraceReseedableInt)
 {
     noise::module::ReseedablePtr terrace_p = terrace(y, 4, true);
 
@@ -321,7 +321,7 @@ TEST_F(TestReseedable, TestReseedableTerraceInt)
 }
 
 
-TEST_F(TestReseedable, TestReseedableCurve)
+TEST_F(TestReseedable, TestCurveReseedable)
 {
     std::vector<std::pair<double, double>> control_points{{-1, 1}, {0, -1}, {1, 1}};
     noise::module::ReseedablePtr crv = curve(x, control_points.cbegin(), control_points.cend());
