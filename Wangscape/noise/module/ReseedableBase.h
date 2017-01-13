@@ -12,6 +12,10 @@ public:
     virtual void setSeed(int seed) = 0;
     virtual Module& getModule() = 0;
     virtual const Module& getModule() const = 0;
+    double getValue(double x, double y, double z) const
+    {
+        return getValue(x, y, z);
+    };
 };
 
 } // namespace module

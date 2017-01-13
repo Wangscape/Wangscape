@@ -27,46 +27,46 @@ protected:
 
 TEST_F(TestVariableScaleBias, TestVariableScaleBias)
 {
-    EXPECT_NEAR(1.5, msb->getModule().GetValue(0., 0., 3453.), 0.0001);
-    EXPECT_NEAR(3., msb->getModule().GetValue(-1., 1., 3453.), 0.0001);
-    EXPECT_NEAR(-1., msb->getModule().GetValue(345304895., -1., 3453.), 0.0001);
-    EXPECT_NEAR(8., msb->getModule().GetValue(1., 2., 3453.), 0.0001);
+    EXPECT_NEAR(1.5, msb->getValue(0., 0., 3453.), 0.0001);
+    EXPECT_NEAR(3., msb->getValue(-1., 1., 3453.), 0.0001);
+    EXPECT_NEAR(-1., msb->getValue(345304895., -1., 3453.), 0.0001);
+    EXPECT_NEAR(8., msb->getValue(1., 2., 3453.), 0.0001);
 }
 
 TEST_F(TestVariableScaleBias, TestLinearVariableScaleBiasDefault)
 {
-    EXPECT_NEAR(1., lmsb1->getModule().GetValue(0., 0., 1.), 0.0001);
-    EXPECT_NEAR(1., lmsb1->getModule().GetValue(0., 0., -1.), 0.0001);
+    EXPECT_NEAR(1., lmsb1->getValue(0., 0., 1.), 0.0001);
+    EXPECT_NEAR(1., lmsb1->getValue(0., 0., -1.), 0.0001);
 
-    EXPECT_NEAR(1., lmsb1->getModule().GetValue(0.5, 0., 1.), 0.0001);
-    EXPECT_NEAR(0., lmsb1->getModule().GetValue(-0.5, 0., -1.), 0.0001);
-    EXPECT_NEAR(1., lmsb1->getModule().GetValue(0., 0.5, 1.), 0.0001);
-    EXPECT_NEAR(0., lmsb1->getModule().GetValue(0., -0.5, -1.), 0.0001);
-    EXPECT_NEAR(1., lmsb1->getModule().GetValue(0.25, -0.25, 1.), 0.0001);
-    EXPECT_NEAR(0., lmsb1->getModule().GetValue(-0.25, 0.25, -1.), 0.0001);
+    EXPECT_NEAR(1., lmsb1->getValue(0.5, 0., 1.), 0.0001);
+    EXPECT_NEAR(0., lmsb1->getValue(-0.5, 0., -1.), 0.0001);
+    EXPECT_NEAR(1., lmsb1->getValue(0., 0.5, 1.), 0.0001);
+    EXPECT_NEAR(0., lmsb1->getValue(0., -0.5, -1.), 0.0001);
+    EXPECT_NEAR(1., lmsb1->getValue(0.25, -0.25, 1.), 0.0001);
+    EXPECT_NEAR(0., lmsb1->getValue(-0.25, 0.25, -1.), 0.0001);
 
-    EXPECT_NEAR(0., lmsb1->getModule().GetValue(-0.5, -0.5, 1.), 0.0001);
-    EXPECT_NEAR(0., lmsb1->getModule().GetValue(0.5, 0.5, -1.), 0.0001);
-    EXPECT_NEAR(0., lmsb1->getModule().GetValue(1., 0., 1.), 0.0001);
-    EXPECT_NEAR(0., lmsb1->getModule().GetValue(-1., 0., -1.), 0.0001);
-    EXPECT_NEAR(0., lmsb1->getModule().GetValue(1., -1., 1.), 0.0001);
-    EXPECT_NEAR(0., lmsb1->getModule().GetValue(-1., 1., -1.), 0.0001);
+    EXPECT_NEAR(0., lmsb1->getValue(-0.5, -0.5, 1.), 0.0001);
+    EXPECT_NEAR(0., lmsb1->getValue(0.5, 0.5, -1.), 0.0001);
+    EXPECT_NEAR(0., lmsb1->getValue(1., 0., 1.), 0.0001);
+    EXPECT_NEAR(0., lmsb1->getValue(-1., 0., -1.), 0.0001);
+    EXPECT_NEAR(0., lmsb1->getValue(1., -1., 1.), 0.0001);
+    EXPECT_NEAR(0., lmsb1->getValue(-1., 1., -1.), 0.0001);
 }
 
 TEST_F(TestVariableScaleBias, TestLinearVariableScaleBiasShort)
 {
-    EXPECT_NEAR(1., lmsb2->getModule().GetValue(1., 1., 1.), 0.0001);
-    EXPECT_NEAR(1., lmsb2->getModule().GetValue(1., 1., -1.), 0.0001);
+    EXPECT_NEAR(1., lmsb2->getValue(1., 1., 1.), 0.0001);
+    EXPECT_NEAR(1., lmsb2->getValue(1., 1., -1.), 0.0001);
 
-    EXPECT_NEAR(1., lmsb2->getModule().GetValue(0.875, 1., 1.), 0.0001);
-    EXPECT_NEAR(0., lmsb2->getModule().GetValue(1., 0.875, -1.), 0.0001);
-    EXPECT_NEAR(1., lmsb2->getModule().GetValue(1., 0.75, 1.), 0.0001);
-    EXPECT_NEAR(0., lmsb2->getModule().GetValue(0.75, 1., -1.), 0.0001);
-    EXPECT_NEAR(1., lmsb2->getModule().GetValue(0.625, 1., 1.), 0.0001);
-    EXPECT_NEAR(0., lmsb2->getModule().GetValue(1., 0.625, -1.), 0.0001);
+    EXPECT_NEAR(1., lmsb2->getValue(0.875, 1., 1.), 0.0001);
+    EXPECT_NEAR(0., lmsb2->getValue(1., 0.875, -1.), 0.0001);
+    EXPECT_NEAR(1., lmsb2->getValue(1., 0.75, 1.), 0.0001);
+    EXPECT_NEAR(0., lmsb2->getValue(0.75, 1., -1.), 0.0001);
+    EXPECT_NEAR(1., lmsb2->getValue(0.625, 1., 1.), 0.0001);
+    EXPECT_NEAR(0., lmsb2->getValue(1., 0.625, -1.), 0.0001);
 
-    EXPECT_NEAR(0., lmsb2->getModule().GetValue(1., 0.5, 1.), 0.0001);
-    EXPECT_NEAR(0., lmsb2->getModule().GetValue(0.5, 1., -1.), 0.0001);
-    EXPECT_NEAR(0., lmsb2->getModule().GetValue(0., 1., 1.), 0.0001);
-    EXPECT_NEAR(0., lmsb2->getModule().GetValue(1., 0., -1.), 0.0001);
+    EXPECT_NEAR(0., lmsb2->getValue(1., 0.5, 1.), 0.0001);
+    EXPECT_NEAR(0., lmsb2->getValue(0.5, 1., -1.), 0.0001);
+    EXPECT_NEAR(0., lmsb2->getValue(0., 1., 1.), 0.0001);
+    EXPECT_NEAR(0., lmsb2->getValue(1., 0., -1.), 0.0001);
 }

@@ -40,7 +40,7 @@ int ModuleGroup::GetSourceModuleCount() const
 
 double ModuleGroup::GetValue(double x, double y, double z) const
 {
-    return mModules.at(output_id)->getModule().GetValue(x, y, z);
+    return mModules.at(output_id)->getValue(x, y, z);
 }
 
 void ModuleGroup::SetSeed(int seed)

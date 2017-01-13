@@ -87,20 +87,20 @@ TEST_F(TestCornerCombiner, TestCornerCombinerBase2)
 
 TEST_F(TestCornerCombiner, TestCornerCombiner2)
 {
-    EXPECT_NEAR(0.0, ccg2_p->getModule().GetValue(0., 0., 0.0001), 0.00001) <<
+    EXPECT_NEAR(0.0, ccg2_p->getValue(0., 0., 0.0001), 0.00001) <<
         "Incorrect clamped value at (0,0) with power 2";
-    EXPECT_NEAR(0.0, ccg2_p->getModule().GetValue(0.5, 0.5, 0.0001), 0.0000) <<
+    EXPECT_NEAR(0.0, ccg2_p->getValue(0.5, 0.5, 0.0001), 0.0000) <<
         "Incorrect clamped value at (0.5,0.5) with power 2";
-    EXPECT_NEAR(0.0, ccg2_p->getModule().GetValue(1., 1., 0.0001), 0.0000) <<
+    EXPECT_NEAR(0.0, ccg2_p->getValue(1., 1., 0.0001), 0.0000) <<
         "Incorrect clamped value at (1,1) with power 2";
 
-    EXPECT_EQ(1., ccg2_p->getModule().GetValue(0.5, 0., 0.0001)) <<
+    EXPECT_EQ(1., ccg2_p->getValue(0.5, 0., 0.0001)) <<
         "Incorrect clamped value at (0.5,0) with power 2";
-    EXPECT_NEAR(1., ccg2_p->getModule().GetValue(1., 0., 0.0001), 0.001) <<
+    EXPECT_NEAR(1., ccg2_p->getValue(1., 0., 0.0001), 0.001) <<
         "Incorrect clamped value at (1,0) with power 2";
 
-    EXPECT_EQ(-1., ccg2_p->getModule().GetValue(0., 0.5, 0.0001)) <<
+    EXPECT_EQ(-1., ccg2_p->getValue(0., 0.5, 0.0001)) <<
         "Incorrect clamped value at (0,0.5) with power 2";
-    EXPECT_NEAR(-1., ccg2_p->getModule().GetValue(0., 1., 0.0001), 0.001) <<
+    EXPECT_NEAR(-1., ccg2_p->getValue(0., 1., 0.0001), 0.001) <<
         "Incorrect clamped value at (0,1) with power 2";
 }
