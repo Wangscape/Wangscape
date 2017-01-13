@@ -31,7 +31,7 @@ TEST_F(TestReseedable, TestReseedableSetSeed)
 }
 
 
-TEST_F(TestReseedable, TestReseedableAbs)
+TEST_F(TestReseedable, TestAbsReseedable)
 {
     EXPECT_EQ(5., abs(x)->getModule().GetValue(-5., 0, 0));
     EXPECT_EQ(4., abs(x)->getModule().GetValue(4., 0, 0));
@@ -47,7 +47,7 @@ TEST_F(TestReseedable, TestReseedableClamp)
     EXPECT_EQ(-10., clamp(y, -10, -10)->getModule().GetValue(4., -2., 0));
 }
 
-TEST_F(TestReseedable, TestReseedablePowDouble)
+TEST_F(TestReseedable, TestPowReseedableDouble)
 {
     EXPECT_NEAR(-8., pow(x, 3)->getModule().GetValue(-2., 0, 0), 0.0001);
     EXPECT_EQ(0.04, pow(x, -2)->getModule().GetValue(5., 0, 0));
@@ -55,7 +55,7 @@ TEST_F(TestReseedable, TestReseedablePowDouble)
     EXPECT_EQ(1., pow(y, 0)->getModule().GetValue(4., -2., 5.));
 }
 
-TEST_F(TestReseedable, TestReseedablePowReseedable)
+TEST_F(TestReseedable, TestPowReseedableReseedable)
 {
     EXPECT_EQ(4., pow(x, x)->getModule().GetValue(2., 0, 0));
     EXPECT_EQ(-32., pow(x, y)->getModule().GetValue(-2., 5, 0));
@@ -63,7 +63,7 @@ TEST_F(TestReseedable, TestReseedablePowReseedable)
     EXPECT_EQ(1. / 256., pow(y, y)->getModule().GetValue(4., -4., 5.));
 }
 
-TEST_F(TestReseedable, TestReseedableExpDouble)
+TEST_F(TestReseedable, TestPowDoubleReseedable)
 {
     EXPECT_NEAR(1./9., pow(3., x)->getModule().GetValue(-2., 0, 0), 0.0001);
     EXPECT_EQ(-32., pow(-2., x)->getModule().GetValue(5., 0, 0));
@@ -71,7 +71,7 @@ TEST_F(TestReseedable, TestReseedableExpDouble)
     EXPECT_EQ(0., pow(0., y)->getModule().GetValue(4., 2., 5.));
 }
 
-TEST_F(TestReseedable, TestReseedableInv)
+TEST_F(TestReseedable, TestInvReseedable)
 {
     EXPECT_EQ(16., invert(x)->getModule().GetValue(-16., 0, 0));
     EXPECT_EQ(-32., invert(x)->getModule().GetValue(32., 0, 0));
@@ -79,7 +79,7 @@ TEST_F(TestReseedable, TestReseedableInv)
     EXPECT_EQ(-1., invert(y)->getModule().GetValue(4., 1., 5.));
 }
 
-TEST_F(TestReseedable, TestReseedableScaleBias)
+TEST_F(TestReseedable, TestScaleBiasReseedable)
 {
     EXPECT_EQ(-155, scaleBias(x, 10, 5)->getModule().GetValue(-16., 0, 0));
     EXPECT_EQ(-158, scaleBias(x, -5, 2)->getModule().GetValue(32., 0, 0));
@@ -87,7 +87,7 @@ TEST_F(TestReseedable, TestReseedableScaleBias)
     EXPECT_EQ(1.5, scaleBias(y, 1, 0.5)->getModule().GetValue(4., 1., 5.));
 }
 
-TEST_F(TestReseedable, TestReseedableAddReseedable)
+TEST_F(TestReseedable, TestAddReseedableReseedable)
 {
     EXPECT_EQ(74., (x + y)->getModule().GetValue(-16., 90., 0));
     EXPECT_EQ(64., (x + x)->getModule().GetValue(32., 0, 0));
@@ -95,13 +95,19 @@ TEST_F(TestReseedable, TestReseedableAddReseedable)
     EXPECT_EQ(2., (y + y)->getModule().GetValue(4., 1., 5.));
 }
 
-TEST_F(TestReseedable, TestReseedableAddDouble)
+TEST_F(TestReseedable, TestAddReseedableDouble)
 {
     EXPECT_EQ(-11., (x + 5.)->getModule().GetValue(-16., 0, 0));
     EXPECT_EQ(-6., (y + (-3))->getModule().GetValue(-5., -3., 0));
 }
 
-TEST_F(TestReseedable, TestReseedableAddAssign)
+TEST_F(TestReseedable, TestAddDoubleReseedable)
+{
+    EXPECT_EQ(-11., (5. + x)->getModule().GetValue(-16., 0, 0));
+    EXPECT_EQ(-6., ((-3) + y)->getModule().GetValue(-5., -3., 0));
+}
+
+TEST_F(TestReseedable, TestAddAssignReseedableReseedable)
 {
     noise::module::ReseedablePtr r1 = x;
     r1 += y;
@@ -113,7 +119,7 @@ TEST_F(TestReseedable, TestReseedableAddAssign)
     EXPECT_EQ(-8., r2->getModule().GetValue(-5., -3., 999.));
 }
 
-TEST_F(TestReseedable, TestReseedableAddAssignDouble)
+TEST_F(TestReseedable, TestAddAssignReseedableDouble)
 {
     noise::module::ReseedablePtr r = x;
     r += 24;
@@ -121,7 +127,7 @@ TEST_F(TestReseedable, TestReseedableAddAssignDouble)
     EXPECT_EQ(19., r->getModule().GetValue(-5., -365., 195.));
 }
 
-TEST_F(TestReseedable, TestReseedableMaxReseedable)
+TEST_F(TestReseedable, TestMaxReseedableReseedable)
 {
     EXPECT_EQ(-3., max(x, y)->getModule().GetValue(-5., -3., 0));
     EXPECT_EQ(4., max(y, x)->getModule().GetValue(4., 1., 5.));
@@ -129,14 +135,18 @@ TEST_F(TestReseedable, TestReseedableMaxReseedable)
     EXPECT_EQ(4., max(x, y)->getModule().GetValue(4., 1., 5.));
 }
 
-TEST_F(TestReseedable, TestReseedableMaxDouble)
+TEST_F(TestReseedable, TestMaxReseedableDouble)
 {
     EXPECT_EQ(4., max(x, 4.)->getModule().GetValue(-5., -3., 0));
-    EXPECT_EQ(1., max(0., y)->getModule().GetValue(4., 1., 5.));
-    EXPECT_EQ(4., max(4., x)->getModule().GetValue(-5., -3., 0));
     EXPECT_EQ(1., max(y, 0.)->getModule().GetValue(4., 1., 5.));
 }
-TEST_F(TestReseedable, TestReseedableMinReseedable)
+
+TEST_F(TestReseedable, TestMaxDoubleReseedable)
+{
+    EXPECT_EQ(1., max(0., y)->getModule().GetValue(4., 1., 5.));
+    EXPECT_EQ(4., max(4., x)->getModule().GetValue(-5., -3., 0));
+}
+TEST_F(TestReseedable, TestMinReseedableReseedable)
 {
     EXPECT_EQ(-5., min(x, y)->getModule().GetValue(-5., -3., 0));
     EXPECT_EQ(1., min(y, x)->getModule().GetValue(4., 1., 5.));
@@ -144,33 +154,42 @@ TEST_F(TestReseedable, TestReseedableMinReseedable)
     EXPECT_EQ(1., min(x, y)->getModule().GetValue(4., 1., 5.));
 }
 
-TEST_F(TestReseedable, TestReseedableMinDouble)
+TEST_F(TestReseedable, TestMinReseedableDouble)
 {
     EXPECT_EQ(-5., min(x, 4)->getModule().GetValue(-5., -3., 0));
-    EXPECT_EQ(0., min(0, y)->getModule().GetValue(4., 1., 5.));
-    EXPECT_EQ(-5., min(4, x)->getModule().GetValue(-5., -3., 0));
     EXPECT_EQ(0., min(y, 0)->getModule().GetValue(4., 1., 5.));
 }
 
-TEST_F(TestReseedable, TestReseedableSubReseedable)
+TEST_F(TestReseedable, TestMinDoubleReseedable)
+{
+    EXPECT_EQ(0., min(0, y)->getModule().GetValue(4., 1., 5.));
+    EXPECT_EQ(-5., min(4, x)->getModule().GetValue(-5., -3., 0));
+}
+
+TEST_F(TestReseedable, TestSubReseedableReseedable)
 {
     EXPECT_EQ(-106., (x - y)->getModule().GetValue(-16., 90., 0));
     EXPECT_EQ(0., (x - x)->getModule().GetValue(32., 0, 0));
     EXPECT_EQ(2., (y - x)->getModule().GetValue(-5., -3., 0));
     EXPECT_EQ(0., (y - y)->getModule().GetValue(4., 1., 5.));
 }
-TEST_F(TestReseedable, TestReseedableSubDouble)
+TEST_F(TestReseedable, TestSubReseedableDouble)
 {
     EXPECT_EQ(-21., (x - 5.)->getModule().GetValue(-16., 0, 0));
     EXPECT_EQ(1., (y - (-4))->getModule().GetValue(-5., -3., 0));
 }
-TEST_F(TestReseedable, TestReseedableSubUnary)
+TEST_F(TestReseedable, TestSubDoubleReseedable)
+{
+    EXPECT_EQ(21., (5. - x)->getModule().GetValue(-16., 0, 0));
+    EXPECT_EQ(-1., ((-4) - y)->getModule().GetValue(-5., -3., 0));
+}
+TEST_F(TestReseedable, TestSubUnaryReseedable)
 {
     EXPECT_EQ(-5, (-x)->getModule().GetValue(5, 43, 3));
     EXPECT_EQ(4, (-y)->getModule().GetValue(5, -4, 34));
 }
 
-TEST_F(TestReseedable, TestReseedableSubAssign)
+TEST_F(TestReseedable, TestSubAssignReseedableReseedable)
 {
     noise::module::ReseedablePtr r1 = x;
     r1 -= y;
@@ -182,7 +201,7 @@ TEST_F(TestReseedable, TestReseedableSubAssign)
     EXPECT_EQ(2., r2->getModule().GetValue(-5., -3., 999.));
 }
 
-TEST_F(TestReseedable, TestReseedableSubAssignDouble)
+TEST_F(TestReseedable, TestSubAssignReseedableDouble)
 {
     noise::module::ReseedablePtr r = x;
     r -= 24.;
@@ -190,20 +209,25 @@ TEST_F(TestReseedable, TestReseedableSubAssignDouble)
     EXPECT_EQ(-40., r->getModule().GetValue(-16., -365., 195.));
 }
 
-TEST_F(TestReseedable, TestReseedableMulReseedable)
+TEST_F(TestReseedable, TestMulReseedableReseedable)
 {
     EXPECT_EQ(-1440, (x * y)->getModule().GetValue(-16., 90., 0));
     EXPECT_EQ(1024., (x * x)->getModule().GetValue(32., 0, 0));
     EXPECT_EQ(15., (y * x)->getModule().GetValue(-5., -3., 0));
     EXPECT_EQ(1., (y * y)->getModule().GetValue(4., 1., 5.));
 }
-TEST_F(TestReseedable, TestReseedableMulDouble)
+TEST_F(TestReseedable, TestMulReseedableDouble)
 {
     EXPECT_EQ(-80., (x * 5.)->getModule().GetValue(-16., 0, 0));
     EXPECT_EQ(12., (y * (-4))->getModule().GetValue(-5., -3., 0));
 }
+TEST_F(TestReseedable, TestMulDoubleReseedable)
+{
+    EXPECT_EQ(-80., (5. * x)->getModule().GetValue(-16., 0, 0));
+    EXPECT_EQ(12., ((-4) * y)->getModule().GetValue(-5., -3., 0));
+}
 
-TEST_F(TestReseedable, TestReseedableMulAssign)
+TEST_F(TestReseedable, TestMulAssignReseedableReseedable)
 {
     noise::module::ReseedablePtr r1 = x;
     r1 *= y;
@@ -215,7 +239,7 @@ TEST_F(TestReseedable, TestReseedableMulAssign)
     EXPECT_EQ(15., r2->getModule().GetValue(-5., -3., 999.));
 }
 
-TEST_F(TestReseedable, TestReseedableMulAssignDouble)
+TEST_F(TestReseedable, TestMulAssignReseedableDouble)
 {
     noise::module::ReseedablePtr r = x;
     r *= 2.5;
@@ -223,44 +247,44 @@ TEST_F(TestReseedable, TestReseedableMulAssignDouble)
     EXPECT_EQ(-40., r->getModule().GetValue(-16., -365., 195.));
 }
 
-TEST_F(TestReseedable, TestReseedableBlend)
+TEST_F(TestReseedable, TestBlendReseedable)
 {
     EXPECT_EQ(0.75, blend(c05, x, y)->getModule().GetValue(0., 1., 5.));
     EXPECT_EQ(-5, blend(c05, y, x)->getModule().GetValue(-1, -17, 5.));
 }
-TEST_F(TestReseedable, TestReseedableSelect)
+TEST_F(TestReseedable, TestSelectReseedable)
 {
     EXPECT_EQ(-17, select(c05, x, y)->getModule().GetValue(-1, -17, 5.));
     EXPECT_EQ(0., select(c05, y, x)->getModule().GetValue(0., 1., 5.));
 }
-TEST_F(TestReseedable, TestReseedableDisplace)
+TEST_F(TestReseedable, TestTranslateReseedableReseedable)
 {
-    auto displace = translate((x - (y * 2)), x, y, c05);
-    EXPECT_EQ(0., displace->getModule().GetValue(0, 0, 304958.));
-    EXPECT_EQ(0., displace->getModule().GetValue(2, 1, 30458.));
-    EXPECT_EQ(-16., displace->getModule().GetValue(-2, 3, 30458.));
+    auto translate_p = translate((x - (y * 2)), x, y, c05);
+    EXPECT_EQ(0., translate_p->getModule().GetValue(0, 0, 304958.));
+    EXPECT_EQ(0., translate_p->getModule().GetValue(2, 1, 30458.));
+    EXPECT_EQ(-16., translate_p->getModule().GetValue(-2, 3, 30458.));
 }
-TEST_F(TestReseedable, TestReseedableRotatePoint)
+TEST_F(TestReseedable, TestTranslateReseedableDouble)
+{
+    EXPECT_EQ(3., translate(x, 1, 10, 100)->getModule().GetValue(2, 20, 200));
+    EXPECT_EQ(-10., translate(y, 1, 10, 100)->getModule().GetValue(2, -20, 200));
+}
+TEST_F(TestReseedable, TestRotatePointReseedable)
 {
     EXPECT_EQ(20., rotatePoint(x, 0,0,90)->getModule().GetValue(2, 20, 200));
     EXPECT_EQ(-30, rotatePoint(y, 0,0,180)->getModule().GetValue(2, 30, 200));
 
 }
-TEST_F(TestReseedable, TestReseedableScalePoint)
+TEST_F(TestReseedable, TestScalePointReseedable)
 {
     EXPECT_EQ(6., scalePoint(x, 3, 30, 300)->getModule().GetValue(2, 20, 200));
     EXPECT_EQ(200., scalePoint(y, -1, -10, -100)->getModule().GetValue(2, -20, 200));
 
 }
-TEST_F(TestReseedable, TestReseedableTranslatePoint)
-{
-    EXPECT_EQ(3., translate(x, 1, 10, 100)->getModule().GetValue(2, 20, 200));
-    EXPECT_EQ(-10., translate(y, 1, 10, 100)->getModule().GetValue(2, -20, 200));
-}
 TEST_F(TestReseedable, TestReseedableTurbulence)
 {
-    auto turb = turbulence(c05, 2., 2., 3, 0);
-    EXPECT_EQ(0.5, turb->getModule().GetValue(346980., 0.63, 696.346));
+    auto turbulence_p = turbulence(c05, 2., 2., 3, 0);
+    EXPECT_EQ(0.5, turbulence_p->getModule().GetValue(346980., 0.63, 696.346));
 }
 
 TEST_F(TestReseedable, TestReseedableConst)
@@ -269,31 +293,31 @@ TEST_F(TestReseedable, TestReseedableConst)
     EXPECT_EQ(-3045.25, noise::module::makeConst(-3045.25)->getModule().GetValue(259, 594, 239587));
 }
 
-TEST_F(TestReseedable, TestReseedableTerraceManual)
+TEST_F(TestReseedable, TestReseedableTerraceIter)
 {
     std::vector<double> control_points{0., 0.5, 1.};
-    noise::module::ReseedablePtr terr = terrace(x, control_points.cbegin(), control_points.cend());
+    noise::module::ReseedablePtr terrace_p = terrace(x, control_points.cbegin(), control_points.cend());
 
-    EXPECT_NEAR(0., terr->getModule().GetValue(0., 239478, -23984), 0.00001);
-    EXPECT_NEAR(0.5, terr->getModule().GetValue(0.5, -239478, -23984), 0.00001);
-    EXPECT_NEAR(1., terr->getModule().GetValue(1., -239478, 23984), 0.00001);
+    EXPECT_NEAR(0., terrace_p->getModule().GetValue(0., 239478, -23984), 0.00001);
+    EXPECT_NEAR(0.5, terrace_p->getModule().GetValue(0.5, -239478, -23984), 0.00001);
+    EXPECT_NEAR(1., terrace_p->getModule().GetValue(1., -239478, 23984), 0.00001);
 
-    EXPECT_GT(0.25, terr->getModule().GetValue(0.25, 3957, -9723));
-    EXPECT_GT(0.75, terr->getModule().GetValue(0.75, -3957, 9723));
+    EXPECT_GT(0.25, terrace_p->getModule().GetValue(0.25, 3957, -9723));
+    EXPECT_GT(0.75, terrace_p->getModule().GetValue(0.75, -3957, 9723));
 }
 
-TEST_F(TestReseedable, TestReseedableTerraceAuto)
+TEST_F(TestReseedable, TestReseedableTerraceInt)
 {
-    noise::module::ReseedablePtr terr = terrace(y, 4, true);
+    noise::module::ReseedablePtr terrace_p = terrace(y, 4, true);
 
-    EXPECT_NEAR(-1., terr->getModule().GetValue(239478, -1, -23984), 0.00001);
-    EXPECT_NEAR(-1. / 3., terr->getModule().GetValue(-239478, -1. / 3., -23984), 0.00001);
-    EXPECT_NEAR(1. / 3., terr->getModule().GetValue(-239478, 1. / 3., 23984), 0.00001);
-    EXPECT_NEAR(1., terr->getModule().GetValue(239478, 1., 23984), 0.00001);
+    EXPECT_NEAR(-1., terrace_p->getModule().GetValue(239478, -1, -23984), 0.00001);
+    EXPECT_NEAR(-1. / 3., terrace_p->getModule().GetValue(-239478, -1. / 3., -23984), 0.00001);
+    EXPECT_NEAR(1. / 3., terrace_p->getModule().GetValue(-239478, 1. / 3., 23984), 0.00001);
+    EXPECT_NEAR(1., terrace_p->getModule().GetValue(239478, 1., 23984), 0.00001);
 
-    EXPECT_LT(-2. / 3., terr->getModule().GetValue(3957, -2. / 3., -9723));
-    EXPECT_LT(0., terr->getModule().GetValue(-3957, 0., -9723));
-    EXPECT_LT(2. / 3., terr->getModule().GetValue(-3957, 2. / 3., 9723));
+    EXPECT_LT(-2. / 3., terrace_p->getModule().GetValue(3957, -2. / 3., -9723));
+    EXPECT_LT(0., terrace_p->getModule().GetValue(-3957, 0., -9723));
+    EXPECT_LT(2. / 3., terrace_p->getModule().GetValue(-3957, 2. / 3., 9723));
 }
 
 
