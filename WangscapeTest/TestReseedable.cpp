@@ -323,15 +323,27 @@ TEST_F(TestReseedable, TestTerraceReseedableInt)
 
 TEST_F(TestReseedable, TestCurveReseedable)
 {
-    std::vector<std::pair<double, double>> control_points{{-1, 1}, {0, -1}, {1, 1}};
-    noise::module::ReseedablePtr crv = curve(x, control_points.cbegin(), control_points.cend());
+    std::vector<std::pair<double, double>> control_points{
+        {-1, -1},
+        {-0.5, 1},
+        {0, -1},
+        {0.5, 1},
+        {1, -1}
+    }; // f(x) = x^3
+    noise::module::ReseedablePtr curve_p = curve(x, control_points.cbegin(), control_points.cend());
 
-    EXPECT_NEAR(1., crv->getModule().GetValue(-1., 239478, -23984), 0.00001);
-    EXPECT_NEAR(-1, crv->getModule().GetValue(0., -239478, -23984), 0.00001);
-    EXPECT_NEAR(1., crv->getModule().GetValue(1., -239478, 23984), 0.00001);
+    EXPECT_EQ(-1., curve_p->getModule().GetValue(-1., 239478, -23984));
+    EXPECT_EQ(1., curve_p->getModule().GetValue(-0.5, 239478, -23984));
+    EXPECT_EQ(-1., curve_p->getModule().GetValue(0., 239478, -23984));
+    EXPECT_EQ(1., curve_p->getModule().GetValue(0.5, 239478, -23984));
+    EXPECT_EQ(-1., curve_p->getModule().GetValue(1., 239478, -23984));
 
-    EXPECT_GT(0.9, crv->getModule().GetValue(-0.5, 3957, -9723));
-    EXPECT_LT(-0.9, crv->getModule().GetValue(-0.5, -3957, -9723));
-    EXPECT_GT(0.9, crv->getModule().GetValue(0.5, -3957, 9723));
-    EXPECT_LT(-0.9, crv->getModule().GetValue(0.5, -3957, 9723));
+    EXPECT_LT(-0.1, curve_p->getModule().GetValue(-0.75, 239478, -23984));
+    EXPECT_GT(1, curve_p->getModule().GetValue(-0.75, 239478, -23984));
+    EXPECT_LT(-0.1, curve_p->getModule().GetValue(-0.25, 239478, -23984));
+    EXPECT_GT(1, curve_p->getModule().GetValue(-0.25, 239478, -23984));
+    EXPECT_LT(-0.1, curve_p->getModule().GetValue(0.25, 239478, -23984));
+    EXPECT_GT(1, curve_p->getModule().GetValue(0.25, 239478, -23984));
+    EXPECT_LT(-0.1, curve_p->getModule().GetValue(0.75, 239478, -23984));
+    EXPECT_GT(1, curve_p->getModule().GetValue(0.75, 239478, -23984));
 }
