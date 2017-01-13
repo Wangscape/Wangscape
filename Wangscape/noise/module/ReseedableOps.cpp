@@ -19,7 +19,7 @@ ReseedablePtr operator+(ReseedablePtr left, ReseedablePtr right)
     return makeModuleGroup({
         {"source0", left},
         {"source1", right},
-        {"output", add_p}
+        {DEFAULT_MODULE_GROUP_OUT, add_p}
     });
 }
 
@@ -32,7 +32,7 @@ ReseedablePtr operator+(ReseedablePtr left, double right)
 
     return makeModuleGroup({
         {"source", left},
-        {"output", scale_bias_p}
+        {DEFAULT_MODULE_GROUP_OUT, scale_bias_p}
     });
 }
 
@@ -78,7 +78,7 @@ ReseedablePtr invert(ReseedablePtr source)
 
     return makeModuleGroup({
         {"source", source},
-        {"output", invert_p}
+        {DEFAULT_MODULE_GROUP_OUT, invert_p}
     });
 }
 
@@ -101,7 +101,7 @@ ReseedablePtr operator*(ReseedablePtr left, ReseedablePtr right)
     return makeModuleGroup({
         {"source0", left},
         {"source1", right},
-        {"output", multiply_p}
+        {DEFAULT_MODULE_GROUP_OUT, multiply_p}
     });
 }
 
@@ -113,7 +113,7 @@ ReseedablePtr operator*(ReseedablePtr left, double right)
 
     return makeModuleGroup({
         {"source", left},
-        {"output", scale_bias_p}
+        {DEFAULT_MODULE_GROUP_OUT, scale_bias_p}
     });
 }
 
@@ -141,7 +141,7 @@ ReseedablePtr operator/(ReseedablePtr left, ReseedablePtr right)
     return makeModuleGroup({
         {"source0", left},
         {"source1", right},
-        {"output", multiply_p}
+        {DEFAULT_MODULE_GROUP_OUT, multiply_p}
     });
 }
 
@@ -174,7 +174,7 @@ ReseedablePtr pow(ReseedablePtr base, ReseedablePtr exponent)
     return makeModuleGroup({
         {"base", base},
         {"exponent", exponent},
-        {"output", power_p}
+        {DEFAULT_MODULE_GROUP_OUT, power_p}
     });
 }
 
@@ -186,7 +186,7 @@ ReseedablePtr pow(ReseedablePtr base, double exponent)
 
     return makeModuleGroup({
         {"source", base},
-        {"output", pow_p}
+        {DEFAULT_MODULE_GROUP_OUT, pow_p}
     });
 }
 
@@ -198,7 +198,7 @@ ReseedablePtr pow(double base, ReseedablePtr exponent)
 
     return makeModuleGroup({
         {"source", exponent},
-        {"output", exp_p}
+        {DEFAULT_MODULE_GROUP_OUT, exp_p}
     });
 }
 
@@ -212,7 +212,7 @@ ReseedablePtr blend(ReseedablePtr control, ReseedablePtr source_a, ReseedablePtr
     return makeModuleGroup({
         {"source0", source_a},
         {"source1", source_b},
-        {"output", blend_p}
+        {DEFAULT_MODULE_GROUP_OUT, blend_p}
     });
 }
 
@@ -226,7 +226,7 @@ ReseedablePtr select(ReseedablePtr control, ReseedablePtr source_a, ReseedablePt
     return makeModuleGroup({
         {"source0", source_a},
         {"source1", source_b},
-        {"output", select_p}
+        {DEFAULT_MODULE_GROUP_OUT, select_p}
     });
 }
 
@@ -243,7 +243,7 @@ ReseedablePtr translate(ReseedablePtr source, ReseedablePtr x_displace, Reseedab
         {"displaceX", x_displace},
         {"displaceY", y_displace},
         {"displaceZ", z_displace},
-        {"output", displace_p}
+        {DEFAULT_MODULE_GROUP_OUT, displace_p}
     });
 }
 
@@ -257,7 +257,7 @@ ReseedablePtr translate(ReseedablePtr source, double x_displace, double y_displa
 
     return makeModuleGroup({
         {"source", source},
-        {"output", translate_point_p}
+        {DEFAULT_MODULE_GROUP_OUT, translate_point_p}
     });
 }
 
@@ -271,7 +271,7 @@ ReseedablePtr scalePoint(ReseedablePtr source, double x_scale, double y_scale, d
 
     return makeModuleGroup({
         {"source", source},
-        {"output", scale_point_p}
+        {DEFAULT_MODULE_GROUP_OUT, scale_point_p}
     });
 }
 
@@ -283,7 +283,7 @@ ReseedablePtr rotatePoint(ReseedablePtr source, double x_angle, double y_angle, 
 
     return makeModuleGroup({
         {"source", source},
-        {"output", rotate_point_p}
+        {DEFAULT_MODULE_GROUP_OUT, rotate_point_p}
     });
 }
 
@@ -298,7 +298,7 @@ ReseedablePtr turbulence(ReseedablePtr source, double frequency, double power, i
 
     return makeModuleGroup({
         {"source", source},
-        {"output", turbulence_p}
+        {DEFAULT_MODULE_GROUP_OUT, turbulence_p}
     });
 }
 
@@ -309,7 +309,7 @@ ReseedablePtr abs(ReseedablePtr source)
 
     return makeModuleGroup({
         {"source", source},
-        {"output", abs_p}
+        {DEFAULT_MODULE_GROUP_OUT, abs_p}
     });
 }
 
@@ -322,7 +322,7 @@ ReseedablePtr max(ReseedablePtr a, ReseedablePtr b)
     return makeModuleGroup({
         {"source0", a},
         {"source1", b},
-        {"output", max_p}
+        {DEFAULT_MODULE_GROUP_OUT, max_p}
     });
 }
 
@@ -346,7 +346,7 @@ ReseedablePtr min(ReseedablePtr a, ReseedablePtr b)
     return makeModuleGroup({
         {"source0", a},
         {"source1", b},
-        {"output", min_p}
+        {DEFAULT_MODULE_GROUP_OUT, min_p}
     });
 }
 
@@ -378,7 +378,7 @@ ReseedablePtr scaleBias(ReseedablePtr source, double scale, double bias)
 
     return makeModuleGroup({
         {"source", source},
-        {"output", scale_bias_p}
+        {DEFAULT_MODULE_GROUP_OUT, scale_bias_p}
     });
 }
 
@@ -390,7 +390,7 @@ ReseedablePtr terrace(ReseedablePtr source, int controlPointCount, bool inverted
     terrace_p->module.SetSourceModule(0, source->getModule());
     return makeModuleGroup({
         {"source", source},
-        {"output", terrace_p}
+        {DEFAULT_MODULE_GROUP_OUT, terrace_p}
     });
 }
 
@@ -417,7 +417,7 @@ ReseedablePtr selectQuadrant(ReseedablePtr source, bool x_positive, bool y_posit
 ReseedablePtr makeCornerCombiner(bool x_positive, bool y_positive, double power)
 {
     auto corner_combiner_base = std::make_shared<Reseedable<CornerCombinerBase>>();
-    corner_combiner_base->module.power = power;
+    corner_combiner_base->module.SetPower(power);
     ReseedablePtr result = clamp(corner_combiner_base, -1, 1);
     result = translate(result,
                        x_positive ? 0. : -1.,

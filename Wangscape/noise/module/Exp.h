@@ -7,9 +7,12 @@ namespace noise
 namespace module
 {
 
-// This is similar to noise::module::Exp.
-// However, no rescaling is performed,
-// and no attempt is made to guard against invalid operations.
+// Default base for the noise::module::Exp noise module.
+const static double DEFAULT_EXP_BASE = 2;
+
+// Raises a constant value to a variable power given by a module.
+// Complementary operation to noise::module::Pow.
+// No attempt is made to guard against invalid operations.
 // Make sure the range of the source module
 // is compatible with the base of the exponential!
 // This module names its parameter "base" rather than "exponent",
@@ -21,7 +24,7 @@ public:
     double base;
     Exp() :
         Module(GetSourceModuleCount()),
-        mBase(2.)
+        mBase(DEFAULT_EXP_BASE)
     {};
     virtual int GetSourceModuleCount() const
     {

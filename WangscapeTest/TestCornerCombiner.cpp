@@ -10,9 +10,10 @@ protected:
     noise::module::CornerCombinerBase cc2;
     noise::module::ReseedablePtr ccg2_p;
     TestCornerCombiner():
-        cc1(), cc05(0.5), cc2(2.),
         ccg2_p(noise::module::makeCornerCombiner(true, true))
     {
+        cc05.SetPower(0.5);
+        cc2.SetPower(2.);
 
     };
     ~TestCornerCombiner() {};
@@ -20,9 +21,9 @@ protected:
 
 TEST_F(TestCornerCombiner, TestCornerCombinerBasePowers)
 {
-    EXPECT_EQ(0.5, cc05.power) << "Power not correctly assigned";
-    EXPECT_EQ(1., cc1.power) << "Power not correctly assigned";
-    EXPECT_EQ(2., cc2.power) << "Power not correctly assigned";
+    EXPECT_EQ(0.5, cc05.GetPower()) << "Power not correctly assigned";
+    EXPECT_EQ(1., cc1.GetPower()) << "Power not correctly assigned";
+    EXPECT_EQ(2., cc2.GetPower()) << "Power not correctly assigned";
 }
 
 TEST_F(TestCornerCombiner, TestCornerCombinerBase1)

@@ -14,14 +14,19 @@ protected:
     std::shared_ptr<noise::module::NormLPQ> n05_05;
 
     TestNormLPQ() :
-        n1_1(std::make_shared<noise::module::NormLPQ>(1)),
-        n1_2(std::make_shared<noise::module::NormLPQ>(1, 2)),
-        n2_1(std::make_shared<noise::module::NormLPQ>(2, 1)),
-        n2_2(std::make_shared<noise::module::NormLPQ>(2, 2)),
-        n05_1(std::make_shared<noise::module::NormLPQ>(0.5, 1)),
-        n05_05(std::make_shared<noise::module::NormLPQ>(0.5, 0.5))
+        n1_1(std::make_shared<noise::module::NormLPQ>()),
+        n1_2(std::make_shared<noise::module::NormLPQ>()),
+        n2_1(std::make_shared<noise::module::NormLPQ>()),
+        n2_2(std::make_shared<noise::module::NormLPQ>()),
+        n05_1(std::make_shared<noise::module::NormLPQ>()),
+        n05_05(std::make_shared<noise::module::NormLPQ>())
     {
-
+        n1_1->setPQ(1);
+        n1_2->setPQ(1, 2);
+        n2_1->setPQ(2, 1);
+        n2_2->setPQ(2, 2);
+        n05_1->setPQ(0.5, 1);
+        n05_05->setPQ(0.5, 0.5);
     };
     ~TestNormLPQ() {};
 };

@@ -18,6 +18,7 @@ public:
 
     M module;
 };
+
 template<typename M> void Reseedable<M>::setSeed(int seed)
 { }
 

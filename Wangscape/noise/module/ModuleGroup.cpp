@@ -26,9 +26,19 @@ ModuleGroup::ModuleContainer::const_iterator ModuleGroup::cbegin() const
     return mModules.cbegin();
 }
 
-ModuleGroup::ModuleGroup(ModuleID output_id) :
+void ModuleGroup::SetOutputID(const ModuleID & output_id)
+{
+    mOutputID = output_id;
+}
+
+const ModuleGroup::ModuleID & ModuleGroup::GetOutputID() const
+{
+    return mOutputID;
+}
+
+ModuleGroup::ModuleGroup() :
     Module(GetSourceModuleCount()),
-    output_id(output_id)
+    mOutputID(DEFAULT_MODULE_GROUP_OUT)
 {
 
 };
@@ -40,7 +50,7 @@ int ModuleGroup::GetSourceModuleCount() const
 
 double ModuleGroup::GetValue(double x, double y, double z) const
 {
-    return mModules.at(output_id)->getValue(x, y, z);
+    return mModules.at(mOutputID)->getValue(x, y, z);
 }
 
 void ModuleGroup::SetSeed(int seed)
@@ -53,7 +63,7 @@ void ModuleGroup::SetSeed(int seed)
     }
 };
 
-const ModuleGroup::ModuleID ModuleGroup::DEFAULT_OUT("output");
+//const ModuleGroup::ModuleID DEFAULT_MODULE_GROUP_OUT("output");
 
 } // namespace module
 } // namespace noise

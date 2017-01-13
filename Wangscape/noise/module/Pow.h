@@ -8,8 +8,13 @@ namespace noise
 namespace module
 {
 
+// Default base for the noise::module::Exp noise module.
+const static double DEFAULT_POW_EXPONENT = 1.;
+
 // Noise module that raises a source module to an exponent.
-// No attempt is made to guard against invalid operations.
+// This is similar to noise::module::Exponent.
+// However, no rescaling is performed,
+// and no attempt is made to guard against invalid operations.
 // Make sure the range of the source module
 // is compatible with the exponent!
 // The formula is pow(source_value, exponent)
@@ -19,7 +24,7 @@ public:
     double exponent;
     Pow() :
         Module(GetSourceModuleCount()),
-        mExponent(2.)
+        mExponent(DEFAULT_POW_EXPONENT)
     {};
     virtual int GetSourceModuleCount() const
     {

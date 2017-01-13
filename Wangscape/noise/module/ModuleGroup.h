@@ -12,7 +12,7 @@ namespace module
 // A helper class to store related noise modules in one place.
 //
 // Each component module is identified with a std::string.
-// The module identified by OUTPUT_MODULE ("output") is
+// The module identified by DEFAULT_MODULE_GROUP_OUT ("output") is
 // used in calls to GetValue(x,y,z).
 // Component modules are stored in std::shared_ptrs,
 // so they may be reused in other ModuleGroups.
@@ -34,22 +34,26 @@ public:
     typedef std::string ModuleID;
     typedef std::map<ModuleID, ReseedablePtr> ModuleContainer;
 
-    const static ModuleID DEFAULT_OUT;
-    ModuleID output_id;
     ModuleGroup& insert(ModuleID name, ReseedablePtr module);
     const ReseedablePtr& at(ModuleID name) const;
     ModuleContainer::const_iterator cend() const;
     ModuleContainer::const_iterator cbegin() const;
+    void SetOutputID(const ModuleID& output_id);
+    const ModuleID& GetOutputID() const;
 
-    ModuleGroup(ModuleID output_id="output");
+    ModuleGroup();
     virtual ~ModuleGroup() = default;
     virtual int GetSourceModuleCount() const;
     virtual double GetValue(double x, double y, double z) const;
     void SetSeed(int seed);
 private:
+    ModuleID mOutputID;
     ModuleContainer mModules;
 
 };
+
+const static ModuleGroup::ModuleID DEFAULT_MODULE_GROUP_OUT = "output";
+
 
 } // namespace module
 } // namespace noise
