@@ -142,7 +142,7 @@ ReseedablePtr operator/(ReseedablePtr left, ReseedablePtr right)
 
 ReseedablePtr operator/(ReseedablePtr left, double right)
 {
-    throw std::runtime_error("Not implemented");
+    return (left * 1. / right);
 }
 
 ReseedablePtr operator/(double left, ReseedablePtr right)
@@ -157,7 +157,7 @@ ReseedablePtr& operator/=(ReseedablePtr& left, ReseedablePtr right)
 
 ReseedablePtr& operator/=(ReseedablePtr& left, double right)
 {
-    throw std::runtime_error("Not implemented");
+    return (left *= 1. / right);
 }
 
 ReseedablePtr pow(ReseedablePtr base, ReseedablePtr exponent)
