@@ -17,6 +17,7 @@ ReseedablePtr& operator+=(ReseedablePtr& left, double right);
 
 ReseedablePtr operator-(ReseedablePtr left, ReseedablePtr right);
 ReseedablePtr operator-(ReseedablePtr left, double right);
+ReseedablePtr operator-(double left, ReseedablePtr right);
 ReseedablePtr operator-(ReseedablePtr source);
 ReseedablePtr invert(ReseedablePtr source);
 ReseedablePtr& operator-=(ReseedablePtr& left, ReseedablePtr right);

@@ -61,6 +61,11 @@ ReseedablePtr operator-(ReseedablePtr left, double right)
     return left + -right;
 }
 
+ReseedablePtr operator-(double left, ReseedablePtr right)
+{
+    return left + -right;
+}
+
 ReseedablePtr operator-(ReseedablePtr source)
 {
     return invert(source);
