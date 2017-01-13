@@ -68,7 +68,7 @@ ReseedablePtr curve(ReseedablePtr source, InputIt first, InputIt last);
 ReseedablePtr makeModuleGroup(std::initializer_list<std::pair<ModuleGroup::ModuleID, ReseedablePtr>> modules);
 
 // Makes a TranslatePoint module with x and y displacements 0 or -1.
-ReseedablePtr makeQuadrantSelector(ReseedablePtr source, bool x_positive, bool y_positive);
+ReseedablePtr selectQuadrant(ReseedablePtr source, bool x_positive, bool y_positive);
 
 // Makes a CornerCombiner scaled and clamped to the interval [-1., 1.].
 ReseedablePtr makeCornerCombiner(bool x_positive, bool y_positive, double power = 2.);
@@ -77,7 +77,7 @@ ReseedablePtr makeCornerCombiner(bool x_positive, bool y_positive, double power 
 ReseedablePtr makeEdgeFavouringMask(double p, double q = 1., double min = -1.);
 
 // Makes a noise module that rescales a module from range [-1,1] to range [min,max].
-ReseedablePtr makeMovingScaleBias(ReseedablePtr source, ReseedablePtr min, ReseedablePtr max);
+ReseedablePtr makeVariableScaleBias(ReseedablePtr source, ReseedablePtr min, ReseedablePtr max);
 
 // Makes a noise module with value equal to x.
 ReseedablePtr makeX();
@@ -91,7 +91,7 @@ ReseedablePtr makeZ();
 // Makes a constant noise module with value c.
 ReseedablePtr makeConst(double c);
 
-// Makes a MovingScaleBias instance with ranges:
+// Makes a VariableScaleBias instance with ranges:
 // [1,1] when d((x,y),origin) == 0,
 // [0,0] when d((x,y),origin) >= length,
 // [0,1] when d((x,y),origin) == length/2,
@@ -99,7 +99,7 @@ ReseedablePtr makeConst(double c);
 // The middle_length parameter controls the size
 // of the region with range [0,1].
 // It must be less than length.
-ReseedablePtr makeLinearMovingScaleBias(ReseedablePtr source,
+ReseedablePtr makeLinearVariableScaleBias(ReseedablePtr source,
                                         bool x_positive, bool y_positive,
                                         double length = 1., double middle_length = 0.);
 

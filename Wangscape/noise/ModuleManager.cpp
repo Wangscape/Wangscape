@@ -31,13 +31,13 @@ ModuleManager::ModuleManager(const Options & options) :
 module::ReseedablePtr ModuleManager::getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive)
 {
     ReseedablePtr& r = mBordersVertical.at({top, bottom});
-    return module::makeQuadrantSelector(r, x_positive, true);
+    return module::selectQuadrant(r, x_positive, true);
 }
 
 module::ReseedablePtr ModuleManager::getBorderHorizontal(TerrainID left, TerrainID right, bool y_positive)
 {
     ReseedablePtr& r = mBordersHorizontal.at({left, right});
-    return module::makeQuadrantSelector(r, true, y_positive);
+    return module::selectQuadrant(r, true, y_positive);
 }
 
 module::ReseedablePtr& ModuleManager::getStochastic(TerrainID terrain)

@@ -25,7 +25,7 @@ TilePartitionerPerlin::ReseedablePtr TilePartitionerPerlin::makeCornerModule(con
                                                                 left);
     ReseedablePtr cc = noise::module::makeCornerCombiner(left,top);
     ReseedablePtr border_xy = noise::module::blend(cc, border_v, border_h);
-    ReseedablePtr deterministic = noise::module::makeLinearMovingScaleBias(border_xy, left, top, 0.85, 0.15);
+    ReseedablePtr deterministic = noise::module::makeLinearVariableScaleBias(border_xy, left, top, 0.85, 0.15);
     ReseedablePtr ef = noise::module::makeEdgeFavouringMask(1.5, 1.);
     ReseedablePtr corner = noise::module::blend(ef, stochastic_mask, deterministic);
     // postprocess should be customisable

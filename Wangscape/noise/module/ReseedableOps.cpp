@@ -399,7 +399,7 @@ ReseedablePtr makeModuleGroup(std::initializer_list<std::pair<ModuleGroup::Modul
     return module_group;
 }
 
-ReseedablePtr makeQuadrantSelector(ReseedablePtr source, bool x_positive, bool y_positive)
+ReseedablePtr selectQuadrant(ReseedablePtr source, bool x_positive, bool y_positive)
 {
     if (x_positive && y_positive)
         return source;
@@ -432,7 +432,7 @@ ReseedablePtr makeEdgeFavouringMask(double p, double q, double min)
     return result;
 }
 
-ReseedablePtr makeMovingScaleBias(ReseedablePtr source, ReseedablePtr min, ReseedablePtr max)
+ReseedablePtr makeVariableScaleBias(ReseedablePtr source, ReseedablePtr min, ReseedablePtr max)
 {
     return ((source + 1)*0.5*(max - min)) + min;
 }
@@ -459,22 +459,22 @@ ReseedablePtr makeConst(double c)
     return c_p;
 }
 
-ReseedablePtr makeLinearMovingScaleBias(ReseedablePtr source,
+ReseedablePtr makeLinearVariableScaleBias(ReseedablePtr source,
                                         bool x_positive, bool y_positive,
                                         double length, double middle_length)
 {
     if (length <= middle_length)
-        throw std::domain_error("LinearMovingScaleBias must have length greater than middle_length");
+        throw std::domain_error("LinearVariableScaleBias must have length greater than middle_length");
     ReseedablePtr xa = abs(makeX());
     ReseedablePtr ya = abs(makeY());
     double slope_length = (length - middle_length) / 2.;
     double slope = 1. / slope_length;
     double intercept = length*slope;
     ReseedablePtr peak = (xa + ya)*(-slope);
-    ReseedablePtr peak_translated = makeQuadrantSelector(peak, x_positive, y_positive);
+    ReseedablePtr peak_translated = selectQuadrant(peak, x_positive, y_positive);
     ReseedablePtr min = clamp(peak_translated + 1, 0, 1);
     ReseedablePtr max = clamp(peak_translated + intercept, 0, 1);
-    return makeMovingScaleBias(source, min, max);
+    return makeVariableScaleBias(source, min, max);
 }
 
 ReseedablePtr makePlaceholder(int seed)

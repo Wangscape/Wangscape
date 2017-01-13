@@ -49,14 +49,14 @@ TEST_F(TestTileGenerationPlan, TestTileGenerationPlan)
     write_map(y, "y", nmixy);
     write_map(y, "y_", nmixy_);
 
-    ReseedablePtr msb_max_xy = noise::module::makeLinearMovingScaleBias(c1, true, true, 0.7, 0.25);
-    ReseedablePtr msb_max_xy_ = noise::module::makeLinearMovingScaleBias(c1, true, false, 0.7, 0.25);
-    ReseedablePtr msb_max_x_y = noise::module::makeLinearMovingScaleBias(c1, false, true, 0.7, 0.25);
-    ReseedablePtr msb_max_x_y_ = noise::module::makeLinearMovingScaleBias(c1, false, false, 0.7, 0.25);
-    ReseedablePtr msb_min_xy = noise::module::makeLinearMovingScaleBias(-c1, true, true, 0.7, 0.25);
-    ReseedablePtr msb_min_xy_ = noise::module::makeLinearMovingScaleBias(-c1, true, false, 0.7, 0.25);
-    ReseedablePtr msb_min_x_y = noise::module::makeLinearMovingScaleBias(-c1, false, true, 0.7, 0.25);
-    ReseedablePtr msb_min_x_y_ = noise::module::makeLinearMovingScaleBias(-c1, false, false, 0.7, 0.25);
+    ReseedablePtr msb_max_xy = noise::module::makeLinearVariableScaleBias(c1, true, true, 0.7, 0.25);
+    ReseedablePtr msb_max_xy_ = noise::module::makeLinearVariableScaleBias(c1, true, false, 0.7, 0.25);
+    ReseedablePtr msb_max_x_y = noise::module::makeLinearVariableScaleBias(c1, false, true, 0.7, 0.25);
+    ReseedablePtr msb_max_x_y_ = noise::module::makeLinearVariableScaleBias(c1, false, false, 0.7, 0.25);
+    ReseedablePtr msb_min_xy = noise::module::makeLinearVariableScaleBias(-c1, true, true, 0.7, 0.25);
+    ReseedablePtr msb_min_xy_ = noise::module::makeLinearVariableScaleBias(-c1, true, false, 0.7, 0.25);
+    ReseedablePtr msb_min_x_y = noise::module::makeLinearVariableScaleBias(-c1, false, true, 0.7, 0.25);
+    ReseedablePtr msb_min_x_y_ = noise::module::makeLinearVariableScaleBias(-c1, false, false, 0.7, 0.25);
 
     write_map(msb_max_xy, "msb_max_xy", nmixy);
     write_map(msb_max_x_y, "msb_max_x_y", nmixy);
@@ -92,7 +92,7 @@ TEST_F(TestTileGenerationPlan, TestTileGenerationPlan)
     ReseedablePtr border_xy = blend(cc, border_y, border_x);
     write_map(border_xy, "border_xy", nmixy);
 
-    ReseedablePtr deterministic = noise::module::makeLinearMovingScaleBias(border_xy, true, true, 0.7, 0.25);
+    ReseedablePtr deterministic = noise::module::makeLinearVariableScaleBias(border_xy, true, true, 0.7, 0.25);
     write_map(deterministic, "deterministic", nmixy);
 
     ReseedablePtr ef = noise::module::makeEdgeFavouringMask(1.5, 1.);
