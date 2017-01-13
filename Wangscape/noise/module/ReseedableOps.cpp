@@ -212,6 +212,7 @@ ReseedablePtr blend(ReseedablePtr control, ReseedablePtr source_a, ReseedablePtr
     return makeModuleGroup({
         {"source0", source_a},
         {"source1", source_b},
+        {"control", control},
         {DEFAULT_MODULE_GROUP_OUT, blend_p}
     });
 }
@@ -226,6 +227,7 @@ ReseedablePtr select(ReseedablePtr control, ReseedablePtr source_a, ReseedablePt
     return makeModuleGroup({
         {"source0", source_a},
         {"source1", source_b},
+        {"control", control},
         {DEFAULT_MODULE_GROUP_OUT, select_p}
     });
 }
