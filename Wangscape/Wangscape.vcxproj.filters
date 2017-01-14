@@ -200,6 +200,9 @@
     <ClInclude Include="noise\module\codecs\NoiseQualityCodec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="noise\module\codecs\VoronoiCodec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

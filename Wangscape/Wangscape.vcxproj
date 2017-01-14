@@ -169,6 +169,7 @@
     <ClInclude Include="metaoutput\Tileset.h" />
     <ClInclude Include="noise\module\codecs\NoiseQualityCodec.h" />
     <ClInclude Include="noise\module\codecs\PerlinCodec.h" />
+    <ClInclude Include="noise\module\codecs\VoronoiCodec.h" />
     <ClInclude Include="noise\module\Pow.h" />
     <ClInclude Include="noise\module\CornerCombinerBase.h" />
     <ClInclude Include="noise\module\Exp.h" />

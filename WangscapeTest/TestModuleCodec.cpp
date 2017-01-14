@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <noise/module/codecs/PerlinCodec.h>
+#include <noise/module/codecs/VoronoiCodec.h>
 
 class TestModuleCodec : public ::testing::Test {
 protected:
@@ -20,7 +21,7 @@ TEST_F(TestModuleCodec, TestPerlinCodec)
 
 TEST_F(TestModuleCodec, TestVoronoiCodec)
 {
-    noise::module::Voronoi p;
-    std::string s(spotify::json::encode(p));
+    noise::module::Voronoi v;
+    std::string s(spotify::json::encode(v));
     ASSERT_FALSE(true) << s;
 }

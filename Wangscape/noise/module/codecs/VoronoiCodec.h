@@ -4,8 +4,6 @@
 
 #include <noise/noise.h>
 
-#include "NoiseQualityCodec.h"
-
 namespace spotify
 {
 namespace json
