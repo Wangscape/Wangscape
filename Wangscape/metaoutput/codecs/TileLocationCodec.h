@@ -4,8 +4,6 @@
 
 #include "metaoutput/TileLocation.h"
 
-using namespace spotify::json::codec;
-
 namespace spotify
 {
 namespace json
@@ -14,9 +12,9 @@ namespace json
 template<>
 struct default_codec_t<metaoutput::TileLocation>
 {
-    static object_t<metaoutput::TileLocation> codec()
+    static codec::object_t<metaoutput::TileLocation> codec()
     {
-        auto codec = object<metaoutput::TileLocation>();
+        auto codec = codec::object<metaoutput::TileLocation>();
         codec.required("filename", &metaoutput::TileLocation::filename);
         codec.required("x", &metaoutput::TileLocation::x);
         codec.required("y", &metaoutput::TileLocation::y);

@@ -4,8 +4,6 @@
 
 #include "metaoutput/Filenames.h"
 
-using namespace spotify::json::codec;
-
 namespace spotify
 {
 namespace json
@@ -14,9 +12,9 @@ namespace json
 template<>
 struct default_codec_t<metaoutput::Filenames>
 {
-    static object_t<metaoutput::Filenames> codec()
+    static codec::object_t<metaoutput::Filenames> codec()
     {
-        auto codec = object<metaoutput::Filenames>();
+        auto codec = codec::object<metaoutput::Filenames>();
         codec.required("TileData", &metaoutput::Filenames::tileDataFilename);
         codec.required("TileGroups", &metaoutput::Filenames::tileGroupsFilename);
         codec.required("TilesetData", &metaoutput::Filenames::tilesetDataFilename);
