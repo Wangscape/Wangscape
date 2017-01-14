@@ -2,6 +2,7 @@
 #include "noise/module/ModuleFactories.h"
 #include "noise/RasterValues.h"
 #include "noise/module/Pow.h"
+#include "tilegen/alpha/AlphaCalculatorMax.h"
 #include "tilegen/alpha/AlphaCalculatorLinear.h"
 
 namespace tilegen
@@ -38,7 +39,18 @@ void TilePartitionerPerlin::noiseToAlpha(std::vector<noise::RasterValues<double>
                                          size_t resolution) const
 {
     std::vector<double> weights((int)CORNERS);
-    alpha::AlphaCalculatorLinear ac;
+    std::unique_ptr<alpha::AlphaCalculatorBase> ac;
+    switch (mOptions.alphaCalculatorMode)
+    {
+    case alpha::AlphaCalculatorMode::Max:
+        ac = std::make_unique<alpha::AlphaCalculatorMax>();
+        break;
+    case alpha::AlphaCalculatorMode::Linear:
+        ac = std::make_unique<alpha::AlphaCalculatorLinear>();
+        break;
+    default:
+        throw std::runtime_error("Invalid AlphaCalculatorMode");
+    }
     for (size_t x = 0; x < resolution; x++)
     {
         for (size_t y = 0; y < resolution; y++)
@@ -48,8 +60,8 @@ void TilePartitionerPerlin::noiseToAlpha(std::vector<noise::RasterValues<double>
                 weights[i] = noise_values[i].get(x, y);
             }
 
-            ac.updateAlphas(weights);
-            const auto& alphas = ac.getAlphas();
+            ac->updateAlphas(weights);
+            const auto& alphas = ac->getAlphas();
             for (int i = 0; i < (int)CORNERS; i++)
             {
                 outputs[i].setPixel(x, y, sf::Color(255, 255, 255, alphas[i]));

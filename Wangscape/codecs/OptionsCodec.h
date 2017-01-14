@@ -25,7 +25,11 @@ struct default_codec_t<Options>
         codec.required("TileFormat", &Options::tileFormat);
         codec.required("Cliques", &Options::cliques);
         codec.required("MetaOutput", &Options::outputFilenames);
-
+        codec.required("AlphaCalculatorMode", &Options::alphaCalculatorMode,
+                       codec::enumeration<tilegen::alpha::AlphaCalculatorMode, std::string>({
+                           {tilegen::alpha::AlphaCalculatorMode::Max, "Max"},
+                           {tilegen::alpha::AlphaCalculatorMode::Linear, "Linear"}}));
+        
         return codec;
     }
 };

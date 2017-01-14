@@ -191,6 +191,9 @@
     <ClInclude Include="TileFormat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="tilegen\alpha\AlphaCalculatorMode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
