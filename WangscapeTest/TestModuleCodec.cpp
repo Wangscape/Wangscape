@@ -17,3 +17,10 @@ TEST_F(TestModuleCodec, TestPerlinCodec)
     std::string s(spotify::json::encode(p));
     ASSERT_FALSE(true) << s;
 }
+
+TEST_F(TestModuleCodec, TestVoronoiCodec)
+{
+    noise::module::Voronoi p;
+    std::string s(spotify::json::encode(p));
+    ASSERT_FALSE(true) << s;
+}
