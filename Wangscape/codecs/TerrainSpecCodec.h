@@ -4,8 +4,6 @@
 
 #include "TerrainSpec.h"
 
-using namespace spotify::json::codec;
-
 namespace spotify
 {
 namespace json
@@ -14,9 +12,9 @@ namespace json
 template<>
 struct default_codec_t<TerrainSpec>
 {
-    static object_t<TerrainSpec> codec()
+    static codec::object_t<TerrainSpec> codec()
     {
-        auto codec = object<TerrainSpec>();
+        auto codec = codec::object<TerrainSpec>();
         codec.required("FullName", &TerrainSpec::fullName);
         codec.required("FileName", &TerrainSpec::fileName);
         codec.required("OffsetX", &TerrainSpec::offsetX);
