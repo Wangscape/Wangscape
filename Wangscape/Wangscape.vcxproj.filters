@@ -194,6 +194,12 @@
     <ClInclude Include="noise\module\ReseedableOps.h">
       <Filter>Header Files\noise\module</Filter>
     </ClInclude>
+    <ClInclude Include="noise\module\codecs\PerlinCodec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\codecs\NoiseQualityCodec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

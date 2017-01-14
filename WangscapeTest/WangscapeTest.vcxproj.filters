@@ -54,6 +54,9 @@
     <ClCompile Include="TestTilePartitionerSquares.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestModuleCodec.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

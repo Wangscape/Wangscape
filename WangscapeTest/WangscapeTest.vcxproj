@@ -154,6 +154,7 @@
     <ClCompile Include="TestCornerCombiner.cpp" />
     <ClCompile Include="TestEdgeFavouringMask.cpp" />
     <ClCompile Include="TestMetaOutput.cpp" />
+    <ClCompile Include="TestModuleCodec.cpp" />
     <ClCompile Include="TestModuleGroup.cpp" />
     <ClCompile Include="TestMovingScaleBias.cpp" />
     <ClCompile Include="TestNormLPQ.cpp" />
