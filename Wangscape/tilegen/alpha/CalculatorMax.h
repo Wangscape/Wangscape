@@ -1,12 +1,12 @@
 #pragma once
-#include "AlphaCalculatorBase.h"
+#include "CalculatorBase.h"
 
 namespace tilegen
 {
 namespace alpha
 {
 
-class AlphaCalculatorMax : public AlphaCalculatorBase
+class CalculatorMax : public CalculatorBase
 {
 protected:
     virtual void updateAlphasAux(const Weights& weights);

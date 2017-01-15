@@ -5,7 +5,7 @@ namespace tilegen
 namespace alpha
 {
 
-enum class AlphaCalculatorMode
+enum class CalculatorMode
 {
     Max,
     Linear

@@ -2,8 +2,8 @@
 #include "noise/module/ModuleFactories.h"
 #include "noise/RasterValues.h"
 #include "noise/module/Pow.h"
-#include "tilegen/alpha/AlphaCalculatorMax.h"
-#include "tilegen/alpha/AlphaCalculatorLinear.h"
+#include "tilegen/alpha/CalculatorMax.h"
+#include "tilegen/alpha/CalculatorLinear.h"
 
 namespace tilegen
 {
@@ -39,17 +39,17 @@ void TilePartitionerPerlin::noiseToAlpha(std::vector<noise::RasterValues<double>
                                          size_t resolution) const
 {
     std::vector<double> weights((int)CORNERS);
-    std::unique_ptr<alpha::AlphaCalculatorBase> ac;
-    switch (mOptions.alphaCalculatorMode)
+    std::unique_ptr<alpha::CalculatorBase> ac;
+    switch (mOptions.CalculatorMode)
     {
-    case alpha::AlphaCalculatorMode::Max:
-        ac = std::make_unique<alpha::AlphaCalculatorMax>();
+    case alpha::CalculatorMode::Max:
+        ac = std::make_unique<alpha::CalculatorMax>();
         break;
-    case alpha::AlphaCalculatorMode::Linear:
-        ac = std::make_unique<alpha::AlphaCalculatorLinear>();
+    case alpha::CalculatorMode::Linear:
+        ac = std::make_unique<alpha::CalculatorLinear>();
         break;
     default:
-        throw std::runtime_error("Invalid AlphaCalculatorMode");
+        throw std::runtime_error("Invalid CalculatorMode");
     }
     for (size_t x = 0; x < resolution; x++)
     {

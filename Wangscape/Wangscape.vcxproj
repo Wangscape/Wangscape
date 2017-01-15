@@ -183,10 +183,10 @@
     <ClInclude Include="TerrainImages.h" />
     <ClInclude Include="TerrainSpec.h" />
     <ClInclude Include="TileFormat.h" />
-    <ClInclude Include="tilegen\alpha\AlphaCalculatorBase.h" />
-    <ClInclude Include="tilegen\alpha\AlphaCalculatorLinear.h" />
-    <ClInclude Include="tilegen\alpha\AlphaCalculatorMax.h" />
-    <ClInclude Include="tilegen\alpha\AlphaCalculatorMode.h" />
+    <ClInclude Include="tilegen\alpha\CalculatorBase.h" />
+    <ClInclude Include="tilegen\alpha\CalculatorLinear.h" />
+    <ClInclude Include="tilegen\alpha\CalculatorMax.h" />
+    <ClInclude Include="tilegen\alpha\CalculatorMode.h" />
     <ClInclude Include="tilegen\partition\TilePartitionerBase.h" />
     <ClInclude Include="tilegen\partition\TilePartitionerGradient.h" />
     <ClInclude Include="tilegen\partition\TilePartitionerPerlin.h" />
@@ -212,9 +212,9 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="OptionsManager.cpp" />
     <ClCompile Include="TerrainImages.cpp" />
-    <ClCompile Include="tilegen\alpha\AlphaCalculatorBase.cpp" />
-    <ClCompile Include="tilegen\alpha\AlphaCalculatorLinear.cpp" />
-    <ClCompile Include="tilegen\alpha\AlphaCalculatorMax.cpp" />
+    <ClCompile Include="tilegen\alpha\CalculatorBase.cpp" />
+    <ClCompile Include="tilegen\alpha\CalculatorLinear.cpp" />
+    <ClCompile Include="tilegen\alpha\CalculatorMax.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerBase.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerGradient.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerPerlin.cpp" />

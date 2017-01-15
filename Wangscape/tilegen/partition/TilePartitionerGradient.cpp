@@ -1,5 +1,5 @@
 #include "TilePartitionerGradient.h"
-#include "tilegen/alpha/AlphaCalculatorLinear.h"
+#include "tilegen/alpha/CalculatorLinear.h"
 #include <utility>
 
 namespace tilegen
@@ -28,7 +28,7 @@ void TilePartitionerGradient::makePartition(TilePartition & regions,
     std::vector<double> weights(corners.size(), 0.);
     const int resolution_sub_1 = mOptions.tileFormat.resolution - 1;
     const int quarter_res = mOptions.tileFormat.resolution / 4;
-    alpha::AlphaCalculatorLinear ac;
+    alpha::CalculatorLinear ac;
     for (size_t x = 0; x < mOptions.tileFormat.resolution; x++)
     {
         for (size_t y = 0; y < mOptions.tileFormat.resolution; y++)
