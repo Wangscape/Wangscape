@@ -28,7 +28,7 @@ void OptionsManager::loadOptions(std::string optionsFilename)
     {
         mOptions = spotify::json::decode<Options>(str.c_str());
     }
-    catch (spotify::json::decode_exception e)
+    catch (const spotify::json::decode_exception& e)
     {
         std::cout << "spotify::json::decode_exception encountered at "
             << e.offset()
