@@ -17,9 +17,12 @@ public:
     static_assert(std::is_base_of<std::forward_iterator_tag,
                                   typename std::iterator_traits<ForwardIt>::iterator_category>::value,
                   "ForwardIt must be at least a ForwardIterator");
+
     typedef std::vector<typename ForwardIt::value_type> Values;
     typedef std::vector<ForwardIt> Iterators;
     typedef std::vector<size_t> Coordinates;
+    typedef const Values& reference;
+    typedef const Values* pointer;
 
     CartesianPowerIterator(ForwardIt first_, size_t base_size_, size_t init_coordinate_, size_t power_);
 
@@ -36,14 +39,14 @@ public:
     CartesianPowerIterator& operator++();
 
 
-    const Values& getValues() const;
+    reference getValues() const;
     const typename ForwardIt::value_type& getValue(size_t n) const;
     const Iterators& getIterators() const;
     const ForwardIt& getIterator(size_t n) const;
     const Coordinates& getCoordinates() const;
     const size_t getCoordinate(size_t n) const;
 
-    const Values& operator*() const;
+    reference operator*() const;
     const typename ForwardIt::value_type& operator[](size_t n) const;
 
     std::pair<size_t, size_t> coordinates_2d() const;
@@ -129,7 +132,7 @@ inline bool CartesianPowerIterator<ForwardIt>::operator!=(const CartesianPowerIt
 }
 
 template<typename ForwardIt>
-inline const typename CartesianPowerIterator<ForwardIt>::Values& CartesianPowerIterator<ForwardIt>::operator*() const
+inline typename CartesianPowerIterator<ForwardIt>::reference CartesianPowerIterator<ForwardIt>::operator*() const
 {
     return getValues();
 }
@@ -141,7 +144,7 @@ inline const typename ForwardIt::value_type & CartesianPowerIterator<ForwardIt>:
 }
 
 template<typename ForwardIt>
-inline const typename CartesianPowerIterator<ForwardIt>::Values & CartesianPowerIterator<ForwardIt>::getValues() const
+inline typename CartesianPowerIterator<ForwardIt>::reference CartesianPowerIterator<ForwardIt>::getValues() const
 {
     return mValues;
 }
