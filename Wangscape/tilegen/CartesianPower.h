@@ -23,8 +23,6 @@ public:
 
     const_iterator cbegin() const;
     const_iterator cend() const;
-    const_iterator begin() const;
-    const_iterator end() const;
     iterator begin() const;
     iterator end() const;
 
