@@ -87,28 +87,18 @@ template<typename InputIt>
 inline size_t CartesianPower<InputIt>::size() const
 {
     size_t base_size = std::distance(first, last);
-    size_t result = 1;
-    for (size_t i = 0; i < power; i++)
-    {
-        result *= base_size;
-    }
-    return result;
+    return pow(base_size, power);
 }
 
 template<typename InputIt>
 inline std::pair<size_t, size_t> CartesianPower<InputIt>::size_2d(size_t resolution) const
 {
     size_t clique_size = std::distance(first, last);
-    auto div_mod = std::div((int)power, 2);
-
-    size_t res_y = resolution;
-    for (int i = 0; i < div_mod.quot; i++)
-        res_y *= clique_size;
-
+    std::div_t div_mod = std::div((int)power, 2);
+    size_t res_y = resolution*pow(clique_size, (size_t)div_mod.quot);
     size_t res_x = res_y;
     if (div_mod.rem != 0)
         res_x *= clique_size;
-
     return{res_x, res_y};
 }
 
