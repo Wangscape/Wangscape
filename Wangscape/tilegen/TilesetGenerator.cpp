@@ -28,8 +28,8 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
     boost::filesystem::path p(options.relativeOutputDirectory);
     for (const auto& clique : options.cliques)
     {
-        CornersGenerator cp(clique, static_cast<size_t>(CORNERS));
-        std::pair<size_t, size_t> tileset_resolution = cp.size_2d(options.tileFormat.resolution);
+        CornersGenerator corners_generator(clique, static_cast<size_t>(CORNERS));
+        std::pair<size_t, size_t> tileset_resolution = corners_generator.size_2d(options.tileFormat.resolution);
         size_t res_x = tileset_resolution.first;
         size_t res_y = tileset_resolution.second;
         std::unique_ptr<sf::RenderTexture> output{getBlankImage(res_x, res_y)};
@@ -54,12 +54,12 @@ void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderT
     for (auto it = cp.cbegin(); it != cp.cend(); ++it)
     {
         const auto& corner_terrains = *it;
-        std::pair<size_t, size_t> tp = it.coordinates_2d();
-        TileGenerator::generate(image, tp.first, tp.second, corner_terrains,
+        std::pair<size_t, size_t> tile_position = it.coordinates_2d();
+        TileGenerator::generate(image, tile_position.first, tile_position.second, corner_terrains,
                                 images, options, *mTilePartitioner.get());
         mo.addTile(corner_terrains, filename,
-                   tp.first*options.tileFormat.resolution,
-                   tp.second*options.tileFormat.resolution);
+                   tile_position.first*options.tileFormat.resolution,
+                   tile_position.second*options.tileFormat.resolution);
     }
 }
 
