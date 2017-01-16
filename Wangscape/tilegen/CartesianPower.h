@@ -1,6 +1,7 @@
 #pragma once
 #include "CartesianPowerIterator.h"
 #include <utility>
+#include <iostream>
 
 namespace tilegen
 {
@@ -37,7 +38,15 @@ inline CartesianPower<InputIt>::CartesianPower(InputIt first_, InputIt last_, si
     last(last_),
     power(power_)
 {
-    // TODO add warning to log if power is not 3, 4, or 6
+    switch (power_)
+    {
+    case static_cast<size_t>(Corners::Triangle) :
+    case static_cast<size_t>(Corners::Square) :
+    case static_cast<size_t>(Corners::Hexagon) :
+        break;
+    default:
+        std::cerr << "Warning: CartesianPower constructed with power not 3, 4, or 6";
+    }
 }
 
 template<typename InputIt>
