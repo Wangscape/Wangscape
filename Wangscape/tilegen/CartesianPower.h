@@ -53,8 +53,8 @@ inline CartesianPower<ForwardIt>::CartesianPower(ForwardIt first_, ForwardIt las
 
 template<typename ForwardIt>
 template<typename Container>
-inline CartesianPower<ForwardIt>::CartesianPower(const Container & container, size_t power_) :
-    CartesianPower(container.cbegin(), container.cend(), power_)
+inline CartesianPower<ForwardIt>::CartesianPower(const Container & container_, size_t power_) :
+    CartesianPower(container_.cbegin(), container_.cend(), power_)
 {
     static_assert(std::is_same<typename Container::const_iterator,
                                ForwardIt>::value,

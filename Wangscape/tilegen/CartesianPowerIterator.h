@@ -20,7 +20,7 @@ public:
     typedef std::vector<typename ForwardIt::value_type> Values;
     typedef std::vector<ForwardIt> Iterators;
 
-    CartesianPowerIterator(ForwardIt first_, ForwardIt last_, ForwardIt init, size_t power);
+    CartesianPowerIterator(ForwardIt first_, ForwardIt last_, ForwardIt init_, size_t power_);
 
     const ForwardIt& getFirst() const;
     const ForwardIt& getLast() const;
@@ -52,9 +52,9 @@ private:
 };
 
 template<typename ForwardIt>
-inline CartesianPowerIterator<ForwardIt>::CartesianPowerIterator(ForwardIt first, ForwardIt last, ForwardIt init, size_t power) :
-    mFirst(first), mLast(last),
-    mIterators(power, init)
+inline CartesianPowerIterator<ForwardIt>::CartesianPowerIterator(ForwardIt first_, ForwardIt last_, ForwardIt init_, size_t power_) :
+    mFirst(first_), mLast(last_),
+    mIterators(power_, init_)
 {
     if (init != last)
         for (const auto& it : mIterators)
