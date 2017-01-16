@@ -186,16 +186,16 @@ TEST_F(TestCartesianPower, TestCoordinatePackerDomain)
     EXPECT_ANY_THROW(coord_packer0.addCoordinate(10));
     EXPECT_ANY_THROW(coord_packer0.addCoordinate(11));
 }
-TEST_F(TestCartesianPower, TestCoordinatePackerDomain)
+TEST_F(TestCartesianPower, TestCoordinatePackerSize)
 {
     tilegen::CoordinatePacker<size_t> coord_packer0(0);
     EXPECT_EQ(0, coord_packer0.size());
     tilegen::CoordinatePacker<size_t> coord_packer1(1);
-    EXPECT_EQ(0, coord_packer1.size());
+    EXPECT_EQ(1, coord_packer1.size());
     tilegen::CoordinatePacker<size_t> coord_packer2(2);
-    EXPECT_EQ(0, coord_packer2.size());
+    EXPECT_EQ(2, coord_packer2.size());
     tilegen::CoordinatePacker<size_t> coord_packer10(10);
-    EXPECT_EQ(0, coord_packer10.size());
+    EXPECT_EQ(10, coord_packer10.size());
 }
 
 TEST_F(TestCartesianPower, TestCoordinatePacker1)
