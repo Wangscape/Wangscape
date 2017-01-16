@@ -137,6 +137,12 @@ TEST_F(TestCartesianPower, TestCartesianPowerCoordinates)
     EXPECT_EQ(0, it.getCoordinate(3));
 }
 
+TEST_F(TestCartesianPower, TestCartesianPowerArrow)
+{
+    auto it = cp.cbegin();
+    EXPECT_EQ(cp.power, it->size());
+}
+
 TEST_F(TestCartesianPower, TestCartesianPowerValues)
 {
     auto it = cp.cbegin();

@@ -34,11 +34,6 @@ public:
 
     bool isEnd() const;
 
-    bool operator==(const CartesianPowerIterator& other) const;
-    bool operator!=(const CartesianPowerIterator& other) const;
-    CartesianPowerIterator& operator++();
-
-
     reference getValues() const;
     const typename ForwardIt::value_type& getValue(size_t n) const;
     const Iterators& getIterators() const;
@@ -46,7 +41,11 @@ public:
     const Coordinates& getCoordinates() const;
     const size_t getCoordinate(size_t n) const;
 
+    bool operator==(const CartesianPowerIterator& other) const;
+    bool operator!=(const CartesianPowerIterator& other) const;
+    CartesianPowerIterator& operator++();
     reference operator*() const;
+    pointer operator->() const;
     const typename ForwardIt::value_type& operator[](size_t n) const;
 
     std::pair<size_t, size_t> coordinates_2d() const;
@@ -135,6 +134,12 @@ template<typename ForwardIt>
 inline typename CartesianPowerIterator<ForwardIt>::reference CartesianPowerIterator<ForwardIt>::operator*() const
 {
     return getValues();
+}
+
+template<typename ForwardIt>
+inline typename CartesianPowerIterator<ForwardIt>::pointer CartesianPowerIterator<ForwardIt>::operator->() const
+{
+    return &getValues();
 }
 
 template<typename ForwardIt>
