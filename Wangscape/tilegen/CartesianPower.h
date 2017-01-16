@@ -14,6 +14,7 @@ public:
                                   typename std::iterator_traits<InputIt>::iterator_category>::value,
                   "InputIt must be at least an InputIterator");
     typedef CartesianPowerIterator<InputIt> const_iterator;
+    typedef const_iterator iterator;
 
     CartesianPower(InputIt first_, InputIt last_, size_t power_);
     template<typename Container>
@@ -23,6 +24,8 @@ public:
     const_iterator cend() const;
     const_iterator begin() const;
     const_iterator end() const;
+    iterator begin() const;
+    iterator end() const;
 
     size_t size() const;
     std::pair<size_t, size_t> size_2d(size_t resolution) const;
