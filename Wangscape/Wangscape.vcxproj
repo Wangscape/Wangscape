@@ -188,6 +188,7 @@
     <ClInclude Include="tilegen\alpha\AlphaCalculatorBase.h" />
     <ClInclude Include="tilegen\alpha\AlphaCalculatorLinear.h" />
     <ClInclude Include="tilegen\alpha\AlphaCalculatorMax.h" />
+    <ClInclude Include="tilegen\CoordinatePacker.h" />
     <ClInclude Include="tilegen\partition\TilePartitionerBase.h" />
     <ClInclude Include="tilegen\partition\TilePartitionerGradient.h" />
     <ClInclude Include="tilegen\partition\TilePartitionerPerlin.h" />
