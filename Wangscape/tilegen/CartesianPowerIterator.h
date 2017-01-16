@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <utility>
 #include "common.h"
+#include "CoordinatePacker.h"
 
 namespace tilegen
 {
@@ -147,15 +148,18 @@ template<typename InputIt>
 inline std::pair<size_t, size_t> CartesianPowerIterator<InputIt>::coordinates_2d() const
 {
     size_t clique_size = std::distance(getFirst(), getLast());
-    size_t x = 0; size_t y = 0;
-    for (size_t i = 0; i < static_cast<size_t>(CORNERS); i++)
+    CoordinatePacker<size_t> x(clique_size);
+    for (size_t i = 0; i < static_cast<size_t>(CORNERS); i += 2)
     {
-        size_t& z = ((i + 1) % 2) ? x : y;
-        z *= clique_size;
-        z += coordinate(i);
+        x.addCoordinate(coordinate(i));
     }
-    return{x, y};
-}
+    CoordinatePacker<size_t> y(clique_size);
+    for (size_t i = 1; i < static_cast<size_t>(CORNERS); i += 2)
+    {
+        y.addCoordinate(coordinate(i));
+    }
 
+    return{x.packed(), y.packed()};
+}
 
 } // namespace tilegen
