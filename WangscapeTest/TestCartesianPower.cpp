@@ -88,40 +88,40 @@ TEST_F(TestCartesianPower, TestCartesianPowerRange)
 TEST_F(TestCartesianPower, TestCartesianPowerValueBegin)
 {
     auto it = cp.cbegin();
-    EXPECT_EQ(4, it.get(0));
-    EXPECT_EQ(4, it.get(1));
-    EXPECT_EQ(4, it.get(2));
-    EXPECT_EQ(4, it.get(3));
+    EXPECT_EQ(4, it.getValue(0));
+    EXPECT_EQ(4, it.getValue(1));
+    EXPECT_EQ(4, it.getValue(2));
+    EXPECT_EQ(4, it.getValue(3));
 }
 
 TEST_F(TestCartesianPower, TestCartesianPowerValueBegin1)
 {
     auto it = cp.cbegin();
     ++it;
-    EXPECT_EQ(5, it.get(0));
-    EXPECT_EQ(4, it.get(1));
-    EXPECT_EQ(4, it.get(2));
-    EXPECT_EQ(4, it.get(3));
+    EXPECT_EQ(5, it.getValue(0));
+    EXPECT_EQ(4, it.getValue(1));
+    EXPECT_EQ(4, it.getValue(2));
+    EXPECT_EQ(4, it.getValue(3));
 }
 
 TEST_F(TestCartesianPower, TestCartesianPowerValueBegin01)
 {
     auto it = cp.cbegin();
     std::advance(it, 3);
-    EXPECT_EQ(4, it.get(0));
-    EXPECT_EQ(5, it.get(1));
-    EXPECT_EQ(4, it.get(2));
-    EXPECT_EQ(4, it.get(3));
+    EXPECT_EQ(4, it.getValue(0));
+    EXPECT_EQ(5, it.getValue(1));
+    EXPECT_EQ(4, it.getValue(2));
+    EXPECT_EQ(4, it.getValue(3));
 }
 
 TEST_F(TestCartesianPower, TestCartesianPowerValueLast)
 {
     auto it = cp.cbegin();
     std::advance(it, 80);
-    EXPECT_EQ(6, it.get(0));
-    EXPECT_EQ(6, it.get(1));
-    EXPECT_EQ(6, it.get(2));
-    EXPECT_EQ(6, it.get(3));
+    EXPECT_EQ(6, it.getValue(0));
+    EXPECT_EQ(6, it.getValue(1));
+    EXPECT_EQ(6, it.getValue(2));
+    EXPECT_EQ(6, it.getValue(3));
     ++it;
     EXPECT_EQ(it, cp.cend());
 }
@@ -150,7 +150,7 @@ TEST_F(TestCartesianPower, TestCartesianPowerValues)
 
     for (size_t i = 0; i < values.size(); i++)
     {
-        EXPECT_EQ(values[i], it.get(i));
+        EXPECT_EQ(values[i], it.getValue(i));
     }
 
     for (size_t i = 0; i < values.size(); i++)

@@ -9,40 +9,50 @@
 
 namespace tilegen
 {
-template<typename InputIt>
+template<typename ForwardIt>
 class CartesianPowerIterator : public std::iterator<std::input_iterator_tag,
-                                                    std::vector<typename InputIt::value_type>>
+                                                    std::vector<typename ForwardIt::value_type>>
 {
 public:
-    static_assert(std::is_base_of<std::input_iterator_tag,
-                                  typename std::iterator_traits<InputIt>::iterator_category>::value,
-                  "InputIt must be at least an InputIterator");
-    typedef std::vector<typename InputIt::value_type> Values;
-    typedef std::vector<InputIt> Iterators;
+    static_assert(std::is_base_of<std::forward_iterator_tag,
+                                  typename std::iterator_traits<ForwardIt>::iterator_category>::value,
+                  "ForwardIt must be at least a ForwardIterator");
+    typedef std::vector<typename ForwardIt::value_type> Values;
+    typedef std::vector<ForwardIt> Iterators;
 
-    CartesianPowerIterator(InputIt first_, InputIt last_, InputIt init, size_t power);
-    CartesianPowerIterator& operator++();
+    CartesianPowerIterator(ForwardIt first_, ForwardIt last_, ForwardIt init, size_t power);
+
+    const ForwardIt& getFirst() const;
+    const ForwardIt& getLast() const;
+
+    bool isEnd() const;
 
     bool operator==(const CartesianPowerIterator& other) const;
     bool operator!=(const CartesianPowerIterator& other) const;
+    CartesianPowerIterator& operator++();
+
+
+    const Values& getValues() const;
+    const typename ForwardIt::value_type& getValue(size_t n) const;
 
     const Values& operator*() const;
-    const typename InputIt::value_type& get(size_t n) const;
+    const typename ForwardIt::value_type& operator[](size_t n) const;
+
     const Iterators& getIterators() const;
-    const InputIt& getIterator(size_t n) const;
-    const typename InputIt::difference_type coordinate(size_t n) const;
-    const InputIt& getFirst() const;
-    const InputIt& getLast() const;
+    const ForwardIt& getIterator(size_t n) const;
+
+    const typename ForwardIt::difference_type coordinate(size_t n) const;
+
     std::pair<size_t, size_t> coordinates_2d() const;
 private:
-    const InputIt mFirst;
-    const InputIt mLast;
-    std::vector<InputIt> mIterators;
-    std::vector<typename InputIt::value_type> mValues;
+    const ForwardIt mFirst;
+    const ForwardIt mLast;
+    std::vector<ForwardIt> mIterators;
+    Values mValues;
 };
 
-template<typename InputIt>
-inline CartesianPowerIterator<InputIt>::CartesianPowerIterator(InputIt first, InputIt last, InputIt init, size_t power) :
+template<typename ForwardIt>
+inline CartesianPowerIterator<ForwardIt>::CartesianPowerIterator(ForwardIt first, ForwardIt last, ForwardIt init, size_t power) :
     mFirst(first), mLast(last),
     mIterators(power, init)
 {
@@ -51,8 +61,8 @@ inline CartesianPowerIterator<InputIt>::CartesianPowerIterator(InputIt first, In
             mValues.push_back(*it);
 }
 
-template<typename InputIt>
-inline CartesianPowerIterator<InputIt>& CartesianPowerIterator<typename InputIt>::operator++()
+template<typename ForwardIt>
+inline CartesianPowerIterator<ForwardIt>& CartesianPowerIterator<typename ForwardIt>::operator++()
 {
     for (size_t i = 0; i < mIterators.size(); i++)
     {
@@ -78,8 +88,14 @@ inline CartesianPowerIterator<InputIt>& CartesianPowerIterator<typename InputIt>
     return *this;
 }
 
-template<typename InputIt>
-inline bool CartesianPowerIterator<InputIt>::operator==(const CartesianPowerIterator& other) const
+template<typename ForwardIt>
+inline bool CartesianPowerIterator<ForwardIt>::isEnd() const
+{
+    return *getIterators().crbegin() == getLast();
+}
+
+template<typename ForwardIt>
+inline bool CartesianPowerIterator<ForwardIt>::operator==(const CartesianPowerIterator& other) const
 {
     if (std::tie(getFirst(), getLast()) !=
         std::tie(other.getFirst(), other.getLast()))
@@ -93,56 +109,68 @@ inline bool CartesianPowerIterator<InputIt>::operator==(const CartesianPowerIter
     return getIterators() == other.getIterators();
 }
 
-template<typename InputIt>
-inline bool CartesianPowerIterator<InputIt>::operator!=(const CartesianPowerIterator& other) const
+template<typename ForwardIt>
+inline bool CartesianPowerIterator<ForwardIt>::operator!=(const CartesianPowerIterator& other) const
 {
     return !(*this == other);
 }
 
-template<typename InputIt>
-inline const typename CartesianPowerIterator<InputIt>::Values& CartesianPowerIterator<InputIt>::operator*() const
+template<typename ForwardIt>
+inline const typename CartesianPowerIterator<ForwardIt>::Values& CartesianPowerIterator<ForwardIt>::operator*() const
+{
+    return getValues();
+}
+
+template<typename ForwardIt>
+inline const typename ForwardIt::value_type & CartesianPowerIterator<ForwardIt>::operator[](size_t n) const
+{
+    return getValue(n);
+}
+
+template<typename ForwardIt>
+inline const typename CartesianPowerIterator<ForwardIt>::Values & CartesianPowerIterator<ForwardIt>::getValues() const
 {
     return mValues;
 }
 
-template<typename InputIt>
-inline const typename InputIt::value_type& CartesianPowerIterator<InputIt>::get(size_t n) const
+template<typename ForwardIt>
+inline const typename ForwardIt::value_type& CartesianPowerIterator<ForwardIt>::getValue(size_t n) const
 {
-    return mValues[n];
+    return getValues()[n];
 }
 
-template<typename InputIt>
-inline const InputIt& CartesianPowerIterator<InputIt>::getIterator(size_t n) const
-{
-    return mIterators[n];
-}
-
-template<typename InputIt>
-inline const typename CartesianPowerIterator<InputIt>::Iterators& CartesianPowerIterator<InputIt>::getIterators() const
+template<typename ForwardIt>
+inline const typename CartesianPowerIterator<ForwardIt>::Iterators& CartesianPowerIterator<ForwardIt>::getIterators() const
 {
     return mIterators;
 }
 
-template<typename InputIt>
-inline const typename InputIt::difference_type CartesianPowerIterator<InputIt>::coordinate(size_t n) const
+template<typename ForwardIt>
+inline const ForwardIt& CartesianPowerIterator<ForwardIt>::getIterator(size_t n) const
+{
+    return getIterators()[n];
+}
+
+template<typename ForwardIt>
+inline const typename ForwardIt::difference_type CartesianPowerIterator<ForwardIt>::coordinate(size_t n) const
 {
     return std::distance(getFirst(), mIterators[n]);
 }
 
-template<typename InputIt>
-inline const InputIt& CartesianPowerIterator<InputIt>::getFirst() const
+template<typename ForwardIt>
+inline const ForwardIt& CartesianPowerIterator<ForwardIt>::getFirst() const
 {
     return mFirst;
 }
 
-template<typename InputIt>
-inline const InputIt& CartesianPowerIterator<InputIt>::getLast() const
+template<typename ForwardIt>
+inline const ForwardIt& CartesianPowerIterator<ForwardIt>::getLast() const
 {
     return mLast;
 }
 
-template<typename InputIt>
-inline std::pair<size_t, size_t> CartesianPowerIterator<InputIt>::coordinates_2d() const
+template<typename ForwardIt>
+inline std::pair<size_t, size_t> CartesianPowerIterator<ForwardIt>::coordinates_2d() const
 {
     size_t clique_size = std::distance(getFirst(), getLast());
     CoordinatePacker<size_t> x(clique_size);

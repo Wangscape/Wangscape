@@ -7,17 +7,17 @@
 namespace tilegen
 {
 
-template<typename InputIt>
+template<typename ForwardIt>
 class CartesianPower
 {
 public:
-    static_assert(std::is_base_of<std::input_iterator_tag, 
-                                  typename std::iterator_traits<InputIt>::iterator_category>::value,
-                  "InputIt must be at least an InputIterator");
-    typedef CartesianPowerIterator<InputIt> const_iterator;
+    static_assert(std::is_base_of<std::forward_iterator_tag,
+                                  typename std::iterator_traits<ForwardIt>::iterator_category>::value,
+                  "ForwardIt must be at least a ForwardIterator");
+    typedef CartesianPowerIterator<ForwardIt> const_iterator;
     typedef const_iterator iterator;
 
-    CartesianPower(InputIt first_, InputIt last_, size_t power_);
+    CartesianPower(ForwardIt first_, ForwardIt last_, size_t power_);
     template<typename Container>
     CartesianPower(const Container& container, size_t power_);
 
@@ -29,13 +29,13 @@ public:
     size_t size() const;
     std::pair<size_t, size_t> size_2d(size_t resolution) const;
 
-    InputIt first;
-    InputIt last;
+    ForwardIt first;
+    ForwardIt last;
     size_t power;
 };
 
-template<typename InputIt>
-inline CartesianPower<InputIt>::CartesianPower(InputIt first_, InputIt last_, size_t power_) :
+template<typename ForwardIt>
+inline CartesianPower<ForwardIt>::CartesianPower(ForwardIt first_, ForwardIt last_, size_t power_) :
     first(first_),
     last(last_),
     power(power_)
@@ -51,49 +51,49 @@ inline CartesianPower<InputIt>::CartesianPower(InputIt first_, InputIt last_, si
     }
 }
 
-template<typename InputIt>
+template<typename ForwardIt>
 template<typename Container>
-inline CartesianPower<InputIt>::CartesianPower(const Container & container, size_t power_) :
+inline CartesianPower<ForwardIt>::CartesianPower(const Container & container, size_t power_) :
     CartesianPower(container.cbegin(), container.cend(), power_)
 {
     static_assert(std::is_same<typename Container::const_iterator,
-                               InputIt>::value,
-                  "Container::const_iterator must be the same as InputIt");
+                               ForwardIt>::value,
+                  "Container::const_iterator must be the same as ForwardIt");
 }
 
-template<typename InputIt>
-typename CartesianPower<InputIt>::const_iterator CartesianPower<InputIt>::cbegin() const
+template<typename ForwardIt>
+typename CartesianPower<ForwardIt>::const_iterator CartesianPower<ForwardIt>::cbegin() const
 {
     return const_iterator(first, last, first, power);
 }
 
-template<typename InputIt>
-typename CartesianPower<InputIt>::const_iterator CartesianPower<InputIt>::cend() const
+template<typename ForwardIt>
+typename CartesianPower<ForwardIt>::const_iterator CartesianPower<ForwardIt>::cend() const
 {
     return const_iterator(first, last, last, power);
 }
 
-template<typename InputIt>
-typename CartesianPower<InputIt>::const_iterator CartesianPower<InputIt>::begin() const
+template<typename ForwardIt>
+typename CartesianPower<ForwardIt>::const_iterator CartesianPower<ForwardIt>::begin() const
 {
     return cbegin();
 }
 
-template<typename InputIt>
-typename CartesianPower<InputIt>::const_iterator CartesianPower<InputIt>::end() const
+template<typename ForwardIt>
+typename CartesianPower<ForwardIt>::const_iterator CartesianPower<ForwardIt>::end() const
 {
     return cend();
 }
 
-template<typename InputIt>
-inline size_t CartesianPower<InputIt>::size() const
+template<typename ForwardIt>
+inline size_t CartesianPower<ForwardIt>::size() const
 {
     size_t base_size = std::distance(first, last);
     return pow(base_size, power);
 }
 
-template<typename InputIt>
-inline std::pair<size_t, size_t> CartesianPower<InputIt>::size_2d(size_t resolution) const
+template<typename ForwardIt>
+inline std::pair<size_t, size_t> CartesianPower<ForwardIt>::size_2d(size_t resolution) const
 {
     size_t clique_size = std::distance(first, last);
     std::div_t div_mod = std::div((int)power, 2);
