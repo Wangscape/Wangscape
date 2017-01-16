@@ -50,8 +50,8 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
 
 void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderTexture& image, std::string filename)
 {
-    CornersGenerator cp(clique, static_cast<size_t>(CORNERS));
-    for (auto it = cp.cbegin(); it != cp.cend(); ++it)
+    CornersGenerator corners_generator(clique, static_cast<size_t>(CORNERS));
+    for (auto it = corners_generator.cbegin(); it != corners_generator.cend(); ++it)
     {
         const auto& corner_terrains = *it;
         std::pair<size_t, size_t> tile_position = it.coordinates_2d();
