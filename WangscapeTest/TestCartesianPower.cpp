@@ -58,8 +58,8 @@ TEST_F(TestCartesianPower, TestCartesianPowerComparisonLast)
 
 TEST_F(TestCartesianPower, TestCartesianPowerComparisonOther)
 {
-    tilegen::CartesianPower<Iterator> cp1{base.cbegin() + 1, base.cend(), 4};
-    tilegen::CartesianPower<Iterator> cp2{base.cbegin(), base.cend(), 3};
+    tilegen::CartesianPower<Iterator> cp1{base.cbegin() + 1, 2, 4};
+    tilegen::CartesianPower<Iterator> cp2{base.cbegin(), base.size(), 3};
     EXPECT_NE(cp.begin(), cp1.begin());
     EXPECT_NE(cp.begin(), cp2.begin());
 }
@@ -78,11 +78,11 @@ TEST_F(TestCartesianPower, TestCartesianPowerComparisonOtherMid)
 TEST_F(TestCartesianPower, TestCartesianPowerRange)
 {
     auto first = base.cbegin();
-    auto last = base.cend();
+    auto size = base.size();
     EXPECT_EQ(first, cp.first);
-    EXPECT_EQ(last, cp.last);
+    EXPECT_EQ(size, cp.baseSize);
     EXPECT_EQ(first, cp.cbegin().getFirst());
-    EXPECT_EQ(last, cp.cbegin().getLast());
+    EXPECT_EQ(size, cp.cbegin().getBaseSize());
 }
 
 TEST_F(TestCartesianPower, TestCartesianPowerValueBegin)
@@ -131,10 +131,10 @@ TEST_F(TestCartesianPower, TestCartesianPowerCoordinates)
     auto it = cp.cbegin();
     std::advance(it, 15);
 
-    EXPECT_EQ(0, it.coordinate(0));
-    EXPECT_EQ(2, it.coordinate(1));
-    EXPECT_EQ(1, it.coordinate(2));
-    EXPECT_EQ(0, it.coordinate(3));
+    EXPECT_EQ(0, it.getCoordinate(0));
+    EXPECT_EQ(2, it.getCoordinate(1));
+    EXPECT_EQ(1, it.getCoordinate(2));
+    EXPECT_EQ(0, it.getCoordinate(3));
 }
 
 TEST_F(TestCartesianPower, TestCartesianPowerValues)

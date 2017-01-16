@@ -17,7 +17,7 @@ public:
     typedef CartesianPowerIterator<ForwardIt> const_iterator;
     typedef const_iterator iterator;
 
-    CartesianPower(ForwardIt first_, ForwardIt last_, size_t power_);
+    CartesianPower(ForwardIt first_, size_t base_size_, size_t power_);
     template<typename Container>
     CartesianPower(const Container& container, size_t power_);
 
@@ -30,14 +30,14 @@ public:
     std::pair<size_t, size_t> size_2d(size_t resolution) const;
 
     ForwardIt first;
-    ForwardIt last;
+    size_t baseSize;
     size_t power;
 };
 
 template<typename ForwardIt>
-inline CartesianPower<ForwardIt>::CartesianPower(ForwardIt first_, ForwardIt last_, size_t power_) :
+inline CartesianPower<ForwardIt>::CartesianPower(ForwardIt first_, size_t base_size_, size_t power_) :
     first(first_),
-    last(last_),
+    baseSize(base_size_),
     power(power_)
 {
     switch (power_)
@@ -54,7 +54,7 @@ inline CartesianPower<ForwardIt>::CartesianPower(ForwardIt first_, ForwardIt las
 template<typename ForwardIt>
 template<typename Container>
 inline CartesianPower<ForwardIt>::CartesianPower(const Container & container_, size_t power_) :
-    CartesianPower(container_.cbegin(), container_.cend(), power_)
+    CartesianPower(container_.cbegin(), container_.size(), power_)
 {
     static_assert(std::is_same<typename Container::const_iterator,
                                ForwardIt>::value,
@@ -64,13 +64,13 @@ inline CartesianPower<ForwardIt>::CartesianPower(const Container & container_, s
 template<typename ForwardIt>
 typename CartesianPower<ForwardIt>::const_iterator CartesianPower<ForwardIt>::cbegin() const
 {
-    return const_iterator(first, last, first, power);
+    return const_iterator(first, baseSize, 0, power);
 }
 
 template<typename ForwardIt>
 typename CartesianPower<ForwardIt>::const_iterator CartesianPower<ForwardIt>::cend() const
 {
-    return const_iterator(first, last, last, power);
+    return const_iterator(first, baseSize, baseSize, power);
 }
 
 template<typename ForwardIt>
@@ -88,19 +88,17 @@ typename CartesianPower<ForwardIt>::const_iterator CartesianPower<ForwardIt>::en
 template<typename ForwardIt>
 inline size_t CartesianPower<ForwardIt>::size() const
 {
-    size_t base_size = std::distance(first, last);
-    return pow(base_size, power);
+    return pow(baseSize, power);
 }
 
 template<typename ForwardIt>
 inline std::pair<size_t, size_t> CartesianPower<ForwardIt>::size_2d(size_t resolution) const
 {
-    size_t clique_size = std::distance(first, last);
     std::div_t div_mod = std::div((int)power, 2);
-    size_t res_y = resolution*pow(clique_size, (size_t)div_mod.quot);
+    size_t res_y = resolution*pow(baseSize, (size_t)div_mod.quot);
     size_t res_x = res_y;
     if (div_mod.rem != 0)
-        res_x *= clique_size;
+        res_x *= baseSize;
     return{res_x, res_y};
 }
 
