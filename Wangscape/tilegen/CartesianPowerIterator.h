@@ -81,19 +81,16 @@ inline CartesianPowerIterator<InputIt>& CartesianPowerIterator<typename InputIt>
 template<typename InputIt>
 inline bool CartesianPowerIterator<InputIt>::operator==(const CartesianPowerIterator& other) const
 {
-    if (getFirst() != other.getFirst())
-        return false; // different ranges
-    if (getLast() != other.getLast())
-        return false; // different ranges
+    if (std::tie(getFirst(), getLast()) !=
+        std::tie(other.getFirst(), other.getLast()))
+    {
+        return false;
+    }
     if (getIterators().size() != other.getIterators().size())
-        return false; // different powers
-    if (*getIterators().crbegin() == getLast() &&
-        *other.getIterators().crbegin() == getLast())
-        return true; // both are cend
-    for (size_t i = 0; i < getIterators().size(); i++)
-        if (getIterator(i) != other.getIterator(i))
-            return false; // different phases
-    return true;
+        return false;
+    if (isEnd() && other.isEnd())
+        return true;
+    return getIterators() == other.getIterators();
 }
 
 template<typename InputIt>
