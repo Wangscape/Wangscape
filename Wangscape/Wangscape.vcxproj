@@ -194,6 +194,7 @@
     <ClInclude Include="tilegen\partition\TilePartitionerSquares.h" />
     <ClInclude Include="tilegen\TileGenerator.h" />
     <ClInclude Include="tilegen\TilesetGenerator.h" />
+    <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="metaoutput\MetaOutput.cpp" />
