@@ -56,7 +56,7 @@ inline CartesianPowerIterator<ForwardIt>::CartesianPowerIterator(ForwardIt first
     mFirst(first_), mLast(last_),
     mIterators(power_, init_)
 {
-    if (init != last)
+    if (init_ != last_)
         for (const auto& it : mIterators)
             mValues.push_back(*it);
 }
