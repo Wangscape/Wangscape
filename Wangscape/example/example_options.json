@@ -37,5 +37,6 @@
     {
       "Terrains": ["s", "g"]
     }
-  ]
+  ],
+  "AlphaCalculatorMode":"Max"
 }

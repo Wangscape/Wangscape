@@ -1,6 +1,7 @@
 #include "OptionsManager.h"
 
 #include <fstream>
+#include <iostream>
 
 #include <boost/filesystem.hpp>
 
@@ -23,8 +24,18 @@ void OptionsManager::loadOptions(std::string optionsFilename)
 
     std::string str{std::istreambuf_iterator<char>(ifs),
                     std::istreambuf_iterator<char>()};
-
-    mOptions = spotify::json::decode<Options>(str.c_str());
+    try
+    {
+        mOptions = spotify::json::decode<Options>(str.c_str());
+    }
+    catch (const spotify::json::decode_exception& e)
+    {
+        std::cout << "spotify::json::decode_exception encountered at "
+            << e.offset()
+            << ": "
+            << e.what();
+        throw;
+    }
     mOptions.filename = optionsFilename;
 
     createOutputDirectory(optionsFilename);

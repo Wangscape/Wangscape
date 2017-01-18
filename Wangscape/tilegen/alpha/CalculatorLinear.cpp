@@ -1,4 +1,4 @@
-#include "AlphaCalculatorLinear.h"
+#include "CalculatorLinear.h"
 #include <algorithm>
 #include <assert.h>
 #include <numeric>
@@ -8,7 +8,7 @@ namespace tilegen
 namespace alpha
 {
 
-void AlphaCalculatorLinear::updateAlphasAux(const Weights& weights)
+void CalculatorLinear::updateAlphasAux(const Weights& weights)
 {
     int alpha_remaining = 255;
     double total_weight = std::accumulate(weights.cbegin(), weights.cend(), 0.);

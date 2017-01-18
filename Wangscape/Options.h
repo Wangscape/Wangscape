@@ -5,6 +5,7 @@
 #include <vector>
 #include "common.h"
 #include "metaoutput/Filenames.h"
+#include "tilegen/alpha/CalculatorMode.h"
 #include "TerrainSpec.h"
 #include "TileFormat.h"
 
@@ -22,6 +23,7 @@ public:
     metaoutput::Filenames outputFilenames;
     TerrainSpecMap terrains;
     CliqueList cliques;
+    tilegen::alpha::CalculatorMode CalculatorMode;
     
     virtual ~Options() = default;
 };

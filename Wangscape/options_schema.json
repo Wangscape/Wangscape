@@ -123,7 +123,6 @@
           },
           "required": [
             "FullName",
-            "ShortName",
             "FileName"
           ]
         }
@@ -180,6 +179,14 @@
           "Terrains"
         ]
       }
+    },
+    "AlphaCalculatorMode": {
+      "type":"string",
+      "title":"AlphaCalculatorMode schema",
+      "description":"Specifies which type of AlphaCalculator should be used to convert corner weights into alpha values.",
+      "enum":["Max",
+              "Linear"]
+              
     }
   },
   "required": [
@@ -187,6 +194,7 @@
     "OutputDirectory",
     "Terrains",
     "Cliques",
+    "AlphaCalculatorMode",
     "BorderOptions"
   ]
 }
