@@ -41,15 +41,16 @@ I ipow_imp(I base, I exp)
 // ipow(1, x) == 1
 // ipow(-1, x) == +-1
 // ipow(-2, digits) == min when digits is odd
-// Behaviour when the result is not an integer
-// or is not representable is undefined.
-// However, some obvious failure cases raise exceptions:
+// Some obvious failure cases raise exceptions:
 // ipow(0, x) when x < 0
 // ipow(x, y) when x >= 2 and y >= digits
 // ipow(-2, y) when y > digits
 // ipow(x, y) when x < 2 and y >= digits
-// Cases like ipow(digits-1, digits-1) are not checked,
-// and may return nonsense results.
+// However, all other behaviour when the result
+// is not an integer or is not representable in I
+// is undefined.
+// In particular, cases like ipow(digits-1, digits-1)
+// are not checked, and may return nonsense results.
 template <typename I>
 I ipow(I base, I exp)
 {
