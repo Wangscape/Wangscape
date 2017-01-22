@@ -39,11 +39,7 @@ public:
     bool isEnd() const;
 
     reference getValues() const;
-    const typename ForwardIt::value_type& getValue(size_t n) const;
-    const Iterators& getIterators() const;
-    const ForwardIt& getIterator(size_t n) const;
     const Coordinates& getCoordinates() const;
-    const size_t getCoordinate(size_t n) const;
 
     bool operator==(const CartesianPowerIterator& other) const;
     bool operator!=(const CartesianPowerIterator& other) const;
@@ -60,6 +56,8 @@ private:
     Values mValues;
     Coordinates mCoordinates;
 
+    const Iterators& getIterators() const;
+    const ForwardIt& getIterator(size_t n) const;
     void updateValue(size_t n);
     void resetComponent(size_t n);
     void incrementComponent(size_t n);
@@ -84,7 +82,7 @@ inline CartesianPowerIterator<ForwardIt>& CartesianPowerIterator<typename Forwar
 {
     for (size_t i = 0; i < getPower(); i++)
     {
-        size_t coordinate = getCoordinate(i);
+        size_t coordinate = getCoordinates()[i];
         if (coordinate >= getBaseSize())
             break; // invalid or isEnd()
         if (coordinate == getMaxCoordinate())
@@ -161,12 +159,6 @@ inline typename CartesianPowerIterator<ForwardIt>::reference CartesianPowerItera
 }
 
 template<typename ForwardIt>
-inline const typename ForwardIt::value_type& CartesianPowerIterator<ForwardIt>::getValue(size_t n) const
-{
-    return getValues()[n];
-}
-
-template<typename ForwardIt>
 inline const typename CartesianPowerIterator<ForwardIt>::Iterators& CartesianPowerIterator<ForwardIt>::getIterators() const
 {
     return mIterators;
@@ -182,12 +174,6 @@ template<typename ForwardIt>
 inline const typename CartesianPowerIterator<ForwardIt>::Coordinates & CartesianPowerIterator<ForwardIt>::getCoordinates() const
 {
     return mCoordinates;
-}
-
-template<typename ForwardIt>
-inline const typename size_t CartesianPowerIterator<ForwardIt>::getCoordinate(size_t n) const
-{
-    return getCoordinates()[n];
 }
 
 template<typename ForwardIt>
@@ -226,12 +212,12 @@ inline std::pair<size_t, size_t> CartesianPowerIterator<ForwardIt>::coordinates_
     CoordinatePacker<size_t> x(getBaseSize());
     for (size_t i = 0; i < static_cast<size_t>(CORNERS); i += 2)
     {
-        x.addCoordinate(getCoordinate(i));
+        x.addCoordinate(getCoordinates()[i]);
     }
     CoordinatePacker<size_t> y(getBaseSize());
     for (size_t i = 1; i < static_cast<size_t>(CORNERS); i += 2)
     {
-        y.addCoordinate(getCoordinate(i));
+        y.addCoordinate(getCoordinates()[i]);
     }
     return{x.packed(), y.packed()};
 }

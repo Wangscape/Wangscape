@@ -20,11 +20,6 @@ protected:
     const static I five = 5;
     const static I digits = std::numeric_limits<I>::digits;
     const static I max = std::numeric_limits<I>::max();
-    TestPowIntSigned()
-    {
-
-    };
-    ~TestPowIntSigned() {};
 };
 
 typedef ::testing::Types<
