@@ -64,8 +64,6 @@ TYPED_TEST(TestPowInt, TestPowIntX1)
     EXPECT_EQ(this->one, ipow(this->one, this->one));
     EXPECT_EQ(this->two, ipow(this->two, this->one));
     EXPECT_EQ(this->three, ipow(this->three, this->one));
-    EXPECT_EQ(this->five, ipow(this->five, this->one));
-    EXPECT_EQ(this->digits, ipow(this->digits, this->one));
     EXPECT_EQ(this->max, ipow(max, this->one));
 }
 
@@ -73,8 +71,6 @@ TYPED_TEST(TestPowInt, TestPowInt1X)
 {
     EXPECT_EQ(this->one, ipow(this->one, this->one));
     EXPECT_EQ(this->one, ipow(this->one, this->two));
-    EXPECT_EQ(this->one, ipow(this->one, this->three));
-    EXPECT_EQ(this->one, ipow(this->one, this->five));
     EXPECT_EQ(this->one, ipow(this->one, this->digits));
     EXPECT_EQ(this->one, ipow(this->one, this->max));
 }
@@ -101,8 +97,6 @@ TYPED_TEST(TestPowInt, TestPowIntTooLarge)
     EXPECT_ANY_THROW(ipow(this->two, this->max));
     EXPECT_ANY_THROW(ipow(this->three, this->digits));
     EXPECT_ANY_THROW(ipow(this->three, this->max));
-    EXPECT_ANY_THROW(ipow(this->digits, this->digits));
-    EXPECT_ANY_THROW(ipow(this->digits, this->max));
     EXPECT_ANY_THROW(ipow(this->max, this->digits));
     EXPECT_ANY_THROW(ipow(this->max, this->max));
 }
