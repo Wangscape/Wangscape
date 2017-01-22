@@ -6,12 +6,12 @@
 namespace
 {
 
-template<typename I>
-I ipow_imp(I base, I exp)
+template<typename IBase, typename IExp>
+IBase ipow_imp(IBase base, IExp exp)
 {
-    constexpr I zero(0);
-    constexpr I two(2);
-    I result(1);
+    constexpr IExp zero(0);
+    constexpr IExp two(2);
+    IBase result(1);
     while(exp != zero)
     {
         if (exp % two)
@@ -28,13 +28,20 @@ I ipow_imp(I base, I exp)
 // where base and exp share an integral type.
 //
 // Requires:
-// is_integral<I>
-// is_arithmetic<I>
-// numeric_limits<I>
-// operators(I, I): /=, *=, !=, ==, <, >=, %, <<
+// is_integral for IBase and IExp
+// is_arithmetic for IBase and IExp
+// numeric_limits for IBase
+// is_signed for IBase and IExp
+// IBase and IExp must be constructible from int
+// Operations used:
+//   Comparison operators
+//   IBase *= IBase
+//   IExp /= IExp
+//   IExp % IExp
+//   IBase << IExp
 //
 // Returns a correct result for all argument pairs
-// that have an integer result representable in I.
+// that have an integer result representable in IBase.
 // This includes:
 // ipow(x, 0) == 0
 // ipow(0, x) == 0 when x >= 0
@@ -47,62 +54,74 @@ I ipow_imp(I base, I exp)
 // ipow(-2, y) when y > digits
 // ipow(x, y) when x < 2 and y >= digits
 // However, all other behaviour when the result
-// is not an integer or is not representable in I
+// is not an integer or is not representable in IBase
 // is undefined.
 // In particular, cases like ipow(digits-1, digits-1)
 // are not checked, and may return nonsense results.
-template <typename I>
-I ipow(I base, I exp)
+template <typename IBase, typename IExp>
+IBase ipow(IBase base, IExp exp)
 {
-    static_assert(std::is_integral<I>::value,
-                  "I must be an integral type");
-    static_assert(std::is_arithmetic<I>::value,
-                  "I must be an arithmetic type");
-    if (exp == 0)
-        return 1;
-    if (base == 1)
-        return 1;
+    static_assert(std::is_integral<IBase>::value,
+                  "IBase must be an integral type");
+    static_assert(std::is_integral<IExp>::value,
+                  "IExp must be an integral type");
+    static_assert(std::is_arithmetic<IBase>::value,
+                  "IBase must be an arithmetic type");
+    static_assert(std::is_arithmetic<IExp>::value,
+                  "IExp must be an arithmetic type");
+
+    constexpr IExp exp_zero(0);
+    constexpr IExp exp_two(2);
+    constexpr IExp exp_digits = static_cast<IExp>(std::numeric_limits<IBase>::digits);
+    constexpr IBase base_zero(0);
+    constexpr IBase base_one(1);
+    constexpr IBase base_two(2);
+
+    if (exp == exp_zero)
+        return base_one;
+    if (base == base_one)
+        return base_one;
 
     bool stop = false;
-    I result;
+    IBase result;
 
-    cpp::static_if<std::is_signed<I>::value>([&](auto)
+    cpp::static_if<std::is_signed<IBase>::value>([&](auto)
     {
-        if (base == -1)
+        if (base == -base_one)
         {
             stop = true;
-            result = exp % 2 ? -1 : 1;
+            result = exp % exp_two ? -base_one : base_one;
         }
     });
     if (stop)
         return result;
 
-    cpp::static_if<std::is_signed<I>::value>([&](auto)
+    cpp::static_if<std::is_signed<IExp>::value>([&](auto)
     {
-        if(exp < 0)
+        if(exp < exp_zero)
             throw std::domain_error("Integer pow() with exp < 0 and |base| != 1");
     });
 
-    if (base == 0)
-        return 0;
+    if (base == base_zero)
+        return base_zero;
 
-    cpp::static_if<std::is_signed<I>::value>([&](auto)
+    cpp::static_if<std::is_signed<IBase>::value>([&](auto)
     {
-        if (exp > std::numeric_limits<I>::digits)
+        if (exp > exp_digits)
             throw std::range_error("Integer pow() with exp > digits and |base| > 1");
-        if (base == -2)
+        if (base == -base_two)
         {
             stop = true;
-            result = ((I)1 << exp) * (exp % 2 ? -1 : 1);
+            result = (base_one << exp) * (exp % exp_two ? -base_one : base_one);
         }
     });
     if (stop)
         return result;
 
-    if (exp >= std::numeric_limits<I>::digits)
+    if (exp >= exp_digits)
         throw std::range_error("Integer pow() with exp >= digits and base not in {-2, -1, 0, 1}");
-    if (base == 2)
-        return (I)1 << exp;
+    if (base == base_two)
+        return base_one << exp;
 
     return ipow_imp(base, exp);
 }
