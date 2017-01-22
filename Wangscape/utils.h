@@ -42,7 +42,7 @@ I ipow_imp(I base, I exp)
 // ipow(-1, x) == +-1
 // ipow(-2, digits) == min when digits is odd
 // Some obvious failure cases raise exceptions:
-// ipow(0, x) when x < 0
+// ipow(x, y) when |x| != 1 and y < 0
 // ipow(x, y) when x >= 2 and y >= digits
 // ipow(-2, y) when y > digits
 // ipow(x, y) when x < 2 and y >= digits
