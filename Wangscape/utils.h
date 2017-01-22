@@ -10,6 +10,7 @@ I _pow(I base, I exp)
 {
     constexpr I zero(0);
     constexpr I two(2);
+    I result(1);
     while(exp != zero)
     {
         if (exp % two)
