@@ -27,6 +27,8 @@ I ipow_imp(I base, I exp)
 template <typename I>
 I ipow(I base, I exp)
 {
+    static_assert(std::is_integral<I>::value,
+                  "I must be an integral type");
     if (exp == 0)
         return 1;
     if (base == 1)
