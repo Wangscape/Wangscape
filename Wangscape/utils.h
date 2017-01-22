@@ -24,6 +24,32 @@ I ipow_imp(I base, I exp)
 
 }
 
+// Calculates base raised to the power of exp,
+// where base and exp share an integral type.
+//
+// Requires:
+// is_integral<I>
+// is_arithmetic<I>
+// numeric_limits<I>
+// operators(I, I): /=, *=, !=, ==, <, >=, %, <<
+//
+// Returns a correct result for all argument pairs
+// that have an integer result representable in I.
+// This includes:
+// ipow(x, 0) == 0
+// ipow(0, x) == 0 when x >= 0
+// ipow(1, x) == 1
+// ipow(-1, x) == +-1
+// ipow(-2, digits) == min when digits is odd
+// Behaviour when the result is not an integer
+// or is not representable is undefined.
+// However, some obvious failure cases raise exceptions:
+// ipow(0, x) when x < 0
+// ipow(x, y) when x >= 2 and y >= digits
+// ipow(-2, y) when y > digits
+// ipow(x, y) when x < 2 and y >= digits
+// Cases like ipow(digits-1, digits-1) are not checked,
+// and may return nonsense results.
 template <typename I>
 I ipow(I base, I exp)
 {
