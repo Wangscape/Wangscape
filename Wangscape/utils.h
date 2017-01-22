@@ -8,14 +8,13 @@ namespace
 template<typename I>
 I _pow(I base, I exp)
 {
-    I result = 1;
-    for (int i = 0; i < std::numeric_limits<I>::digits; i++)
+    constexpr I zero(0);
+    constexpr I two(2);
+    while(exp != zero)
     {
-        if (exp & 1)
+        if (exp % two)
             result *= base;
-        else if (exp == 0)
-            break;
-        exp >>= 1;
+        exp /= two;
         base *= base;
     }
     return result;
