@@ -177,25 +177,13 @@ TEST_F(TestCartesianPower, TestCartesianPowerValues)
 }
 TEST_F(TestCartesianPower, TestCoordinatePackerDomain)
 {
-    tilegen::CoordinatePacker<size_t> coord_packer0(0);
-    EXPECT_ANY_THROW(coord_packer0.addCoordinate(-1));
-    EXPECT_ANY_THROW(coord_packer0.addCoordinate(0));
-    EXPECT_ANY_THROW(coord_packer0.addCoordinate(1));
-
-    tilegen::CoordinatePacker<size_t> coord_packer1(1);
-    EXPECT_ANY_THROW(coord_packer0.addCoordinate(-1));
-    EXPECT_ANY_THROW(coord_packer0.addCoordinate(1));
-    EXPECT_ANY_THROW(coord_packer0.addCoordinate(2));
-
-    tilegen::CoordinatePacker<size_t> coord_packer2(2);
-    EXPECT_ANY_THROW(coord_packer0.addCoordinate(-1));
-    EXPECT_ANY_THROW(coord_packer0.addCoordinate(2));
-    EXPECT_ANY_THROW(coord_packer0.addCoordinate(3));
-
-    tilegen::CoordinatePacker<size_t> coord_packer10(10);
-    EXPECT_ANY_THROW(coord_packer0.addCoordinate(-1));
-    EXPECT_ANY_THROW(coord_packer0.addCoordinate(10));
-    EXPECT_ANY_THROW(coord_packer0.addCoordinate(11));
+    for (auto i : {0, 1, 2, 10})
+    {
+        tilegen::CoordinatePacker<size_t> coord_packer(i);
+        EXPECT_ANY_THROW(coord_packer.addCoordinate(-1));
+        EXPECT_ANY_THROW(coord_packer.addCoordinate(i));
+        EXPECT_ANY_THROW(coord_packer.addCoordinate(i + 1));
+    }
 }
 TEST_F(TestCartesianPower, TestCoordinatePackerSize)
 {
