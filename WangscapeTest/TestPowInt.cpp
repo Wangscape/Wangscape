@@ -26,7 +26,6 @@ protected:
         digits = static_cast<I>(std::numeric_limits<I>::digits);
 
     };
-    ~TestPowInt() {};
 };
 
 typedef ::testing::Types<
