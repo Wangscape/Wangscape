@@ -1,6 +1,7 @@
 #pragma once
 #include <type_traits>
 #include <stdexcept>
+#include <static_if.hpp>
 
 namespace
 {
@@ -24,41 +25,53 @@ I _pow(I base, I exp)
 }
 
 template <typename I>
-typename std::enable_if<std::is_unsigned<I>::value, I>::type pow(I base, I exp)
+I pow(I base, I exp)
 {
     if (exp == 0)
         return 1;
-    else if (base == 0)
-        return 0;
-    else if (base == 1)
+    if (base == 1)
         return 1;
-    else if (exp >= std::numeric_limits<I>::digits)
-        throw std::range_error("Integer pow() with exp >= digits and base > 1");
-    else if (base == 2)
-        return (I)1 << exp;
-    return _pow(base, exp);
-}
 
-template <typename I>
-typename std::enable_if<!std::is_unsigned<I>::value, I>::type pow(I base, I exp)
-{
-    if (exp == 0) // all
-        return 1;
-    else if (base == 1) // all
-        return 1;
-    else if (base == -1) // base signed
-        return exp % 2 ? -1 : 1;
-    else if (exp < 0) // exp signed
-        throw std::domain_error("Integer pow() with exp < 0 and |base| != 1");
-    else if (base == 0) // all
+    bool stop = false;
+    I result;
+
+    cpp::static_if<std::is_signed<I>::value>([&](auto)
+    {
+        if (base == -1)
+        {
+            stop = true;
+            result = exp % 2 ? -1 : 1;
+        }
+    });
+    if (stop)
+        return result;
+
+    cpp::static_if<std::is_signed<I>::value>([&](auto)
+    {
+        if(exp < 0)
+            throw std::domain_error("Integer pow() with exp < 0 and |base| != 1");
+    });
+
+    if (base == 0)
         return 0;
-    else if (exp > std::numeric_limits<I>::digits) // base signed
-        throw std::range_error("Integer pow() with exp > digits and |base| > 1");
-    else if (base == -2) // base signed
-        return ((I)1 << exp) * (exp % 2 ? -1 : 1);
-    else if (exp >= std::numeric_limits<I>::digits) // all
+
+    cpp::static_if<std::is_signed<I>::value>([&](auto)
+    {
+        if (exp > std::numeric_limits<I>::digits)
+            throw std::range_error("Integer pow() with exp > digits and |base| > 1");
+        if (base == -2)
+        {
+            stop = true;
+            result = ((I)1 << exp) * (exp % 2 ? -1 : 1);
+        }
+    });
+    if (stop)
+        return result;
+
+    if (exp >= std::numeric_limits<I>::digits)
         throw std::range_error("Integer pow() with exp >= digits and base not in {-2, -1, 0, 1}");
-    else if (base == 2) // all
+    if (base == 2)
         return (I)1 << exp;
+
     return _pow(base, exp);
 }
