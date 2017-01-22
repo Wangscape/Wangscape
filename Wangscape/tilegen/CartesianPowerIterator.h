@@ -51,7 +51,6 @@ public:
     CartesianPowerIterator operator++(int);
     reference operator*() const;
     pointer operator->() const;
-    const typename ForwardIt::value_type& operator[](size_t n) const;
 
     std::pair<size_t, size_t> coordinates_2d() const;
 private:
@@ -153,12 +152,6 @@ template<typename ForwardIt>
 inline typename CartesianPowerIterator<ForwardIt>::pointer CartesianPowerIterator<ForwardIt>::operator->() const
 {
     return &getValues();
-}
-
-template<typename ForwardIt>
-inline const typename ForwardIt::value_type & CartesianPowerIterator<ForwardIt>::operator[](size_t n) const
-{
-    return getValue(n);
 }
 
 template<typename ForwardIt>
