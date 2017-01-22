@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <vector>
+#include <algorithm>
 
 #include <tilegen/CartesianPower.h>
 
@@ -248,8 +249,14 @@ TEST_F(TestCartesianPower, TestCartesianPowerSize2D)
 
 TEST_F(TestCartesianPower, TestCartesianPowerCoordinates2D)
 {
-    auto it = cp.cbegin();
-    std::advance(it, 15);
-    std::pair<size_t, size_t> coordinates{1, 6};
-    EXPECT_EQ(coordinates, it.coordinates_2d());
+    std::set<std::pair<size_t, size_t>> coordinates_used;
+    for (auto it = cp.cbegin(); it != cp.cend(); ++it)
+    {
+        std::pair<size_t, size_t> coords = it.coordinates_2d();
+        EXPECT_LE((size_t)0, coords.first);
+        EXPECT_GT((size_t)9, coords.first);
+        EXPECT_LE((size_t)0, coords.second);
+        EXPECT_GT((size_t)9, coords.second);
+        EXPECT_TRUE(coordinates_used.insert(coords).second);
+    }
 }
