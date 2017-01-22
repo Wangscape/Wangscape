@@ -66,8 +66,8 @@ TYPED_TEST(TestPowInt, TestPowIntX1)
     EXPECT_EQ(this->two, pow(this->two, this->one));
     EXPECT_EQ(this->three, pow(this->three, this->one));
     EXPECT_EQ(this->five, pow(this->five, this->one));
-    EXPECT_EQ(digits, pow(this->digits, this->one));
-    EXPECT_EQ(max, pow(max, this->one));
+    EXPECT_EQ(this->digits, pow(this->digits, this->one));
+    EXPECT_EQ(this->max, pow(max, this->one));
 }
 
 TYPED_TEST(TestPowInt, TestPowInt1X)

@@ -75,6 +75,30 @@ TEST_F(TestCartesianPower, TestCartesianPowerComparisonOtherMid)
     EXPECT_NE(cp.cend(), it);
 }
 
+TEST_F(TestCartesianPower, TestCartesianPowerIteratorCopyable)
+{
+    static_assert(std::is_copy_constructible<tilegen::CartesianPowerIterator<Iterator>>::value,
+                  "CartesianPowerIterator not CopyConstructible");
+    static_assert(std::is_copy_assignable<tilegen::CartesianPowerIterator<Iterator>>::value,
+                  "CartesianPowerIterator not CopyAssignable");
+    auto it = base.cbegin();
+    // try to copy-construct
+    auto it2 = it;
+    // try to copy-assign
+    it = base.cend();
+}
+
+TEST_F(TestCartesianPower, TestCartesianPowerIteratorPostIncrement)
+{
+    auto it = cp.cbegin();
+    Container v1{4, 4, 4, 4};
+    Container v2{5, 4, 4, 4};
+    EXPECT_EQ(v1, *it);
+    auto x = *(it++);
+    EXPECT_EQ(v1, x);
+    EXPECT_EQ(v2, *it);
+}
+
 TEST_F(TestCartesianPower, TestCartesianPowerRange)
 {
     auto first = base.cbegin();

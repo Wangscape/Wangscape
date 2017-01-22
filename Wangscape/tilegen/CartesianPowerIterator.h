@@ -4,8 +4,12 @@
 #include <type_traits>
 #include <algorithm>
 #include <utility>
+#include <memory>
 #include "common.h"
 #include "CoordinatePacker.h"
+
+template<typename ForwardIt>
+class CartesianPowerIterator;
 
 namespace tilegen
 {
@@ -44,13 +48,14 @@ public:
     bool operator==(const CartesianPowerIterator& other) const;
     bool operator!=(const CartesianPowerIterator& other) const;
     CartesianPowerIterator& operator++();
+    CartesianPowerIterator operator++(int);
     reference operator*() const;
     pointer operator->() const;
     const typename ForwardIt::value_type& operator[](size_t n) const;
 
     std::pair<size_t, size_t> coordinates_2d() const;
 private:
-    const ForwardIt mFirst;
+    ForwardIt mFirst;
     size_t mBaseSize;
     Iterators mIterators;
     Values mValues;
@@ -102,6 +107,14 @@ inline CartesianPowerIterator<ForwardIt>& CartesianPowerIterator<typename Forwar
         }
     }
     return *this;
+}
+
+template<typename ForwardIt>
+inline CartesianPowerIterator<ForwardIt> CartesianPowerIterator<typename ForwardIt>::operator++(int)
+{
+    CartesianPowerIterator previous = *this;
+    ++(*this);
+    return previous;
 }
 
 template<typename ForwardIt>
