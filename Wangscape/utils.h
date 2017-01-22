@@ -42,23 +42,23 @@ typename std::enable_if<std::is_unsigned<I>::value, I>::type pow(I base, I exp)
 template <typename I>
 typename std::enable_if<!std::is_unsigned<I>::value, I>::type pow(I base, I exp)
 {
-    if (exp == 0)
+    if (exp == 0) // all
         return 1;
-    else if (base == 1)
+    else if (base == 1) // all
         return 1;
-    else if (base == -1)
+    else if (base == -1) // base signed
         return exp % 2 ? -1 : 1;
-    else if (exp < 0)
+    else if (exp < 0) // exp signed
         throw std::domain_error("Integer pow() with exp < 0 and |base| != 1");
-    else if (base == 0)
+    else if (base == 0) // all
         return 0;
-    else if (exp > std::numeric_limits<I>::digits)
+    else if (exp > std::numeric_limits<I>::digits) // base signed
         throw std::range_error("Integer pow() with exp > digits and |base| > 1");
-    else if (base == -2)
+    else if (base == -2) // base signed
         return ((I)1 << exp) * (exp % 2 ? -1 : 1);
-    else if (exp >= std::numeric_limits<I>::digits)
+    else if (exp >= std::numeric_limits<I>::digits) // all
         throw std::range_error("Integer pow() with exp >= digits and base not in {-2, -1, 0, 1}");
-    else if (base == 2)
+    else if (base == 2) // all
         return (I)1 << exp;
     return _pow(base, exp);
 }
