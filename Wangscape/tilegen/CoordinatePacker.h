@@ -1,11 +1,15 @@
 #pragma once
 
+#include <type_traits>
+
 namespace tilegen
 {
 
 template<typename I>
 class CoordinatePacker
 {
+    static_assert(std::is_integral<I>::value,
+                  "I must be integral");
 public:
     CoordinatePacker(I size_);
     void addCoordinate(I coordinate);
