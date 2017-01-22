@@ -34,69 +34,69 @@ TYPED_TEST_CASE(TestPowIntSigned, SignedIntTypes);
 
 TYPED_TEST(TestPowIntSigned, TestPowIntSignedX0)
 {
-    EXPECT_EQ(this->one, pow(this->minus_one, this->zero));
-    EXPECT_EQ(this->one, pow(this->minus_two, this->zero));
-    EXPECT_EQ(this->one, pow(this->minus_three, this->zero));
-    EXPECT_EQ(this->one, pow(this->minus_five, this->zero));
-    EXPECT_EQ(this->one, pow(this->min, this->zero));
+    EXPECT_EQ(this->one, ipow(this->minus_one, this->zero));
+    EXPECT_EQ(this->one, ipow(this->minus_two, this->zero));
+    EXPECT_EQ(this->one, ipow(this->minus_three, this->zero));
+    EXPECT_EQ(this->one, ipow(this->minus_five, this->zero));
+    EXPECT_EQ(this->one, ipow(this->min, this->zero));
 }
 
 TYPED_TEST(TestPowIntSigned, TestPowIntSigned0X)
 {
-    EXPECT_ANY_THROW(pow(this->zero, this->minus_one));
-    EXPECT_ANY_THROW(pow(this->zero, this->minus_two));
-    EXPECT_ANY_THROW(pow(this->zero, this->minus_three));
-    EXPECT_ANY_THROW(pow(this->zero, this->minus_five));
-    EXPECT_ANY_THROW(pow(this->zero, this->min));
+    EXPECT_ANY_THROW(ipow(this->zero, this->minus_one));
+    EXPECT_ANY_THROW(ipow(this->zero, this->minus_two));
+    EXPECT_ANY_THROW(ipow(this->zero, this->minus_three));
+    EXPECT_ANY_THROW(ipow(this->zero, this->minus_five));
+    EXPECT_ANY_THROW(ipow(this->zero, this->min));
 }
 
 TYPED_TEST(TestPowIntSigned, TestPowIntSignedX1)
 {
-    EXPECT_EQ(this->minus_one, pow(this->minus_one, this->one));
-    EXPECT_EQ(this->minus_two, pow(this->minus_two, this->one));
-    EXPECT_EQ(this->minus_three, pow(this->minus_three, this->one));
-    EXPECT_EQ(this->minus_five, pow(this->minus_five, this->one));
-    EXPECT_EQ(this->min, pow(this->min, this->one));
+    EXPECT_EQ(this->minus_one, ipow(this->minus_one, this->one));
+    EXPECT_EQ(this->minus_two, ipow(this->minus_two, this->one));
+    EXPECT_EQ(this->minus_three, ipow(this->minus_three, this->one));
+    EXPECT_EQ(this->minus_five, ipow(this->minus_five, this->one));
+    EXPECT_EQ(this->min, ipow(this->min, this->one));
 }
 
 TYPED_TEST(TestPowIntSigned, TestPowIntSigned1X)
 {
-    EXPECT_EQ(this->one, pow(this->one, this->minus_one));
-    EXPECT_EQ(this->one, pow(this->one, this->minus_two));
-    EXPECT_EQ(this->one, pow(this->one, this->minus_three));
-    EXPECT_EQ(this->one, pow(this->one, this->minus_five));
-    EXPECT_EQ(this->one, pow(this->one, this->min));
+    EXPECT_EQ(this->one, ipow(this->one, this->minus_one));
+    EXPECT_EQ(this->one, ipow(this->one, this->minus_two));
+    EXPECT_EQ(this->one, ipow(this->one, this->minus_three));
+    EXPECT_EQ(this->one, ipow(this->one, this->minus_five));
+    EXPECT_EQ(this->one, ipow(this->one, this->min));
 }
 
 TYPED_TEST(TestPowIntSigned, TestPowIntSignedMinus1X)
 {
-    EXPECT_EQ(this->one, pow(this->minus_one, this->min));
-    EXPECT_EQ(this->minus_one, pow(this->minus_one, this->minus_five));
-    EXPECT_EQ(this->minus_one, pow(this->minus_one, this->minus_three));
-    EXPECT_EQ(this->one, pow(this->minus_one, this->minus_two));
-    EXPECT_EQ(this->minus_one, pow(this->minus_one, this->minus_one));
-    EXPECT_EQ(this->one, pow(this->minus_one, this->zero));
-    EXPECT_EQ(this->minus_one, pow(this->minus_one, this->one));
-    EXPECT_EQ(this->one, pow(this->minus_one, this->two));
-    EXPECT_EQ(this->minus_one, pow(this->minus_one, this->three));
-    EXPECT_EQ(this->minus_one, pow(this->minus_one, this->five));
-    EXPECT_EQ(this->minus_one, pow(this->minus_one, this->max));
+    EXPECT_EQ(this->one, ipow(this->minus_one, this->min));
+    EXPECT_EQ(this->minus_one, ipow(this->minus_one, this->minus_five));
+    EXPECT_EQ(this->minus_one, ipow(this->minus_one, this->minus_three));
+    EXPECT_EQ(this->one, ipow(this->minus_one, this->minus_two));
+    EXPECT_EQ(this->minus_one, ipow(this->minus_one, this->minus_one));
+    EXPECT_EQ(this->one, ipow(this->minus_one, this->zero));
+    EXPECT_EQ(this->minus_one, ipow(this->minus_one, this->one));
+    EXPECT_EQ(this->one, ipow(this->minus_one, this->two));
+    EXPECT_EQ(this->minus_one, ipow(this->minus_one, this->three));
+    EXPECT_EQ(this->minus_one, ipow(this->minus_one, this->five));
+    EXPECT_EQ(this->minus_one, ipow(this->minus_one, this->max));
 }
 
 TYPED_TEST(TestPowIntSigned, TestPowIntSignedExamples)
 {
-    EXPECT_EQ(4, pow(this->minus_two, this->two));
-    EXPECT_EQ(9, pow(this->minus_three, this->two));
-    EXPECT_EQ(25, pow(this->minus_five, this->two));
+    EXPECT_EQ(4, ipow(this->minus_two, this->two));
+    EXPECT_EQ(9, ipow(this->minus_three, this->two));
+    EXPECT_EQ(25, ipow(this->minus_five, this->two));
 
-    EXPECT_EQ(-8, pow(this->minus_two, this->three));
-    EXPECT_EQ(-27, pow(this->minus_three, this->three));
-    EXPECT_EQ(-125, pow(this->minus_five, this->three));
+    EXPECT_EQ(-8, ipow(this->minus_two, this->three));
+    EXPECT_EQ(-27, ipow(this->minus_three, this->three));
+    EXPECT_EQ(-125, ipow(this->minus_five, this->three));
 
-    EXPECT_EQ(-32, pow(this->minus_two, this->five));
+    EXPECT_EQ(-32, ipow(this->minus_two, this->five));
 }
 
 TYPED_TEST(TestPowIntSigned, TestPowIntSignedMin)
 {
-    EXPECT_EQ(this->min, pow(this->minus_two, this->digits));
+    EXPECT_EQ(this->min, ipow(this->minus_two, this->digits));
 }

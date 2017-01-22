@@ -88,14 +88,14 @@ typename CartesianPower<ForwardIt>::const_iterator CartesianPower<ForwardIt>::en
 template<typename ForwardIt>
 inline size_t CartesianPower<ForwardIt>::size() const
 {
-    return pow(baseSize, power);
+    return ipow(baseSize, power);
 }
 
 template<typename ForwardIt>
 inline std::pair<size_t, size_t> CartesianPower<ForwardIt>::size_2d(size_t resolution) const
 {
     std::div_t div_mod = std::div((int)power, 2);
-    size_t res_y = resolution*pow(baseSize, (size_t)div_mod.quot);
+    size_t res_y = resolution*ipow(baseSize, (size_t)div_mod.quot);
     size_t res_x = res_y;
     if (div_mod.rem != 0)
         res_x *= baseSize;

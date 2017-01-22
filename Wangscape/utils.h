@@ -7,7 +7,7 @@ namespace
 {
 
 template<typename I>
-I _pow(I base, I exp)
+I ipow_imp(I base, I exp)
 {
     constexpr I zero(0);
     constexpr I two(2);
@@ -25,7 +25,7 @@ I _pow(I base, I exp)
 }
 
 template <typename I>
-I pow(I base, I exp)
+I ipow(I base, I exp)
 {
     if (exp == 0)
         return 1;
@@ -73,5 +73,5 @@ I pow(I base, I exp)
     if (base == 2)
         return (I)1 << exp;
 
-    return _pow(base, exp);
+    return ipow_imp(base, exp);
 }
