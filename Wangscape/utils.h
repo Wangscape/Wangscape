@@ -29,6 +29,8 @@ I ipow(I base, I exp)
 {
     static_assert(std::is_integral<I>::value,
                   "I must be an integral type");
+    static_assert(std::is_arithmetic<I>::value,
+                  "I must be an arithmetic type");
     if (exp == 0)
         return 1;
     if (base == 1)
