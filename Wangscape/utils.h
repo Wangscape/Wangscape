@@ -33,6 +33,7 @@ IBase ipow_imp(IBase base, IExp exp)
 // numeric_limits for IBase
 // is_signed for IBase and IExp
 // IBase and IExp must be constructible from int
+// numeric_limits<IBase>::digits must be representable in IExp
 // Operations used:
 //   Comparison operators
 //   IBase *= IBase
