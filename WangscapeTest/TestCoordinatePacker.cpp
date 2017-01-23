@@ -22,14 +22,11 @@ TEST_F(TestCoordinatePacker, TestCoordinatePackerDomain)
 }
 TEST_F(TestCoordinatePacker, TestCoordinatePackerSize)
 {
-    tilegen::CoordinatePacker<size_t> coord_packer0(0);
-    EXPECT_EQ(0, coord_packer0.size());
-    tilegen::CoordinatePacker<size_t> coord_packer1(1);
-    EXPECT_EQ(1, coord_packer1.size());
-    tilegen::CoordinatePacker<size_t> coord_packer2(2);
-    EXPECT_EQ(2, coord_packer2.size());
-    tilegen::CoordinatePacker<size_t> coord_packer10(10);
-    EXPECT_EQ(10, coord_packer10.size());
+    for (auto i : {0, 1, 2, 10})
+    {
+        tilegen::CoordinatePacker<size_t> coord_packer(i);
+        EXPECT_EQ(i, coord_packer.size());
+    }
 }
 
 TEST_F(TestCoordinatePacker, TestCoordinatePacker1)
