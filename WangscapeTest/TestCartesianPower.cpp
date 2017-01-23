@@ -179,9 +179,9 @@ TEST_F(TestCartesianPower, TestCartesianPowerValues)
 TEST_F(TestCartesianPower, TestCartesianPowerSize2D)
 {
     std::pair<size_t, size_t> size{45, 45};
-    EXPECT_EQ(size, cp.size_2d(5));
+    EXPECT_EQ(size, cp.size2D(5));
     size = {45, 15};
-    EXPECT_EQ(size, tilegen::CartesianPower<Iterator>(base, 3).size_2d(5));
+    EXPECT_EQ(size, tilegen::CartesianPower<Iterator>(base, 3).size2D(5));
 }
 
 TEST_F(TestCartesianPower, TestCartesianPowerCoordinates2D)
@@ -189,7 +189,7 @@ TEST_F(TestCartesianPower, TestCartesianPowerCoordinates2D)
     std::set<std::pair<size_t, size_t>> coordinates_used;
     for (auto it = cp.cbegin(); it != cp.cend(); ++it)
     {
-        std::pair<size_t, size_t> coords = it.coordinates_2d();
+        std::pair<size_t, size_t> coords = it.coordinates2D();
         EXPECT_LE((size_t)0, coords.first);
         EXPECT_GT((size_t)9, coords.first);
         EXPECT_LE((size_t)0, coords.second);

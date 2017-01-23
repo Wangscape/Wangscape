@@ -48,7 +48,7 @@ public:
     reference operator*() const;
     pointer operator->() const;
 
-    std::pair<size_t, size_t> coordinates_2d() const;
+    std::pair<size_t, size_t> coordinates2D() const;
 private:
     ForwardIt mFirst;
     size_t mBaseSize;
@@ -207,7 +207,7 @@ inline const size_t CartesianPowerIterator<ForwardIt>::getMaxComponent() const
 }
 
 template<typename ForwardIt>
-inline std::pair<size_t, size_t> CartesianPowerIterator<ForwardIt>::coordinates_2d() const
+inline std::pair<size_t, size_t> CartesianPowerIterator<ForwardIt>::coordinates2D() const
 {
     CoordinatePacker<size_t> x(getBaseSize());
     for (size_t i = 0; i < static_cast<size_t>(CORNERS); i += 2)

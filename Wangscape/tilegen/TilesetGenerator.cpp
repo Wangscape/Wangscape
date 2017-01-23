@@ -29,7 +29,7 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
     for (const auto& clique : options.cliques)
     {
         CornersGenerator corners_generator(clique, static_cast<size_t>(CORNERS));
-        std::pair<size_t, size_t> tileset_resolution = corners_generator.size_2d(options.tileFormat.resolution);
+        std::pair<size_t, size_t> tileset_resolution = corners_generator.size2D(options.tileFormat.resolution);
         size_t res_x = tileset_resolution.first;
         size_t res_y = tileset_resolution.second;
         std::unique_ptr<sf::RenderTexture> output{getBlankImage(res_x, res_y)};
@@ -54,7 +54,7 @@ void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderT
     for (auto it = corners_generator.cbegin(); it != corners_generator.cend(); ++it)
     {
         const auto& corner_terrains = *it;
-        std::pair<size_t, size_t> tile_position = it.coordinates_2d();
+        std::pair<size_t, size_t> tile_position = it.coordinates2D();
         TileGenerator::generate(image, tile_position.first, tile_position.second, corner_terrains,
                                 images, options, *mTilePartitioner.get());
         mo.addTile(corner_terrains, filename,

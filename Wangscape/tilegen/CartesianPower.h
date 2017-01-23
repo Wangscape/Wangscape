@@ -27,7 +27,7 @@ public:
     iterator end() const;
 
     size_t size() const;
-    std::pair<size_t, size_t> size_2d(size_t resolution) const;
+    std::pair<size_t, size_t> size2D(size_t resolution) const;
 
     ForwardIt first;
     size_t baseSize;
@@ -92,7 +92,7 @@ inline size_t CartesianPower<ForwardIt>::size() const
 }
 
 template<typename ForwardIt>
-inline std::pair<size_t, size_t> CartesianPower<ForwardIt>::size_2d(size_t resolution) const
+inline std::pair<size_t, size_t> CartesianPower<ForwardIt>::size2D(size_t resolution) const
 {
     std::div_t div_mod = std::div((int)power, 2);
     size_t res_y = resolution*ipow(baseSize, (size_t)div_mod.quot);
