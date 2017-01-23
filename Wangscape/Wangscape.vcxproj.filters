@@ -197,10 +197,10 @@
     <ClInclude Include="tilegen\CartesianPowerIterator.h">
       <Filter>Header Files\tilegen</Filter>
     </ClInclude>
-    <ClInclude Include="utils.h">
+    <ClInclude Include="tilegen\CoordinatePacker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tilegen\CoordinatePacker.h">
+    <ClInclude Include="ipow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <tuple>
 
-#include <utils.h>
+#include <ipow.h>
 
 template<typename T>
 class TestIPow : public ::testing::Test

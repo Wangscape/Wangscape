@@ -2,7 +2,7 @@
 #include "CartesianPowerIterator.h"
 #include <utility>
 #include <iostream>
-#include "utils.h"
+#include "ipow.h"
 
 namespace tilegen
 {
