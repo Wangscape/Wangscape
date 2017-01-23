@@ -58,7 +58,7 @@ IBase ipow_imp(IBase base, IExp exp)
 // is undefined.
 // In particular, cases like ipow(digits-1, digits-1)
 // are not checked, and may return nonsense results.
-template <typename IBase, typename IExp>
+template <typename IBase, typename IExp, bool UseBitshift = true>
 IBase ipow(IBase base, IExp exp)
 {
     static_assert(std::is_integral<IBase>::value,
@@ -112,7 +112,14 @@ IBase ipow(IBase base, IExp exp)
         if (base == -base_two)
         {
             stop = true;
-            result = (base_one << exp) * (exp % exp_two ? -base_one : base_one);
+            cpp::static_if<UseBitshift>
+            ([&](auto) {
+                result = ((exp % exp_two) ? -base_one : base_one) << exp;
+            })
+            .else_
+            ([&](auto) {
+                result = ipow_imp(base, exp);
+            });
         }
     });
     if (stop)
@@ -121,7 +128,16 @@ IBase ipow(IBase base, IExp exp)
     if (exp >= exp_digits)
         throw std::range_error("Integer pow() with exp >= digits and base not in {-2, -1, 0, 1}");
     if (base == base_two)
-        return base_one << exp;
+    {
+        cpp::static_if<UseBitshift>
+        ([&](auto) {
+            result = base_one << exp;
+        })
+        .else_
+        ([&](auto) {
+            result = ipow_imp(base, exp);
+        });
+    }
 
     return ipow_imp(base, exp);
 }
