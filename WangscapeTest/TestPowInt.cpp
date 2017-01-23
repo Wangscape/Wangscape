@@ -8,24 +8,13 @@ template<typename I>
 class TestPowInt : public ::testing::Test
 {
 protected:
-    const I zero;
-    const I one;
-    const I two;
-    const I three;
-    const I five;
-    const I max;
-    const I digits;
-    TestPowInt()
-    {
-        zero = 0;
-        one = 1;
-        two = 2;
-        three = 3;
-        five = 5;
-        max = std::numeric_limits<I>::max();
-        digits = static_cast<I>(std::numeric_limits<I>::digits);
-
-    };
+    const I zero = 0;
+    const I one = 1;
+    const I two = 2;
+    const I three = 3;
+    const I five = 5;
+    const I max = std::numeric_limits<I>::max();
+    const I digits = static_cast<I>(std::numeric_limits<I>::digits);
 };
 
 typedef ::testing::Types<
