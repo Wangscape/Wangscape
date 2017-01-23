@@ -5,7 +5,7 @@
 #include <utils.h>
 
 template<typename I>
-class TestPowIntSigned : public ::testing::Test
+class TestIPowSigned : public ::testing::Test
 {
 protected:
     const I min = std::numeric_limits<I>::min();
@@ -25,9 +25,9 @@ protected:
 typedef ::testing::Types<
     char, short, int, long, long long>
     SignedIntTypes;
-TYPED_TEST_CASE(TestPowIntSigned, SignedIntTypes);
+TYPED_TEST_CASE(TestIPowSigned, SignedIntTypes);
 
-TYPED_TEST(TestPowIntSigned, TestPowIntSignedX0)
+TYPED_TEST(TestIPowSigned, TestIPowSignedX0)
 {
     EXPECT_EQ(this->one, ipow(this->minus_one, this->zero));
     EXPECT_EQ(this->one, ipow(this->minus_two, this->zero));
@@ -35,7 +35,7 @@ TYPED_TEST(TestPowIntSigned, TestPowIntSignedX0)
     EXPECT_EQ(this->one, ipow(this->min, this->zero));
 }
 
-TYPED_TEST(TestPowIntSigned, TestPowIntSigned0X)
+TYPED_TEST(TestIPowSigned, TestIPowSigned0X)
 {
     EXPECT_ANY_THROW(ipow(this->zero, this->minus_one));
     EXPECT_ANY_THROW(ipow(this->zero, this->minus_two));
@@ -43,7 +43,7 @@ TYPED_TEST(TestPowIntSigned, TestPowIntSigned0X)
     EXPECT_ANY_THROW(ipow(this->zero, this->min));
 }
 
-TYPED_TEST(TestPowIntSigned, TestPowIntSignedX1)
+TYPED_TEST(TestIPowSigned, TestIPowSignedX1)
 {
     EXPECT_EQ(this->minus_one, ipow(this->minus_one, this->one));
     EXPECT_EQ(this->minus_two, ipow(this->minus_two, this->one));
@@ -51,7 +51,7 @@ TYPED_TEST(TestPowIntSigned, TestPowIntSignedX1)
     EXPECT_EQ(this->min, ipow(this->min, this->one));
 }
 
-TYPED_TEST(TestPowIntSigned, TestPowIntSigned1X)
+TYPED_TEST(TestIPowSigned, TestIPowSigned1X)
 {
     EXPECT_EQ(this->one, ipow(this->one, this->minus_one));
     EXPECT_EQ(this->one, ipow(this->one, this->minus_two));
@@ -59,7 +59,7 @@ TYPED_TEST(TestPowIntSigned, TestPowIntSigned1X)
     EXPECT_EQ(this->one, ipow(this->one, this->min));
 }
 
-TYPED_TEST(TestPowIntSigned, TestPowIntSignedMinus1X)
+TYPED_TEST(TestIPowSigned, TestIPowSignedMinus1X)
 {
     EXPECT_EQ(this->one, ipow(this->minus_one, this->min));
     EXPECT_EQ(this->minus_one, ipow(this->minus_one, this->minus_three));
@@ -72,7 +72,7 @@ TYPED_TEST(TestPowIntSigned, TestPowIntSignedMinus1X)
     EXPECT_EQ(this->minus_one, ipow(this->minus_one, this->max));
 }
 
-TYPED_TEST(TestPowIntSigned, TestPowIntSignedExamples)
+TYPED_TEST(TestIPowSigned, TestIPowSignedExamples)
 {
     EXPECT_EQ(4, ipow(this->minus_two, this->two));
     EXPECT_EQ(9, ipow(this->minus_three, this->two));
@@ -85,7 +85,7 @@ TYPED_TEST(TestPowIntSigned, TestPowIntSignedExamples)
     EXPECT_EQ(-32, ipow(this->minus_two, this->five));
 }
 
-TYPED_TEST(TestPowIntSigned, TestPowIntSignedMin)
+TYPED_TEST(TestIPowSigned, TestIPowSignedMin)
 {
     EXPECT_EQ(this->min, ipow(this->minus_two, this->digits));
 }

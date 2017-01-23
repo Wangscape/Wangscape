@@ -5,7 +5,7 @@
 #include <utils.h>
 
 template<typename I>
-class TestPowInt : public ::testing::Test
+class TestIPow : public ::testing::Test
 {
 protected:
     const I zero = 0;
@@ -21,14 +21,14 @@ typedef ::testing::Types<
     char, short, int, long, long long,
     unsigned char, unsigned short, unsigned int, unsigned long, unsigned long long>
     IntTypes;
-TYPED_TEST_CASE(TestPowInt, IntTypes);
+TYPED_TEST_CASE(TestIPow, IntTypes);
 
-TYPED_TEST(TestPowInt, TestPowInt00)
+TYPED_TEST(TestIPow, TestIPow00)
 {
     EXPECT_EQ(this->one, ipow(this->zero, this->zero));
 }
 
-TYPED_TEST(TestPowInt, TestPowIntX0)
+TYPED_TEST(TestIPow, TestIPowX0)
 {
     EXPECT_EQ(this->one, ipow(this->one, this->zero));
     EXPECT_EQ(this->one, ipow(this->two, this->zero));
@@ -38,7 +38,7 @@ TYPED_TEST(TestPowInt, TestPowIntX0)
     EXPECT_EQ(this->one, ipow(this->max, this->zero));
 }
 
-TYPED_TEST(TestPowInt, TestPowInt0X)
+TYPED_TEST(TestIPow, TestIPow0X)
 {
     EXPECT_EQ(this->zero, ipow(this->zero, this->one));
     EXPECT_EQ(this->zero, ipow(this->zero, this->two));
@@ -48,7 +48,7 @@ TYPED_TEST(TestPowInt, TestPowInt0X)
     EXPECT_EQ(this->zero, ipow(this->zero, this->max));
 }
 
-TYPED_TEST(TestPowInt, TestPowIntX1)
+TYPED_TEST(TestIPow, TestIPowX1)
 {
     EXPECT_EQ(this->one, ipow(this->one, this->one));
     EXPECT_EQ(this->two, ipow(this->two, this->one));
@@ -56,7 +56,7 @@ TYPED_TEST(TestPowInt, TestPowIntX1)
     EXPECT_EQ(this->max, ipow(max, this->one));
 }
 
-TYPED_TEST(TestPowInt, TestPowInt1X)
+TYPED_TEST(TestIPow, TestIPow1X)
 {
     EXPECT_EQ(this->one, ipow(this->one, this->one));
     EXPECT_EQ(this->one, ipow(this->one, this->two));
@@ -64,7 +64,7 @@ TYPED_TEST(TestPowInt, TestPowInt1X)
     EXPECT_EQ(this->one, ipow(this->one, this->max));
 }
 
-TYPED_TEST(TestPowInt, TestPowIntExamples)
+TYPED_TEST(TestIPow, TestIPowExamples)
 {
     EXPECT_EQ(4, ipow(this->two, this->two));
     EXPECT_EQ(9, ipow(this->three, this->two));
@@ -80,7 +80,7 @@ TYPED_TEST(TestPowInt, TestPowIntExamples)
     EXPECT_EQ(32, ipow(this->two, this->five));
 }
 
-TYPED_TEST(TestPowInt, TestPowIntTooLarge)
+TYPED_TEST(TestIPow, TestIPowTooLarge)
 {
     EXPECT_ANY_THROW(ipow(this->two, this->digits));
     EXPECT_ANY_THROW(ipow(this->two, this->max));

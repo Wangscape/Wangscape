@@ -163,8 +163,8 @@
     <ClCompile Include="TestMovingScaleBias.cpp" />
     <ClCompile Include="TestNormLPQ.cpp" />
     <ClCompile Include="TestOptions.cpp" />
-    <ClCompile Include="TestPowInt.cpp" />
-    <ClCompile Include="TestPowIntSigned.cpp" />
+    <ClCompile Include="TestIPow.cpp" />
+    <ClCompile Include="TestIPowSigned.cpp" />
     <ClCompile Include="TestRequiringOptions.cpp" />
     <ClCompile Include="TestReseedable.cpp" />
     <ClCompile Include="TestTileGenerationPlan.cpp" />

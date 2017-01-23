@@ -60,10 +60,10 @@
     <ClCompile Include="TestCartesianPower.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestPowInt.cpp">
+    <ClCompile Include="TestIPowSigned.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestPowIntSigned.cpp">
+    <ClCompile Include="TestIPow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
