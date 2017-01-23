@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TestCartesianPower.cpp" />
+    <ClCompile Include="TestCoordinatePacker.cpp" />
     <ClCompile Include="TestCornerCombiner.cpp" />
     <ClCompile Include="TestEdgeFavouringMask.cpp" />
     <ClCompile Include="TestMetaOutput.cpp" />
