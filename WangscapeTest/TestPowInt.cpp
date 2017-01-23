@@ -8,13 +8,13 @@ template<typename I>
 class TestPowInt : public ::testing::Test
 {
 protected:
-    I zero;
-    I one;
-    I two;
-    I three;
-    I five;
-    I max;
-    I digits;
+    const I zero;
+    const I one;
+    const I two;
+    const I three;
+    const I five;
+    const I max;
+    const I digits;
     TestPowInt()
     {
         zero = 0;

@@ -8,18 +8,18 @@ template<typename I>
 class TestPowIntSigned : public ::testing::Test
 {
 protected:
-    const static I min = std::numeric_limits<I>::min();
-    const static I minus_five = -5;
-    const static I minus_three = -3;
-    const static I minus_two = -2;
-    const static I minus_one = -1;
-    const static I zero = 0;
-    const static I one = 1;
-    const static I two = 2;
-    const static I three = 3;
-    const static I five = 5;
-    const static I digits = std::numeric_limits<I>::digits;
-    const static I max = std::numeric_limits<I>::max();
+    const I min = std::numeric_limits<I>::min();
+    const I minus_five = -5;
+    const I minus_three = -3;
+    const I minus_two = -2;
+    const I minus_one = -1;
+    const I zero = 0;
+    const I one = 1;
+    const I two = 2;
+    const I three = 3;
+    const I five = 5;
+    const I digits = std::numeric_limits<I>::digits;
+    const I max = std::numeric_limits<I>::max();
 };
 
 typedef ::testing::Types<
