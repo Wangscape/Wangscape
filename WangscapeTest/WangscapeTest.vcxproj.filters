@@ -60,9 +60,6 @@
     <ClCompile Include="TestCartesianPower.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestIPowSigned.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TestIPow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
