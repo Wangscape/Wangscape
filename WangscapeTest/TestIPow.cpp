@@ -12,7 +12,6 @@ protected:
     const I one = 1;
     const I two = 2;
     const I three = 3;
-    const I five = 5;
     const I max = std::numeric_limits<I>::max();
     const I digits = static_cast<I>(std::numeric_limits<I>::digits);
 };
@@ -33,7 +32,6 @@ TYPED_TEST(TestIPow, TestIPowX0)
     EXPECT_EQ(this->one, ipow(this->one, this->zero));
     EXPECT_EQ(this->one, ipow(this->two, this->zero));
     EXPECT_EQ(this->one, ipow(this->three, this->zero));
-    EXPECT_EQ(this->one, ipow(this->five, this->zero));
     EXPECT_EQ(this->one, ipow(this->digits, this->zero));
     EXPECT_EQ(this->one, ipow(this->max, this->zero));
 }
@@ -43,7 +41,6 @@ TYPED_TEST(TestIPow, TestIPow0X)
     EXPECT_EQ(this->zero, ipow(this->zero, this->one));
     EXPECT_EQ(this->zero, ipow(this->zero, this->two));
     EXPECT_EQ(this->zero, ipow(this->zero, this->three));
-    EXPECT_EQ(this->zero, ipow(this->zero, this->five));
     EXPECT_EQ(this->zero, ipow(this->zero, this->digits));
     EXPECT_EQ(this->zero, ipow(this->zero, this->max));
 }
@@ -68,16 +65,12 @@ TYPED_TEST(TestIPow, TestIPowExamples)
 {
     EXPECT_EQ(4, ipow(this->two, this->two));
     EXPECT_EQ(9, ipow(this->three, this->two));
-    EXPECT_EQ(25, ipow(this->five, this->two));
     EXPECT_EQ(this->one << (this->digits - 1),
               ipow(this->two,
                    TypeParam(this->digits - 1)));
 
     EXPECT_EQ(8, ipow(this->two, this->three));
     EXPECT_EQ(27, ipow(this->three, this->three));
-    EXPECT_EQ(125, ipow(this->five, this->three));
-
-    EXPECT_EQ(32, ipow(this->two, this->five));
 }
 
 TYPED_TEST(TestIPow, TestIPowTooLarge)

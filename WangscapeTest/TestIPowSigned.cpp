@@ -9,7 +9,6 @@ class TestIPowSigned : public ::testing::Test
 {
 protected:
     const I min = std::numeric_limits<I>::min();
-    const I minus_five = -5;
     const I minus_three = -3;
     const I minus_two = -2;
     const I minus_one = -1;
@@ -17,7 +16,6 @@ protected:
     const I one = 1;
     const I two = 2;
     const I three = 3;
-    const I five = 5;
     const I digits = std::numeric_limits<I>::digits;
     const I max = std::numeric_limits<I>::max();
 };
@@ -76,13 +74,9 @@ TYPED_TEST(TestIPowSigned, TestIPowSignedExamples)
 {
     EXPECT_EQ(4, ipow(this->minus_two, this->two));
     EXPECT_EQ(9, ipow(this->minus_three, this->two));
-    EXPECT_EQ(25, ipow(this->minus_five, this->two));
 
     EXPECT_EQ(-8, ipow(this->minus_two, this->three));
     EXPECT_EQ(-27, ipow(this->minus_three, this->three));
-    EXPECT_EQ(-125, ipow(this->minus_five, this->three));
-
-    EXPECT_EQ(-32, ipow(this->minus_two, this->five));
 }
 
 TYPED_TEST(TestIPowSigned, TestIPowSignedMin)
