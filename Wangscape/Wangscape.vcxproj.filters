@@ -134,15 +134,6 @@
     <ClInclude Include="tilegen\partition\TilePartitionerPerlin.h">
       <Filter>Header Files\tilegen\partition</Filter>
     </ClInclude>
-    <ClInclude Include="tilegen\alpha\AlphaCalculatorMax.h">
-      <Filter>Header Files\tilegen\alpha</Filter>
-    </ClInclude>
-    <ClInclude Include="tilegen\alpha\AlphaCalculatorBase.h">
-      <Filter>Header Files\tilegen\alpha</Filter>
-    </ClInclude>
-    <ClInclude Include="tilegen\alpha\AlphaCalculatorLinear.h">
-      <Filter>Header Files\tilegen\alpha</Filter>
-    </ClInclude>
     <ClInclude Include="Corners.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -201,6 +192,16 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ipow.h">
+    <ClInclude Include="tilegen\alpha\CalculatorBase.h">
+      <Filter>Header Files\tilegen\alpha</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\alpha\CalculatorLinear.h">
+      <Filter>Header Files\tilegen\alpha</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\alpha\CalculatorMax.h">
+      <Filter>Header Files\tilegen\alpha</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\alpha\CalculatorMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -259,15 +260,6 @@
     <ClCompile Include="tilegen\partition\TilePartitionerSquares.cpp">
       <Filter>Source Files\tilegen\partition</Filter>
     </ClCompile>
-    <ClCompile Include="tilegen\alpha\AlphaCalculatorBase.cpp">
-      <Filter>Source Files\tilegen\alpha</Filter>
-    </ClCompile>
-    <ClCompile Include="tilegen\alpha\AlphaCalculatorLinear.cpp">
-      <Filter>Source Files\tilegen\alpha</Filter>
-    </ClCompile>
-    <ClCompile Include="tilegen\alpha\AlphaCalculatorMax.cpp">
-      <Filter>Source Files\tilegen\alpha</Filter>
-    </ClCompile>
     <ClCompile Include="OptionsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -282,6 +274,15 @@
     </ClCompile>
     <ClCompile Include="metaoutput\Tileset.cpp">
       <Filter>Source Files\metaoutput</Filter>
+    </ClCompile>
+    <ClCompile Include="tilegen\alpha\CalculatorBase.cpp">
+      <Filter>Source Files\tilegen\alpha</Filter>
+    </ClCompile>
+    <ClCompile Include="tilegen\alpha\CalculatorLinear.cpp">
+      <Filter>Source Files\tilegen\alpha</Filter>
+    </ClCompile>
+    <ClCompile Include="tilegen\alpha\CalculatorMax.cpp">
+      <Filter>Source Files\tilegen\alpha</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,0 +1,16 @@
+set(noise-src
+    MakeReseedable.cpp
+    ModuleManager.cpp
+    RasterBase.cpp
+    RasterImage.cpp
+    RasterValues.cpp
+    Reseedable.cpp
+)
+
+add_subdirectory(module)
+
+add_library(wangscape-noise STATIC ${noise-src})
+
+target_include_directories(wangscape-noise PUBLIC ${PROJECT_SOURCE_DIR}/Wangscape)
+target_include_directories(wangscape-noise PUBLIC ${PROJECT_SOURCE_DIR}/lib/libnoise/src)
+target_link_libraries(wangscape-noise noise)

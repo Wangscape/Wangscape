@@ -1,14 +1,29 @@
 set(tst-src
     main.cpp
+    OptionsFilename.cpp
+    TestCornerCombiner.cpp
+    TestEdgeFavouringMask.cpp
     TestMetaOutput.cpp
+    TestModuleGroup.cpp
+    TestMovingScaleBias.cpp
     TestOptions.cpp
-    TestTilePartitionGradient.cpp
-    TestTilePartitionSquares.cpp
+    TestNormLPQ.cpp
+    TestRequiringOptions.cpp
+    TestReseedable.cpp
+    TestTileGenerationPlan.cpp
+    TestTilePartitionerGradient.cpp
+    TestTilePartitionerSquares.cpp
     TestTilesetGenerator.cpp)
 
 add_executable(WangscapeTest ${tst-src})
 
 target_link_libraries(WangscapeTest wangscape)
+
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+if(Threads_FOUND)
+    target_link_libraries(WangscapeTest Threads::Threads)
+endif()
 
 find_package(GTest REQUIRED)
 if(GTest_FOUND)

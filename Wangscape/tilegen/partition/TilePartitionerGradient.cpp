@@ -1,5 +1,5 @@
 #include "TilePartitionerGradient.h"
-#include "tilegen/alpha/AlphaCalculatorLinear.h"
+#include "tilegen/alpha/CalculatorLinear.h"
 #include <utility>
 
 namespace tilegen
@@ -25,18 +25,18 @@ void TilePartitionerGradient::makePartition(TilePartition & regions,
                    mOptions.tileFormat.resolution);
         masks.push_back(img);
     }
-    std::vector<float> weights(corners.size(), 0.f);
+    std::vector<double> weights(corners.size(), 0.);
     const int resolution_sub_1 = mOptions.tileFormat.resolution - 1;
     const int quarter_res = mOptions.tileFormat.resolution / 4;
-    alpha::AlphaCalculatorLinear ac;
+    alpha::CalculatorLinear ac;
     for (size_t x = 0; x < mOptions.tileFormat.resolution; x++)
     {
         for (size_t y = 0; y < mOptions.tileFormat.resolution; y++)
         {
-            weights[0] = (float)gradientWeight(x, y, 0, 0, quarter_res);
-            weights[1] = (float)gradientWeight(x, y, 0, resolution_sub_1, quarter_res);
-            weights[2] = (float)gradientWeight(x, y, resolution_sub_1, 0, quarter_res);
-            weights[3] = (float)gradientWeight(x, y, resolution_sub_1, resolution_sub_1, quarter_res);
+            weights[0] = static_cast<double>(gradientWeight(x, y, 0, 0, quarter_res));
+            weights[1] = static_cast<double>(gradientWeight(x, y, 0, resolution_sub_1, quarter_res));
+            weights[2] = static_cast<double>(gradientWeight(x, y, resolution_sub_1, 0, quarter_res));
+            weights[3] = static_cast<double>(gradientWeight(x, y, resolution_sub_1, resolution_sub_1, quarter_res));
             ac.updateAlphas(weights);
             const auto& alphas = ac.getAlphas();
             for (size_t i = 0; i < masks.size(); i++)

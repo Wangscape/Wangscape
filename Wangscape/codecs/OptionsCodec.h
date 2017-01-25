@@ -7,8 +7,6 @@
 #include "TerrainSpecCodec.h"
 #include "TileFormatCodec.h"
 
-using namespace spotify::json::codec;
-
 namespace spotify
 {
 namespace json
@@ -17,15 +15,19 @@ namespace json
 template<>
 struct default_codec_t<Options>
 {
-    static object_t<Options> codec()
+    static codec::object_t<Options> codec()
     {
-        auto codec = object<Options>();
+        auto codec = codec::object<Options>();
         codec.required("OutputDirectory", &Options::outputDirectory);
         codec.required("Terrains", &Options::terrains);
         codec.required("TileFormat", &Options::tileFormat);
         codec.required("Cliques", &Options::cliques);
         codec.required("MetaOutput", &Options::outputFilenames);
-
+        codec.required("AlphaCalculatorMode", &Options::CalculatorMode,
+                       codec::enumeration<tilegen::alpha::CalculatorMode, std::string>({
+                           {tilegen::alpha::CalculatorMode::Max, "Max"},
+                           {tilegen::alpha::CalculatorMode::Linear, "Linear"}}));
+        
         return codec;
     }
 };

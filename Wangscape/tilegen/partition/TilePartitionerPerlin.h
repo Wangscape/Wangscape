@@ -20,7 +20,7 @@ public:
     void makePartition(TilePartition& regions,
                        const Corners& corners);
     Reseedable makeCornerModule(const Corners & corners, bool left, bool top);
-    void noiseToAlpha(std::vector<noise::RasterValues<float>>& noise_values,
+    void noiseToAlpha(std::vector<noise::RasterValues<double>>& noise_values,
                       std::vector<sf::Image>& outputs,
                       size_t resolution) const;
 private:

@@ -1,4 +1,4 @@
-#include "AlphaCalculatorLinear.h"
+#include "CalculatorLinear.h"
 #include <algorithm>
 #include <assert.h>
 #include <numeric>
@@ -8,11 +8,11 @@ namespace tilegen
 namespace alpha
 {
 
-void AlphaCalculatorLinear::updateAlphasAux(const Weights& weights)
+void CalculatorLinear::updateAlphasAux(const Weights& weights)
 {
     int alpha_remaining = 255;
-    float total_weight = std::accumulate(weights.cbegin(), weights.cend(), 0.f);
-    if (total_weight <= std::numeric_limits<float>::epsilon() * 255 * 4)
+    double total_weight = std::accumulate(weights.cbegin(), weights.cend(), 0.);
+    if (total_weight <= std::numeric_limits<double>::epsilon() * 255 * 4)
     {
         // This shouldn't happen, but it is easy to make weight masks
         // where this does happen.

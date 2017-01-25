@@ -10,14 +10,17 @@
 class TestOptions : public TestRequiringOptions
 {
 protected:
-    using TestRequiringOptions::TestRequiringOptions;
+    TestOptions() :
+        TestRequiringOptions()
+    {
+    }
 };
 
 TEST_F(TestOptions, TestOptionsValues)
 {
-    EXPECT_EQ(options.filename, getFilename()) <<
+    EXPECT_EQ(options.filename, optionsFilename) <<
         "Incorrect options filename";
-    boost::filesystem::path expected_output_dir(getFilename());
+    boost::filesystem::path expected_output_dir(optionsFilename);
     expected_output_dir.remove_filename();
     expected_output_dir /= "output";
     EXPECT_TRUE(boost::filesystem::equivalent(

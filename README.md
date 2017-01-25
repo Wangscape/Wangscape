@@ -1,5 +1,8 @@
 # Wangscape
+
 Converts terrain tiles to procedural corner Wang tilesets.
+
+[![Gitter chat](https://badges.gitter.im/Wangscape.png)](https://gitter.im/Wangscape/Lobby)
 
 Procjam 2016 project (in progress)
 

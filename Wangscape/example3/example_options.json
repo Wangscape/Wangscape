@@ -51,5 +51,6 @@
     {
       "Terrains": ["s", "g"]
     }
-  ]
+  ],
+  "AlphaCalculatorMode":"Linear"
 }
