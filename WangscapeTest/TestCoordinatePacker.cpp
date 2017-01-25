@@ -67,6 +67,8 @@ TEST_F(TestCoordinatePacker, TestCoordinatePackerValuesBase10)
     EXPECT_EQ(123, coord_packer.packed());
     coord_packer.addCoordinate(5);
     EXPECT_EQ(1235, coord_packer.packed());
+    coord_packer.addCoordinate(9);
+    EXPECT_EQ(12359, coord_packer.packed());
     coord_packer.addCoordinate(0);
-    EXPECT_EQ(12350, coord_packer.packed());
+    EXPECT_EQ(123590, coord_packer.packed());
 }
