@@ -16,6 +16,19 @@ TEST_F(TestCoordinatePacker, TestCoordinatePackerDomain)
     for (auto i : base_values)
     {
         tilegen::CoordinatePacker<size_t> coord_packer(i);
+        if (i > 0)
+        {
+            EXPECT_NO_THROW(coord_packer.addCoordinate(0));
+            EXPECT_NO_THROW(coord_packer.addCoordinate(i - 1));
+        }
+        if (i > 1)
+        {
+            EXPECT_NO_THROW(coord_packer.addCoordinate(1));
+        }
+        if (i > 2)
+        {
+            EXPECT_NO_THROW(coord_packer.addCoordinate(2));
+        }
         EXPECT_ANY_THROW(coord_packer.addCoordinate(-1));
         EXPECT_ANY_THROW(coord_packer.addCoordinate(i));
         EXPECT_ANY_THROW(coord_packer.addCoordinate(i + 1));
