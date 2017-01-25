@@ -41,8 +41,7 @@ TEST_F(TestCartesianPower, TestCartesianPowerComparisonBeginEnd)
 TEST_F(TestCartesianPower, TestCartesianPowerComparisonLast)
 {
     auto it = cp.cbegin();
-    for (size_t i = 0; i < cp.size(); i++)
-        ++it;
+    std::advance(it, cp.size());
     EXPECT_EQ(it, it);
     EXPECT_EQ(it, cp.cend());
     EXPECT_EQ(cp.cend(), it);
