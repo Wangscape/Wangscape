@@ -68,6 +68,10 @@ inline CartesianPowerIterator<ForwardIt>::CartesianPowerIterator(ForwardIt first
     mFirst(first_), mBaseSize(base_size_),
     mCoordinates(power_, init_coordinate_)
 {
+    static_assert(std::is_copy_constructible<CartesianPowerIterator>::value,
+                  "CartesianPowerIterator not CopyConstructible");
+    static_assert(std::is_copy_assignable<CartesianPowerIterator>::value,
+                  "CartesianPowerIterator not CopyAssignable");
     if (init_coordinate_ != getBaseSize())
     {
         ForwardIt init_iterator = getFirst();
