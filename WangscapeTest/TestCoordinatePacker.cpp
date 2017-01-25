@@ -7,12 +7,13 @@
 
 class TestCoordinatePacker : public ::testing::Test
 {
-protected:
+public:
+    std::vector<size_t> base_values{0, 1, 2, 10};
 };
 
 TEST_F(TestCoordinatePacker, TestCoordinatePackerDomain)
 {
-    for (auto i : {0, 1, 2, 10})
+    for (auto i : base_values)
     {
         tilegen::CoordinatePacker<size_t> coord_packer(i);
         EXPECT_ANY_THROW(coord_packer.addCoordinate(-1));
@@ -22,7 +23,7 @@ TEST_F(TestCoordinatePacker, TestCoordinatePackerDomain)
 }
 TEST_F(TestCoordinatePacker, TestCoordinatePackerSize)
 {
-    for (auto i : {0, 1, 2, 10})
+    for (auto i : base_values)
     {
         tilegen::CoordinatePacker<size_t> coord_packer(i);
         EXPECT_EQ(i, coord_packer.size());
