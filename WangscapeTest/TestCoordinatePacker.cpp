@@ -30,7 +30,7 @@ TEST_F(TestCoordinatePacker, TestCoordinatePackerSize)
     }
 }
 
-TEST_F(TestCoordinatePacker, TestCoordinatePacker1)
+TEST_F(TestCoordinatePacker, TestCoordinatePackerValuesBase1)
 {
     tilegen::CoordinatePacker<size_t> coord_packer(1);
     EXPECT_EQ(0, coord_packer.packed());
@@ -39,7 +39,7 @@ TEST_F(TestCoordinatePacker, TestCoordinatePacker1)
 }
 
 
-TEST_F(TestCoordinatePacker, TestCoordinatePacker2)
+TEST_F(TestCoordinatePacker, TestCoordinatePackerValuesBase2)
 {
     tilegen::CoordinatePacker<size_t> coord_packer(2);
     EXPECT_EQ(0, coord_packer.packed());
@@ -55,7 +55,7 @@ TEST_F(TestCoordinatePacker, TestCoordinatePacker2)
     EXPECT_EQ(21, coord_packer.packed());
 }
 
-TEST_F(TestCoordinatePacker, TestCoordinatePacker10)
+TEST_F(TestCoordinatePacker, TestCoordinatePackerValuesBase10)
 {
     tilegen::CoordinatePacker<size_t> coord_packer(10);
     EXPECT_EQ(0, coord_packer.packed());
