@@ -23,9 +23,7 @@ TEST_F(TestCartesianPower, TestCartesianPowerSize)
 
 TEST_F(TestCartesianPower, TestCartesianPowerCount)
 {
-    size_t count = 0;
-    for (const auto& it : cp)
-        count++;
+    ptrdiff_t count = std::distance(cp.cbegin(), cp.cend());
     EXPECT_EQ(81, count);
 }
 
