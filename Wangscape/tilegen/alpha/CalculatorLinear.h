@@ -1,15 +1,15 @@
 #pragma once
-#include "AlphaCalculatorBase.h"
+#include "CalculatorBase.h"
 
 namespace tilegen
 {
 namespace alpha
 {
 
-class AlphaCalculatorLinear : public AlphaCalculatorBase
+class CalculatorLinear : public CalculatorBase
 {
 protected:
-    // This AlphaCalculator class requires input weights
+    // This Calculator class requires input weights
     // to be all nonnegative,
     // and to have a sum significantly reater than 0.
     // If these conditions are not satisfied,

@@ -17,7 +17,7 @@ Reseedable makeCornerCombiner(bool x_positive, bool y_positive, double power = 2
 Reseedable makeEdgeFavouringMask(double p, double q=1., double min=-1.);
 
 // Makes a noise module that rescales a module from range [-1,1] to range [min,max].
-Reseedable makeMovingScaleBias(Reseedable& source, Reseedable& min, Reseedable& max);
+Reseedable makeMovingScaleBias(Reseedable source, Reseedable min, Reseedable max);
 
 // Makes a noise module with value equal to x.
 Reseedable makeX();
@@ -39,7 +39,7 @@ Reseedable makeConst(double c);
 // The middle_length parameter controls the size
 // of the region with range [0,1].
 // It must be less than length.
-Reseedable makeLinearMovingScaleBias(Reseedable & source,
+Reseedable makeLinearMovingScaleBias(Reseedable source,
                                      bool x_positive, bool y_positive,
                                      double length = 1., double middle_length = 0.);
 

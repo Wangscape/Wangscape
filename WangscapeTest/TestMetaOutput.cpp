@@ -17,7 +17,6 @@
 class TestMetaOutput : public TestRequiringOptions
 {
 protected:
-    using TestRequiringOptions::TestRequiringOptions;
     tilegen::TilesetGenerator tg;
     const metaoutput::MetaOutput& metaOutput;
     TestMetaOutput() :

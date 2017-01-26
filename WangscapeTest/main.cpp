@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "TestRequiringOptions.h"
+#include "OptionsFilename.h"
 
 int main(int argc, char** argv)
 {
@@ -10,6 +10,6 @@ int main(int argc, char** argv)
     else
         filename = std::string(argv[1]);
     std::cout << "Using options file at " << filename << "\n";
-    assert(TestRequiringOptions::initFilename(filename));
+    setOptionsFilename(filename);
     return RUN_ALL_TESTS();
 } 

@@ -40,7 +40,7 @@ Reseedable makeEdgeFavouringMask(double p, double q, double min)
         .clamp(min, 1.);
 }
 
-Reseedable makeMovingScaleBias(Reseedable& source, Reseedable& min, Reseedable& max)
+Reseedable makeMovingScaleBias(Reseedable source, Reseedable min, Reseedable max)
 {
     return ((source + 1)*0.5*(max - min)) + min;
 }
@@ -67,7 +67,7 @@ Reseedable makeConst(double c)
     return makeReseedable(c_p);
 }
 
-Reseedable makeLinearMovingScaleBias(Reseedable & source,
+Reseedable makeLinearMovingScaleBias(Reseedable source,
                                      bool x_positive, bool y_positive,
                                      double length, double middle_length)
 {

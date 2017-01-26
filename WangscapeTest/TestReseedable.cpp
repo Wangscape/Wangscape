@@ -104,6 +104,26 @@ TEST_F(TestReseedable, TestReseedableAddDouble)
     EXPECT_EQ(-6., (y + (-3)).getValue(-5., -3., 0));
 }
 
+TEST_F(TestReseedable, TestReseedableAddAssign)
+{
+    noise::Reseedable r1 = x;
+    r1 += y;
+    noise::Reseedable r2 = y;
+    r2 += x;
+    EXPECT_EQ(-16., x.getValue(-16., 90., 999.));
+    EXPECT_EQ(74., r1.getValue(-16., 90., 999.));
+    EXPECT_EQ(-3., y.getValue(-5., -3, 999.));
+    EXPECT_EQ(-8., r2.getValue(-5., -3., 999.));
+}
+
+TEST_F(TestReseedable, TestReseedableAddAssignDouble)
+{
+    noise::Reseedable r = x;
+    r += 24;
+    EXPECT_EQ(-16., x.getValue(-16., 345., 876.));
+    EXPECT_EQ(19., r.getValue(-5., -365., 195.));
+}
+
 TEST_F(TestReseedable, TestReseedableMaxReseedable)
 {
     EXPECT_EQ(-3., x.max(y).getValue(-5., -3., 0));
@@ -150,6 +170,27 @@ TEST_F(TestReseedable, TestReseedableSubUnary)
     EXPECT_EQ(-5, (-x).getValue(5, 43, 3));
     EXPECT_EQ(4, (-y).getValue(5, -4, 34));
 }
+
+TEST_F(TestReseedable, TestReseedableSubAssign)
+{
+    noise::Reseedable r1 = x;
+    r1 -= y;
+    noise::Reseedable r2 = y;
+    r2 -= x;
+    EXPECT_EQ(-16., x.getValue(-16., 90., 999.));
+    EXPECT_EQ(-106., r1.getValue(-16., 90., 999.));
+    EXPECT_EQ(-3., y.getValue(-5., -3, 999.));
+    EXPECT_EQ(2., r2.getValue(-5., -3., 999.));
+}
+
+TEST_F(TestReseedable, TestReseedableSubAssignDouble)
+{
+    noise::Reseedable r = x;
+    r -= 24.;
+    EXPECT_EQ(-16., x.getValue(-16., 345., 876.));
+    EXPECT_EQ(-40., r.getValue(-16., -365., 195.));
+}
+
 TEST_F(TestReseedable, TestReseedableMulReseedable)
 {
     EXPECT_EQ(-1440, (x * y).getValue(-16., 90., 0));
@@ -162,6 +203,27 @@ TEST_F(TestReseedable, TestReseedableMulDouble)
     EXPECT_EQ(-80., (x * 5.).getValue(-16., 0, 0));
     EXPECT_EQ(12., (y * (-4)).getValue(-5., -3., 0));
 }
+
+TEST_F(TestReseedable, TestReseedableMulAssign)
+{
+    noise::Reseedable r1 = x;
+    r1 *= y;
+    noise::Reseedable r2 = y;
+    r2 *= x;
+    EXPECT_EQ(-16., x.getValue(-16., 90., 999.));
+    EXPECT_EQ(-1440., r1.getValue(-16., 90., 999.));
+    EXPECT_EQ(-3., y.getValue(-5., -3, 999.));
+    EXPECT_EQ(15., r2.getValue(-5., -3., 999.));
+}
+
+TEST_F(TestReseedable, TestReseedableMulAssignDouble)
+{
+    noise::Reseedable r = x;
+    r *= 2.5;
+    EXPECT_EQ(-16., x.getValue(-16., 345., 876.));
+    EXPECT_EQ(-40., r.getValue(-16., -365., 195.));
+}
+
 TEST_F(TestReseedable, TestReseedableBlend)
 {
     EXPECT_EQ(0.75, c05.blend(x, y).getValue(0., 1., 5.));
@@ -206,4 +268,47 @@ TEST_F(TestReseedable, TestReseedableConst)
 {
     EXPECT_EQ(3.6345, noise::module::makeConst(3.6345).getValue(52935874, 57432895, 2549));
     EXPECT_EQ(-3045.25, noise::module::makeConst(-3045.25).getValue(259, 594, 239587));
+}
+
+TEST_F(TestReseedable, TestReseedableTerraceManual)
+{
+    std::vector<double> control_points{0., 0.5, 1.};
+    noise::Reseedable terrace = x.terrace(control_points.cbegin(), control_points.cend());
+
+    EXPECT_NEAR(0., terrace.getValue(0., 239478, -23984), 0.00001);
+    EXPECT_NEAR(0.5, terrace.getValue(0.5, -239478, -23984), 0.00001);
+    EXPECT_NEAR(1., terrace.getValue(1., -239478, 23984), 0.00001);
+
+    EXPECT_GT(0.25, terrace.getValue(0.25, 3957, -9723));
+    EXPECT_GT(0.75, terrace.getValue(0.75, -3957, 9723));
+}
+
+TEST_F(TestReseedable, TestReseedableTerraceAuto)
+{
+    noise::Reseedable terrace = y.terrace(4, true);
+
+    EXPECT_NEAR(-1., terrace.getValue(239478, -1, -23984), 0.00001);
+    EXPECT_NEAR(-1. / 3., terrace.getValue(-239478, -1. / 3., -23984), 0.00001);
+    EXPECT_NEAR(1. / 3., terrace.getValue(-239478, 1. / 3., 23984), 0.00001);
+    EXPECT_NEAR(1., terrace.getValue(239478, 1., 23984), 0.00001);
+
+    EXPECT_LT(-2. / 3., terrace.getValue(3957, -2. / 3., -9723));
+    EXPECT_LT(0., terrace.getValue(-3957, 0., -9723));
+    EXPECT_LT(2. / 3., terrace.getValue(-3957, 2. / 3., 9723));
+}
+
+
+TEST_F(TestReseedable, TestReseedableCurve)
+{
+    std::vector<std::pair<double, double>> control_points{{-1, 1}, {0, -1}, {1, 1}};
+    noise::Reseedable terrace = x.curve(control_points.cbegin(), control_points.cend());
+
+    EXPECT_NEAR(1., terrace.getValue(-1., 239478, -23984), 0.00001);
+    EXPECT_NEAR(-1, terrace.getValue(0., -239478, -23984), 0.00001);
+    EXPECT_NEAR(1., terrace.getValue(1., -239478, 23984), 0.00001);
+
+    EXPECT_GT(0.9, terrace.getValue(-0.5, 3957, -9723));
+    EXPECT_LT(-0.9, terrace.getValue(-0.5, -3957, -9723));
+    EXPECT_GT(0.9, terrace.getValue(0.5, -3957, 9723));
+    EXPECT_LT(-0.9, terrace.getValue(0.5, -3957, 9723));
 }

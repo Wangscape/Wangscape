@@ -2,7 +2,8 @@
 #include "noise/module/ModuleFactories.h"
 #include "noise/RasterValues.h"
 #include "noise/module/Pow.h"
-#include "tilegen/alpha/AlphaCalculatorMax.h"
+#include "tilegen/alpha/CalculatorMax.h"
+#include "tilegen/alpha/CalculatorLinear.h"
 
 namespace tilegen
 {
@@ -29,16 +30,27 @@ Reseedable TilePartitionerPerlin::makeCornerModule(const Corners& corners,
     Reseedable ef = noise::module::makeEdgeFavouringMask(1.5, 1.);
     Reseedable corner = ef.blend(stochastic_mask, deterministic);
     // postprocess should be customisable
-    Reseedable postprocess = corner.pow(5.).clamp(0.,std::numeric_limits<float>::infinity());
+    Reseedable postprocess = corner.pow(5.).clamp(0.,std::numeric_limits<double>::infinity());
     return postprocess;
 }
 
-void TilePartitionerPerlin::noiseToAlpha(std::vector<noise::RasterValues<float>>& noise_values,
+void TilePartitionerPerlin::noiseToAlpha(std::vector<noise::RasterValues<double>>& noise_values,
                                          std::vector<sf::Image>& outputs,
                                          size_t resolution) const
 {
-    std::vector<float> weights((int)CORNERS);
-    alpha::AlphaCalculatorMax ac;
+    std::vector<double> weights((int)CORNERS);
+    std::unique_ptr<alpha::CalculatorBase> ac;
+    switch (mOptions.CalculatorMode)
+    {
+    case alpha::CalculatorMode::Max:
+        ac = std::make_unique<alpha::CalculatorMax>();
+        break;
+    case alpha::CalculatorMode::Linear:
+        ac = std::make_unique<alpha::CalculatorLinear>();
+        break;
+    default:
+        throw std::runtime_error("Invalid CalculatorMode");
+    }
     for (size_t x = 0; x < resolution; x++)
     {
         for (size_t y = 0; y < resolution; y++)
@@ -48,8 +60,8 @@ void TilePartitionerPerlin::noiseToAlpha(std::vector<noise::RasterValues<float>>
                 weights[i] = noise_values[i].get(x, y);
             }
 
-            ac.updateAlphas(weights);
-            const auto& alphas = ac.getAlphas();
+            ac->updateAlphas(weights);
+            const auto& alphas = ac->getAlphas();
             for (int i = 0; i < (int)CORNERS; i++)
             {
                 outputs[i].setPixel(x, y, sf::Color(255, 255, 255, alphas[i]));
@@ -61,7 +73,7 @@ void TilePartitionerPerlin::noiseToAlpha(std::vector<noise::RasterValues<float>>
 void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners& corners)
 {
     // Prepare noise value storage
-    std::vector<noise::RasterValues<float>> noise_values;
+    std::vector<noise::RasterValues<double>> noise_values;
     for (int i = 0; i < (int)CORNERS; i++)
     {
         noise_values.emplace_back(mOptions.tileFormat.resolution,
