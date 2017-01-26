@@ -5,8 +5,6 @@
 #include <stdexcept>
 #include <sstream>
 #include <boost/filesystem.hpp>
-#include <boost/iterator/zip_iterator.hpp>
-#include <boost/range.hpp>
 #include "common.h"
 
 namespace tilegen
@@ -30,7 +28,8 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
     boost::filesystem::path p(options.relativeOutputDirectory);
     for (const auto& clique : options.cliques)
     {
-        std::pair<size_t, size_t> tileset_resolution = calculateTilesetResolution(clique.size());
+        CornersGenerator corners_generator(clique, static_cast<size_t>(CORNERS));
+        std::pair<size_t, size_t> tileset_resolution = corners_generator.size2D(options.tileFormat.resolution);
         size_t res_x = tileset_resolution.first;
         size_t res_y = tileset_resolution.second;
         std::unique_ptr<sf::RenderTexture> output{getBlankImage(res_x, res_y)};
@@ -51,42 +50,16 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
 
 void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderTexture& image, std::string filename)
 {
-    std::vector<TerrainID> corner_terrains(static_cast<size_t>(CORNERS), clique[0]);
-    std::vector<size_t> corner_clique_indices(static_cast<size_t>(CORNERS), 0);
-    bool stop = false;
-    while (!stop)
+    CornersGenerator corners_generator(clique, static_cast<size_t>(CORNERS));
+    for (auto it = corners_generator.cbegin(); it != corners_generator.cend(); ++it)
     {
-        size_t x = 0; size_t y = 0;
-        for (size_t i = 0; i < corner_clique_indices.size(); i++)
-        {
-            size_t& z = ((i + 1) % 2) ? x : y;
-            z *= clique.size();
-            z += corner_clique_indices[i];
-        }
-        TileGenerator::generate(image, x, y, corner_terrains, images, options, *mTilePartitioner.get());
-        mo.addTile(corner_terrains, filename, x*options.tileFormat.resolution, y*options.tileFormat.resolution);
-        stop = true;
-        auto zip_begin = boost::make_zip_iterator(boost::make_tuple(corner_terrains.begin(),
-                                                                    corner_clique_indices.begin()));
-        auto zip_end = boost::make_zip_iterator(boost::make_tuple(corner_terrains.end(),
-                                                                  corner_clique_indices.end()));
-        for (auto it : boost::make_iterator_range(zip_begin,zip_end))
-        {
-            size_t& i = it.tail.head;
-            TerrainID& t = it.head;
-            i++;
-            if (i >= clique.size())
-            {
-                i = 0;
-                t = clique[i];
-            }
-            else
-            {
-                stop = false;
-                t = clique[i];
-                break;
-            }
-        }
+        const auto& corner_terrains = *it;
+        std::pair<size_t, size_t> tile_position = it.coordinates2D();
+        TileGenerator::generate(image, tile_position.first, tile_position.second, corner_terrains,
+                                images, options, *mTilePartitioner.get());
+        mo.addTile(corner_terrains, filename,
+                   tile_position.first*options.tileFormat.resolution,
+                   tile_position.second*options.tileFormat.resolution);
     }
 }
 
@@ -107,30 +80,6 @@ std::unique_ptr<sf::RenderTexture> TilesetGenerator::getBlankImage(size_t res_x,
     output->create(res_x, res_y);
     output->clear(sf::Color(0,0,0,255));
     return output;
-}
-
-std::pair<size_t, size_t> TilesetGenerator::calculateTilesetResolution(size_t clique_size) const
-{
-    size_t res_x;
-    size_t res_y;
-    switch (CORNERS)
-    {
-    case Corners::Triangle:
-        res_y = options.tileFormat.resolution*clique_size;
-        res_x = res_y*clique_size;
-        break;
-    case Corners::Square:
-        res_x = options.tileFormat.resolution*clique_size*clique_size;
-        res_y = res_x;
-        break;
-    case Corners::Hexagon:
-        res_x = options.tileFormat.resolution*clique_size*clique_size*clique_size;
-        res_y = res_x;
-        break;
-    default:
-        throw std::out_of_range("Unsupported value of CORNERS variable");
-    }
-    return{ res_x, res_y };
 }
 
 } // namespace tilegen

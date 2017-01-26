@@ -2,6 +2,9 @@
 	path = lib/spotify-json
 	url = https://github.com/Wangscape/spotify-json.git
 	ignore = dirty
+[submodule "lib/cpp_utils"]
+	path = lib/cpp_utils
+	url = https://github.com/wichtounet/cpp_utils.git
 [submodule "lib/libnoise"]
 	path = lib/libnoise
 	url = https://github.com/qknight/libnoise.git

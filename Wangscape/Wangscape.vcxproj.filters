@@ -182,6 +182,16 @@
     <ClInclude Include="TileFormat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="tilegen\CartesianPower.h">
+      <Filter>Header Files\tilegen</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\CartesianPowerIterator.h">
+      <Filter>Header Files\tilegen</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\CoordinatePacker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ipow.h">
     <ClInclude Include="tilegen\alpha\CalculatorBase.h">
       <Filter>Header Files\tilegen\alpha</Filter>
     </ClInclude>

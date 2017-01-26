@@ -60,24 +60,28 @@
     <Import Project="libnoise.props" />
     <Import Project="spotify-json.props" />
     <Import Project="double-conversion.props" />
+    <Import Project="cpp_utils.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="libnoise.props" />
     <Import Project="spotify-json.props" />
     <Import Project="double-conversion.props" />
+    <Import Project="cpp_utils.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="libnoise.props" />
     <Import Project="spotify-json.props" />
     <Import Project="double-conversion.props" />
+    <Import Project="cpp_utils.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="libnoise.props" />
     <Import Project="spotify-json.props" />
     <Import Project="double-conversion.props" />
+    <Import Project="cpp_utils.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
@@ -180,9 +184,12 @@
     <ClInclude Include="noise\Reseedable.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="OptionsManager.h" />
+    <ClInclude Include="tilegen\CartesianPower.h" />
+    <ClInclude Include="tilegen\CartesianPowerIterator.h" />
     <ClInclude Include="TerrainImages.h" />
     <ClInclude Include="TerrainSpec.h" />
     <ClInclude Include="TileFormat.h" />
+    <ClInclude Include="tilegen\CoordinatePacker.h" />
     <ClInclude Include="tilegen\alpha\CalculatorBase.h" />
     <ClInclude Include="tilegen\alpha\CalculatorLinear.h" />
     <ClInclude Include="tilegen\alpha\CalculatorMax.h" />
@@ -193,6 +200,7 @@
     <ClInclude Include="tilegen\partition\TilePartitionerSquares.h" />
     <ClInclude Include="tilegen\TileGenerator.h" />
     <ClInclude Include="tilegen\TilesetGenerator.h" />
+    <ClInclude Include="ipow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="metaoutput\MetaOutput.cpp" />
