@@ -24,7 +24,7 @@ TilesetGenerator::TilesetGenerator(const Options& options,
 
 void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::string)> callback)
 {
-    mo.setResolution(options.tileFormat.resolution);
+    metaOutput.setResolution(options.tileFormat.resolution);
     boost::filesystem::path p(options.relativeOutputDirectory);
     for (const auto& clique : options.cliques)
     {
@@ -38,7 +38,7 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
 
         // MetaOutput.addTileset, addTile should use this version of filename;
         // relative to output dir, not options dir!
-        mo.addTileset(clique, filename, res_x, res_y);
+        metaOutput.addTileset(clique, filename, res_x, res_y);
         generateClique(clique, *output, filename);
         output->display();
 
@@ -57,7 +57,7 @@ void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderT
         std::pair<size_t, size_t> tile_position = it.coordinates2D();
         TileGenerator::generate(image, tile_position.first, tile_position.second, corner_terrains,
                                 images, options, *mTilePartitioner.get());
-        mo.addTile(corner_terrains, filename,
+        metaOutput.addTile(corner_terrains, filename,
                    tile_position.first*options.tileFormat.resolution,
                    tile_position.second*options.tileFormat.resolution);
     }

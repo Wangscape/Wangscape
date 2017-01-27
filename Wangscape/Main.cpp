@@ -74,7 +74,7 @@ int main(int argc, char** argv)
         if (!output.copyToImage().saveToFile(filename))
             throw std::runtime_error("Couldn't write image");
     });
-    tg.mo.writeAll(optionsManager.getOptions());
+    tg.metaOutput.writeAll(optionsManager.getOptions());
 
     return 0;
 }
