@@ -116,6 +116,7 @@
     <ClInclude Include="noise\module\codecs\SpheresWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\TerraceWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\TranslatePointWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\GradientWrapperCodec.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

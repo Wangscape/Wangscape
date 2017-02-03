@@ -1,6 +1,7 @@
 #include "EncodedModuleGroup.h"
 #include "module/Wrapper.h"
 #include "module/ModuleGroup.h"
+#include "module/Gradient.h"
 
 namespace noise
 {
@@ -64,6 +65,9 @@ EncodedModuleGroup::ModuleDecodeTable EncodedModuleGroup::mModuleDecodeTable{
     {"Cylinders", &EncodedModuleGroup::decodeModule<module::Cylinders>},
     {"Displace", &EncodedModuleGroup::decodeModule<module::Displace>},
     {"Exponent", &EncodedModuleGroup::decodeModule<module::Exponent>},
+    {"GradientX", &EncodedModuleGroup::decodeModule<module::GradientX>},
+    {"GradientY", &EncodedModuleGroup::decodeModule<module::GradientY>},
+    {"GradientZ", &EncodedModuleGroup::decodeModule<module::GradientZ>},
     {"Invert", &EncodedModuleGroup::decodeModule<module::Invert>},
     {"Max", &EncodedModuleGroup::decodeModule<module::Max>},
     {"Min", &EncodedModuleGroup::decodeModule<module::Min>},

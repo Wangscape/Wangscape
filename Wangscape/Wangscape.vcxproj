@@ -180,6 +180,7 @@
     <ClInclude Include="noise\module\codecs\CylindersWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\DisplaceWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\ExponentWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\GradientWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\InvertWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\MaxWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\MinWrapperCodec.h" />
