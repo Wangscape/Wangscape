@@ -228,6 +228,8 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ipow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="tilegen\alpha\CalculatorBase.h">
       <Filter>Header Files\tilegen\alpha</Filter>
     </ClInclude>
