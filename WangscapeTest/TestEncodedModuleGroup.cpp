@@ -2,8 +2,6 @@
 
 #include <memory>
 
-#include <noise/module/codecs/PerlinCodec.h>
-#include <noise/module/codecs/VoronoiCodec.h>
 #include <noise/module/codecs/NoiseSourcesCodec.h>
 #include <noise/EncodedModuleGroup.h>
 

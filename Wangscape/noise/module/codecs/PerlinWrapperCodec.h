@@ -5,6 +5,7 @@
 #include <noise/noise.h>
 #include "noise/module/Wrapper.h"
 #include "noise/module/ModulePtr.h"
+#include "NoiseQualityCodec.h"
 
 namespace spotify
 {

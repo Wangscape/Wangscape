@@ -1,8 +1,6 @@
 #include "EncodedModuleGroup.h"
 #include "module/Wrapper.h"
 #include "module/ModuleGroup.h"
-#include "module/codecs/VoronoiCodec.h"
-#include "module/codecs/PerlinCodec.h"
 
 namespace noise
 {

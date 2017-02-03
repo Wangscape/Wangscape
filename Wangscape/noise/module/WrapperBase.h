@@ -1,7 +1,6 @@
 #pragma once
 
 #include <noise/noise.h>
-#include "SourceModuleSlot.h"
 
 namespace noise
 {
