@@ -1,337 +1,128 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\noise">
-      <UniqueIdentifier>{be3de1a4-71b3-4957-8d8f-590a878aed20}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\noise\module">
-      <UniqueIdentifier>{4236ccda-39ff-4fa3-acd5-dde38c74be56}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\noise">
-      <UniqueIdentifier>{8fa5b0f7-e6fb-4f79-90bc-45c2e56f2793}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\noise\module">
-      <UniqueIdentifier>{94d5ebed-8131-4bbd-b583-ffbc7dafe754}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\tilegen">
-      <UniqueIdentifier>{5f639257-d582-4425-b642-9a02be1deef7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\tilegen">
-      <UniqueIdentifier>{5bfd1d56-edb2-4bc5-9e71-4dc9a7df24cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\tilegen\alpha">
-      <UniqueIdentifier>{233a9ecb-0c66-46ae-9b43-ced7ec62eced}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\tilegen\alpha">
-      <UniqueIdentifier>{7c3fcd13-63a1-48b9-b4af-2fd56dcbfe71}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\tilegen\partition">
-      <UniqueIdentifier>{92408afe-ebb3-4feb-8a43-0e53b21a5328}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\tilegen\partition">
-      <UniqueIdentifier>{e9cdf625-950d-4725-b6fe-99b0835897c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\metaoutput">
-      <UniqueIdentifier>{94ccf969-d42b-4795-9302-3ac3415b259c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\metaoutput">
-      <UniqueIdentifier>{3b8b7fed-f49a-4386-9908-5932605e4d35}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\codecs">
-      <UniqueIdentifier>{da103928-cf64-443b-924e-f887cf7939b9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\metaoutput\codecs">
-      <UniqueIdentifier>{1e94c3a5-af80-4fdc-8c58-75944ee6b79d}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="metaoutput\MetaOutput.cpp" />
+    <ClCompile Include="metaoutput\Tile.cpp" />
+    <ClCompile Include="metaoutput\TileLocation.cpp" />
+    <ClCompile Include="metaoutput\Tileset.cpp" />
+    <ClCompile Include="noise\module\ModuleWithSources.cpp" />
+    <ClCompile Include="noise\EncodedModuleGroup.cpp" />
+    <ClCompile Include="noise\module\CornerCombinerBase.cpp" />
+    <ClCompile Include="noise\module\ModuleGroup.cpp" />
+    <ClCompile Include="noise\module\Wrapper.cpp" />
+    <ClCompile Include="noise\module\WrapperBase.cpp" />
+    <ClCompile Include="noise\module\NormLPQ.cpp" />
+    <ClCompile Include="noise\module\Reseedable.cpp" />
+    <ClCompile Include="noise\module\ReseedableOps.cpp" />
+    <ClCompile Include="noise\RasterBase.cpp" />
+    <ClCompile Include="noise\ModuleManager.cpp" />
+    <ClCompile Include="noise\RasterImage.cpp" />
+    <ClCompile Include="noise\RasterValues.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="OptionsManager.cpp" />
+    <ClCompile Include="TerrainImages.cpp" />
+    <ClCompile Include="tilegen\alpha\CalculatorBase.cpp" />
+    <ClCompile Include="tilegen\alpha\CalculatorLinear.cpp" />
+    <ClCompile Include="tilegen\alpha\CalculatorMax.cpp" />
+    <ClCompile Include="tilegen\partition\TilePartitionerBase.cpp" />
+    <ClCompile Include="tilegen\partition\TilePartitionerGradient.cpp" />
+    <ClCompile Include="tilegen\partition\TilePartitionerPerlin.cpp" />
+    <ClCompile Include="tilegen\partition\TilePartitionerSquares.cpp" />
+    <ClCompile Include="tilegen\TileGenerator.cpp" />
+    <ClCompile Include="tilegen\TilesetGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ClInclude Include="codecs\OptionsCodec.h" />
+    <ClInclude Include="codecs\TerrainSpecCodec.h" />
+    <ClInclude Include="codecs\TileFormatCodec.h" />
+    <ClInclude Include="common.h" />
+    <ClInclude Include="Corners.h" />
+    <ClInclude Include="metaoutput\codecs\FilenamesCodec.h" />
+    <ClInclude Include="metaoutput\codecs\TileCodec.h" />
+    <ClInclude Include="metaoutput\codecs\TileLocationCodec.h" />
+    <ClInclude Include="metaoutput\codecs\TilesetCodec.h" />
+    <ClInclude Include="metaoutput\Filenames.h" />
+    <ClInclude Include="metaoutput\MetaOutput.h" />
+    <ClInclude Include="metaoutput\Tile.h" />
+    <ClInclude Include="metaoutput\TileGroups.h" />
+    <ClInclude Include="metaoutput\TileLocation.h" />
+    <ClInclude Include="metaoutput\Tileset.h" />
+    <ClInclude Include="noise\module\codecs\AddWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\PerlinWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\VoronoiWrapperCodec.h" />
+    <ClInclude Include="noise\module\ModuleWithSources.h" />
+    <ClInclude Include="noise\module\codecs\NoiseSourcesCodec.h" />
+    <ClInclude Include="noise\module\ModulePtr.h" />
+    <ClInclude Include="noise\module\Wrapper.h" />
+    <ClInclude Include="noise\module\WrapperBase.h" />
+    <ClInclude Include="noise\EncodedModuleGroup.h" />
+    <ClInclude Include="noise\module\codecs\NoiseQualityCodec.h" />
+    <ClInclude Include="noise\module\NoiseSources.h" />
+    <ClInclude Include="noise\module\Pow.h" />
+    <ClInclude Include="noise\module\CornerCombinerBase.h" />
+    <ClInclude Include="noise\module\Exp.h" />
+    <ClInclude Include="noise\module\Gradient.h" />
+    <ClInclude Include="noise\module\ModuleGroup.h" />
+    <ClInclude Include="noise\module\NormLPQ.h" />
+    <ClInclude Include="noise\module\ReseedableOps.h" />
+    <ClInclude Include="noise\module\ReseedablePtr.h" />
+    <ClInclude Include="noise\RasterBase.h" />
+    <ClInclude Include="noise\ModuleManager.h" />
+    <ClInclude Include="noise\RasterImage.h" />
+    <ClInclude Include="noise\RasterValues.h" />
+    <ClInclude Include="Options.h" />
+    <ClInclude Include="OptionsManager.h" />
+    <ClInclude Include="noise\module\ReseedableBase.h" />
+    <ClInclude Include="noise\module\Reseedable.h" />
+    <ClInclude Include="tilegen\CartesianPower.h" />
+    <ClInclude Include="tilegen\CartesianPowerIterator.h" />
+    <ClInclude Include="TerrainImages.h" />
+    <ClInclude Include="TerrainSpec.h" />
+    <ClInclude Include="TileFormat.h" />
+    <ClInclude Include="tilegen\CoordinatePacker.h" />
+    <ClInclude Include="tilegen\alpha\CalculatorBase.h" />
+    <ClInclude Include="tilegen\alpha\CalculatorLinear.h" />
+    <ClInclude Include="tilegen\alpha\CalculatorMax.h" />
+    <ClInclude Include="tilegen\alpha\CalculatorMode.h" />
+    <ClInclude Include="tilegen\partition\TilePartitionerBase.h" />
+    <ClInclude Include="tilegen\partition\TilePartitionerGradient.h" />
+    <ClInclude Include="tilegen\partition\TilePartitionerPerlin.h" />
+    <ClInclude Include="tilegen\partition\TilePartitionerSquares.h" />
+    <ClInclude Include="tilegen\TileGenerator.h" />
+    <ClInclude Include="tilegen\TilesetGenerator.h" />
+    <ClInclude Include="ipow.h" />
+    <ClInclude Include="noise\module\codecs\ModuleCodecs.h" />
+    <ClInclude Include="noise\module\codecs\AbsWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\BillowWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\BlendWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\CacheWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\TurbulenceWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\CheckerboardWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\ClampWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\CurveWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\CylindersWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\DisplaceWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\ExponentWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\InvertWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\MaxWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\MinWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\MultiplyWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\PowerWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\RidgedMultiWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\RotatePointWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\ScaleBiasWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\ScalePointCodec.h" />
+    <ClInclude Include="noise\module\codecs\SelectWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\SpheresWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\TerraceWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\TranslatePointWrapperCodec.h" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="..\README.md" />
-    <None Include="example\example.json">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="@(NativeLibs)" />
+    <None Include="example\example.json" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TerrainSpec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Options.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TerrainImages.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\CornerCombinerBase.h">
-      <Filter>Header Files\noise\module</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\Exp.h">
-      <Filter>Header Files\noise\module</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\Gradient.h">
-      <Filter>Header Files\noise\module</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\ModuleGroup.h">
-      <Filter>Header Files\noise\module</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\NormLPQ.h">
-      <Filter>Header Files\noise\module</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\Pow.h">
-      <Filter>Header Files\noise\module</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\ModuleManager.h">
-      <Filter>Header Files\noise</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\RasterBase.h">
-      <Filter>Header Files\noise</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\RasterImage.h">
-      <Filter>Header Files\noise</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\RasterValues.h">
-      <Filter>Header Files\noise</Filter>
-    </ClInclude>
-    <ClInclude Include="tilegen\TileGenerator.h">
-      <Filter>Header Files\tilegen</Filter>
-    </ClInclude>
-    <ClInclude Include="tilegen\TilesetGenerator.h">
-      <Filter>Header Files\tilegen</Filter>
-    </ClInclude>
-    <ClInclude Include="tilegen\partition\TilePartitionerSquares.h">
-      <Filter>Header Files\tilegen\partition</Filter>
-    </ClInclude>
-    <ClInclude Include="tilegen\partition\TilePartitionerBase.h">
-      <Filter>Header Files\tilegen\partition</Filter>
-    </ClInclude>
-    <ClInclude Include="tilegen\partition\TilePartitionerGradient.h">
-      <Filter>Header Files\tilegen\partition</Filter>
-    </ClInclude>
-    <ClInclude Include="tilegen\partition\TilePartitionerPerlin.h">
-      <Filter>Header Files\tilegen\partition</Filter>
-    </ClInclude>
-    <ClInclude Include="Corners.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OptionsManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="metaoutput\codecs\FilenamesCodec.h">
-      <Filter>Header Files\metaoutput\codecs</Filter>
-    </ClInclude>
-    <ClInclude Include="metaoutput\codecs\TileLocationCodec.h">
-      <Filter>Header Files\metaoutput\codecs</Filter>
-    </ClInclude>
-    <ClInclude Include="metaoutput\codecs\TilesetCodec.h">
-      <Filter>Header Files\metaoutput\codecs</Filter>
-    </ClInclude>
-    <ClInclude Include="metaoutput\codecs\TileCodec.h">
-      <Filter>Header Files\metaoutput\codecs</Filter>
-    </ClInclude>
-    <ClInclude Include="codecs\TerrainSpecCodec.h">
-      <Filter>Header Files\codecs</Filter>
-    </ClInclude>
-    <ClInclude Include="codecs\TileFormatCodec.h">
-      <Filter>Header Files\codecs</Filter>
-    </ClInclude>
-    <ClInclude Include="codecs\OptionsCodec.h">
-      <Filter>Header Files\codecs</Filter>
-    </ClInclude>
-    <ClInclude Include="metaoutput\Filenames.h">
-      <Filter>Header Files\metaoutput</Filter>
-    </ClInclude>
-    <ClInclude Include="metaoutput\MetaOutput.h">
-      <Filter>Header Files\metaoutput</Filter>
-    </ClInclude>
-    <ClInclude Include="metaoutput\Tile.h">
-      <Filter>Header Files\metaoutput</Filter>
-    </ClInclude>
-    <ClInclude Include="metaoutput\TileGroups.h">
-      <Filter>Header Files\metaoutput</Filter>
-    </ClInclude>
-    <ClInclude Include="metaoutput\TileLocation.h">
-      <Filter>Header Files\metaoutput</Filter>
-    </ClInclude>
-    <ClInclude Include="metaoutput\Tileset.h">
-      <Filter>Header Files\metaoutput</Filter>
-    </ClInclude>
-    <ClInclude Include="TileFormat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\ReseedableBase.h">
-      <Filter>Header Files\noise\module</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\Reseedable.h">
-      <Filter>Header Files\noise\module</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\ReseedablePtr.h">
-      <Filter>Header Files\noise\module</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\ReseedableOps.h">
-      <Filter>Header Files\noise\module</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\codecs\NoiseQualityCodec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\EncodedModuleGroup.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\ModulePtr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\NoiseSources.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\codecs\NoiseSourcesCodec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\ModuleWithSources.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\codecs\VoronoiWrapperCodec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\codecs\PerlinWrapperCodec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\codecs\AddWrapperCodec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\Wrapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="noise\module\WrapperBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tilegen\CartesianPower.h">
-      <Filter>Header Files\tilegen</Filter>
-    </ClInclude>
-    <ClInclude Include="tilegen\CartesianPowerIterator.h">
-      <Filter>Header Files\tilegen</Filter>
-    </ClInclude>
-    <ClInclude Include="tilegen\CoordinatePacker.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ipow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tilegen\alpha\CalculatorBase.h">
-      <Filter>Header Files\tilegen\alpha</Filter>
-    </ClInclude>
-    <ClInclude Include="tilegen\alpha\CalculatorLinear.h">
-      <Filter>Header Files\tilegen\alpha</Filter>
-    </ClInclude>
-    <ClInclude Include="tilegen\alpha\CalculatorMax.h">
-      <Filter>Header Files\tilegen\alpha</Filter>
-    </ClInclude>
-    <ClInclude Include="tilegen\alpha\CalculatorMode.h">
-      <Filter>Header Files\tilegen\alpha</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TerrainImages.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="noise\module\CornerCombinerBase.cpp">
-      <Filter>Source Files\noise\module</Filter>
-    </ClCompile>
-    <ClCompile Include="noise\module\ModuleGroup.cpp">
-      <Filter>Source Files\noise\module</Filter>
-    </ClCompile>
-    <ClCompile Include="noise\module\NormLPQ.cpp">
-      <Filter>Source Files\noise\module</Filter>
-    </ClCompile>
-    <ClCompile Include="noise\ModuleManager.cpp">
-      <Filter>Source Files\noise</Filter>
-    </ClCompile>
-    <ClCompile Include="noise\RasterBase.cpp">
-      <Filter>Source Files\noise</Filter>
-    </ClCompile>
-    <ClCompile Include="noise\RasterImage.cpp">
-      <Filter>Source Files\noise</Filter>
-    </ClCompile>
-    <ClCompile Include="noise\RasterValues.cpp">
-      <Filter>Source Files\noise</Filter>
-    </ClCompile>
-    <ClCompile Include="tilegen\TilesetGenerator.cpp">
-      <Filter>Source Files\tilegen</Filter>
-    </ClCompile>
-    <ClCompile Include="tilegen\TileGenerator.cpp">
-      <Filter>Source Files\tilegen</Filter>
-    </ClCompile>
-    <ClCompile Include="tilegen\partition\TilePartitionerBase.cpp">
-      <Filter>Source Files\tilegen\partition</Filter>
-    </ClCompile>
-    <ClCompile Include="tilegen\partition\TilePartitionerGradient.cpp">
-      <Filter>Source Files\tilegen\partition</Filter>
-    </ClCompile>
-    <ClCompile Include="tilegen\partition\TilePartitionerPerlin.cpp">
-      <Filter>Source Files\tilegen\partition</Filter>
-    </ClCompile>
-    <ClCompile Include="tilegen\partition\TilePartitionerSquares.cpp">
-      <Filter>Source Files\tilegen\partition</Filter>
-    </ClCompile>
-    <ClCompile Include="OptionsManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="metaoutput\MetaOutput.cpp">
-      <Filter>Source Files\metaoutput</Filter>
-    </ClCompile>
-    <ClCompile Include="metaoutput\Tile.cpp">
-      <Filter>Source Files\metaoutput</Filter>
-    </ClCompile>
-    <ClCompile Include="metaoutput\TileLocation.cpp">
-      <Filter>Source Files\metaoutput</Filter>
-    </ClCompile>
-    <ClCompile Include="metaoutput\Tileset.cpp">
-      <Filter>Source Files\metaoutput</Filter>
-    </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="noise\module\ReseedableOps.cpp">
-      <Filter>Source Files\noise\module</Filter>
-    </ClCompile>
-    <ClCompile Include="noise\module\Reseedable.cpp">
-      <Filter>Source Files\noise\module</Filter>
-    </ClCompile>
-    <ClCompile Include="noise\EncodedModuleGroup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="noise\module\ModuleWithSources.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="noise\module\Wrapper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="noise\module\WrapperBase.cpp">
-      <Filter>Source Files</Filter>
-=======
-    <ClCompile Include="tilegen\alpha\CalculatorBase.cpp">
-      <Filter>Source Files\tilegen\alpha</Filter>
-    </ClCompile>
-    <ClCompile Include="tilegen\alpha\CalculatorLinear.cpp">
-      <Filter>Source Files\tilegen\alpha</Filter>
-    </ClCompile>
-    <ClCompile Include="tilegen\alpha\CalculatorMax.cpp">
-      <Filter>Source Files\tilegen\alpha</Filter>
->>>>>>> refs/remotes/Wangscape/master
-    </ClCompile>
+    <Text Include="noise\module\codecs\ConstWrapperCodec.h" />
   </ItemGroup>
 </Project>

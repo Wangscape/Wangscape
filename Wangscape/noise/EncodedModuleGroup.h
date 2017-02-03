@@ -8,9 +8,7 @@
 #include "noise/module/ModulePtr.h"
 #include "noise/module/ModuleWithSources.h"
 #include "module/codecs/NoiseSourcesCodec.h"
-#include "module/codecs/PerlinWrapperCodec.h"
-#include "module/codecs/VoronoiWrapperCodec.h"
-#include "module/codecs/AddWrapperCodec.h"
+#include "module/codecs/ModuleCodecs.h"
 
 namespace noise
 {

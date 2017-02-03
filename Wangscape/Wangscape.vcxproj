@@ -169,8 +169,33 @@
     <ClInclude Include="metaoutput\TileGroups.h" />
     <ClInclude Include="metaoutput\TileLocation.h" />
     <ClInclude Include="metaoutput\Tileset.h" />
+    <ClInclude Include="noise\module\codecs\AbsWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\AddWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\BillowWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\BlendWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\CacheWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\CheckerboardWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\ClampWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\CurveWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\CylindersWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\DisplaceWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\ExponentWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\InvertWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\MaxWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\MinWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\ModuleCodecs.h" />
+    <ClInclude Include="noise\module\codecs\MultiplyWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\PerlinWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\PowerWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\RidgedMultiWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\RotatePointWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\ScaleBiasWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\ScalePointCodec.h" />
+    <ClInclude Include="noise\module\codecs\SelectWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\SpheresWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\TerraceWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\TranslatePointWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\TurbulenceWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\VoronoiWrapperCodec.h" />
     <ClInclude Include="noise\module\ModuleWithSources.h" />
     <ClInclude Include="noise\module\codecs\NoiseSourcesCodec.h" />
@@ -244,6 +269,9 @@
     <ClCompile Include="tilegen\partition\TilePartitionerSquares.cpp" />
     <ClCompile Include="tilegen\TileGenerator.cpp" />
     <ClCompile Include="tilegen\TilesetGenerator.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="noise\module\codecs\ConstWrapperCodec.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

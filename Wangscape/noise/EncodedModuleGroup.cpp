@@ -52,8 +52,33 @@ std::map<std::string, module::ModulePtr> noise::EncodedModuleGroup::decode() con
 }
 
 EncodedModuleGroup::ModuleDecodeTable EncodedModuleGroup::mModuleDecodeTable{
+    {"Abs", &EncodedModuleGroup::decodeModule<module::Abs>},
     {"Add", &EncodedModuleGroup::decodeModule<module::Add>},
+    {"Billow", &EncodedModuleGroup::decodeModule<module::Billow>},
+    {"Blend", &EncodedModuleGroup::decodeModule<module::Blend>},
+    {"Cache", &EncodedModuleGroup::decodeModule<module::Cache>},
+    {"Checkerboard", &EncodedModuleGroup::decodeModule<module::Checkerboard>},
+    {"Clamp", &EncodedModuleGroup::decodeModule<module::Clamp>},
+    {"Const", &EncodedModuleGroup::decodeModule<module::Const>},
+    {"Curve", &EncodedModuleGroup::decodeModule<module::Curve>},
+    {"Cylinders", &EncodedModuleGroup::decodeModule<module::Cylinders>},
+    {"Displace", &EncodedModuleGroup::decodeModule<module::Displace>},
+    {"Exponent", &EncodedModuleGroup::decodeModule<module::Exponent>},
+    {"Invert", &EncodedModuleGroup::decodeModule<module::Invert>},
+    {"Max", &EncodedModuleGroup::decodeModule<module::Max>},
+    {"Min", &EncodedModuleGroup::decodeModule<module::Min>},
+    {"Multiply", &EncodedModuleGroup::decodeModule<module::Multiply>},
     {"Perlin", &EncodedModuleGroup::decodeModule<module::Perlin>},
+    {"Power", &EncodedModuleGroup::decodeModule<module::Power>},
+    {"RidgedMulti", &EncodedModuleGroup::decodeModule<module::RidgedMulti>},
+    {"RotatePoint", &EncodedModuleGroup::decodeModule<module::RotatePoint>},
+    {"ScaleBias", &EncodedModuleGroup::decodeModule<module::ScaleBias>},
+    {"ScalePointCodec", &EncodedModuleGroup::decodeModule<module::ScalePoint>},
+    {"Select", &EncodedModuleGroup::decodeModule<module::Select>},
+    {"Spheres", &EncodedModuleGroup::decodeModule<module::Spheres>},
+    {"Terrace", &EncodedModuleGroup::decodeModule<module::Terrace>},
+    {"TranslatePoint", &EncodedModuleGroup::decodeModule<module::TranslatePoint>},
+    {"Turbulence", &EncodedModuleGroup::decodeModule<module::Turbulence>},
     {"Voronoi", &EncodedModuleGroup::decodeModule<module::Voronoi>}
 };
 
