@@ -194,13 +194,37 @@
     <ClInclude Include="noise\module\ReseedableOps.h">
       <Filter>Header Files\noise\module</Filter>
     </ClInclude>
-    <ClInclude Include="noise\module\codecs\PerlinCodec.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="noise\module\codecs\NoiseQualityCodec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="noise\module\codecs\VoronoiCodec.h">
+    <ClInclude Include="noise\EncodedModuleGroup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\ModulePtr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\NoiseSources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\codecs\NoiseSourcesCodec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\ModuleWithSources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\codecs\VoronoiWrapperCodec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\codecs\PerlinWrapperCodec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\codecs\AddWrapperCodec.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\Wrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="noise\module\WrapperBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -279,6 +303,18 @@
     </ClCompile>
     <ClCompile Include="noise\module\Reseedable.cpp">
       <Filter>Source Files\noise\module</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\EncodedModuleGroup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\ModuleWithSources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\Wrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="noise\module\WrapperBase.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
