@@ -147,7 +147,7 @@ ReseedablePtr operator/(ReseedablePtr left, ReseedablePtr right)
 
 ReseedablePtr operator/(ReseedablePtr left, double right)
 {
-    return (left * 1. / right);
+    return (left * (1. / right));
 }
 
 ReseedablePtr operator/(double left, ReseedablePtr right)
