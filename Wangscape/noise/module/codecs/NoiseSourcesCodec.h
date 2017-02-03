@@ -24,7 +24,7 @@ struct default_codec_t<noise::module::NoiseSources>
         auto optional_module_list_codec = codec::optional(module_list_codec);
         codec.optional("SourceModule", &NoiseSources::sourceModules, optional_module_list_codec);
         codec.optional("ControlModule", &NoiseSources::controlModule, optional_single_module_codec);
-        codec.optional("DisplaceModule", &NoiseSources::displaceModules, optional_module_list_codec);
+        codec.optional("DisplaceModules", &NoiseSources::displaceModules, optional_module_list_codec);
         return codec;
     }
 };
