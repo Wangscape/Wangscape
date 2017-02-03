@@ -125,15 +125,6 @@
     <ClInclude Include="tilegen\partition\TilePartitionerPerlin.h">
       <Filter>Header Files\tilegen\partition</Filter>
     </ClInclude>
-    <ClInclude Include="tilegen\alpha\AlphaCalculatorMax.h">
-      <Filter>Header Files\tilegen\alpha</Filter>
-    </ClInclude>
-    <ClInclude Include="tilegen\alpha\AlphaCalculatorBase.h">
-      <Filter>Header Files\tilegen\alpha</Filter>
-    </ClInclude>
-    <ClInclude Include="tilegen\alpha\AlphaCalculatorLinear.h">
-      <Filter>Header Files\tilegen\alpha</Filter>
-    </ClInclude>
     <ClInclude Include="Corners.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -227,6 +218,28 @@
     <ClInclude Include="noise\module\WrapperBase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="tilegen\CartesianPower.h">
+      <Filter>Header Files\tilegen</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\CartesianPowerIterator.h">
+      <Filter>Header Files\tilegen</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\CoordinatePacker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ipow.h">
+    <ClInclude Include="tilegen\alpha\CalculatorBase.h">
+      <Filter>Header Files\tilegen\alpha</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\alpha\CalculatorLinear.h">
+      <Filter>Header Files\tilegen\alpha</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\alpha\CalculatorMax.h">
+      <Filter>Header Files\tilegen\alpha</Filter>
+    </ClInclude>
+    <ClInclude Include="tilegen\alpha\CalculatorMode.h">
+      <Filter>Header Files\tilegen\alpha</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -274,15 +287,6 @@
     <ClCompile Include="tilegen\partition\TilePartitionerSquares.cpp">
       <Filter>Source Files\tilegen\partition</Filter>
     </ClCompile>
-    <ClCompile Include="tilegen\alpha\AlphaCalculatorBase.cpp">
-      <Filter>Source Files\tilegen\alpha</Filter>
-    </ClCompile>
-    <ClCompile Include="tilegen\alpha\AlphaCalculatorLinear.cpp">
-      <Filter>Source Files\tilegen\alpha</Filter>
-    </ClCompile>
-    <ClCompile Include="tilegen\alpha\AlphaCalculatorMax.cpp">
-      <Filter>Source Files\tilegen\alpha</Filter>
-    </ClCompile>
     <ClCompile Include="OptionsManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -298,6 +302,7 @@
     <ClCompile Include="metaoutput\Tileset.cpp">
       <Filter>Source Files\metaoutput</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="noise\module\ReseedableOps.cpp">
       <Filter>Source Files\noise\module</Filter>
     </ClCompile>
@@ -315,6 +320,16 @@
     </ClCompile>
     <ClCompile Include="noise\module\WrapperBase.cpp">
       <Filter>Source Files</Filter>
+=======
+    <ClCompile Include="tilegen\alpha\CalculatorBase.cpp">
+      <Filter>Source Files\tilegen\alpha</Filter>
+    </ClCompile>
+    <ClCompile Include="tilegen\alpha\CalculatorLinear.cpp">
+      <Filter>Source Files\tilegen\alpha</Filter>
+    </ClCompile>
+    <ClCompile Include="tilegen\alpha\CalculatorMax.cpp">
+      <Filter>Source Files\tilegen\alpha</Filter>
+>>>>>>> refs/remotes/Wangscape/master
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -60,24 +60,28 @@
     <Import Project="..\Wangscape\libnoise.props" />
     <Import Project="..\Wangscape\spotify-json.props" />
     <Import Project="..\Wangscape\double-conversion.props" />
+    <Import Project="..\Wangscape\cpp_utils.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\Wangscape\libnoise.props" />
     <Import Project="..\Wangscape\spotify-json.props" />
     <Import Project="..\Wangscape\double-conversion.props" />
+    <Import Project="..\Wangscape\cpp_utils.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\Wangscape\libnoise.props" />
     <Import Project="..\Wangscape\spotify-json.props" />
     <Import Project="..\Wangscape\double-conversion.props" />
+    <Import Project="..\Wangscape\cpp_utils.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\Wangscape\libnoise.props" />
     <Import Project="..\Wangscape\spotify-json.props" />
     <Import Project="..\Wangscape\double-conversion.props" />
+    <Import Project="..\Wangscape\cpp_utils.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -151,6 +155,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestCartesianPower.cpp" />
+    <ClCompile Include="TestCoordinatePacker.cpp" />
+    <ClCompile Include="OptionsFilename.cpp" />
     <ClCompile Include="TestCornerCombiner.cpp" />
     <ClCompile Include="TestEdgeFavouringMask.cpp" />
     <ClCompile Include="TestEncodedModuleGroup.cpp" />
@@ -160,6 +167,8 @@
     <ClCompile Include="TestMovingScaleBias.cpp" />
     <ClCompile Include="TestNormLPQ.cpp" />
     <ClCompile Include="TestOptions.cpp" />
+    <ClCompile Include="TestIPow.cpp" />
+    <ClCompile Include="TestRequiringOptions.cpp" />
     <ClCompile Include="TestReseedable.cpp" />
     <ClCompile Include="TestTileGenerationPlan.cpp" />
     <ClCompile Include="TestTilePartitionerGradient.cpp" />
@@ -168,6 +177,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="OptionsFilename.h" />
+    <ClInclude Include="TestRequiringOptions.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

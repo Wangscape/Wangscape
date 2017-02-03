@@ -4,16 +4,14 @@
 #include <tilegen/TilesetGenerator.h>
 #include <tilegen/partition/TilePartitionerSquares.h>
 
-class TestTilesetGenerator : public ::testing::Test {
+#include "TestRequiringOptions.h"
+
+class TestTilesetGenerator : public TestRequiringOptions
+{
 protected:
-    std::string filename;
-    const Options& options;
-    const OptionsManager optionsManager;
     tilegen::TilesetGenerator tg;
     TestTilesetGenerator():
-        filename("../Wangscape/example/example_options.json"),
-        optionsManager(filename),
-        options(optionsManager.getOptions()),
+        TestRequiringOptions(),
         tg(options, std::move(std::make_unique<tilegen::partition::TilePartitionerSquares>(options)))
     {
 

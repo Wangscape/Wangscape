@@ -4,8 +4,6 @@
 
 #include "TileFormat.h"
 
-using namespace spotify::json::codec;
-
 namespace spotify
 {
 namespace json
@@ -14,9 +12,9 @@ namespace json
 template<>
 struct default_codec_t<TileFormat>
 {
-    static object_t<TileFormat> codec()
+    static codec::object_t<TileFormat> codec()
     {
-        auto codec = object<TileFormat>();
+        auto codec = codec::object<TileFormat>();
         codec.required("Resolution", &TileFormat::resolution);
         codec.required("FileType", &TileFormat::fileType);
 

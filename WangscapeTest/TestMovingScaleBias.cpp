@@ -2,7 +2,8 @@
 
 #include <noise/module/ReseedableOps.h>
 
-class TestVariableScaleBias : public ::testing::Test {
+class TestVariableScaleBias : public ::testing::Test
+{
 protected:
     noise::module::ReseedablePtr x;
     noise::module::ReseedablePtr y;

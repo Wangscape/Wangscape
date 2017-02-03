@@ -1,4 +1,4 @@
-#include "AlphaCalculatorMax.h"
+#include "CalculatorMax.h"
 #include <algorithm>
 
 namespace tilegen
@@ -6,7 +6,7 @@ namespace tilegen
 namespace alpha
 {
 
-void AlphaCalculatorMax::updateAlphasAux(const Weights& weights)
+void CalculatorMax::updateAlphasAux(const Weights& weights)
 {
     auto max_it = std::max_element(weights.cbegin(), weights.cend());
     auto max_index = std::distance(weights.cbegin(), max_it);

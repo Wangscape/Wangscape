@@ -2,7 +2,8 @@
 #include <noise/module/NormLPQ.h>
 #include <noise/module/ReseedableOps.h>
 
-class TestNormLPQ : public ::testing::Test {
+class TestNormLPQ : public ::testing::Test
+{
 protected:
     std::shared_ptr<noise::module::NormLPQ> n1_1;
     std::shared_ptr<noise::module::NormLPQ> n1_2;

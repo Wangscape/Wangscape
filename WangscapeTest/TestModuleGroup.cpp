@@ -2,7 +2,8 @@
 
 #include <noise/module/ReseedableOps.h>
 
-class TestModuleGroup : public ::testing::Test {
+class TestModuleGroup : public ::testing::Test
+{
 protected:
     noise::module::ReseedablePtr rs;
     TestModuleGroup() :

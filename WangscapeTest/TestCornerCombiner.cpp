@@ -2,8 +2,9 @@
 
 #include <noise/module/CornerCombinerBase.h>
 #include <noise/module/ReseedableOps.h>
- 
-class TestCornerCombiner : public ::testing::Test {
+
+class TestCornerCombiner : public ::testing::Test
+{
 protected:
     noise::module::CornerCombinerBase cc1;
     noise::module::CornerCombinerBase cc05;

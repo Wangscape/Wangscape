@@ -5,7 +5,8 @@
 #include <random>
 
 using noise::module::ReseedablePtr;
-class TestTileGenerationPlan : public ::testing::Test {
+class TestTileGenerationPlan : public ::testing::Test
+{
 protected:
     ReseedablePtr x;
     ReseedablePtr y;
