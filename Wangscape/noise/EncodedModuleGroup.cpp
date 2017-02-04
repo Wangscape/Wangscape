@@ -2,6 +2,11 @@
 #include "module/Wrapper.h"
 #include "module/ModuleGroup.h"
 #include "module/Gradient.h"
+#include "module/CornerCombinerBase.h"
+#include "module/Exp.h"
+#include "module/Pow.h"
+#include "module/NormLPQ.h"
+#include "module/Forward.h"
 
 namespace noise
 {
@@ -61,10 +66,13 @@ EncodedModuleGroup::ModuleDecodeTable EncodedModuleGroup::mModuleDecodeTable{
     {"Checkerboard", &EncodedModuleGroup::decodeModule<module::Checkerboard>},
     {"Clamp", &EncodedModuleGroup::decodeModule<module::Clamp>},
     {"Const", &EncodedModuleGroup::decodeModule<module::Const>},
+    {"CornerCombinerBase", &EncodedModuleGroup::decodeModule<module::CornerCombinerBase>},
     {"Curve", &EncodedModuleGroup::decodeModule<module::Curve>},
     {"Cylinders", &EncodedModuleGroup::decodeModule<module::Cylinders>},
     {"Displace", &EncodedModuleGroup::decodeModule<module::Displace>},
+    {"Exp", &EncodedModuleGroup::decodeModule<module::Exp>},
     {"Exponent", &EncodedModuleGroup::decodeModule<module::Exponent>},
+    {"Forward", &EncodedModuleGroup::decodeModule<module::Forward>},
     {"GradientX", &EncodedModuleGroup::decodeModule<module::GradientX>},
     {"GradientY", &EncodedModuleGroup::decodeModule<module::GradientY>},
     {"GradientZ", &EncodedModuleGroup::decodeModule<module::GradientZ>},
@@ -72,7 +80,9 @@ EncodedModuleGroup::ModuleDecodeTable EncodedModuleGroup::mModuleDecodeTable{
     {"Max", &EncodedModuleGroup::decodeModule<module::Max>},
     {"Min", &EncodedModuleGroup::decodeModule<module::Min>},
     {"Multiply", &EncodedModuleGroup::decodeModule<module::Multiply>},
+    {"NormLPQ", &EncodedModuleGroup::decodeModule<module::NormLPQ>},
     {"Perlin", &EncodedModuleGroup::decodeModule<module::Perlin>},
+    {"Pow", &EncodedModuleGroup::decodeModule<module::Pow>},
     {"Power", &EncodedModuleGroup::decodeModule<module::Power>},
     {"RidgedMulti", &EncodedModuleGroup::decodeModule<module::RidgedMulti>},
     {"RotatePoint", &EncodedModuleGroup::decodeModule<module::RotatePoint>},
