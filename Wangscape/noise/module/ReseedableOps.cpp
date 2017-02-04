@@ -431,7 +431,7 @@ ReseedablePtr makeCornerCombiner(bool x_positive, bool y_positive, double power)
 ReseedablePtr makeEdgeFavouringMask(double p, double q, double min)
 {
     auto norm_lp_q = std::make_shared<Reseedable<NormLPQ>>();
-    norm_lp_q->module.setPQ(p, q);
+    norm_lp_q->module.SetPQ(p, q);
     ReseedablePtr result = translate(norm_lp_q, -1., -1., 0.);
     result = scalePoint(result, 2., 2., 0.);
     result = scaleBias(result, 1. - min, min);
