@@ -20,7 +20,7 @@ struct default_codec_t<noise::module::Wrapper<noise::module::CornerCombinerBase>
         auto codec = codec::object<CornerCombinerBaseWrapper>();
         codec.required("type", codec::eq<std::string>("CornerCombinerBase"));
         codec.optional("Power",
-                       [](CornerCombinerBase CornerCombinerBaseWrapper& mw) {return mw.module.GetPower(); },
+                       [](const CornerCombinerBaseWrapper& mw) {return mw.module.GetPower(); },
                        [](CornerCombinerBaseWrapper& mw, double power) {mw.module.SetPower(power); });
         return codec;
     }
