@@ -4,6 +4,7 @@
 
 #include <noise/noise.h>
 #include "noise/module/Wrapper.h"
+#include "noise/module/Forward.h"
 
 namespace spotify
 {
