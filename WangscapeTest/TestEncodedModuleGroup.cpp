@@ -5,8 +5,16 @@
 #include <noise/module/codecs/NoiseSourcesCodec.h>
 #include <noise/EncodedModuleGroup.h>
 
-class TestEncodedModuleGroup : public ::testing::Test {
+class TestEncodedModuleGroup : public ::testing::Test
+{
 protected:
+    void remove_whitespace(std::string& s)
+    {
+        s.erase(std::remove_if(s.begin(),
+                               s.end(),
+                               [](char c) { return std::isspace(c, std::locale()); }),
+                s.end());
+    }
 };
 
 TEST_F(TestEncodedModuleGroup, TestFullGroupDecode)
@@ -91,14 +99,17 @@ TEST_F(TestEncodedModuleGroup, TestNoiseSourcesDecodeFull)
         R"({
             "SourceModule":["a", "b", "c"],
             "ControlModule":"z",
-            "DisplaceModule":["s", "t", "u"]
+            "DisplaceModules":["s", "t", "u"]
         })");
     EXPECT_TRUE(ns.sourceModules);
     EXPECT_TRUE(ns.controlModule);
     EXPECT_TRUE(ns.displaceModules);
-    EXPECT_EQ("c", ns.sourceModules.get()[2]);
-    EXPECT_EQ("z", ns.controlModule.get());
-    EXPECT_EQ("t", ns.displaceModules.get()[1]);
+    if (ns.sourceModules)
+        EXPECT_EQ("c", ns.sourceModules.get()[2]);
+    if (ns.controlModule)
+        EXPECT_EQ("z", ns.controlModule.get());
+    if (ns.displaceModules)
+        EXPECT_EQ("t", ns.displaceModules.get()[1]);
 }
 
 TEST_F(TestEncodedModuleGroup, TestNoiseSourcesEncodeEmpty)
@@ -115,5 +126,13 @@ TEST_F(TestEncodedModuleGroup, TestNoiseSourcesEncodeFull)
     ns.controlModule.emplace("z");
     ns.displaceModules.emplace(std::initializer_list<std::string>({"s", "t", "u"}));
     std::string s = spotify::json::encode<noise::module::NoiseSources>(ns);
-    EXPECT_EQ(R"({"SourceModule":["a","b","c"],"ControlModule":"z","DisplaceModule":["s","t","u"]})", s);
+    std::string expected(R"(
+{
+    "SourceModule" : ["a","b","c"] ,
+    "ControlModule" : "z",
+    "DisplaceModules" : ["s","t","u"]
+}
+)");
+    remove_whitespace(expected);
+    EXPECT_EQ(expected, s);
 }
