@@ -28,6 +28,14 @@ struct default_codec_t<noise::module::Wrapper<noise::module::RotatePoint>>
         codec.optional("ZAngle",
                        [](const RotatePointWrapper& mw) {return mw.module.GetZAngle(); },
                        [](RotatePointWrapper& mw, double z_angle) {mw.module.SetZAngle(z_angle); });
+        codec.optional("Angles",
+                       [](const RotatePointWrapper& mw) {return std::tuple<double, double, double>(
+                           mw.module.GetXAngle(),
+                           mw.module.GetYAngle(),
+                           mw.module.GetZAngle()); },
+                       [](RotatePointWrapper& mw, std::tuple<double, double, double> angles) {mw.module.SetAngles(
+                           std::get<0>(angles), std::get<1>(angles), std::get<2>(angles)); },
+                       default_codec<std::tuple<double, double, double>>());
         return codec;
     }
 };
