@@ -6,7 +6,8 @@
 
 #include <noise/module/codecs/ModuleCodecs.h>
 
-class TestModuleCodec : public ::testing::Test {
+class TestModuleCodec : public ::testing::Test
+{
 protected:
     void remove_whitespace(std::string& s)
     {
@@ -24,12 +25,12 @@ TEST_F(TestModuleCodec, TestPerlinEncode)
     std::string expected(R"(
 {
     "type" : "Perlin",
+    "Seed" : 0,
     "Frequency" : 1,
-    "Lacunarity" : 2,
-    "NoiseQuality" : "Standard",
-    "OctaveCount" : 6,
     "Persistence" : 0.5,
-    "Seed" : 0
+    "Lacunarity" : 2,
+    "OctaveCount" : 6,
+    "NoiseQuality" : "Standard"
 }
 )");
     remove_whitespace(expected);
