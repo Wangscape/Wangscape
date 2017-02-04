@@ -28,6 +28,14 @@ struct default_codec_t<noise::module::Wrapper<noise::module::ScalePoint>>
         codec.optional("ZScale",
                        [](const ScalePointWrapper& mw) {return mw.module.GetZScale(); },
                        [](ScalePointWrapper& mw, double z_scale) {mw.module.SetZScale(z_scale); });
+        codec.optional("Scale",
+                       [](const ScalePointWrapper& mw) {return std::tuple<double, double, double>(
+                           mw.module.GetXScale(),
+                           mw.module.GetYScale(),
+                           mw.module.GetZScale()); },
+                       [](ScalePointWrapper& mw, std::tuple<double, double, double> scale) {mw.module.SetScale(
+                           std::get<0>(scale), std::get<1>(scale), std::get<2>(scale)); },
+                       default_codec<std::tuple<double, double, double>>());
         return codec;
     }
 };
