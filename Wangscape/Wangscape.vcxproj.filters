@@ -117,6 +117,12 @@
     <ClInclude Include="noise\module\codecs\TerraceWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\TranslatePointWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\GradientWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\CornerCombinerBaseWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\ExpWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\PowWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\NormLPQWrapperCodec.h" />
+    <ClInclude Include="noise\module\Forward.h" />
+    <ClInclude Include="noise\module\codecs\ForwardWrapperCodec.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
