@@ -23,14 +23,17 @@ public:
         return 0;
     }
     virtual double GetValue(double x, double y, double z) const;
-    void setPQ(double p, double q=DEFAULT_NORM_LP_Q_Q);
-    void setQ(double q);
-    void setP(double q);
+    void SetPQ(double p, double q);
+    void SetQ(double q);
+    void SetP(double p);
+    double GetP() const;
+    double GetQ() const;
 private:
+    void updateQP();
     double mP;
+    double mQ;
     double mQP;
 };
-
 
 } // namespace module
 } // namespace noise
