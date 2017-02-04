@@ -15,6 +15,7 @@
 #include "ExpWrapperCodec.h"
 #include "ExponentWrapperCodec.h"
 #include "ForwardWrapperCodec.h"
+#include "GradientWrapperCodec.h"
 #include "InvertWrapperCodec.h"
 #include "MaxWrapperCodec.h"
 #include "MinWrapperCodec.h"
