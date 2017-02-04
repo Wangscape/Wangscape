@@ -22,12 +22,13 @@ protected:
         n05_1(std::make_shared<noise::module::NormLPQ>()),
         n05_05(std::make_shared<noise::module::NormLPQ>())
     {
-        n1_1->setPQ(1);
-        n1_2->setPQ(1, 2);
-        n2_1->setPQ(2, 1);
-        n2_2->setPQ(2, 2);
-        n05_1->setPQ(0.5, 1);
-        n05_05->setPQ(0.5, 0.5);
+        // TODO test SetP, SetQ
+        n1_1->SetPQ(1, 1);
+        n1_2->SetPQ(1, 2);
+        n2_1->SetPQ(2, 1);
+        n2_2->SetPQ(2, 2);
+        n05_1->SetPQ(0.5, 1);
+        n05_05->SetPQ(0.5, 0.5);
     };
     ~TestNormLPQ() {};
 };
