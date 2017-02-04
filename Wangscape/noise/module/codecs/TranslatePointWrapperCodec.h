@@ -28,6 +28,14 @@ struct default_codec_t<noise::module::Wrapper<noise::module::TranslatePoint>>
         codec.optional("ZTranslation",
                        [](const TranslatePointWrapper& mw) {return mw.module.GetZTranslation(); },
                        [](TranslatePointWrapper& mw, double z_angle) {mw.module.SetZTranslation(z_angle); });
+        codec.optional("Translation",
+                       [](const TranslatePointWrapper& mw) {return std::tuple<double, double, double>(
+                           mw.module.GetXTranslation(),
+                           mw.module.GetYTranslation(),
+                           mw.module.GetZTranslation()); },
+                       [](TranslatePointWrapper& mw, std::tuple<double, double, double> translation) {mw.module.SetTranslation(
+                           std::get<0>(translation), std::get<1>(translation), std::get<2>(translation)); },
+                       default_codec<std::tuple<double, double, double>>());
         return codec;
     }
 };
