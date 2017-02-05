@@ -12,11 +12,11 @@ namespace partition
 {
 
 
-class TilePartitionerPerlin : public TilePartitionerBase
+class TilePartitionerNoise : public TilePartitionerBase
 {
 public:
     using ReseedablePtr = noise::module::ReseedablePtr;
-    explicit TilePartitionerPerlin(const Options& options);
+    explicit TilePartitionerNoise(const Options& options);
     void makePartition(TilePartition& regions,
                        const Corners& corners);
     ReseedablePtr makeCornerModule(const Corners & corners, bool left, bool top);

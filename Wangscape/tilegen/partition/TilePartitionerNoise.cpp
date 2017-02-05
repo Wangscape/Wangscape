@@ -1,4 +1,4 @@
-#include "TilePartitionerPerlin.h"
+#include "TilePartitionerNoise.h"
 #include "noise/module/ReseedableOps.h"
 #include "noise/RasterValues.h"
 #include "noise/module/Pow.h"
@@ -10,7 +10,7 @@ namespace tilegen
 namespace partition
 {
 
-TilePartitionerPerlin::ReseedablePtr TilePartitionerPerlin::makeCornerModule(const Corners& corners,
+TilePartitionerNoise::ReseedablePtr TilePartitionerNoise::makeCornerModule(const Corners& corners,
                                                    bool left, bool top)
 {
     TerrainID corner_id = corners[ (left ? 0 : 1) +  (top ? 0 : 2)];
@@ -35,7 +35,7 @@ TilePartitionerPerlin::ReseedablePtr TilePartitionerPerlin::makeCornerModule(con
     return postprocess;
 }
 
-void TilePartitionerPerlin::noiseToAlpha(std::vector<noise::RasterValues<double>>& noise_values,
+void TilePartitionerNoise::noiseToAlpha(std::vector<noise::RasterValues<double>>& noise_values,
                                          std::vector<sf::Image>& outputs,
                                          size_t resolution) const
 {
@@ -71,7 +71,7 @@ void TilePartitionerPerlin::noiseToAlpha(std::vector<noise::RasterValues<double>
     }
 }
 
-void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners& corners)
+void TilePartitionerNoise::makePartition(TilePartition & regions, const Corners& corners)
 {
     // Prepare noise value storage
     std::vector<noise::RasterValues<double>> noise_values;
@@ -107,7 +107,7 @@ void TilePartitionerPerlin::makePartition(TilePartition & regions, const Corners
     }
 }
 
-TilePartitionerPerlin::TilePartitionerPerlin(const Options & options) :
+TilePartitionerNoise::TilePartitionerNoise(const Options & options) :
     TilePartitionerBase(options),
     mNoiseModuleManager(options)
 {

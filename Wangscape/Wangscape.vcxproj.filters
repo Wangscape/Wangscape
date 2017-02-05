@@ -26,10 +26,10 @@
     <ClCompile Include="tilegen\alpha\CalculatorMax.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerBase.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerGradient.cpp" />
-    <ClCompile Include="tilegen\partition\TilePartitionerPerlin.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerSquares.cpp" />
     <ClCompile Include="tilegen\TileGenerator.cpp" />
     <ClCompile Include="tilegen\TilesetGenerator.cpp" />
+    <ClCompile Include="tilegen\partition\TilePartitionerNoise.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codecs\OptionsCodec.h" />
@@ -86,7 +86,6 @@
     <ClInclude Include="tilegen\alpha\CalculatorMode.h" />
     <ClInclude Include="tilegen\partition\TilePartitionerBase.h" />
     <ClInclude Include="tilegen\partition\TilePartitionerGradient.h" />
-    <ClInclude Include="tilegen\partition\TilePartitionerPerlin.h" />
     <ClInclude Include="tilegen\partition\TilePartitionerSquares.h" />
     <ClInclude Include="tilegen\TileGenerator.h" />
     <ClInclude Include="tilegen\TilesetGenerator.h" />
@@ -123,6 +122,7 @@
     <ClInclude Include="noise\module\codecs\NormLPQWrapperCodec.h" />
     <ClInclude Include="noise\module\Forward.h" />
     <ClInclude Include="noise\module\codecs\ForwardWrapperCodec.h" />
+    <ClInclude Include="tilegen\partition\TilePartitionerNoise.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

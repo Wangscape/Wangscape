@@ -10,7 +10,7 @@
 
 #include "tilegen/TilesetGenerator.h"
 #include "tilegen/TileGenerator.h"
-#include "tilegen/partition/TilePartitionerPerlin.h"
+#include "tilegen/partition/TilePartitionerNoise.h"
 
 #include "OptionsManager.h"
 
@@ -65,7 +65,7 @@ int main(int argc, char** argv)
     const Options& options = optionsManager.getOptions();
     
     std::unique_ptr<tilegen::partition::TilePartitionerBase> tp =
-        std::make_unique<tilegen::partition::TilePartitionerPerlin>(options);
+        std::make_unique<tilegen::partition::TilePartitionerNoise>(options);
     
     tilegen::TilesetGenerator tg(options, std::move(tp));
     
