@@ -9,7 +9,6 @@ namespace module
 class Forward : public Module
 {
 public:
-    double base;
     Forward() :
         Module(GetSourceModuleCount())
     {};
