@@ -43,13 +43,13 @@ template<> void Wrapper<Displace>::setDisplaceModule(int index, const Module& so
         module.SetXDisplaceModule(source_module);
         break;
     case 1:
-        module.SetXDisplaceModule(source_module);
+        module.SetYDisplaceModule(source_module);
         break;
     case 2:
-        module.SetXDisplaceModule(source_module);
+        module.SetZDisplaceModule(source_module);
         break;
     default:
-        throw std::runtime_error("Tried to set displace module with index greater than 2");
+        throw std::runtime_error("Tried to set displace module with index not 0, 1, or 2");
     }
 }
 
