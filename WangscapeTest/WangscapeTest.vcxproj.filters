@@ -75,6 +75,9 @@
     <ClCompile Include="OptionsFilename.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="removeWhitespace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -84,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="OptionsFilename.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="removeWhitespace.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

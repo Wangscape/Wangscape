@@ -5,6 +5,7 @@
 #include <string>
 
 #include <noise/module/codecs/ModuleCodecs.h>
+#include "removeWhitespace.h"
 
 class TestModuleCodec : public ::testing::Test
 {
@@ -33,7 +34,7 @@ TEST_F(TestModuleCodec, TestPerlinEncode)
     "NoiseQuality" : "Standard"
 }
 )");
-    remove_whitespace(expected);
+    removeWhitespace(expected);
     ASSERT_EQ(expected, s);
 }
 
@@ -72,7 +73,7 @@ TEST_F(TestModuleCodec, TestVoronoiEncode)
     "Seed" : 0
 }
 )");
-    remove_whitespace(expected);
+    removeWhitespace(expected);
     ASSERT_EQ(expected, s);
 }
 

@@ -4,17 +4,10 @@
 
 #include <noise/module/codecs/NoiseSourcesCodec.h>
 #include <noise/EncodedModuleGroup.h>
+#include "removeWhitespace.h"
 
 class TestEncodedModuleGroup : public ::testing::Test
 {
-protected:
-    void remove_whitespace(std::string& s)
-    {
-        s.erase(std::remove_if(s.begin(),
-                               s.end(),
-                               [](char c) { return std::isspace(c, std::locale()); }),
-                s.end());
-    }
 };
 
 TEST_F(TestEncodedModuleGroup, TestFullGroupDecode)
@@ -133,6 +126,6 @@ TEST_F(TestEncodedModuleGroup, TestNoiseSourcesEncodeFull)
     "DisplaceModules" : ["s","t","u"]
 }
 )");
-    remove_whitespace(expected);
+    removeWhitespace(expected);
     EXPECT_EQ(expected, s);
 }
