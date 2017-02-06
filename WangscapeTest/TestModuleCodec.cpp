@@ -9,14 +9,6 @@
 
 class TestModuleCodec : public ::testing::Test
 {
-protected:
-    void remove_whitespace(std::string& s)
-    {
-        s.erase(std::remove_if(s.begin(),
-                               s.end(),
-                               [](char c) { return std::isspace(c, std::locale()); }),
-                s.end());
-    }
 };
 
 TEST_F(TestModuleCodec, TestPerlinEncode)
