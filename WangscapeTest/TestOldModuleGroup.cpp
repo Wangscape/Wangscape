@@ -2,26 +2,26 @@
 
 #include <noise/module/ReseedableOps.h>
 
-class TestModuleGroup : public ::testing::Test
+class TestOldModuleGroup : public ::testing::Test
 {
 protected:
     noise::module::ReseedablePtr rs;
-    TestModuleGroup() :
+    TestOldModuleGroup() :
         rs(noise::module::makePlaceholder())
     {
         // The current placeholder is a Reseedable,
-        // but it's not a ModuleGroup.
+        // but it's not a OldModuleGroup.
         // Maybe these tests should be moved.
     };
-    ~TestModuleGroup() {};
+    ~TestOldModuleGroup() {};
 };
 
-TEST_F(TestModuleGroup, TestGetValue)
+TEST_F(TestOldModuleGroup, TestGetValue)
 {
     rs->getValue(0.,1.,2.);
 }
 
-TEST_F(TestModuleGroup, TestSetSeed)
+TEST_F(TestOldModuleGroup, TestSetSeed)
 {
     rs->setSeed(35089);
     double v = rs->getValue(2, 1, 0);

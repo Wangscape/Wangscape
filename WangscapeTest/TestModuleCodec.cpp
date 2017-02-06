@@ -6,10 +6,86 @@
 
 #include <noise/module/codecs/ModuleCodecs.h>
 #include "removeWhitespace.h"
+//
+//template<typename M>
+//class TestModuleCodecT : public ::testing::Test
+//{
+//public:
+//    TestModuleCodecT();
+//
+//    typedef std::pair<std::string, std::shared_ptr<noise::module::Wrapper<M>>> CodecTestCase;
+//    std::vector<CodecTestCase> decodeTestCases;
+//    CodecTestCase encodeTestCase;
+//
+//    void expectModuleEquality(const M& expected, const M& actual);
+//};
+//
+//template<>
+//TestModuleCodecT<noise::module::Abs>::TestModuleCodecT()
+//{
+//    encodeTestCase.first = R"(
+//{
+//    "type" : "Abs",
+//}
+//)";
+//    encodeTestCase.second = std::make_shared<noise::module::Wrapper<noise::module::Abs>>();
+//}
+//
+//typedef ::testing::Types<
+//    noise::module::Abs,
+//    noise::module::Perlin,
+//    noise::module::Voronoi
+//>
+//ModuleCodecArgs;
+//
+//TYPED_TEST_CASE(TestModuleCodecT, ModuleCodecArgs);
+//
+//TYPED_TEST(TestModuleCodecT, TestDecode)
+//{
+//    for (const auto& test_case : decodeTestCases)
+//    {
+//        std::shared_ptr<noise::module::Wrapper<TypeParam>> decoded_module;
+//        EXPECT_NO_THROW(decoded_module = spotify::json::decode<std::shared_ptr<noise::module::Wrapper<TypeParam>>>(test_case.first););
+//        this->expectModuleEquality(test_case.second->module, decoded_module->module);
+//    }
+//}
+//
+//TYPED_TEST(TestModuleCodecT, TestEncode)
+//{
+//    std::string s;
+//    EXPECT_NO_THROW(s = spotify::json::encode<std::shared_ptr<noise::module::Wrapper<TypeParam>>>(this->encodeTestCase.second););
+//    removeWhitespace(this->encodeTestCase.first);
+//    EXPECT_EQ(this->encodeTestCase.first, s);
+//}
+//
 
 class TestModuleCodec : public ::testing::Test
 {
 };
+
+TEST_F(TestModuleCodec, TestAbsEncode)
+{
+    auto module_p = std::make_shared<noise::module::Wrapper<noise::module::Abs>>();
+    std::string s(spotify::json::encode(module_p));
+    std::string expected(R"(
+{
+    "type" : "Abs",
+}
+)");
+    removeWhitespace(expected);
+    ASSERT_EQ(expected, s);
+}
+
+TEST_F(TestModuleCodec, TestAbsDecode)
+{
+    std::string s(R"(
+{
+    "type" : "Abs",
+}
+)");
+    std::shared_ptr<noise::module::Wrapper<noise::module::Abs>> module_p;
+    EXPECT_NO_THROW(module_p = spotify::json::decode<std::shared_ptr<noise::module::Wrapper<noise::module::Abs>>>(s););
+}
 
 TEST_F(TestModuleCodec, TestPerlinEncode)
 {

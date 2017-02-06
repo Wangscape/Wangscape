@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include "ReseedableBase.h"
-#include "ModuleGroup.h"
+#include "OldModuleGroup.h"
 
 namespace noise
 {
@@ -34,7 +34,7 @@ inline const Module & Reseedable<M>::getModule() const
     return module;
 }
 
-template<> void Reseedable<ModuleGroup>::setSeed(int seed);
+template<> void Reseedable<OldModuleGroup>::setSeed(int seed);
 
 template<> void Reseedable<Billow>::setSeed(int seed);
 

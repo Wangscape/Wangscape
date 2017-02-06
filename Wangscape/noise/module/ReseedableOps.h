@@ -1,7 +1,7 @@
 #pragma once
 #include "ReseedablePtr.h"
 #include "Reseedable.h"
-#include "ModuleGroup.h"
+#include "OldModuleGroup.h"
 #include <noise/noise.h>
 
 namespace noise
@@ -65,8 +65,8 @@ ReseedablePtr terrace(ReseedablePtr source, InputIt first, InputIt last, bool in
 template<typename InputIt>
 ReseedablePtr curve(ReseedablePtr source, InputIt first, InputIt last);
 
-// Makes a ModuleGroup with concise syntax.
-ReseedablePtr makeModuleGroup(std::initializer_list<std::pair<ModuleGroup::ModuleID, ReseedablePtr>> modules);
+// Makes a OldModuleGroup with concise syntax.
+ReseedablePtr makeOldModuleGroup(std::initializer_list<std::pair<OldModuleGroup::ModuleID, ReseedablePtr>> modules);
 
 // Makes a TranslatePoint module with x and y displacements 0 or -1.
 ReseedablePtr selectQuadrant(ReseedablePtr source, bool x_positive, bool y_positive);
@@ -123,7 +123,7 @@ ReseedablePtr terrace(ReseedablePtr source, InputIt first, InputIt last, bool in
         terrace_p->module.AddControlPoint(control_point);
     });
     terrace_p->module.SetSourceModule(0, source->getModule());
-    return makeModuleGroup({
+    return makeOldModuleGroup({
         {"source", source},
         {DEFAULT_MODULE_GROUP_OUT, terrace_p}
     });
@@ -144,7 +144,7 @@ ReseedablePtr curve(ReseedablePtr source, InputIt first, InputIt last)
         curve_p->module.AddControlPoint(control_point.first, control_point.second);
     });
     curve_p->module.SetSourceModule(0, source->getModule());
-    return makeModuleGroup({
+    return makeOldModuleGroup({
         {"source", source},
         {DEFAULT_MODULE_GROUP_OUT, curve_p}
     });

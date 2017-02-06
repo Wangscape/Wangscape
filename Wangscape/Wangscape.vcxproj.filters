@@ -8,7 +8,6 @@
     <ClCompile Include="noise\module\ModuleWithSources.cpp" />
     <ClCompile Include="noise\EncodedModuleGroup.cpp" />
     <ClCompile Include="noise\module\CornerCombinerBase.cpp" />
-    <ClCompile Include="noise\module\ModuleGroup.cpp" />
     <ClCompile Include="noise\module\Wrapper.cpp" />
     <ClCompile Include="noise\module\WrapperBase.cpp" />
     <ClCompile Include="noise\module\NormLPQ.cpp" />
@@ -31,6 +30,7 @@
     <ClCompile Include="tilegen\TilesetGenerator.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerNoise.cpp" />
     <ClCompile Include="noise\module\QuadrantSelector.cpp" />
+    <ClCompile Include="noise\module\OldModuleGroup.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codecs\OptionsCodec.h" />
@@ -63,7 +63,6 @@
     <ClInclude Include="noise\module\CornerCombinerBase.h" />
     <ClInclude Include="noise\module\Exp.h" />
     <ClInclude Include="noise\module\Gradient.h" />
-    <ClInclude Include="noise\module\ModuleGroup.h" />
     <ClInclude Include="noise\module\NormLPQ.h" />
     <ClInclude Include="noise\module\ReseedableOps.h" />
     <ClInclude Include="noise\module\ReseedablePtr.h" />
@@ -126,6 +125,7 @@
     <ClInclude Include="tilegen\partition\TilePartitionerNoise.h" />
     <ClInclude Include="noise\module\codecs\QuadrantSelectorWrapperCodec.h" />
     <ClInclude Include="noise\module\QuadrantSelector.h" />
+    <ClInclude Include="noise\module\OldModuleGroup.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

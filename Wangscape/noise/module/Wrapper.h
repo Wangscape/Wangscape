@@ -4,7 +4,7 @@
 #include <vector>
 #include <type_traits>
 #include "WrapperBase.h"
-#include "ModuleGroup.h"
+#include "OldModuleGroup.h"
 
 namespace noise
 {
@@ -51,7 +51,7 @@ void Wrapper<M>::setDisplaceModule(int index, const Module & source_module)
     throw std::runtime_error("Tried to set DisplaceModule of incompatible Module");
 }
 
-template<> void Wrapper<ModuleGroup>::setSeed(int seed);
+template<> void Wrapper<OldModuleGroup>::setSeed(int seed);
 template<> void Wrapper<Billow>::setSeed(int seed);
 template<> void Wrapper<Perlin>::setSeed(int seed);
 template<> void Wrapper<RidgedMulti>::setSeed(int seed);

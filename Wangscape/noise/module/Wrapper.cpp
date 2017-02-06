@@ -5,7 +5,7 @@ namespace noise
 namespace module
 {
 
-template<> void Wrapper<ModuleGroup>::setSeed(int seed)
+template<> void Wrapper<OldModuleGroup>::setSeed(int seed)
 {
     module.SetSeed(seed);
 }

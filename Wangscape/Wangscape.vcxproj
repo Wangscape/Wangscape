@@ -217,7 +217,7 @@
     <ClInclude Include="noise\module\CornerCombinerBase.h" />
     <ClInclude Include="noise\module\Exp.h" />
     <ClInclude Include="noise\module\Gradient.h" />
-    <ClInclude Include="noise\module\ModuleGroup.h" />
+    <ClInclude Include="noise\module\OldModuleGroup.h" />
     <ClInclude Include="noise\module\NormLPQ.h" />
     <ClInclude Include="noise\module\ReseedableOps.h" />
     <ClInclude Include="noise\module\ReseedablePtr.h" />
@@ -256,7 +256,7 @@
     <ClCompile Include="noise\module\ModuleWithSources.cpp" />
     <ClCompile Include="noise\EncodedModuleGroup.cpp" />
     <ClCompile Include="noise\module\CornerCombinerBase.cpp" />
-    <ClCompile Include="noise\module\ModuleGroup.cpp" />
+    <ClCompile Include="noise\module\OldModuleGroup.cpp" />
     <ClCompile Include="noise\module\Wrapper.cpp" />
     <ClCompile Include="noise\module\WrapperBase.cpp" />
     <ClCompile Include="noise\module\NormLPQ.cpp" />

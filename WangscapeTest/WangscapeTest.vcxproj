@@ -164,7 +164,7 @@
     <ClCompile Include="TestEncodedModuleGroup.cpp" />
     <ClCompile Include="TestMetaOutput.cpp" />
     <ClCompile Include="TestModuleCodec.cpp" />
-    <ClCompile Include="TestModuleGroup.cpp" />
+    <ClCompile Include="TestOldModuleGroup.cpp" />
     <ClCompile Include="TestMovingScaleBias.cpp" />
     <ClCompile Include="TestNormLPQ.cpp" />
     <ClCompile Include="TestOptions.cpp" />
