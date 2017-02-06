@@ -25,6 +25,7 @@
 #include "PerlinWrapperCodec.h"
 #include "PowWrapperCodec.h"
 #include "PowerWrapperCodec.h"
+#include "QuadrantSelectorWrapperCodec.h"
 #include "RidgedMultiWrapperCodec.h"
 #include "RotatePointWrapperCodec.h"
 #include "ScaleBiasWrapperCodec.h"

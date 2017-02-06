@@ -30,6 +30,7 @@
     <ClCompile Include="tilegen\TileGenerator.cpp" />
     <ClCompile Include="tilegen\TilesetGenerator.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerNoise.cpp" />
+    <ClCompile Include="noise\module\QuadrantSelector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codecs\OptionsCodec.h" />
@@ -123,6 +124,8 @@
     <ClInclude Include="noise\module\Forward.h" />
     <ClInclude Include="noise\module\codecs\ForwardWrapperCodec.h" />
     <ClInclude Include="tilegen\partition\TilePartitionerNoise.h" />
+    <ClInclude Include="noise\module\codecs\QuadrantSelectorWrapperCodec.h" />
+    <ClInclude Include="noise\module\QuadrantSelector.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
