@@ -31,6 +31,7 @@
     <ClCompile Include="tilegen\partition\TilePartitionerNoise.cpp" />
     <ClCompile Include="noise\module\QuadrantSelector.cpp" />
     <ClCompile Include="noise\module\OldModuleGroup.cpp" />
+    <ClCompile Include="noise\ModuleGroup.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codecs\OptionsCodec.h" />
@@ -126,6 +127,7 @@
     <ClInclude Include="noise\module\codecs\QuadrantSelectorWrapperCodec.h" />
     <ClInclude Include="noise\module\QuadrantSelector.h" />
     <ClInclude Include="noise\module\OldModuleGroup.h" />
+    <ClInclude Include="noise\ModuleGroup.h" />
     <ClInclude Include="codecs\TerrainModuleGroupLocationCodec.h" />
     <ClInclude Include="TerrainModuleGroupLocation.h" />
     <ClInclude Include="BorderModuleGroupLocation.h" />

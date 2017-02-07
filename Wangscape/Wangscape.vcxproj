@@ -172,6 +172,7 @@
     <ClInclude Include="metaoutput\TileGroups.h" />
     <ClInclude Include="metaoutput\TileLocation.h" />
     <ClInclude Include="metaoutput\Tileset.h" />
+    <ClInclude Include="noise\ModuleGroup.h" />
     <ClInclude Include="noise\module\codecs\AbsWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\AddWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\BillowWrapperCodec.h" />
@@ -257,6 +258,7 @@
     <ClCompile Include="metaoutput\Tile.cpp" />
     <ClCompile Include="metaoutput\TileLocation.cpp" />
     <ClCompile Include="metaoutput\Tileset.cpp" />
+    <ClCompile Include="noise\ModuleGroup.cpp" />
     <ClCompile Include="noise\module\ModuleWithSources.cpp" />
     <ClCompile Include="noise\EncodedModuleGroup.cpp" />
     <ClCompile Include="noise\module\CornerCombinerBase.cpp" />
