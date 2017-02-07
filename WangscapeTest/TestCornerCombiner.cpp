@@ -33,7 +33,7 @@ TEST_F(TestCornerCombiner, TestCornerCombinerBase1)
         "Incorrect value at (0,0) with power 1";
     EXPECT_EQ(0., cc1.GetValue(0.5, 0.5, 0.0001)) <<
         "Incorrect value at (0.5,0.5) with power 1";
-    EXPECT_EQ(0., cc1.GetValue(1., 1. , 0.0001)) <<
+    EXPECT_EQ(0., cc1.GetValue(1., 1., 0.0001)) <<
         "Incorrect value at (1,1) with power 1";
 
     EXPECT_NEAR(1., cc1.GetValue(0.5, 0., 0.0001), 0.001) <<
