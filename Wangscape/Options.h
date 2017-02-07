@@ -8,6 +8,8 @@
 #include "tilegen/alpha/CalculatorMode.h"
 #include "TerrainSpec.h"
 #include "TileFormat.h"
+#include "BorderModuleGroupLocation.h"
+#include "TerrainModuleGroupLocation.h"
 
 class Options
 {
@@ -24,6 +26,10 @@ public:
     TerrainSpecMap terrains;
     CliqueList cliques;
     tilegen::alpha::CalculatorMode CalculatorMode;
+    std::string combinerModuleGroup;
+    std::vector<TerrainModuleGroupLocation> centralModuleGroups;
+    std::vector<BorderModuleGroupLocation> horizontalBorderModuleGroups;
+    std::vector<BorderModuleGroupLocation> verticalBorderModuleGroups;
     
     virtual ~Options() = default;
 };

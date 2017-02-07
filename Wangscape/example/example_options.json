@@ -30,13 +30,36 @@
       "s"
     ]
   ],
-  "BorderOptions": [
+  "AlphaCalculatorMode":"Max",
+  "HorizontalBorderModuleGroups": [
     {
-      "Terrains": ["g", "s"]
+      "Terrains":["g","s"],
+      "Filename":"default_module_group.json"
     },
     {
-      "Terrains": ["s", "g"]
+      "Terrains":["s","g"],
+      "Filename":"default_module_group.json"
     }
   ],
-  "AlphaCalculatorMode":"Max"
+  "VerticalBorderModuleGroups": [
+    {
+      "Terrains":["g","s"],
+      "Filename":"default_module_group.json"
+    },
+    {
+      "Terrains":["s","g"],
+      "Filename":"default_module_group.json"
+    }
+  ],
+  "CentralModuleGroups":[
+    {
+      "Terrain":"g",
+      "Filename":"default_module_group.json"
+    },
+    {
+      "Terrain":"s",
+      "Filename":"default_module_group.json"
+    }
+  ],
+  "CombinerModuleGroup":"combiner_module_group.json"
 }

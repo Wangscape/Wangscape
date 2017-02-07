@@ -6,6 +6,8 @@
 #include "metaoutput/codecs/FilenamesCodec.h"
 #include "TerrainSpecCodec.h"
 #include "TileFormatCodec.h"
+#include "BorderModuleGroupLocationCodec.h"
+#include "TerrainModuleGroupLocationCodec.h"
 
 namespace spotify
 {
@@ -27,7 +29,10 @@ struct default_codec_t<Options>
                        codec::enumeration<tilegen::alpha::CalculatorMode, std::string>({
                            {tilegen::alpha::CalculatorMode::Max, "Max"},
                            {tilegen::alpha::CalculatorMode::Linear, "Linear"}}));
-        
+        codec.required("CombinerModuleGroup", &Options::combinerModuleGroup);
+        codec.required("CentralModuleGroups", &Options::centralModuleGroups);
+        codec.required("HorizontalBorderModuleGroups", &Options::horizontalBorderModuleGroups);
+        codec.required("VerticalBorderModuleGroups", &Options::verticalBorderModuleGroups);
         return codec;
     }
 };
