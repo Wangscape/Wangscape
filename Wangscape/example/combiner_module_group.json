@@ -1,8 +1,6 @@
 {
   "OutputModule":"OUTPUT",
-  "InputModuleBorderHorizontal":"INPUT_H",
-  "InputModuleBorderVertical":"INPUT_V",
-  "InputModuleCentral":"INPUT_C",
+  "InputModules":["INPUT_H","INPUT_V","INPUT_C"],
   "Modules":{
     "INPUT_H":{
       "type":"Forward"
