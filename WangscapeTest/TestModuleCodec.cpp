@@ -69,7 +69,7 @@ TEST_F(TestModuleCodec, TestAbsEncode)
     std::string s(spotify::json::encode(module_p));
     std::string expected(R"(
 {
-    "type" : "Abs",
+    "type" : "Abs"
 }
 )");
     removeWhitespace(expected);
@@ -80,7 +80,7 @@ TEST_F(TestModuleCodec, TestAbsDecode)
 {
     std::string s(R"(
 {
-    "type" : "Abs",
+    "type" : "Abs"
 }
 )");
     std::shared_ptr<noise::module::Wrapper<noise::module::Abs>> module_p;
