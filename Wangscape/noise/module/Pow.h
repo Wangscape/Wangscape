@@ -21,7 +21,6 @@ const static double DEFAULT_POW_EXPONENT = 1.;
 class Pow : public Module
 {
 public:
-    double exponent;
     Pow() :
         Module(GetSourceModuleCount()),
         mExponent(DEFAULT_POW_EXPONENT)
