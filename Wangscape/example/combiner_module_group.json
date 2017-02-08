@@ -3,13 +3,16 @@
   "InputModules":["INPUT_H","INPUT_V","INPUT_C"],
   "Modules":{
     "INPUT_H":{
-      "type":"Forward"
+      "type":"Forward",
+      "SourceModule":[]
     },
     "INPUT_V":{
-      "type":"Forward"
+      "type":"Forward",
+      "SourceModule":[]
     },
     "INPUT_C":{
-      "type":"Forward"
+      "type":"Forward",
+      "SourceModule":[]
     },
     "border_horizontal_qs":{
       "type":"QuadrantSelector",
@@ -46,7 +49,7 @@
       "ControlModule":"corner_combiner_ctqs"
     },
     "norm_lpq_1":{
-      "type":"Norm_LPQ",
+      "type":"NormLPQ",
       "P":1,
       "Q":1
     },
@@ -54,10 +57,10 @@
       "type":"QuadrantSelector",
       "TranslateIgnored":[false, false, true],
       "SourceModule":["norm_lpq_1"]
-    }
+    },
     "peak_lower":{
       "type":"Curve",
-      "SourceModule":"norm_lpq_1_qs",
+      "SourceModule":["norm_lpq_1_qs"],
       "ControlPoints":[
         [0,1],
         [0.3,-1],
@@ -65,12 +68,12 @@
         [0.302,-1],
         [0.303,-1],
         [1,-1],
-        [2,-1],
+        [2,-1]
       ]
     },
     "peak_upper":{
       "type":"Curve",
-      "SourceModule":"norm_lpq_1_qs",
+      "SourceModule":["norm_lpq_1_qs"],
       "ControlPoints":[
         [0,1],
         [0.6997,1],
@@ -87,13 +90,13 @@
     "peak_lower_clamped":{
       "type":"Clamp",
       "Bounds":[-1,1],
-      "SourceModule"["peak_lower"]
-    }
+      "SourceModule":["peak_lower"]
+    },
     "peak_upper_clamped":{
       "type":"Clamp",
       "Bounds":[-1,1],
-      "SourceModule"["peak_upper"]
-    }
+      "SourceModule":["peak_upper"]
+    },
     "edges":{
       "type":"Blend",
       "SourceModule":["peak_lower_clamped", "peak_upper_clamped"],
@@ -123,7 +126,7 @@
     "edge_favouring_mask":{
       "type":"Clamp",
       "Bounds":[-1,1],
-      "Source":["norm_lpq_1.5_ts_sb"]
+      "SourceModule":["norm_lpq_1.5_ts_sb"]
     },
     "corner":{
       "type":"Blend",
@@ -137,7 +140,8 @@
     },
     "OUTPUT":{
       "type":"Clamp",
-      "Bounds":[0, 1.7976931348623157e+308]
+      "Bounds":[0, 1.7976931348623157e+308],
+      "SourceModule":["corner_p"]
     }
   }
 }
