@@ -19,7 +19,7 @@ void EncodedModuleGroup::decode()
         std::string module_type = extractValue<std::string>(it.second, "type");
         ModuleDecodeFn decoder = mModuleDecodeTable.at(module_type);
         intermediate.insert({it.first, decoder(it.second)});
-        if ("type" == "QuadrantSelector")
+        if (module_type == "QuadrantSelector")
             moduleGroup.quadrantSelectors.push_back(it.first);
     }
     for (auto it : intermediate)
