@@ -10,29 +10,29 @@ namespace tilegen
 namespace partition
 {
 
-TilePartitionerNoise::ReseedablePtr TilePartitionerNoise::makeCornerModule(const Corners& corners,
-                                                   bool left, bool top)
+noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& corners,
+                                                                bool left, bool top)
 {
     TerrainID corner_id = corners[ (left ? 0 : 1) +  (top ? 0 : 2)];
     TerrainID corner_h =  corners[(!left ? 0 : 1) +  (top ? 0 : 2)];
     TerrainID corner_v =  corners[ (left ? 0 : 1) + (!top ? 0 : 2)];
 
-    ReseedablePtr& stochastic_mask = mNoiseModuleManager.getStochastic(corner_id);
-    ReseedablePtr border_h = mNoiseModuleManager.getBorderHorizontal(left ? corner_id : corner_h,
-                                                                  left ? corner_h : corner_id,
-                                                                  top);
-    ReseedablePtr border_v = mNoiseModuleManager.getBorderVertical(top ? corner_id : corner_v,
-                                                                top ? corner_v : corner_id,
-                                                                left);
-    ReseedablePtr cc = noise::module::makeCornerCombiner(left,top);
-    ReseedablePtr border_xy = noise::module::blend(cc, border_v, border_h);
-    ReseedablePtr deterministic = noise::module::makeLinearVariableScaleBias(border_xy, left, top, 0.85, 0.15);
-    ReseedablePtr ef = noise::module::makeEdgeFavouringMask(1.5, 1.);
-    ReseedablePtr corner = noise::module::blend(ef, stochastic_mask, deterministic);
-    // postprocess should be customisable
-    ReseedablePtr postprocess = pow(corner, 5.);
-    postprocess = clamp(postprocess, 0., std::numeric_limits<double>::infinity());
-    return postprocess;
+    noise::ModuleGroup& combiner = mNoiseModuleManager.getCombiner();
+    noise::ModuleGroup& central = mNoiseModuleManager.getCentral(corner_id);
+    noise::ModuleGroup& border_h = mNoiseModuleManager.getHorizontalBorder(left ? corner_id : corner_h,
+                                                                           left ? corner_h : corner_id);
+    noise::ModuleGroup& border_v = mNoiseModuleManager.getVerticalBorder(top ? corner_id : corner_v,
+                                                                         top ? corner_v : corner_id);
+    central.setQuadrant(left, top, false);
+    border_h.setQuadrant(left, top, false);
+    border_v.setQuadrant(left, top, false);
+    combiner.setQuadrant(left, top, false);
+
+    combiner.setInputModuleSource(0, border_h.getOutputModule());
+    combiner.setInputModuleSource(1, border_v.getOutputModule());
+    combiner.setInputModuleSource(2, central.getOutputModule());
+
+    return combiner.getOutputModule();
 }
 
 void TilePartitionerNoise::noiseToAlpha(std::vector<noise::RasterValues<double>>& noise_values,
@@ -84,13 +84,13 @@ void TilePartitionerNoise::makePartition(TilePartition & regions, const Corners&
     // Construct noise modules and render them.
     // Construction and rendering must be done in the same step,
     // because module seeds will be overwritten.
-    std::vector<ReseedablePtr> corner_modules(4);
+    noise::module::ModulePtr corner_module;
     for (int i = 0; i < 2; i++)
         for (int j = 0; j < 2; j++)
         {
+            corner_module = makeCornerModule(corners, i == 0, j == 0);
             int k = (2 * i) + j;
-            corner_modules[k] = makeCornerModule(corners, i == 0, j == 0);
-            noise_values[k].build(corner_modules[k]->getModule());
+            noise_values[k].build(corner_module->getModule());
         }
     // Prepare output storage
     std::vector<sf::Image> outputs((int)CORNERS);

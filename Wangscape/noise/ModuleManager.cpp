@@ -35,7 +35,7 @@ ModuleManager::ModuleManager(const Options & options) :
     for (auto it : options.horizontalBorderModuleGroups)
     {
         p /= it.filename;
-        auto inserted = mHorizotalBorders.insert({it.terrains, loadModuleGroup(p.string())});
+        auto inserted = mHorizontalBorders.insert({it.terrains, loadModuleGroup(p.string())});
         p.remove_filename();
 
         if (!inserted.second)
@@ -55,42 +55,28 @@ ModuleManager::ModuleManager(const Options & options) :
 
     // TODO: Put a default module group field in options.
     // Use it for all module groups which aren't individually specified in options.
-    for (const auto& terrain : options.terrains)
-    {
-        mStochasticMasks.insert({terrain.first, module::scaleBias(module::makePlaceholder(), 0.5, 0.5)});
-    }
-    for (const auto& clique : options.cliques)
-    {
-        // At least n*(n-1)/2 duplicates will be checked in each clique.
-        for (const auto& t1 : clique)
-            for (const auto& t2 : clique)
-            {
-                TerrainIDPair tp{t1, t2};
-                if (mBordersHorizontal.find(tp) == mBordersHorizontal.end())
-                    mBordersHorizontal.insert({tp, module::makePlaceholder(mRNG())});
-                if (mBordersVertical.find(tp) == mBordersVertical.end())
-                    mBordersVertical.insert({tp, module::makePlaceholder(mRNG())});
-            }
-    }
 }
 
-module::ReseedablePtr ModuleManager::getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive)
+ModuleGroup& ModuleManager::getVerticalBorder(TerrainID top, TerrainID bottom)
 {
-    ReseedablePtr& r = mBordersVertical.at({top, bottom});
-    return module::selectQuadrant(r, x_positive, true);
+    return mVerticalBorders.at({top, bottom});
 }
 
-module::ReseedablePtr ModuleManager::getBorderHorizontal(TerrainID left, TerrainID right, bool y_positive)
+ModuleGroup& ModuleManager::getHorizontalBorder(TerrainID left, TerrainID right)
 {
-    ReseedablePtr& r = mBordersHorizontal.at({left, right});
-    return module::selectQuadrant(r, true, y_positive);
+    return mHorizontalBorders.at({left, right});
 }
 
-module::ReseedablePtr& ModuleManager::getStochastic(TerrainID terrain)
+ModuleGroup& ModuleManager::getCentral(TerrainID terrain)
 {
-    ReseedablePtr& r = mStochasticMasks.at(terrain);
-    r->setSeed(mRNG());
+    ModuleGroup& r = mCentres.at(terrain);
+    r.setSeeds(mRNG());
     return r;
+}
+
+ModuleGroup& ModuleManager::getCombiner()
+{
+    return mCombiner;
 }
 
 ModuleGroup ModuleManager::loadModuleGroup(std::string filename)
