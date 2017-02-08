@@ -11,7 +11,7 @@ void ModuleGroup::setQuadrant(bool x_positive, bool y_positive, bool z_positive)
     {
         module::ModulePtr qs_base_p = modules.at(module_id);
         auto qs_p = std::static_pointer_cast<module::Wrapper<module::QuadrantSelector>>(qs_base_p);
-        qs_p->module.SetTranslate(x_positive, y_positive, z_positive);
+        qs_p->module.SetTranslate(!x_positive, !y_positive, !z_positive);
     }
 }
 
@@ -40,7 +40,7 @@ module::ModulePtr noise::ModuleGroup::getInputModule(size_t index)
 void ModuleGroup::setInputModuleSource(size_t index, module::ModulePtr source_module)
 {
     module::ModulePtr input_module = getInputModule(index);
-    input_module->setSourceModule(0, source_module->getModule());
+    input_module->setSourceModule(index, source_module->getModule());
 }
 
 } // namespace noise
