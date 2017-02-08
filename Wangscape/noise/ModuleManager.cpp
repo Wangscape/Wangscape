@@ -34,7 +34,7 @@ ModuleManager::ModuleManager(const Options & options) :
     }
     for (auto it : options.horizontalBorderModuleGroups)
     {
-        p /= options.combinerModuleGroup;
+        p /= it.filename;
         auto inserted = mHorizotalBorders.insert({it.terrains, loadModuleGroup(p.string())});
         p.remove_filename();
 
@@ -44,7 +44,7 @@ ModuleManager::ModuleManager(const Options & options) :
     }
     for (auto it : options.verticalBorderModuleGroups)
     {
-        p /= options.combinerModuleGroup;
+        p /= it.filename;
         auto inserted = mVerticalBorders.insert({it.terrains, loadModuleGroup(p.string())});
         p.remove_filename();
 
