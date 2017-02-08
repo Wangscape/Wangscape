@@ -6,8 +6,6 @@
 #include <boost/program_options/parsers.hpp>
 #include <boost/program_options/variables_map.hpp>
 
-#include <spotify/json.hpp>
-
 #include "tilegen/TilesetGenerator.h"
 #include "tilegen/TileGenerator.h"
 #include "tilegen/partition/TilePartitionerNoise.h"
