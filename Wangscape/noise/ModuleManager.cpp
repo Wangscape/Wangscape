@@ -39,7 +39,7 @@ ModuleManager::ModuleManager(const Options & options) :
 
         if (!inserted.second)
             throw std::runtime_error("Tried to load two horizontal border module groups with the same terrain pair");
-        inserted.first->second.setSeeds(mRNG());
+        inserted.first->second->setSeeds(mRNG());
     }
     for (auto it : options.verticalBorderModuleGroups)
     {
@@ -49,7 +49,7 @@ ModuleManager::ModuleManager(const Options & options) :
 
         if (!inserted.second)
             throw std::runtime_error("Tried to load two vertical border module groups with the same terrain pair");
-        inserted.first->second.setSeeds(mRNG());
+        inserted.first->second->setSeeds(mRNG());
     }
 
     // TODO: Put a default module group field in options.
@@ -58,27 +58,27 @@ ModuleManager::ModuleManager(const Options & options) :
 
 ModuleGroup& ModuleManager::getVerticalBorder(TerrainID top, TerrainID bottom)
 {
-    return mVerticalBorders.at({top, bottom});
+    return *mVerticalBorders.at({top, bottom});
 }
 
 ModuleGroup& ModuleManager::getHorizontalBorder(TerrainID left, TerrainID right)
 {
-    return mHorizontalBorders.at({left, right});
+    return *mHorizontalBorders.at({left, right});
 }
 
 ModuleGroup& ModuleManager::getCentral(TerrainID terrain)
 {
-    ModuleGroup& r = mCentres.at(terrain);
+    ModuleGroup& r = *mCentres.at(terrain);
     r.setSeeds(mRNG());
     return r;
 }
 
 ModuleGroup& ModuleManager::getCombiner()
 {
-    return mCombiner;
+    return *mCombiner;
 }
 
-ModuleGroup ModuleManager::loadModuleGroup(std::string filename)
+std::shared_ptr<ModuleGroup> loadModuleGroup(std::string filename)
 {
     std::ifstream ifs(filename);
     if (!ifs.good())

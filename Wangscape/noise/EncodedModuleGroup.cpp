@@ -9,7 +9,10 @@
 
 namespace noise
 {
-
+EncodedModuleGroup::EncodedModuleGroup()
+{
+    moduleGroup = std::make_shared<ModuleGroup>();
+}
 void EncodedModuleGroup::decode()
 {
     std::map<ModuleGroup::ModuleID, module::ModuleWithSources> intermediate;
@@ -19,7 +22,7 @@ void EncodedModuleGroup::decode()
         ModuleDecodeFn decoder = mModuleDecodeTable.at(module_type);
         intermediate.insert({it.first, decoder(it.second)});
         if (module_type == "QuadrantSelector")
-            moduleGroup.quadrantSelectors.push_back(it.first);
+            moduleGroup->quadrantSelectors.push_back(it.first);
     }
     for (auto it : intermediate)
     {
@@ -52,7 +55,7 @@ void EncodedModuleGroup::decode()
                 it.second.module->setDisplaceModule(i, intermediate.at(dm[i]).module->getModule());
             }
         }
-        moduleGroup.modules.insert({it.first, it.second.module});
+        moduleGroup->modules.insert({it.first, it.second.module});
     }
 }
 

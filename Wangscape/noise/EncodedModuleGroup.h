@@ -2,6 +2,7 @@
 
 #include <map>
 #include <string>
+#include <iostream>
 
 #include <spotify/json.hpp>
 
@@ -18,11 +19,12 @@ namespace noise
 class EncodedModuleGroup
 {
 public:
+    EncodedModuleGroup();
     typedef spotify::json::encoded_value_ref EncodedValueRef;
     typedef std::map<ModuleGroup::ModuleID, EncodedValueRef> EncodedModuleMap;
 
     EncodedModuleMap encodedModules;
-    ModuleGroup moduleGroup;
+    std::shared_ptr<ModuleGroup> moduleGroup;
 
     void decode();
     
