@@ -11,8 +11,6 @@
     <ClCompile Include="noise\module\Wrapper.cpp" />
     <ClCompile Include="noise\module\WrapperBase.cpp" />
     <ClCompile Include="noise\module\NormLPQ.cpp" />
-    <ClCompile Include="noise\module\Reseedable.cpp" />
-    <ClCompile Include="noise\module\ReseedableOps.cpp" />
     <ClCompile Include="noise\RasterBase.cpp" />
     <ClCompile Include="noise\ModuleManager.cpp" />
     <ClCompile Include="noise\RasterImage.cpp" />
@@ -30,7 +28,6 @@
     <ClCompile Include="tilegen\TilesetGenerator.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerNoise.cpp" />
     <ClCompile Include="noise\module\QuadrantSelector.cpp" />
-    <ClCompile Include="noise\module\OldModuleGroup.cpp" />
     <ClCompile Include="noise\ModuleGroup.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -65,16 +62,12 @@
     <ClInclude Include="noise\module\Exp.h" />
     <ClInclude Include="noise\module\Gradient.h" />
     <ClInclude Include="noise\module\NormLPQ.h" />
-    <ClInclude Include="noise\module\ReseedableOps.h" />
-    <ClInclude Include="noise\module\ReseedablePtr.h" />
     <ClInclude Include="noise\RasterBase.h" />
     <ClInclude Include="noise\ModuleManager.h" />
     <ClInclude Include="noise\RasterImage.h" />
     <ClInclude Include="noise\RasterValues.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="OptionsManager.h" />
-    <ClInclude Include="noise\module\ReseedableBase.h" />
-    <ClInclude Include="noise\module\Reseedable.h" />
     <ClInclude Include="tilegen\CartesianPower.h" />
     <ClInclude Include="tilegen\CartesianPowerIterator.h" />
     <ClInclude Include="TerrainImages.h" />
@@ -126,7 +119,6 @@
     <ClInclude Include="tilegen\partition\TilePartitionerNoise.h" />
     <ClInclude Include="noise\module\codecs\QuadrantSelectorWrapperCodec.h" />
     <ClInclude Include="noise\module\QuadrantSelector.h" />
-    <ClInclude Include="noise\module\OldModuleGroup.h" />
     <ClInclude Include="noise\ModuleGroup.h" />
     <ClInclude Include="codecs\TerrainModuleGroupLocationCodec.h" />
     <ClInclude Include="TerrainModuleGroupLocation.h" />

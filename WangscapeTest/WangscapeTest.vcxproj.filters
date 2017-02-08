@@ -33,18 +33,6 @@
     <ClCompile Include="TestNormLPQ.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestEdgeFavouringMask.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TestReseedable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TestMovingScaleBias.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TestTileGenerationPlan.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TestTilePartitionerGradient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -73,9 +61,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="removeWhitespace.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TestOldModuleGroup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

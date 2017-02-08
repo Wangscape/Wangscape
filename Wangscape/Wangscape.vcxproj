@@ -222,10 +222,7 @@
     <ClInclude Include="noise\module\CornerCombinerBase.h" />
     <ClInclude Include="noise\module\Exp.h" />
     <ClInclude Include="noise\module\Gradient.h" />
-    <ClInclude Include="noise\module\OldModuleGroup.h" />
     <ClInclude Include="noise\module\NormLPQ.h" />
-    <ClInclude Include="noise\module\ReseedableOps.h" />
-    <ClInclude Include="noise\module\ReseedablePtr.h" />
     <ClInclude Include="noise\RasterBase.h" />
     <ClInclude Include="noise\ModuleManager.h" />
     <ClInclude Include="noise\RasterImage.h" />
@@ -233,8 +230,6 @@
     <ClInclude Include="TerrainModuleGroupLocation.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="OptionsManager.h" />
-    <ClInclude Include="noise\module\ReseedableBase.h" />
-    <ClInclude Include="noise\module\Reseedable.h" />
     <ClInclude Include="noise\module\QuadrantSelector.h" />
     <ClInclude Include="tilegen\CartesianPower.h" />
     <ClInclude Include="tilegen\CartesianPowerIterator.h" />
@@ -263,12 +258,9 @@
     <ClCompile Include="noise\module\ModuleWithSources.cpp" />
     <ClCompile Include="noise\EncodedModuleGroup.cpp" />
     <ClCompile Include="noise\module\CornerCombinerBase.cpp" />
-    <ClCompile Include="noise\module\OldModuleGroup.cpp" />
     <ClCompile Include="noise\module\Wrapper.cpp" />
     <ClCompile Include="noise\module\WrapperBase.cpp" />
     <ClCompile Include="noise\module\NormLPQ.cpp" />
-    <ClCompile Include="noise\module\Reseedable.cpp" />
-    <ClCompile Include="noise\module\ReseedableOps.cpp" />
     <ClCompile Include="noise\RasterBase.cpp" />
     <ClCompile Include="noise\ModuleManager.cpp" />
     <ClCompile Include="noise\RasterImage.cpp" />

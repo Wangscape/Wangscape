@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 
 #include <noise/module/CornerCombinerBase.h>
-#include <noise/module/ReseedableOps.h>
 
 class TestCornerCombiner : public ::testing::Test
 {
@@ -9,9 +8,7 @@ protected:
     noise::module::CornerCombinerBase cc1;
     noise::module::CornerCombinerBase cc05;
     noise::module::CornerCombinerBase cc2;
-    noise::module::ReseedablePtr ccg2_p;
-    TestCornerCombiner():
-        ccg2_p(noise::module::makeCornerCombiner(true, true))
+    TestCornerCombiner()
     {
         cc05.SetPower(0.5);
         cc2.SetPower(2.);
@@ -85,24 +82,4 @@ TEST_F(TestCornerCombiner, TestCornerCombinerBase2)
         "Incorrect value at (0,0.5) with power 2";
     EXPECT_NEAR(-1., cc2.GetValue(0., 1., 0.0001), 0.001) <<
         "Incorrect value at (0,1) with power 2";
-}
-
-TEST_F(TestCornerCombiner, TestCornerCombiner2)
-{
-    EXPECT_NEAR(0.0, ccg2_p->getValue(0., 0., 0.0001), 0.00001) <<
-        "Incorrect clamped value at (0,0) with power 2";
-    EXPECT_NEAR(0.0, ccg2_p->getValue(0.5, 0.5, 0.0001), 0.0000) <<
-        "Incorrect clamped value at (0.5,0.5) with power 2";
-    EXPECT_NEAR(0.0, ccg2_p->getValue(1., 1., 0.0001), 0.0000) <<
-        "Incorrect clamped value at (1,1) with power 2";
-
-    EXPECT_EQ(1., ccg2_p->getValue(0.5, 0., 0.0001)) <<
-        "Incorrect clamped value at (0.5,0) with power 2";
-    EXPECT_NEAR(1., ccg2_p->getValue(1., 0., 0.0001), 0.001) <<
-        "Incorrect clamped value at (1,0) with power 2";
-
-    EXPECT_EQ(-1., ccg2_p->getValue(0., 0.5, 0.0001)) <<
-        "Incorrect clamped value at (0,0.5) with power 2";
-    EXPECT_NEAR(-1., ccg2_p->getValue(0., 1., 0.0001), 0.001) <<
-        "Incorrect clamped value at (0,1) with power 2";
 }
