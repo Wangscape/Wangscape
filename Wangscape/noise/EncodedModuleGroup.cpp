@@ -1,6 +1,5 @@
 #include "EncodedModuleGroup.h"
 #include "module/Wrapper.h"
-#include "module/OldModuleGroup.h"
 #include "module/Gradient.h"
 #include "module/CornerCombinerBase.h"
 #include "module/Exp.h"

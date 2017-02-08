@@ -5,11 +5,6 @@ namespace noise
 namespace module
 {
 
-template<> void Wrapper<OldModuleGroup>::setSeed(int seed)
-{
-    module.SetSeed(seed);
-}
-
 template<> void Wrapper<Billow>::setSeed(int seed)
 {
     module.SetSeed(seed);
