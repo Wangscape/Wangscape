@@ -23,8 +23,8 @@ struct default_codec_t<noise::module::Wrapper<noise::module::Terrace>>
                        [](const TerraceWrapper& mw)
                        {
                            std::vector<double> control_points;
-                           const double* raw_control_points = mw.module.GetControlPointArray();
-                           const int control_point_count = mw.module.GetControlPointCount();
+                           const double* raw_control_points = mw.module->GetControlPointArray();
+                           const int control_point_count = mw.module->GetControlPointCount();
                            for (int i = 0; i < control_point_count; i++)
                            {
                                control_points.push_back(raw_control_points[i]);
@@ -35,7 +35,7 @@ struct default_codec_t<noise::module::Wrapper<noise::module::Terrace>>
                        {
                            for (double control_point : all_control_points)
                            {
-                               mw.module.AddControlPoint(control_point);
+                               mw.module->AddControlPoint(control_point);
                            }
                        },
                        default_codec<std::vector<double>>());

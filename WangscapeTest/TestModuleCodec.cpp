@@ -120,12 +120,12 @@ TEST_F(TestModuleCodec, TestPerlinDecode)
 }
 )");
     auto p = spotify::json::decode<std::shared_ptr<noise::module::Wrapper<noise::module::Perlin>>>(s);
-    EXPECT_EQ(1.7, p->module.GetFrequency());
-    EXPECT_EQ(0.999, p->module.GetLacunarity());
-    EXPECT_EQ(noise::QUALITY_FAST, p->module.GetNoiseQuality());
-    EXPECT_EQ(8, p->module.GetOctaveCount());
-    EXPECT_EQ(0.001, p->module.GetPersistence());
-    EXPECT_EQ(101, p->module.GetSeed());
+    EXPECT_EQ(1.7, p->module->GetFrequency());
+    EXPECT_EQ(0.999, p->module->GetLacunarity());
+    EXPECT_EQ(noise::QUALITY_FAST, p->module->GetNoiseQuality());
+    EXPECT_EQ(8, p->module->GetOctaveCount());
+    EXPECT_EQ(0.001, p->module->GetPersistence());
+    EXPECT_EQ(101, p->module->GetSeed());
 }
 
 TEST_F(TestModuleCodec, TestVoronoiEncode)
@@ -157,8 +157,8 @@ TEST_F(TestModuleCodec, TestVoronoiDecode)
 }
 )");
     auto v = spotify::json::decode<std::shared_ptr<noise::module::Wrapper<noise::module::Voronoi>>>(s);
-    EXPECT_EQ(2.7, v->module.GetFrequency()) << s;
-    EXPECT_EQ(3.1, v->module.GetDisplacement()) << s;
-    EXPECT_TRUE(v->module.IsDistanceEnabled()) << s;
-    EXPECT_EQ(47, v->module.GetSeed()) << s;
+    EXPECT_EQ(2.7, v->module->GetFrequency()) << s;
+    EXPECT_EQ(3.1, v->module->GetDisplacement()) << s;
+    EXPECT_TRUE(v->module->IsDistanceEnabled()) << s;
+    EXPECT_EQ(47, v->module->GetSeed()) << s;
 }

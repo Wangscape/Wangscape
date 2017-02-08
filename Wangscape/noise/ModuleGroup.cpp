@@ -11,7 +11,7 @@ void ModuleGroup::setQuadrant(bool x_positive, bool y_positive, bool z_positive)
     {
         module::ModulePtr qs_base_p = modules.at(module_id);
         auto qs_p = std::static_pointer_cast<module::Wrapper<module::QuadrantSelector>>(qs_base_p);
-        qs_p->module.SetTranslate(!x_positive, !y_positive, !z_positive);
+        qs_p->module->SetTranslate(!x_positive, !y_positive, !z_positive);
     }
 }
 

@@ -23,8 +23,8 @@ struct default_codec_t<noise::module::Wrapper<noise::module::Curve>>
                        [](const CurveWrapper& mw)
                        {
                            std::vector<std::pair<double, double>> all_control_points;
-                           const noise::module::ControlPoint* raw_control_points = mw.module.GetControlPointArray();
-                           const int control_point_count = mw.module.GetControlPointCount();
+                           const noise::module::ControlPoint* raw_control_points = mw.module->GetControlPointArray();
+                           const int control_point_count = mw.module->GetControlPointCount();
                            for (int i = 0; i < control_point_count; i++)
                            {
                                const noise::module::ControlPoint control_point = raw_control_points[i];
@@ -36,7 +36,7 @@ struct default_codec_t<noise::module::Wrapper<noise::module::Curve>>
                        {
                            for (std::pair<double, double> control_point : all_control_points)
                            {
-                               mw.module.AddControlPoint(control_point.first, control_point.second);
+                               mw.module->AddControlPoint(control_point.first, control_point.second);
                            }
                        },
                        default_codec<std::vector<std::pair<double, double>>>());

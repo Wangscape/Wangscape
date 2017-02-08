@@ -19,8 +19,8 @@ struct default_codec_t<noise::module::Wrapper<noise::module::Const>>
         auto codec = codec::object<ConstWrapper>();
         codec.required("type", codec::eq<std::string>("Const"));
         codec.optional("ConstValue",
-                       [](const ConstWrapper& mw) {return mw.module.GetConstValue(); },
-                       [](ConstWrapper& mw, double const_value) {mw.module.SetConstValue(const_value); });
+                       [](const ConstWrapper& mw) {return mw.module->GetConstValue(); },
+                       [](ConstWrapper& mw, double const_value) {mw.module->SetConstValue(const_value); });
         return codec;
     }
 };

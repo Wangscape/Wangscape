@@ -20,8 +20,8 @@ struct default_codec_t<noise::module::Wrapper<noise::module::Cylinders>>
         codec.required("type", codec::eq<std::string>("Cylinders"));
         codec.required("SourceModule", codec::ignore_t<int>());
         codec.optional("Frequency",
-                       [](const CylindersWrapper& mw) {return mw.module.GetFrequency(); },
-                       [](CylindersWrapper& mw, double frequency) {mw.module.SetFrequency(frequency); });
+                       [](const CylindersWrapper& mw) {return mw.module->GetFrequency(); },
+                       [](CylindersWrapper& mw, double frequency) {mw.module->SetFrequency(frequency); });
         return codec;
     }
 };

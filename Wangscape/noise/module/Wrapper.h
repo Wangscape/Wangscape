@@ -14,7 +14,8 @@ template<typename M>
 class Wrapper : public WrapperBase
 {
 public:
-    M module;
+    Wrapper();
+    std::shared_ptr<M> module;
 
     virtual void setSeed(int seed);
     virtual Module& getModule();
@@ -23,19 +24,25 @@ public:
     virtual void setDisplaceModule(int index, const Module& source_module);
 };
 
+template<typename M>
+inline Wrapper<M>::Wrapper() :
+    module(std::make_shared<M>())
+{
+}
+
 template<typename M> void Wrapper<M>::setSeed(int seed)
 { }
 
 template<typename M>
 inline Module & Wrapper<M>::getModule()
 {
-    return module;
+    return *module;
 }
 
 template<typename M>
 inline const Module & Wrapper<M>::getModule() const
 {
-    return module;
+    return *module;
 }
 
 template<typename M>

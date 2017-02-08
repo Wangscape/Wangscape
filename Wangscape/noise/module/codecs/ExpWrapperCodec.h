@@ -21,8 +21,8 @@ struct default_codec_t<noise::module::Wrapper<noise::module::Exp>>
         codec.required("type", codec::eq<std::string>("Exp"));
         codec.required("SourceModule", codec::ignore_t<int>());
         codec.optional("Base",
-                       [](const ExpWrapper& mw) {return mw.module.GetBase(); },
-                       [](ExpWrapper& mw, double base) {mw.module.SetBase(base); });
+                       [](const ExpWrapper& mw) {return mw.module->GetBase(); },
+                       [](ExpWrapper& mw, double base) {mw.module->SetBase(base); });
         return codec;
     }
 };

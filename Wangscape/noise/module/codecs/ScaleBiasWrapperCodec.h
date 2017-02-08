@@ -20,11 +20,11 @@ struct default_codec_t<noise::module::Wrapper<noise::module::ScaleBias>>
         codec.required("type", codec::eq<std::string>("ScaleBias"));
         codec.required("SourceModule", codec::ignore_t<int>());
         codec.optional("Scale",
-                       [](const ScaleBiasWrapper& mw) {return mw.module.GetScale(); },
-                       [](ScaleBiasWrapper& mw, double scale) {mw.module.SetScale(scale); });
+                       [](const ScaleBiasWrapper& mw) {return mw.module->GetScale(); },
+                       [](ScaleBiasWrapper& mw, double scale) {mw.module->SetScale(scale); });
         codec.optional("Bias",
-                       [](const ScaleBiasWrapper& mw) {return mw.module.GetBias(); },
-                       [](ScaleBiasWrapper& mw, double bias) {mw.module.SetBias(bias); });
+                       [](const ScaleBiasWrapper& mw) {return mw.module->GetBias(); },
+                       [](ScaleBiasWrapper& mw, double bias) {mw.module->SetBias(bias); });
         return codec;
     }
 };
