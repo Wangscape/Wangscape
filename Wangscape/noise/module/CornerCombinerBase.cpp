@@ -16,7 +16,7 @@ void CornerCombinerBase::SetPower(double power)
     mPower = power;
 }
 CornerCombinerBase::CornerCombinerBase():
-    noise::module::Module(GetSourceModuleCount()),
+    Module(GetSourceModuleCount()),
     mPower(DEFAULT_CORNER_COMBINER_POWER)
 {
 }
