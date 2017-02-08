@@ -40,7 +40,7 @@ module::ModulePtr noise::ModuleGroup::getInputModule(size_t index)
 void ModuleGroup::setInputModuleSource(size_t index, module::ModulePtr source_module)
 {
     module::ModulePtr input_module = getInputModule(index);
-    input_module->setSourceModule(index, source_module->getModule());
+    input_module->setSourceModule(0, source_module->getModule());
 }
 
 } // namespace noise
