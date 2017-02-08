@@ -20,8 +20,7 @@ TEST_F(TestOptions, TestOptionsValues)
 {
     EXPECT_EQ(options.filename, optionsFilename) <<
         "Incorrect options filename";
-    boost::filesystem::path expected_output_dir(optionsFilename);
-    expected_output_dir.remove_filename();
+    boost::filesystem::path expected_output_dir(options.directory);
     expected_output_dir /= "output";
     EXPECT_TRUE(boost::filesystem::equivalent(
         boost::filesystem::path(options.relativeOutputDirectory),

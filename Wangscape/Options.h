@@ -19,6 +19,7 @@ public:
     typedef std::vector<Clique> CliqueList;
 
     std::string filename;
+    std::string directory;
     TileFormat tileFormat;
     std::string outputDirectory;
     std::string relativeOutputDirectory;

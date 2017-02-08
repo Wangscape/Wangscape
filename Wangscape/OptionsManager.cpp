@@ -38,12 +38,17 @@ void OptionsManager::loadOptions(std::string optionsFilename)
     }
     mOptions.filename = optionsFilename;
 
+    boost::filesystem::path p(optionsFilename);
+    p.remove_filename();
+    mOptions.directory = p.string();
+
     createOutputDirectory(optionsFilename);
 }
 
 void OptionsManager::createOutputDirectory(std::string optionsFilename)
 {
     // TODO(hryniuk): move it elsewhere
+    // TODO(serin-delaunay): use mOptions.directory
     auto outputDirectory = mOptions.outputDirectory;
     boost::filesystem::path p(optionsFilename);
     p.remove_filename();
