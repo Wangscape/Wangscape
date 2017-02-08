@@ -11,16 +11,17 @@
 namespace noise
 {
 
-std::map<std::string, module::ModulePtr> noise::EncodedModuleGroup::decode() const
+void EncodedModuleGroup::decode()
 {
-    std::map<std::string, module::ModuleWithSources> intermediate;
+    std::map<ModuleGroup::ModuleID, module::ModuleWithSources> intermediate;
     for (const auto& it : encodedModules)
     {
         std::string module_type = extractValue<std::string>(it.second, "type");
         ModuleDecodeFn decoder = mModuleDecodeTable.at(module_type);
         intermediate.insert({it.first, decoder(it.second)});
+        if ("type" == "QuadrantSelector")
+            moduleGroup.quadrantSelectors.push_back(it.first);
     }
-    std::map<std::string, module::ModulePtr> result;
     for (auto it : intermediate)
     {
         // ModuleWithSources::setModuleSources is designed to do this job as follows:
@@ -52,9 +53,8 @@ std::map<std::string, module::ModulePtr> noise::EncodedModuleGroup::decode() con
                 it.second.module->setDisplaceModule(i, intermediate.at(dm[i]).module->getModule());
             }
         }
-        result.insert({it.first, it.second.module});
+        moduleGroup.modules.insert({it.first, it.second.module});
     }
-    return result;
 }
 
 EncodedModuleGroup::ModuleDecodeTable EncodedModuleGroup::mModuleDecodeTable{
@@ -88,7 +88,7 @@ EncodedModuleGroup::ModuleDecodeTable EncodedModuleGroup::mModuleDecodeTable{
     {"RidgedMulti", &EncodedModuleGroup::decodeModule<module::RidgedMulti>},
     {"RotatePoint", &EncodedModuleGroup::decodeModule<module::RotatePoint>},
     {"ScaleBias", &EncodedModuleGroup::decodeModule<module::ScaleBias>},
-    {"ScalePointCodec", &EncodedModuleGroup::decodeModule<module::ScalePoint>},
+    {"ScalePoint", &EncodedModuleGroup::decodeModule<module::ScalePoint>},
     {"Select", &EncodedModuleGroup::decodeModule<module::Select>},
     {"Spheres", &EncodedModuleGroup::decodeModule<module::Spheres>},
     {"Terrace", &EncodedModuleGroup::decodeModule<module::Terrace>},

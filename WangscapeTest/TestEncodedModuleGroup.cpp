@@ -40,9 +40,10 @@ R"({
 })";
     noise::EncodedModuleGroup emg;
     emg.encodedModules = spotify::json::decode<noise::EncodedModuleGroup::EncodedModuleMap>(s);
-    auto decoded_modules = emg.decode();
+    emg.decode();
+    auto decoded_modules = emg.moduleGroup;
 
-    const noise::module::ModulePtr perlin_p = decoded_modules.at("perlin_example");
+    const noise::module::ModulePtr perlin_p = decoded_modules.modules.at("perlin_example");
     const noise::module::Perlin& perlin_cast = static_cast<noise::module::Perlin&>(perlin_p->getModule());
     EXPECT_EQ(1.7, perlin_cast.GetFrequency());
     EXPECT_EQ(0.999, perlin_cast.GetLacunarity());
@@ -51,14 +52,14 @@ R"({
     EXPECT_EQ(0.001, perlin_cast.GetPersistence());
     EXPECT_EQ(101, perlin_cast.GetSeed());
 
-    const noise::module::ModulePtr voronoi_p = decoded_modules.at("voronoi_example");
+    const noise::module::ModulePtr voronoi_p = decoded_modules.modules.at("voronoi_example");
     const noise::module::Voronoi& voronoi_cast = static_cast<noise::module::Voronoi&>(voronoi_p->getModule());
     EXPECT_EQ(2.7, voronoi_cast.GetFrequency());
     EXPECT_EQ(3.1, voronoi_cast.GetDisplacement());
     EXPECT_TRUE(voronoi_cast.IsDistanceEnabled());
     EXPECT_EQ(47, voronoi_cast.GetSeed());
 
-    const noise::module::ModulePtr add_p = decoded_modules.at("add_example");
+    const noise::module::ModulePtr add_p = decoded_modules.modules.at("add_example");
 
     const noise::module::Module* add_source_0 = &(add_p->getModule().GetSourceModule(0));
     const noise::module::Module* add_source_1 = &(add_p->getModule().GetSourceModule(1));

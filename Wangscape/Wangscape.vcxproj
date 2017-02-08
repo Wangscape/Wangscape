@@ -172,6 +172,7 @@
     <ClInclude Include="metaoutput\TileGroups.h" />
     <ClInclude Include="metaoutput\TileLocation.h" />
     <ClInclude Include="metaoutput\Tileset.h" />
+    <ClInclude Include="noise\codecs\EncodedModuleGroupCodec.h" />
     <ClInclude Include="noise\ModuleGroup.h" />
     <ClInclude Include="noise\module\codecs\AbsWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\AddWrapperCodec.h" />

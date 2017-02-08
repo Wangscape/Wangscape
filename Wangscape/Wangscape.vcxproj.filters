@@ -132,6 +132,7 @@
     <ClInclude Include="TerrainModuleGroupLocation.h" />
     <ClInclude Include="BorderModuleGroupLocation.h" />
     <ClInclude Include="codecs\BorderModuleGroupLocationCodec.h" />
+    <ClInclude Include="noise\codecs\EncodedModuleGroupCodec.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

@@ -10,6 +10,8 @@
 #include "module/codecs/NoiseSourcesCodec.h"
 #include "module/codecs/ModuleCodecs.h"
 
+#include "ModuleGroup.h"
+
 namespace noise
 {
 
@@ -17,11 +19,13 @@ class EncodedModuleGroup
 {
 public:
     typedef spotify::json::encoded_value_ref EncodedValueRef;
-    typedef std::map<std::string, EncodedValueRef> EncodedModuleMap;
+    typedef std::map<ModuleGroup::ModuleID, EncodedValueRef> EncodedModuleMap;
 
     EncodedModuleMap encodedModules;
+    ModuleGroup moduleGroup;
 
-    std::map<std::string, module::ModulePtr> decode() const;
+    void decode();
+    
 private:
 
     template<typename T>
