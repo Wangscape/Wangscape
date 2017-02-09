@@ -5,6 +5,8 @@
 #include "tilegen/alpha/CalculatorLinear.h"
 #include "noise/RasterImage.h"
 
+#include <iostream>
+
 namespace tilegen
 {
 namespace partition
@@ -33,6 +35,14 @@ noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& c
     combiner.setInputModuleSource(2, central.getOutputModule());
     if (mDebugOutput)
     {
+        std::cout << "Writing debug modules for terrains " <<
+            corners[0] << ", " <<
+            corners[1] << ", " <<
+            corners[2] << ", " <<
+            corners[3] << ", " <<
+            (top ? "Top " : "Bottom ") <<
+            (left ? "left" : "right") <<
+            "...\n";
         sf::Image output;
         output.create(256, 256);
         noise::RasterBase::Bounds xy(0, 0, 1, 1);
@@ -56,6 +66,8 @@ noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& c
         write_group(border_h, "border_h");
         write_group(border_v, "border_v");
         write_group(combiner, "combiner");
+        std::cout << "Debug modules written. Press any key to continue...\n";
+        std::cin.ignore();
     }
 
     return combiner.getOutputModule();
