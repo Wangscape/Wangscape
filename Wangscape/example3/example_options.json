@@ -143,5 +143,6 @@
       "Filename":"default_module_group.json"
     }
   ],
-  "CombinerModuleGroup":"combiner_module_group.json"
+  "CombinerModuleGroup":"combiner_module_group.json",
+  "DebugOutput":false
 }

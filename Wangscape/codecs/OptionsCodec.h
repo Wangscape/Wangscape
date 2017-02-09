@@ -33,6 +33,7 @@ struct default_codec_t<Options>
         codec.required("CentralModuleGroups", &Options::centralModuleGroups);
         codec.required("HorizontalBorderModuleGroups", &Options::horizontalBorderModuleGroups);
         codec.required("VerticalBorderModuleGroups", &Options::verticalBorderModuleGroups);
+        codec.required("DebugOutput", &Options::debugOutput);
         return codec;
     }
 };

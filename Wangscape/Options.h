@@ -31,6 +31,7 @@ public:
     std::vector<TerrainModuleGroupLocation> centralModuleGroups;
     std::vector<BorderModuleGroupLocation> horizontalBorderModuleGroups;
     std::vector<BorderModuleGroupLocation> verticalBorderModuleGroups;
+    bool debugOutput;
     
     virtual ~Options() = default;
 };
