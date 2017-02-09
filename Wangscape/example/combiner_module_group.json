@@ -45,7 +45,7 @@
     },
     "border_hv":{
       "type":"Blend",
-      "SourceModule":["border_vertical_qs","border_vertical_qs"],
+      "SourceModule":["border_vertical_qs","border_horizontal_qs"],
       "ControlModule":"corner_combiner_ctqs"
     },
     "norm_lpq_1":{
@@ -130,18 +130,24 @@
     },
     "corner":{
       "type":"Blend",
-      "SourceModule":["edges","INPUT_C"],
+      "SourceModule":["INPUT_C", "edges"],
       "ControlModule":"edge_favouring_mask"
     },
-    "corner_p":{
+    "corner_c":{
+      "type":"ScaleBias",
+      "Scale":0.5,
+      "Bias":0.5,
+      "SourceModule":["corner"]
+    },
+    "corner_c_p":{
       "type":"Pow",
       "Exponent":3,
-      "SourceModule":["corner"]
+      "SourceModule":["corner_c"]
     },
     "OUTPUT":{
       "type":"Clamp",
       "Bounds":[0, 1.7976931348623157e+308],
-      "SourceModule":["corner_p"]
+      "SourceModule":["corner_c_p"]
     }
   }
 }

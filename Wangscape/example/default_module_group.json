@@ -4,6 +4,11 @@
     "OUTPUT":{
       "type":"TranslatePoint",
       "Translation":[1.1,2.2,3.3],
+      "SourceModule":["perlin_clamped"]
+    },
+    "perlin_clamped":{
+      "type":"Clamp",
+      "Bounds":[-1,1],
       "SourceModule":["perlin"]
     },
     "perlin":{
