@@ -66,8 +66,14 @@ noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& c
         write_group(border_h, "border_h");
         write_group(border_v, "border_v");
         write_group(combiner, "combiner");
-        std::cout << "Debug modules written. Press any key to continue...\n";
-        std::cin.ignore();
+        std::cout << "Debug modules written. Press 'q' <ENTER> to stop debugging.\n" <<
+            "Press <ENTER> to write the next set...\n";
+        int keypress = std::cin.get();
+        if (keypress == 'q')
+        {
+            mDebugOutput = false;
+            std::cout << "Debugging cancelled. Generating remaining tilesets as normal...\n";
+        }
     }
 
     return combiner.getOutputModule();
