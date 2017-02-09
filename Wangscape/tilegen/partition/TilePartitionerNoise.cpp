@@ -3,6 +3,7 @@
 #include "noise/module/Pow.h"
 #include "tilegen/alpha/CalculatorMax.h"
 #include "tilegen/alpha/CalculatorLinear.h"
+#include "noise/RasterImage.h"
 
 namespace tilegen
 {
@@ -30,6 +31,32 @@ noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& c
     combiner.setInputModuleSource(0, border_h.getOutputModule());
     combiner.setInputModuleSource(1, border_v.getOutputModule());
     combiner.setInputModuleSource(2, central.getOutputModule());
+    if (mDebugOutput)
+    {
+        sf::Image output;
+        output.create(256, 256);
+        noise::RasterBase::Bounds xy(0, 0, 1, 1);
+        noise::RasterImage nmixy(output, xy);
+        auto write_map = [&](const noise::module::ModulePtr module,
+                             std::string filename,
+                             noise::RasterImage& nmi)
+        {
+            nmi.build(module->getModule());
+            output.saveToFile("test/" + filename + ".png");
+        };
+        auto write_group = [&](const noise::ModuleGroup& mg,
+                               std::string mg_name)
+        {
+            for (auto it : mg.modules)
+            {
+                write_map(it.second, mg_name + "_" + it.first, nmixy);
+            }
+        };
+        write_group(central, "central");
+        write_group(border_h, "border_h");
+        write_group(border_v, "border_v");
+        write_group(combiner, "combiner");
+    }
 
     return combiner.getOutputModule();
 }
@@ -108,7 +135,8 @@ void TilePartitionerNoise::makePartition(TilePartition & regions, const Corners&
 
 TilePartitionerNoise::TilePartitionerNoise(const Options & options) :
     TilePartitionerBase(options),
-    mNoiseModuleManager(options)
+    mNoiseModuleManager(options),
+    mDebugOutput(options.debugOutput)
 {
 }
 

@@ -23,6 +23,7 @@ public:
                       size_t resolution) const;
 private:
     noise::ModuleManager mNoiseModuleManager;
+    bool mDebugOutput;
 };
 
 } // namespace partition
