@@ -40,7 +40,7 @@ noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& c
             corners[1] << ", " <<
             corners[2] << ", " <<
             corners[3] << ", " <<
-            (top ? "Top " : "Bottom ") <<
+            (top ? "top " : "bottom ") <<
             (left ? "left" : "right") <<
             "...\n";
         sf::Image output;
