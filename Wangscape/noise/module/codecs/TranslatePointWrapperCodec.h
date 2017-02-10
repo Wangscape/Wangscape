@@ -4,6 +4,7 @@
 
 #include <noise/noise.h>
 #include "noise/module/Wrapper.h"
+#include "UniformTripleCodec.h"
 
 namespace spotify
 {
@@ -29,13 +30,13 @@ struct default_codec_t<noise::module::Wrapper<noise::module::TranslatePoint>>
                        [](const TranslatePointWrapper& mw) {return mw.module->GetZTranslation(); },
                        [](TranslatePointWrapper& mw, double z_translation) {mw.module->SetZTranslation(z_translation); });
         codec.optional("Translation",
-                       [](const TranslatePointWrapper& mw) {return std::tuple<double, double, double>(
+                       [](const TranslatePointWrapper& mw) {return noise::module::UniformTriple(
                            mw.module->GetXTranslation(),
                            mw.module->GetYTranslation(),
                            mw.module->GetZTranslation()); },
-                       [](TranslatePointWrapper& mw, std::tuple<double, double, double> translation) {mw.module->SetTranslation(
-                           std::get<0>(translation), std::get<1>(translation), std::get<2>(translation)); },
-                       default_codec<std::tuple<double, double, double>>());
+                       [](TranslatePointWrapper& mw, noise::module::UniformTriple translation) {mw.module->SetTranslation(
+                           translation.x, translation.y, translation.z); },
+                       default_codec<noise::module::UniformTriple>());
         return codec;
     }
 };

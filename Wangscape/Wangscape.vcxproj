@@ -213,6 +213,7 @@
     <ClInclude Include="noise\module\ModuleWithSources.h" />
     <ClInclude Include="noise\module\codecs\NoiseSourcesCodec.h" />
     <ClInclude Include="noise\module\ModulePtr.h" />
+    <ClInclude Include="noise\module\UniformTriple.h" />
     <ClInclude Include="noise\module\Wrapper.h" />
     <ClInclude Include="noise\module\WrapperBase.h" />
     <ClInclude Include="noise\EncodedModuleGroup.h" />

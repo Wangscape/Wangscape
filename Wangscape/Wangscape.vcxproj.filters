@@ -125,6 +125,8 @@
     <ClInclude Include="BorderModuleGroupLocation.h" />
     <ClInclude Include="codecs\BorderModuleGroupLocationCodec.h" />
     <ClInclude Include="noise\codecs\EncodedModuleGroupCodec.h" />
+    <ClInclude Include="noise\module\UniformTriple.h" />
+    <ClInclude Include="noise\module\codecs\UniformTripleCodec.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
