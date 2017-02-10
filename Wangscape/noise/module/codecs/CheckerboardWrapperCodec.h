@@ -14,12 +14,7 @@ template<>
 struct default_codec_t<noise::module::Wrapper<noise::module::Checkerboard>>
 {
     using CheckerboardWrapper = noise::module::Wrapper<noise::module::Checkerboard>;
-    static codec::object_t<CheckerboardWrapper> codec()
-    {
-        auto codec = codec::object<CheckerboardWrapper>();
-        codec.required("type", codec::eq<std::string>("Checkerboard"));
-        return codec;
-    }
+    static codec::object_t<CheckerboardWrapper> codec();
 };
 }
 }

@@ -1,21 +1,15 @@
 #pragma once
 
-#include <spotify/json.hpp>
-
-#include <noise/noise.h>
-#include "noise/module/Wrapper.h"
-#include "UniformTripleCodec.h"
+#include "ScalePointWrapperCodec.h"
 
 namespace spotify
 {
 namespace json
 {
 
-template<>
-struct default_codec_t<noise::module::Wrapper<noise::module::ScalePoint>>
-{
-    using ScalePointWrapper = noise::module::Wrapper<noise::module::ScalePoint>;
-    static codec::object_t<ScalePointWrapper> codec()
+using ScalePointWrapper = noise::module::Wrapper<noise::module::ScalePoint>;
+
+codec::object_t<ScalePointWrapper> default_codec_t<ScalePointWrapper>::codec()
     {
         auto codec = codec::object<ScalePointWrapper>();
         codec.required("type", codec::eq<std::string>("ScalePoint"));
@@ -39,6 +33,6 @@ struct default_codec_t<noise::module::Wrapper<noise::module::ScalePoint>>
                        default_codec<noise::module::UniformTriple>());
         return codec;
     }
-};
+
 }
 }

@@ -29,7 +29,7 @@
 #include "RidgedMultiWrapperCodec.h"
 #include "RotatePointWrapperCodec.h"
 #include "ScaleBiasWrapperCodec.h"
-#include "ScalePointCodec.h"
+#include "ScalePointWrapperCodec.h"
 #include "SelectWrapperCodec.h"
 #include "SpheresWrapperCodec.h"
 #include "TerraceWrapperCodec.h"

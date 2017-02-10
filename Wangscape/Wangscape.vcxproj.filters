@@ -29,6 +29,41 @@
     <ClCompile Include="tilegen\partition\TilePartitionerNoise.cpp" />
     <ClCompile Include="noise\module\QuadrantSelector.cpp" />
     <ClCompile Include="noise\ModuleGroup.cpp" />
+    <ClCompile Include="noise\module\codecs\AbsWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\BillowWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\BlendWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\CacheWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\CheckerboardWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\ClampWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\ConstWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\CornerCombinerBaseWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\CurveWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\CylindersWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\DisplaceWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\ExponentWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\ExpWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\ForwardWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\GradientWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\InvertWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\MaxWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\MinWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\MultiplyWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\NormLPQWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\PerlinWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\PowerWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\PowWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\QuadrantSelectorWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\RidgedMultiWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\RotatePointWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\ScaleBiasWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\SelectWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\SpheresWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\TerraceWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\TranslatePointWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\TurbulenceWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\VoronoiWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\AddWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\ScalePointWrapperCodec.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codecs\OptionsCodec.h" />
@@ -104,7 +139,6 @@
     <ClInclude Include="noise\module\codecs\RidgedMultiWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\RotatePointWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\ScaleBiasWrapperCodec.h" />
-    <ClInclude Include="noise\module\codecs\ScalePointCodec.h" />
     <ClInclude Include="noise\module\codecs\SelectWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\SpheresWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\TerraceWrapperCodec.h" />
@@ -127,6 +161,7 @@
     <ClInclude Include="noise\codecs\EncodedModuleGroupCodec.h" />
     <ClInclude Include="noise\module\UniformTriple.h" />
     <ClInclude Include="noise\module\codecs\UniformTripleCodec.h" />
+    <ClInclude Include="noise\module\codecs\ScalePointWrapperCodec.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
