@@ -30,9 +30,7 @@ Reseedable TilePartitionerPerlin::makeCornerModule(const Corners& corners,
     Reseedable deterministic = noise::module::makeLinearMovingScaleBias(border_xy, left, top, 0.85, 0.15);
     Reseedable ef = noise::module::makeEdgeFavouringMask(1.5, 1.);
     Reseedable corner = ef.blend(stochastic_mask, deterministic);
-    // postprocess should be customisable
-    Reseedable postprocess = corner.pow(5.).clamp(0.,std::numeric_limits<double>::infinity());
-    return postprocess;
+    return corner;
 }
 
 void TilePartitionerPerlin::noiseToAlpha(std::vector<noise::RasterValues<double>>& noise_values,
