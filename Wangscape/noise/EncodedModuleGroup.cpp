@@ -33,6 +33,13 @@ void EncodedModuleGroup::decode()
         });
         moduleGroup->modules.insert({it.first, it.second.module});
     }
+    for (auto input_module_id : moduleGroup->inputModules)
+    {
+        if (moduleGroup->modules.at(input_module_id)->getModule().GetSourceModuleCount() < 1)
+        {
+            throw std::runtime_error("Tried to set ModuleGroup input module to a type which has no source modules");
+        }
+    }
 }
 
 EncodedModuleGroup::ModuleDecodeTable EncodedModuleGroup::mModuleDecodeTable{
