@@ -1,6 +1,7 @@
 set(tst-src
     main.cpp
     OptionsFilename.cpp
+    TestCalculatorTopTwo.cpp
     TestCornerCombiner.cpp
     TestEdgeFavouringMask.cpp
     TestMetaOutput.cpp
