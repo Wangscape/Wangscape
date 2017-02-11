@@ -26,35 +26,11 @@ void EncodedModuleGroup::decode()
     }
     for (auto it : intermediate)
     {
-        // ModuleWithSources::setModuleSources is designed to do this job as follows:
-        //
-        //it.second.setModuleSources([&intermediate](const std::string& module_id)
-        //{
-        //    return intermediate.at(module_id).module->getModule();
-        //});
-        //
-        // but using it as above produces warnings and does not correctly set the source module addresses.
-        // TODO: do this with std::transform and boost::adaptors::index.
-        if (it.second.noiseSources.sourceModules)
+        it.second.setModuleSources([&intermediate](const std::string& module_id)
+                                   -> const noise::module::Module&
         {
-            auto sm = it.second.noiseSources.sourceModules.get();
-            for (size_t i = 0; i < sm.size(); i++)
-            {
-                it.second.module->setSourceModule(i, intermediate.at(sm[i]).module->getModule());
-            }
-        }
-        if (it.second.noiseSources.controlModule)
-        {
-            it.second.module->setControlModule(intermediate.at(it.second.noiseSources.controlModule.get()).module->getModule());
-        }
-        if (it.second.noiseSources.displaceModules)
-        {
-            auto dm = it.second.noiseSources.displaceModules.get();
-            for (size_t i = 0; i < dm.size(); i++)
-            {
-                it.second.module->setDisplaceModule(i, intermediate.at(dm[i]).module->getModule());
-            }
-        }
+            return intermediate.at(module_id).module->getModule();
+        });
         moduleGroup->modules.insert({it.first, it.second.module});
     }
 }
