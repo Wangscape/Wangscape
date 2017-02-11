@@ -23,7 +23,7 @@ public:
     metaoutput::Filenames outputFilenames;
     TerrainSpecMap terrains;
     CliqueList cliques;
-    tilegen::alpha::CalculatorMode CalculatorMode;
+    tilegen::alpha::CalculatorMode calculatorMode;
     
     virtual ~Options() = default;
 };
