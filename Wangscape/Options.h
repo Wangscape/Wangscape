@@ -3,6 +3,7 @@
 #include <map>
 #include <utility>
 #include <vector>
+#include <boost/optional.hpp>
 #include "common.h"
 #include "metaoutput/Filenames.h"
 #include "tilegen/alpha/CalculatorMode.h"
@@ -24,6 +25,7 @@ public:
     TerrainSpecMap terrains;
     CliqueList cliques;
     tilegen::alpha::CalculatorMode calculatorMode;
+    boost::optional<double> alphaCalculatorTopTwoPower;
     
     virtual ~Options() = default;
 };
