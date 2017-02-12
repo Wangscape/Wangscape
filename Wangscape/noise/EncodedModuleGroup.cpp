@@ -15,7 +15,7 @@ EncodedModuleGroup::EncodedModuleGroup()
 }
 void EncodedModuleGroup::decode()
 {
-    std::map<ModuleGroup::ModuleID, module::ModuleWithSources> intermediate;
+    std::map<ModuleID, module::ModuleWithSources> intermediate;
     for (const auto& it : encodedModules)
     {
         std::string module_type = extractValue<std::string>(it.second, "type");

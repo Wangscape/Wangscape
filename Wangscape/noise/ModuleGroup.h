@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "noise/module/ModulePtr.h"
+#include "ModuleID.h"
 
 namespace spotify
 {
@@ -20,7 +21,6 @@ class ModuleGroup
 {
 public:
     virtual ~ModuleGroup() = default;
-    typedef std::string ModuleID;
     
     void setQuadrant(bool x_positive, bool y_positive, bool z_positive);
     void setSeeds(int base_seed);

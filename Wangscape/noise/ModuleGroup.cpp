@@ -43,7 +43,7 @@ void ModuleGroup::setInputModuleSource(size_t index, module::ModulePtr source_mo
     input_module->setSourceModule(0, source_module->getModule());
 }
 
-const std::map<ModuleGroup::ModuleID, module::ModulePtr>& ModuleGroup::getModules() const
+const std::map<ModuleID, module::ModulePtr>& ModuleGroup::getModules() const
 {
     return mModules;
 }

@@ -21,7 +21,7 @@ class EncodedModuleGroup
 public:
     EncodedModuleGroup();
     typedef spotify::json::encoded_value_ref EncodedValueRef;
-    typedef std::map<ModuleGroup::ModuleID, EncodedValueRef> EncodedModuleMap;
+    typedef std::map<ModuleID, EncodedValueRef> EncodedModuleMap;
 
     EncodedModuleMap encodedModules;
     std::shared_ptr<ModuleGroup> moduleGroup;

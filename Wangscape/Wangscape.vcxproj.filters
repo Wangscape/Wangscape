@@ -162,6 +162,7 @@
     <ClInclude Include="noise\module\UniformTriple.h" />
     <ClInclude Include="noise\module\codecs\UniformTripleCodec.h" />
     <ClInclude Include="noise\module\codecs\ScalePointWrapperCodec.h" />
+    <ClInclude Include="noise\ModuleID.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
