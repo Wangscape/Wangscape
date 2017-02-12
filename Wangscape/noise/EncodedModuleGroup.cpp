@@ -20,7 +20,7 @@ void EncodedModuleGroup::decode()
     for (const auto& it : encodedModules)
     {
         std::string module_type = extractValue<std::string>(it.second, "type");
-        ModuleDecodeFn decoder = mModuleDecodeTable.at(module_type);
+        ModuleDecodeFn decoder = moduleDecodeTable.at(module_type);
         intermediate.insert({it.first, decoder(it.second)});
         if (module_type == "QuadrantSelector")
             moduleGroup->mQuadrantSelectors.push_back(it.first);
@@ -43,7 +43,10 @@ void EncodedModuleGroup::decode()
     }
 }
 
-EncodedModuleGroup::ModuleDecodeTable EncodedModuleGroup::mModuleDecodeTable{
+namespace
+{
+
+ModuleDecodeTable moduleDecodeTable = {
     {"Abs", &EncodedModuleGroup::decodeModule<module::Abs>},
     {"Add", &EncodedModuleGroup::decodeModule<module::Add>},
     {"Billow", &EncodedModuleGroup::decodeModule<module::Billow>},
@@ -82,5 +85,5 @@ EncodedModuleGroup::ModuleDecodeTable EncodedModuleGroup::mModuleDecodeTable{
     {"Turbulence", &EncodedModuleGroup::decodeModule<module::Turbulence>},
     {"Voronoi", &EncodedModuleGroup::decodeModule<module::Voronoi>}
 };
-
+}
 } // namespace noise

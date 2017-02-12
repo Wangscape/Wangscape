@@ -29,19 +29,15 @@ public:
     std::shared_ptr<ModuleGroup> moduleGroup;
 
     void decode();
+
+    template<typename M>
+    static module::ModuleWithSources decodeModule(const EncodedValueRef& source);
     
 private:
 
     template<typename T>
     static T extractValue(const EncodedValueRef& source, const std::string& key);
 
-    template<typename M>
-    static module::ModuleWithSources decodeModule(const EncodedValueRef& source);
-
-    typedef std::function<module::ModuleWithSources(const EncodedValueRef&)> ModuleDecodeFn;
-    typedef std::map<std::string, ModuleDecodeFn> ModuleDecodeTable;
-    
-    static ModuleDecodeTable mModuleDecodeTable;
 };
 
 template<typename T>
@@ -61,6 +57,14 @@ inline module::ModuleWithSources EncodedModuleGroup::decodeModule(const EncodedV
     result.module = module_p;
     result.noiseSources = spotify::json::decode<module::NoiseSources>(source.data(), source.size());
     return result;
+}
+
+namespace
+{
+typedef std::function<module::ModuleWithSources(const EncodedModuleGroup::EncodedValueRef&)> ModuleDecodeFn;
+typedef std::map<std::string, ModuleDecodeFn> ModuleDecodeTable;
+
+extern ModuleDecodeTable moduleDecodeTable;
 }
 
 } // namespace noise
