@@ -2,6 +2,9 @@
 
 #include <type_traits>
 #include <algorithm>
+#include <string>
+#include <fstream>
+#include <iostream>
 #include <tuple>
 #include <vector>
 
@@ -73,6 +76,301 @@ template<> const std::string TestModuleDecode<noise::module::Terrace>::type = "T
 template<> const std::string TestModuleDecode<noise::module::TranslatePoint>::type = "TranslatePoint";
 template<> const std::string TestModuleDecode<noise::module::Turbulence>::type = "Turbulence";
 template<> const std::string TestModuleDecode<noise::module::Voronoi>::type = "Voronoi";
+
+template<>
+TestModuleDecode<noise::module::Abs>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{"mySourceModule"});
+}
+
+template<>
+TestModuleDecode<noise::module::Add>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
+        "mySourceModule",
+            "myOtherSourceModule"});
+}
+
+template<>
+TestModuleDecode<noise::module::Billow>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetSeed(123);
+    this->exampleModules[0].module->SetFrequency(2.2);
+    this->exampleModules[0].module->SetPersistence(0.5);
+    this->exampleModules[0].module->SetLacunarity(1.8);
+    this->exampleModules[0].module->SetOctaveCount(14);
+    this->exampleModules[0].module->SetNoiseQuality(noise::QUALITY_BEST);
+    this->exampleSources.emplace_back();
+}
+
+template<>
+TestModuleDecode<noise::module::Blend>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
+        "mySourceModule",
+            "myOtherSourceModule"});
+    this->exampleSources[0].controlModule.emplace("myControlModule");
+}
+
+template<>
+TestModuleDecode<noise::module::Cache>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{ "mySourceModule" });
+}
+
+template<>
+TestModuleDecode<noise::module::Checkerboard>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleSources.emplace_back();
+}
+
+template<>
+TestModuleDecode<noise::module::Clamp>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetBounds(-0.5, 1.5);
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{ "mySourceModule" });
+}
+
+template<>
+TestModuleDecode<noise::module::Const>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetConstValue(0.7);
+    this->exampleSources.emplace_back();
+}
+
+template<>
+TestModuleDecode<noise::module::Curve>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->AddControlPoint(-0.5, 0.3);
+    this->exampleModules[0].module->AddControlPoint(1.1, 2.2);
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{ "mySourceModule" });
+}
+
+template<>
+TestModuleDecode<noise::module::Cylinders>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetFrequency(2.2);
+    this->exampleSources.emplace_back();
+}
+
+template<>
+TestModuleDecode<noise::module::Displace>::TestModuleDecode()
+{
+    for (int i = 0; i < 2; i++)
+    {
+        this->exampleModules.emplace_back();
+        this->exampleSources.emplace_back();
+        this->exampleSources[i].sourceModules.emplace(std::initializer_list<std::string>{ "mySourceModule" });
+        this->exampleSources[i].displaceModules.emplace(std::initializer_list<std::string>{
+            "mySourceModuleX",
+                "mySourceModuleY",
+                "mySourceModuleZ" });
+    }
+}
+
+template<>
+TestModuleDecode<noise::module::Exponent>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetExponent(1.1);
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{ "mySourceModule" });
+}
+
+template<>
+TestModuleDecode<noise::module::Invert>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{ "mySourceModule" });
+}
+
+template<>
+TestModuleDecode<noise::module::Max>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
+        "mySourceModule",
+            "myOtherSourceModule" });
+}
+
+template<>
+TestModuleDecode<noise::module::Min>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
+        "mySourceModule",
+            "myOtherSourceModule" });
+}
+
+template<>
+TestModuleDecode<noise::module::Multiply>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
+        "mySourceModule",
+            "myOtherSourceModule" });
+}
+
+template<>
+TestModuleDecode<noise::module::Perlin>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetSeed(123);
+    this->exampleModules[0].module->SetFrequency(2.2);
+    this->exampleModules[0].module->SetPersistence(0.5);
+    this->exampleModules[0].module->SetLacunarity(1.8);
+    this->exampleModules[0].module->SetOctaveCount(14);
+    this->exampleModules[0].module->SetNoiseQuality(noise::QUALITY_BEST);
+    this->exampleSources.emplace_back();
+}
+
+template<>
+TestModuleDecode<noise::module::Power>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
+        "mySourceModule",
+            "myOtherSourceModule" });
+}
+
+template<>
+TestModuleDecode<noise::module::RidgedMulti>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetSeed(123);
+    this->exampleModules[0].module->SetFrequency(2.2);
+    this->exampleModules[0].module->SetLacunarity(1.8);
+    this->exampleModules[0].module->SetOctaveCount(14);
+    this->exampleModules[0].module->SetNoiseQuality(noise::QUALITY_BEST);
+    this->exampleSources.emplace_back();
+}
+
+template<>
+TestModuleDecode<noise::module::RotatePoint>::TestModuleDecode()
+{
+    for (int i = 0; i < 2; i++)
+    {
+        this->exampleModules.emplace_back();
+        this->exampleModules[i].module->SetAngles(10.0, 25.5, -45.4);
+        this->exampleSources.emplace_back();
+        this->exampleSources[i].sourceModules.emplace(std::initializer_list<std::string>{ "mySourceModule" });
+    }
+
+}
+
+template<>
+TestModuleDecode<noise::module::ScaleBias>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetBias(-0.75);
+    this->exampleModules[0].module->SetScale(1.1);
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{ "mySourceModule" });
+}
+
+template<>
+TestModuleDecode<noise::module::ScalePoint>::TestModuleDecode()
+{
+    for (int i = 0; i < 3; i++)
+    {
+        this->exampleModules.emplace_back();
+        this->exampleModules[i].module->SetScale(2.0, 3.5, -1.4);
+        this->exampleSources.emplace_back();
+        this->exampleSources[i].sourceModules.emplace(std::initializer_list<std::string>{ "mySourceModule" });
+    }
+    this->exampleModules[2].module->SetScale(1.4);
+}
+
+template<>
+TestModuleDecode<noise::module::Voronoi>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetSeed(123);
+    this->exampleModules[0].module->SetFrequency(2.2);
+    this->exampleModules[0].module->SetDisplacement(0.5);
+    this->exampleModules[0].module->EnableDistance(true);
+    this->exampleSources.emplace_back();
+}
+
+template<>
+TestModuleDecode<noise::module::Turbulence>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetFrequency(2.2);
+    this->exampleModules[0].module->SetPower(1.3);
+    this->exampleModules[0].module->SetRoughness(3);
+    this->exampleModules[0].module->SetSeed(133);
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{ "mySourceModule" });
+}
+
+template<>
+TestModuleDecode<noise::module::TranslatePoint>::TestModuleDecode()
+{
+    for (int i = 0; i < 3; i++)
+    {
+        this->exampleModules.emplace_back();
+        this->exampleModules[i].module->SetTranslation(2.0, 3.5, -1.4);
+        this->exampleSources.emplace_back();
+        this->exampleSources[i].sourceModules.emplace(std::initializer_list<std::string>{ "mySourceModule" });
+    }
+    this->exampleModules[2].module->SetTranslation(4.3);
+}
+
+template<>
+TestModuleDecode<noise::module::Terrace>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->AddControlPoint(-0.5);
+    this->exampleModules[0].module->AddControlPoint(0.25);
+    this->exampleModules[0].module->AddControlPoint(0.7);
+    this->exampleModules[0].module->AddControlPoint(0.9);
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{ "mySourceModule" });
+}
+
+template<>
+TestModuleDecode<noise::module::Spheres>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetFrequency(2.2);
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{ "mySourceModule" });
+}
+
+template<>
+TestModuleDecode<noise::module::Select>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetBounds(0.2, 0.87);
+    this->exampleModules[0].module->SetEdgeFalloff(0.25);
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
+        "mySourceModule",
+            "myOtherSourceModule" });
+    this->exampleSources[0].controlModule.emplace("myControlModule");
+}
 
 template<>
 void TestModuleDecode<noise::module::Billow>::compareModules(const noise::module::Billow& expected, const noise::module::Billow& actual)
@@ -278,15 +576,34 @@ TYPED_TEST(TestModuleDecode, TestModuleDecode)
 {
     int count = 0;
     EXPECT_EQ(this->exampleModules.size(), this->exampleSources.size());
-    for (const auto& module : this->exampleModules)
+    for (size_t i = 0; i < this->exampleModules.size(); i++)
     {
-        this->compareModules(*module.module, *module.module);
-        count++;
-    }
-    for (const auto& sources : this->exampleSources)
-    {
-        int count = 0;
-        compareSources(sources, sources);
-        count++;
+        std::string filename("WangscapeTest/codecs/examples/" + this->type + std::to_string(i+1) + ".json");
+        std::shared_ptr<noise::module::Wrapper<TypeParam>> decoded_module;
+        noise::module::NoiseSources decoded_sources;
+        std::ifstream ifs(filename);
+        if (!ifs.good())
+        {
+            throw std::runtime_error("Could not open example JSON module file");
+        }
+
+        std::string str{std::istreambuf_iterator<char>(ifs),
+            std::istreambuf_iterator<char>()};
+        try
+        {
+            decoded_module = spotify::json::decode<std::shared_ptr<noise::module::Wrapper<TypeParam>>>(str.c_str());
+            decoded_sources = spotify::json::decode<noise::module::NoiseSources>(str.c_str());
+        }
+        catch (const spotify::json::decode_exception& e)
+        {
+            std::cout << "spotify::json::decode_exception encountered at "
+                << e.offset()
+                << ": "
+                << e.what();
+            throw;
+        }
+        this->compareModules(*exampleModules[i].module, *decoded_module->module);
+        this->compareSources(exampleSources[i], decoded_sources);
+        
     }
 }

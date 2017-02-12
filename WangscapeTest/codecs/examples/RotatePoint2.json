@@ -1,0 +1,7 @@
+{
+  "type" : "RotatePoint",
+  "SourceModule" : "mySourceModule",
+  "XAngle" : 10.0,
+  "YAngle" : 25.5,
+  "ZAngle" : -45.4
+}

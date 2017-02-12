@@ -1,0 +1,5 @@
+{
+  "type" : "ScalePoint",
+  "SourceModule" : "mySourceModule",
+  "Scale" : [ 2.0, 3.5, -1.4 ]
+}

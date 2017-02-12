@@ -1,0 +1,8 @@
+{
+  "type" : "Turbulence",
+  "SourceModule" : "mySourceModule",
+  "Frequency" : 2.2,
+  "Power" : 1.3,
+  "Roughness" : 3,
+  "Seed" : 133
+}
