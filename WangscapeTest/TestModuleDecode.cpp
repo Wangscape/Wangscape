@@ -356,7 +356,6 @@ TestModuleDecode<noise::module::Spheres>::TestModuleDecode()
     this->exampleModules.emplace_back();
     this->exampleModules[0].module->SetFrequency(2.2);
     this->exampleSources.emplace_back();
-    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{ "mySourceModule" });
 }
 
 template<>
@@ -370,6 +369,62 @@ TestModuleDecode<noise::module::Select>::TestModuleDecode()
         "mySourceModule",
             "myOtherSourceModule" });
     this->exampleSources[0].controlModule.emplace("myControlModule");
+}
+
+template<>
+TestModuleDecode<noise::module::CornerCombinerBase>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetPower(3.5);
+    this->exampleSources.emplace_back();
+}
+
+template<>
+TestModuleDecode<noise::module::Exp>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetBase(2.2);
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
+        "mySourceModule"});
+}
+
+template<>
+TestModuleDecode<noise::module::Forward>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
+        "mySourceModule"});
+}
+
+template<>
+TestModuleDecode<noise::module::NormLPQ>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetP(2.3);
+    this->exampleModules[0].module->SetQ(1.4);
+    this->exampleSources.emplace_back();
+}
+
+template<>
+TestModuleDecode<noise::module::Pow>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetExponent(3.3);
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
+        "mySourceModule"});
+}
+
+template<>
+TestModuleDecode<noise::module::QuadrantSelector>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetTranslateIgnored(false, false, true);
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
+        "mySourceModule"});
 }
 
 template<>
