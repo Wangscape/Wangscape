@@ -19,7 +19,7 @@ codec::object_t<VoronoiWrapper> default_codec_t<VoronoiWrapper>::codec()
         codec.optional("Displacement",
                        [](const VoronoiWrapper& mw) {return mw.module->GetDisplacement(); },
                        [](VoronoiWrapper& mw, double displacement) {mw.module->SetDisplacement(displacement); });
-        codec.optional("DistanceEnabled",
+        codec.optional("EnableDistance",
                        [](const VoronoiWrapper& mw) {return mw.module->IsDistanceEnabled(); },
                        [](VoronoiWrapper& mw, bool distance_enabled) {mw.module->EnableDistance(distance_enabled); });
         codec.optional("Seed",
