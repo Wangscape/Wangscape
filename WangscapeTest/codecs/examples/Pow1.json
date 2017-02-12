@@ -1,0 +1,5 @@
+{
+  "type" : "Pow",
+  "SourceModule" : "mySourceModule",
+  "Exponent" : 3.3
+}
