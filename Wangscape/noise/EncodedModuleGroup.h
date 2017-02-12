@@ -11,10 +11,12 @@
 #include "module/codecs/NoiseSourcesCodec.h"
 #include "module/codecs/ModuleCodecs.h"
 
-#include "ModuleGroup.h"
+#include "ModuleID.h"
 
 namespace noise
 {
+
+class ModuleGroup;
 
 class EncodedModuleGroup
 {

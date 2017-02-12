@@ -6,6 +6,7 @@
 #include "module/Pow.h"
 #include "module/NormLPQ.h"
 #include "module/Forward.h"
+#include "ModuleGroup.h"
 
 namespace noise
 {

@@ -4,6 +4,8 @@
 
 #include <noise/module/codecs/NoiseSourcesCodec.h>
 #include <noise/EncodedModuleGroup.h>
+#include <noise/ModuleGroup.h>
+
 #include "removeWhitespace.h"
 
 class TestEncodedModuleGroup : public ::testing::Test
