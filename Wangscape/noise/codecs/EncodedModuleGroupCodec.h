@@ -17,11 +17,11 @@ struct default_codec_t<noise::EncodedModuleGroup>
         auto codec = codec::object<noise::EncodedModuleGroup>();
         codec.required("Modules", &noise::EncodedModuleGroup::encodedModules);
         codec.optional("InputModules",
-                       [](const noise::EncodedModuleGroup& emg) { return emg.moduleGroup->inputModules; },
-                       [](noise::EncodedModuleGroup& emg,std::vector<noise::ModuleGroup::ModuleID> input_modules){ emg.moduleGroup->inputModules = input_modules; });
+                       [](const noise::EncodedModuleGroup& emg) { return emg.moduleGroup->mInputModules; },
+                       [](noise::EncodedModuleGroup& emg,std::vector<noise::ModuleGroup::ModuleID> input_modules){ emg.moduleGroup->mInputModules = input_modules; });
         codec.optional("OutputModule",
-                       [](const noise::EncodedModuleGroup& emg) { return emg.moduleGroup->outputModule; },
-                       [](noise::EncodedModuleGroup& emg, noise::ModuleGroup::ModuleID output_module) { emg.moduleGroup->outputModule = output_module; });
+                       [](const noise::EncodedModuleGroup& emg) { return emg.moduleGroup->mOutputModule; },
+                       [](noise::EncodedModuleGroup& emg, noise::ModuleGroup::ModuleID output_module) { emg.moduleGroup->mOutputModule = output_module; });
 
         return codec;
     }

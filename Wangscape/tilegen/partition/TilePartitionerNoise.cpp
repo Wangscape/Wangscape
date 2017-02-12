@@ -57,7 +57,7 @@ noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& c
         auto write_group = [&](const noise::ModuleGroup& mg,
                                std::string mg_name)
         {
-            for (auto it : mg.modules)
+            for (auto it : mg.getModules())
             {
                 write_map(it.second, mg_name + "_" + it.first, nmixy);
             }

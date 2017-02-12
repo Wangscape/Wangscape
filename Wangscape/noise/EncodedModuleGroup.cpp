@@ -22,7 +22,7 @@ void EncodedModuleGroup::decode()
         ModuleDecodeFn decoder = mModuleDecodeTable.at(module_type);
         intermediate.insert({it.first, decoder(it.second)});
         if (module_type == "QuadrantSelector")
-            moduleGroup->quadrantSelectors.push_back(it.first);
+            moduleGroup->mQuadrantSelectors.push_back(it.first);
     }
     for (auto it : intermediate)
     {
@@ -31,11 +31,11 @@ void EncodedModuleGroup::decode()
         {
             return intermediate.at(module_id).module->getModule();
         });
-        moduleGroup->modules.insert({it.first, it.second.module});
+        moduleGroup->mModules.insert({it.first, it.second.module});
     }
-    for (auto input_module_id : moduleGroup->inputModules)
+    for (auto input_module_id : moduleGroup->mInputModules)
     {
-        if (moduleGroup->modules.at(input_module_id)->getModule().GetSourceModuleCount() < 1)
+        if (moduleGroup->mModules.at(input_module_id)->getModule().GetSourceModuleCount() < 1)
         {
             throw std::runtime_error("Tried to set ModuleGroup input module to a type which has no source modules");
         }
