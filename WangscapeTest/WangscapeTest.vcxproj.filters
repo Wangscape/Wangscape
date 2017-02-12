@@ -63,6 +63,9 @@
     <ClCompile Include="removeWhitespace.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TestModuleDecode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

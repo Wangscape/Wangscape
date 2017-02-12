@@ -163,6 +163,7 @@
     <ClCompile Include="TestEncodedModuleGroup.cpp" />
     <ClCompile Include="TestMetaOutput.cpp" />
     <ClCompile Include="TestModuleCodec.cpp" />
+    <ClCompile Include="TestModuleDecode.cpp" />
     <ClCompile Include="TestNormLPQ.cpp" />
     <ClCompile Include="TestOptions.cpp" />
     <ClCompile Include="TestIPow.cpp" />
