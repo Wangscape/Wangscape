@@ -2,9 +2,11 @@
 
 #include <memory>
 
-#include <noise/module/codecs/NoiseSourcesCodec.h>
-#include <noise/EncodedModuleGroup.h>
 #include <noise/ModuleGroup.h>
+#include <noise/codecs/EncodedModuleGroupCodec.h>
+#include <noise/EncodedModuleGroup.h>
+#include <fstream>
+#include <iostream>
 
 #include "removeWhitespace.h"
 
@@ -14,121 +16,66 @@ class TestEncodedModuleGroup : public ::testing::Test
 
 TEST_F(TestEncodedModuleGroup, TestFullGroupDecode)
 {
-    std::string s =
-R"({
-    "perlin_example":{
-        "type":"Perlin",
-        "Frequency" : 1.7,
-        "Lacunarity" : 0.999,
-        "NoiseQuality" : "Fast",
-        "OctaveCount" : 8,
-        "Persistence" : 0.001,
-        "Seed" : 101
-    },
-    "voronoi_example":{
-        "type":"Voronoi",
-        "Frequency" : 2.7,
-        "Displacement" : 3.1,
-        "DistanceEnabled" : true,
-        "Seed" : 47
-    },
-    "add_example":{
-        "type":"Add",
-        "SourceModule":[
-            "voronoi_example",
-            "perlin_example"
-        ]
+    std::string filename("WangscapeTest/codecs/examples/ModuleGroup.json");
+    std::ifstream ifs(filename);
+    if (!ifs.good())
+    {
+        throw std::runtime_error("Could not open example JSON module file");
     }
-})";
+
+    std::string str{std::istreambuf_iterator<char>(ifs),
+        std::istreambuf_iterator<char>()};
+
     noise::EncodedModuleGroup emg;
-    emg.encodedModules = spotify::json::decode<noise::EncodedModuleGroup::EncodedModuleMap>(s);
+    emg = spotify::json::decode<noise::EncodedModuleGroup>(str);
     emg.decode();
     auto decoded_modules = emg.moduleGroup;
+    {
+        std::set<noise::module::Module*, std::less<noise::module::Module*>> unique_modules;
+        std::transform(decoded_modules->getModules().cbegin(),
+                       decoded_modules->getModules().cend(),
+                       std::inserter(unique_modules, unique_modules.begin()),
+                       [](const auto& m)
+        {
+            return &m.second->getModule();
+        });
+        EXPECT_EQ(8, unique_modules.size());
+    }
+    const noise::module::Module& input_1 = decoded_modules->getModules().at("INPUT_1")->getModule();
+    const noise::module::Module& input_2 = decoded_modules->getModules().at("INPUT_2")->getModule();
+    const noise::module::Module& generator_1 = decoded_modules->getModules().at("generator_1")->getModule();
+    const noise::module::Module& generator_2 = decoded_modules->getModules().at("generator_2")->getModule();
+    const noise::module::Module& generator_3 = decoded_modules->getModules().at("generator_3")->getModule();
+    const noise::module::Module& displace_module = decoded_modules->getModules().at("displace_module")->getModule();
+    const noise::module::Module& blend_module = decoded_modules->getModules().at("blend_module")->getModule();
+    const noise::module::Module& output = decoded_modules->getModules().at("OUTPUT")->getModule();
 
-    const noise::module::ModulePtr perlin_p = decoded_modules->getModules().at("perlin_example");
-    const noise::module::Perlin& perlin_cast = static_cast<noise::module::Perlin&>(perlin_p->getModule());
-    EXPECT_EQ(1.7, perlin_cast.GetFrequency());
-    EXPECT_EQ(0.999, perlin_cast.GetLacunarity());
-    EXPECT_EQ(noise::QUALITY_FAST, perlin_cast.GetNoiseQuality());
-    EXPECT_EQ(8, perlin_cast.GetOctaveCount());
-    EXPECT_EQ(0.001, perlin_cast.GetPersistence());
-    EXPECT_EQ(101, perlin_cast.GetSeed());
+    const noise::module::Blend& blend_module_cast = static_cast<const noise::module::Blend&>(blend_module);
+    const noise::module::Displace& displace_module_cast = static_cast<const noise::module::Displace&>(displace_module);
 
-    const noise::module::ModulePtr voronoi_p = decoded_modules->getModules().at("voronoi_example");
-    const noise::module::Voronoi& voronoi_cast = static_cast<noise::module::Voronoi&>(voronoi_p->getModule());
-    EXPECT_EQ(2.7, voronoi_cast.GetFrequency());
-    EXPECT_EQ(3.1, voronoi_cast.GetDisplacement());
-    EXPECT_TRUE(voronoi_cast.IsDistanceEnabled());
-    EXPECT_EQ(47, voronoi_cast.GetSeed());
+    EXPECT_EQ(&input_1, &displace_module_cast.GetSourceModule(0));
+    EXPECT_EQ(&generator_1, &displace_module_cast.GetXDisplaceModule());
+    EXPECT_EQ(&generator_2, &displace_module_cast.GetYDisplaceModule());
+    EXPECT_EQ(&generator_3, &displace_module_cast.GetZDisplaceModule());
 
-    const noise::module::ModulePtr add_p = decoded_modules->getModules().at("add_example");
+    EXPECT_EQ(&generator_3, &blend_module_cast.GetSourceModule(0));
+    EXPECT_EQ(&generator_2, &blend_module_cast.GetSourceModule(1));
+    EXPECT_EQ(&input_2, &blend_module_cast.GetControlModule());
 
-    const noise::module::Module* add_source_0 = &(add_p->getModule().GetSourceModule(0));
-    const noise::module::Module* add_source_1 = &(add_p->getModule().GetSourceModule(1));
-    const noise::module::Module* perlin_module = &(perlin_p->getModule());
-    const noise::module::Module* voronoi_module = &(voronoi_p->getModule());
+    EXPECT_EQ(&displace_module, &output.GetSourceModule(0));
 
-    EXPECT_TRUE(add_source_0 == perlin_module ||
-                add_source_0 == voronoi_module);
-    EXPECT_TRUE(add_source_1 == perlin_module ||
-                add_source_1 == voronoi_module);
+    const noise::module::QuadrantSelector& output_cast = static_cast<const noise::module::QuadrantSelector&>(output);
+    EXPECT_EQ(false, output_cast.GetTranslate(0));
+    EXPECT_EQ(false, output_cast.GetTranslate(1));
+    EXPECT_EQ(false, output_cast.GetTranslate(2));
+    decoded_modules->setQuadrant(false, true, false);
+    EXPECT_EQ(true, output_cast.GetTranslate(0));
+    EXPECT_EQ(false, output_cast.GetTranslate(1));
+    EXPECT_EQ(true, output_cast.GetTranslate(2));
 
-    double pv = perlin_p->getValue(1.1, 2.2, 3.3);
-    double vv = voronoi_p->getValue(1.1, 2.2, 3.3);
-    double av = add_p->getValue(1.1, 2.2, 3.3);
-    EXPECT_EQ(pv + vv, av);
-}
+    const noise::module::Perlin& generator_1_cast = static_cast<const noise::module::Perlin&>(generator_1);
+    int seed = generator_1_cast.GetSeed();
+    decoded_modules->setSeeds(394857);
+    EXPECT_NE(seed, generator_1_cast.GetSeed());
 
-TEST_F(TestEncodedModuleGroup, TestNoiseSourcesDecodeEmpty)
-{
-    noise::module::NoiseSources ns;
-    ns = spotify::json::decode<noise::module::NoiseSources>(R"({})");
-    EXPECT_FALSE(ns.sourceModules);
-    EXPECT_FALSE(ns.controlModule);
-    EXPECT_FALSE(ns.displaceModules);
-}
-
-TEST_F(TestEncodedModuleGroup, TestNoiseSourcesDecodeFull)
-{
-    noise::module::NoiseSources ns;
-    ns = spotify::json::decode<noise::module::NoiseSources>(
-        R"({
-            "SourceModule":["a", "b", "c"],
-            "ControlModule":"z",
-            "DisplaceModules":["s", "t", "u"]
-        })");
-    EXPECT_TRUE(ns.sourceModules);
-    EXPECT_TRUE(ns.controlModule);
-    EXPECT_TRUE(ns.displaceModules);
-    if (ns.sourceModules)
-        EXPECT_EQ("c", ns.sourceModules.get()[2]);
-    if (ns.controlModule)
-        EXPECT_EQ("z", ns.controlModule.get());
-    if (ns.displaceModules)
-        EXPECT_EQ("t", ns.displaceModules.get()[1]);
-}
-
-TEST_F(TestEncodedModuleGroup, TestNoiseSourcesEncodeEmpty)
-{
-    noise::module::NoiseSources ns;
-    std::string s = spotify::json::encode<noise::module::NoiseSources>(ns);
-    EXPECT_EQ(R"({})", s);
-}
-
-TEST_F(TestEncodedModuleGroup, TestNoiseSourcesEncodeFull)
-{
-    noise::module::NoiseSources ns;
-    ns.sourceModules.emplace(std::initializer_list<std::string>({"a", "b", "c"}));
-    ns.controlModule.emplace("z");
-    ns.displaceModules.emplace(std::initializer_list<std::string>({"s", "t", "u"}));
-    std::string s = spotify::json::encode<noise::module::NoiseSources>(ns);
-    std::string expected(R"(
-{
-    "SourceModule" : ["a","b","c"] ,
-    "ControlModule" : "z",
-    "DisplaceModules" : ["s","t","u"]
-}
-)");
-    removeWhitespace(expected);
-    EXPECT_EQ(expected, s);
 }
