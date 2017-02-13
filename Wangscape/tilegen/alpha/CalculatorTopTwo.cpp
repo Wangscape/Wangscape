@@ -17,13 +17,13 @@ void CalculatorTopTwo::updateAlphasAux(const Weights& weights)
     const IndexedWeight& runner_up = mIndexedWeights[1];
     const IndexedWeight& base = mIndexedWeights[2];
 
-    double gap_1 = winner.first - runner_up.first;
-    double gap_2 = runner_up.first - base.first;
-    double total_gap = gap_1 + gap_2;
-    assert(gap_1 >= 0.);
-    assert(gap_2 >= 0.);
-    assert(total_gap >= 0.);
-    if (total_gap <= 255 * std::numeric_limits<double>::epsilon())
+    double winner_margin = winner.first - runner_up.first;
+    double runner_up_margin = runner_up.first - base.first;
+    double margin_sum = winner_margin + runner_up_margin;
+    assert(winner_margin >= 0.);
+    assert(runner_up_margin >= 0.);
+    assert(margin_sum >= 0.);
+    if (margin_sum <= 255 * std::numeric_limits<double>::epsilon())
     {
         getAlpha(winner.second) = 128;
         getAlpha(runner_up.second) = 127;
@@ -31,7 +31,7 @@ void CalculatorTopTwo::updateAlphasAux(const Weights& weights)
     }
     else
     {
-        double runner_up_scaled = pow(gap_2 / total_gap, power);
+        double runner_up_scaled = pow(runner_up_margin / margin_sum, power);
         sf::Uint8 runner_up_share = std::max(0, std::min(255, int((255. * runner_up_scaled) / (1. + runner_up_scaled))));
         getAlpha(winner.second) = 255 - runner_up_share;
         getAlpha(runner_up.second) = runner_up_share;
