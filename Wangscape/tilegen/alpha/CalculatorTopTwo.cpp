@@ -17,12 +17,11 @@ void CalculatorTopTwo::updateAlphasAux(const Weights& weights)
     const IndexedWeight& runner_up = mIndexedWeights[1];
     const IndexedWeight& base = mIndexedWeights[2];
 
-    double winner_margin = winner.first - runner_up.first;
     double runner_up_margin = runner_up.first - base.first;
-    double margin_sum = winner_margin + runner_up_margin;
-    assert(winner_margin >= 0.);
+    double margin_sum = winner.first - base.first;
     assert(runner_up_margin >= 0.);
     assert(margin_sum >= 0.);
+    assert(margin_sum >= runner_up_margin);
     if (margin_sum <= 255 * std::numeric_limits<double>::epsilon())
     {
         getAlpha(winner.second) = 128;
