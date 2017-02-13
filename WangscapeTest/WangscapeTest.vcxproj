@@ -158,7 +158,7 @@
     <ClCompile Include="removeWhitespace.cpp" />
     <ClCompile Include="TestCartesianPower.cpp" />
     <ClCompile Include="TestCoordinatePacker.cpp" />
-    <ClCompile Include="OptionsFilename.cpp" />
+    <ClCompile Include="DocumentationPath.cpp" />
     <ClCompile Include="TestCornerCombiner.cpp" />
     <ClCompile Include="TestEncodedModuleGroup.cpp" />
     <ClCompile Include="TestMetaOutput.cpp" />
@@ -175,7 +175,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="OptionsFilename.h" />
+    <ClInclude Include="DocumentationPath.h" />
     <ClInclude Include="removeWhitespace.h" />
     <ClInclude Include="TestRequiringOptions.h" />
   </ItemGroup>

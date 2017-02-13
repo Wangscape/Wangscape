@@ -7,6 +7,8 @@
 #include <iostream>
 #include <tuple>
 #include <vector>
+#include <boost/filesystem.hpp>
+#include "DocumentationPath.h"
 
 #include <noise/noise.h>
 #include <noise/module/codecs/ModuleCodecs.h>
@@ -631,17 +633,18 @@ TYPED_TEST(TestModuleDecode, TestModuleDecode)
 {
     int count = 0;
     EXPECT_EQ(this->exampleModules.size(), this->exampleSources.size());
+    auto examples_dir = boost::filesystem::path(getDocumentationPath()) / "tests";
     for (size_t i = 0; i < this->exampleModules.size(); i++)
     {
-        std::string filename("WangscapeTest/codecs/examples/" + this->type + std::to_string(i+1) + ".json");
-        std::shared_ptr<noise::module::Wrapper<TypeParam>> decoded_module;
-        noise::module::NoiseSources decoded_sources;
+        std::string filename = (examples_dir / (this->type + std::to_string(i + 1) + ".json")).string();
         std::ifstream ifs(filename);
         if (!ifs.good())
         {
-            throw std::runtime_error("Could not open example JSON module file");
+            throw std::runtime_error("Could not open example JSON module file:" + filename);
         }
 
+        std::shared_ptr<noise::module::Wrapper<TypeParam>> decoded_module;
+        noise::module::NoiseSources decoded_sources;
         std::string str{std::istreambuf_iterator<char>(ifs),
             std::istreambuf_iterator<char>()};
         try

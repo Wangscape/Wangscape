@@ -7,6 +7,8 @@
 #include <noise/EncodedModuleGroup.h>
 #include <fstream>
 #include <iostream>
+#include <boost/filesystem.hpp>
+#include "DocumentationPath.h"
 
 #include "removeWhitespace.h"
 
@@ -49,7 +51,7 @@ public:
     }
     TestEncodedModuleGroup()
     {
-        std::string filename("WangscapeTest/codecs/examples/ModuleGroup.json");
+        std::string filename = (boost::filesystem::path(getDocumentationPath()) / "tests" / "ModuleGroup.json").string();
         std::ifstream ifs(filename);
         if (!ifs.good())
         {

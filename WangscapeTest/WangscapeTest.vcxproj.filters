@@ -54,13 +54,13 @@
     <ClCompile Include="TestCoordinatePacker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OptionsFilename.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="removeWhitespace.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TestModuleDecode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DocumentationPath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -71,10 +71,10 @@
     <ClInclude Include="TestRequiringOptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OptionsFilename.h">
+    <ClInclude Include="removeWhitespace.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="removeWhitespace.h">
+    <ClInclude Include="DocumentationPath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
