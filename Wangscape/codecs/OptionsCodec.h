@@ -1,6 +1,7 @@
 #pragma once
 
 #include <spotify/json.hpp>
+#include <spotify/json/codec/boost.hpp>
 
 #include "Options.h"
 #include "metaoutput/codecs/FilenamesCodec.h"
@@ -30,9 +31,10 @@ struct default_codec_t<Options>
                            {tilegen::alpha::CalculatorMode::Max, "Max"},
                            {tilegen::alpha::CalculatorMode::Linear, "Linear"}}));
         codec.required("CombinerModuleGroup", &Options::combinerModuleGroup);
-        codec.required("CentralModuleGroups", &Options::centralModuleGroups);
-        codec.required("HorizontalBorderModuleGroups", &Options::horizontalBorderModuleGroups);
-        codec.required("VerticalBorderModuleGroups", &Options::verticalBorderModuleGroups);
+        codec.optional("DefaultModuleGroup", &Options::defaultModuleGroup);
+        codec.optional("CentralModuleGroups", &Options::centralModuleGroups);
+        codec.optional("HorizontalBorderModuleGroups", &Options::horizontalBorderModuleGroups);
+        codec.optional("VerticalBorderModuleGroups", &Options::verticalBorderModuleGroups);
         codec.required("DebugOutput", &Options::debugOutput);
         return codec;
     }

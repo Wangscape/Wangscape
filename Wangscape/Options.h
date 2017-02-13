@@ -3,6 +3,7 @@
 #include <map>
 #include <utility>
 #include <vector>
+#include <boost/optional.hpp>
 #include "common.h"
 #include "metaoutput/Filenames.h"
 #include "tilegen/alpha/CalculatorMode.h"
@@ -28,6 +29,7 @@ public:
     CliqueList cliques;
     tilegen::alpha::CalculatorMode CalculatorMode;
     std::string combinerModuleGroup;
+    boost::optional<std::string> defaultModuleGroup;
     std::vector<TerrainModuleGroupLocation> centralModuleGroups;
     std::vector<BorderModuleGroupLocation> horizontalBorderModuleGroups;
     std::vector<BorderModuleGroupLocation> verticalBorderModuleGroups;

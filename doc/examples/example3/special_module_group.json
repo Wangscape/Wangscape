@@ -1,0 +1,28 @@
+{
+  "OutputModule":"OUTPUT",
+  "Modules":{
+    "OUTPUT":{
+      "type":"Clamp",
+      "Bounds":[-1,1],
+      "SourceModule":"billow_displaced_translated"
+    },
+    "billow_displaced_translated":{
+      "type":"TranslatePoint",
+      "Translation":[-1.1,-2.2,-3.3],
+      "SourceModule":["billow_displaced"]
+    },
+    "billow_displaced":{
+      "type":"Displace",
+      "SourceModule":["billow"],
+      "DisplaceModules":["billow","billow","billow"]
+    },
+    "billow":{
+      "type":"Billow",
+      "OctaveCount":5,
+      "Frequency":0.8,
+      "Lacunarity":2,
+      "Persistence":0.5,
+      "NoiseQuality":"Fast"
+    }
+  }
+}

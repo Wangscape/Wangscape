@@ -51,9 +51,44 @@ ModuleManager::ModuleManager(const Options & options) :
             throw std::runtime_error("Tried to load two vertical border module groups with the same terrain pair");
         inserted.first->second->setSeeds(mRNG());
     }
-
-    // TODO: Put a default module group field in options.
-    // Use it for all module groups which aren't individually specified in options.
+    if (options.defaultModuleGroup)
+    {
+        p /= options.defaultModuleGroup.get();
+    }
+    for (const auto& terrain : options.terrains)
+    {
+        if (mCentres.find(terrain.first) == mCentres.cend())
+        {
+            if (options.defaultModuleGroup)
+                mCentres.insert({terrain.first, loadModuleGroup(p.string())});
+            else
+                throw std::runtime_error("Missing central module group, and no default module group");
+        }
+    }
+    for (const auto& clique : options.cliques)
+    {
+        // At least n*(n-1)/2 duplicates will be checked in each clique.
+        for (const auto& t1 : clique)
+            for (const auto& t2 : clique)
+            {
+                TerrainIDPair tp{t1, t2};
+                if (mHorizontalBorders.find(tp) == mHorizontalBorders.end())
+                {
+                    if (options.defaultModuleGroup)
+                        mHorizontalBorders.insert({tp, loadModuleGroup(p.string())});
+                    else
+                        throw std::runtime_error("Missing vertical module group, and no default module group");
+                }
+                if (mVerticalBorders.find(tp) == mVerticalBorders.end())
+                {
+                    if(options.defaultModuleGroup)
+                        mVerticalBorders.insert({tp, loadModuleGroup(p.string())});
+                    else
+                        throw std::runtime_error("Missing vertical module group, and no default module group");
+                }
+            }
+    }
+    
 }
 
 ModuleGroup& ModuleManager::getVerticalBorder(TerrainID top, TerrainID bottom)
