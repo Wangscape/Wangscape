@@ -1,5 +1,6 @@
 set(noise-src
-    MakeReseedable.cpp
+    EncodedModuleGroup.cpp
+    ModuleGroup.cpp
     ModuleManager.cpp
     RasterBase.cpp
     RasterImage.cpp
