@@ -146,47 +146,125 @@
           "minLength": 1,
           "title": "Clique item schema",
           "description": "Specifies a terrain type by its key in the Terrains property.",
-          "pattern": ".+"
+          "pattern": "^[0-9a-zA-Z_-]+$"
         }
       }
     },
-    "BorderOptions": {
+    "AlphaCalculatorMode": {
+      "type": "string",
+      "title": "AlphaCalculatorMode schema",
+      "description": "Specifies which type of AlphaCalculator should be used to convert corner weights into alpha values.",
+      "enum": [
+        "Max",
+        "Linear"
+      ]
+    },
+    "DefaultModuleGroup": {
+      "type": "string",
+      "title": "DefaultModuleGroup schema",
+      "description":"Optionally specifies the location of a JSON file containing a default module group to use for tile centres and borders which don't have a module group specified in CentralModuleGroups, HorizontalBorderModuleGroups, or VerticalBorderModuleGroups.",
+      "minLength":1
+    },
+    "HorizontalBorderModuleGroups": {
       "type": "array",
-      "title": "Border options schema",
-      "description": "Lists terrain types that can border each other, and details about how their boundaries should be generated.",
-      "minItems": 2,
+      "title":"HorizontalBorderModuleGroup schema",
+      "description":"Specifies the locations of JSON files containing module groups to use along horizontal borders in tile generation.",
       "items": {
         "type": "object",
-        "title": "Individual border options schema",
-        "description": "Specifies an ordered pair of terrain types that can neighbour each other and details about how their boundaries should be generated.",
-        "additionalProperties":false,
+        "title": "BorderModuleGroup item schema",
+        "description": "Specifies an ordered pair of terrains and the location of a JSON file containing the module group which should be used for borders connecting them.",
         "properties": {
           "Terrains": {
             "type": "array",
-            "title": "Border offset identifier schema",
-            "description": "Specifies an ordered pair of terrain types.",
-            "minItems": 2,
-            "maxItems": 2,
-            "items":{
+            "title": "BorderModuleGroups Terrains schema",
+            "description":"Specifies an ordered pair of terrains for which the module group should be used",
+            "elements": {
               "type": "string",
-              "title": "Terrain identifier schema",
-              "description": "Specifies a terrain type as a key in #/Terrains.",
-              "pattern": "^[0-9a-zA-Z_-]+$"
-            }
+              "title": "BorderModuleGroups terrain schema",
+              "description":"Specifies a terrain by its key in the Terrains property.",
+              "minLength": 1,
+              "pattern":"^[0-9a-zA-Z_-]+$"
+            },
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "Filename": {
+            "type": "string",
+            "minLength": 1,
+            "title":"BorderModuleGroup Filename schema",
+            "description":"Specifies the location of the JSON file containing the module group for use on borders with this pair of terrains."
           }
-        },
-        "required": [
-          "Terrains"
-        ]
+        }
       }
     },
-    "AlphaCalculatorMode": {
-      "type":"string",
-      "title":"AlphaCalculatorMode schema",
-      "description":"Specifies which type of AlphaCalculator should be used to convert corner weights into alpha values.",
-      "enum":["Max",
-              "Linear"]
-              
+    "VerticalBorderModuleGroups": {
+      "type": "array",
+      "title":"VerticalBorderModuleGroup schema",
+      "description":"Specifies the locations of JSON files containing module groups to use along vertical borders in tile generation.",
+      "items": {
+        "type": "object",
+        "title": "BorderModuleGroup item schema",
+        "description": "Specifies an ordered pair of terrains and the location of a JSON file containing the module group which should be used for borders connecting them.",
+        "properties": {
+          "Terrains": {
+            "type": "array",
+            "title": "BorderModuleGroups Terrains schema",
+            "description":"Specifies an ordered pair of terrains for which the module group should be used",
+            "elements": {
+              "type": "string",
+              "title": "BorderModuleGroups terrain schema",
+              "description":"Specifies a terrain by its key in the Terrains property.",
+              "minLength": 1,
+              "pattern":"^[0-9a-zA-Z_-]+$"
+            },
+            "minLength": 2,
+            "maxLength": 2
+          },
+          "Filename": {
+            "type": "string",
+            "minLength": 1,
+            "title":"BorderModuleGroup Filename schema",
+            "description":"Specifies the location of the JSON file containing the module group for use on borders with this pair of terrains."
+          }
+        }
+      }
+    },
+    "CentralModuleGroups": {
+      "type": "array",
+      "title": "CentralModuleGroups schema",
+      "description":"Specifies the locations of JSON files containing module groups to use in the centre of generated tile partitions.",
+      "items": {
+        "type": "object",
+        "title": "CentralModuleGroups item schema",
+        "description": "Specifies a terrain and the location of a JSON file containing the module group which should be used for the central weight of corner masks associated with that terrain.",
+        "properties": {
+          "Terrain": {
+            "type": "string",
+              "title": "CentralModuleGroups terrain schema",
+              "description":"Specifies a terrain by its key in the Terrains property.",
+              "minLength": 1,
+              "pattern":"^[0-9a-zA-Z_-]+$"
+          },
+          "Filename": {
+            "type": "string",
+            "title": "CentralModuleGroups Filename schema",
+            "description": "Specifies the location of the JSON file containing the module group for use in tile centres with this terrain.",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "CombinerModuleGroup": {
+      "type": "string",
+      "title": "CombinerModuleGroup filename schema",
+      "description": "Specifies the location of the JSON file containing the module group to use to combine border and central module groups into the corner masks used to generate tiles.",
+      "minLength": 1
+    },
+    "DebugOutput": {
+      "type": "boolean",
+      "title": "DebugOutput schema",
+      "description": "Specifies whether Wangscape should write debug data during tile generation.",
+      "default": false
     }
   },
   "required": [
@@ -195,6 +273,6 @@
     "Terrains",
     "Cliques",
     "AlphaCalculatorMode",
-    "BorderOptions"
+    "CombinerModuleGroup"
   ]
 }
