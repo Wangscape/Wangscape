@@ -3,12 +3,13 @@
   "type": "object",
   "title": "Wangscape options schema",
   "description": "Specifies how Wangscape should convert a set of terrain tiles into corner Wang tilesets.",
+  "additionalProperties":false,
   "properties": {
     "MetaOutput": {
       "type": "object",
       "title": "Meta-output information schema",
       "description": "Specifies the filenames Wangscape will use to write meta-output.",
-      "additionalValues": false,
+      "additionalProperties": false,
       "properties": {
         "TileData": {
           "type": "string",
@@ -44,7 +45,7 @@
       "type": "object",
       "title": "Tile format schema",
       "description": "Specifies the format of Wangscape's input and output tiles.",
-      "additionalValues": false,
+      "additionalProperties": false,
       "properties": {
         "Resolution": {
           "type": "integer",
@@ -169,6 +170,8 @@
       "type": "array",
       "title":"HorizontalBorderModuleGroup schema",
       "description":"Specifies the locations of JSON files containing module groups to use along horizontal borders in tile generation.",
+      "uniqueItems": true,
+      "minItems":1,
       "items": {
         "type": "object",
         "title": "BorderModuleGroup item schema",
@@ -194,13 +197,20 @@
             "title":"BorderModuleGroup Filename schema",
             "description":"Specifies the location of the JSON file containing the module group for use on borders with this pair of terrains."
           }
-        }
+        },
+        "required":[
+          "Terrains",
+          "Filename"
+        ],
+        "additionalProperties":false
       }
     },
     "VerticalBorderModuleGroups": {
       "type": "array",
       "title":"VerticalBorderModuleGroup schema",
       "description":"Specifies the locations of JSON files containing module groups to use along vertical borders in tile generation.",
+      "uniqueItems": true,
+      "minItems": 1,
       "items": {
         "type": "object",
         "title": "BorderModuleGroup item schema",
@@ -226,13 +236,20 @@
             "title":"BorderModuleGroup Filename schema",
             "description":"Specifies the location of the JSON file containing the module group for use on borders with this pair of terrains."
           }
-        }
+        },
+        "required":[
+          "Terrains",
+          "Filename"
+        ],
+        "additionalProperties":false
       }
     },
     "CentralModuleGroups": {
       "type": "array",
       "title": "CentralModuleGroups schema",
       "description":"Specifies the locations of JSON files containing module groups to use in the centre of generated tile partitions.",
+      "uniqueItems": true,
+      "minItems": 1,
       "items": {
         "type": "object",
         "title": "CentralModuleGroups item schema",
@@ -251,7 +268,12 @@
             "description": "Specifies the location of the JSON file containing the module group for use in tile centres with this terrain.",
             "minLength": 1
           }
-        }
+        },
+        "required":[
+          "Terrain",
+          "Filename"
+        ],
+        "additionalProperties":false
       }
     },
     "CombinerModuleGroup": {
