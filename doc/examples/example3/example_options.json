@@ -44,14 +44,6 @@
       "g"
     ]
   ],
-  "BorderOptions": [
-    {
-      "Terrains": ["g", "s"]
-    },
-    {
-      "Terrains": ["s", "g"]
-    }
-  ],
   "AlphaCalculatorMode":"Linear",
   "DefaultModuleGroup":"default_module_group.json",
   "HorizontalBorderModuleGroups": [
