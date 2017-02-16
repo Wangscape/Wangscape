@@ -1,0 +1,664 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "title": "ModuleGroup schema",
+  "description": "Specifies a group of libnoise and Wangscape modules with output and possible inputs.",
+  "properties": {
+    "OutputModule": {
+      "type": "string",
+      "title": "ModuleGroup OutputModule schema",
+      "description": "Specifies which of the keys in Modules contains the module which should be used for the module group's output."
+    },
+    "InputModules": {
+      "type": "array",
+      "title": "Specifies which of the keys in Modules, if any, contain modules which should be used to relay the module group's external input modules.",
+      "items": {
+        "type": "string",
+        "title": "Specifies a key in Modules which contains a module that should be used to relay one of the module group's external input modules. The module referred to must be of a type with at least one source module, and only the first will be used."
+      }
+    },
+    "Modules": {
+      "type": "object",
+      "title": "ModuleGroup Modules schema",
+      "description": "Specifies the names, types, and attributes of a group of libnoise and Wangscape modules.",
+      "additionalProperties":{
+        "oneOf":[
+          {"$ref": "#/definitions/abs"},
+          {"$ref": "#/definitions/add"},
+          {"$ref": "#/definitions/billow"},
+          {"$ref": "#/definitions/blend"},
+          {"$ref": "#/definitions/abs"},
+          {"$ref": "#/definitions/checkerboard"},
+          {"$ref": "#/definitions/clamp"},
+          {"$ref": "#/definitions/const"},
+          {"$ref": "#/definitions/corner_combiner_base"},
+          {"$ref": "#/definitions/curve"},
+          {"$ref": "#/definitions/cylinders"},
+          {"$ref": "#/definitions/displace"},
+          {"$ref": "#/definitions/exponent"},
+          {"$ref": "#/definitions/exp"},
+          {"$ref": "#/definitions/forward"},
+          {"$ref": "#/definitions/gradient_x"},
+          {"$ref": "#/definitions/gradient_y"},
+          {"$ref": "#/definitions/gradient_z"},
+          {"$ref": "#/definitions/invert"},
+          {"$ref": "#/definitions/max"},
+          {"$ref": "#/definitions/min"},
+          {"$ref": "#/definitions/multiply"},
+          {"$ref": "#/definitions/norm_lp_q"},
+          {"$ref": "#/definitions/perlin"},
+          {"$ref": "#/definitions/power"},
+          {"$ref": "#/definitions/pow"},
+          {"$ref": "#/definitions/quadrant_selector"},
+          {"$ref": "#/definitions/ridged_multi"},
+          {"$ref": "#/definitions/rotate_point"},
+          {"$ref": "#/definitions/scale_bias"},
+          {"$ref": "#/definitions/scale_point"},
+          {"$ref": "#/definitions/select"},
+          {"$ref": "#/definitions/spheres"},
+          {"$ref": "#/definitions/terrace"},
+          {"$ref": "#/definitions/translate_point"},
+          {"$ref": "#/definitions/turbulence"},
+          {"$ref": "#/definitions/voronoi"}
+        ]
+      }
+    }
+  },
+  "required": [
+    "OutputModule",
+    "Modules"
+  ],
+  "definitions":{
+    "source_module_1":{
+      "oneOf":[
+        {
+          "type": "string",
+          "title": "Module SourceModule schema",
+          "description": "Specifies which of the keys in this module group contains the module that should be used as this module's source module."
+        },
+        {
+          "type": "array",
+          "title": "Module SourceModules schema",
+          "description": "Specifies an array of keys in this module group which contain the modules that should be used as this module's source modules.",
+          "minLength": 1,
+          "maxLength": 1,
+          "items":{
+            "type": "string",
+            "title": "Module SourceModules item schema",
+            "description": "Specifies a key in this module group which contains a module that should be used as one of this module's source modules."
+          }
+        }
+      ]
+    },
+    "source_module_2":{
+      "type": "array",
+      "title": "Module SourceModules schema",
+      "description": "Specifies an array of keys in this module group which contain the modules that should be used as this module's source modules.",
+      "minLength": 2,
+      "maxLength": 2,
+      "items":{
+        "type": "string",
+        "title": "Module SourceModules item schema",
+        "description": "Specifies a key in this module group which contains a module that should be used as one of this module's source modules."
+      }
+    },
+    "noise_quality": {
+      "oneOf":[
+        {
+          "type": "string",
+          "enum": [
+            "Fast",
+            "Standard",
+            "Best"
+          ]
+        },
+        {
+          "type": "number",
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        }
+      ]
+    },
+    "abs": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Abs module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Abs.",
+          "pattern": "^Abs$"
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "add": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Add module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Add.",
+          "pattern": "^Add$"
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_2"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "billow": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Billow module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Billow.",
+          "pattern": "^Billow$"
+        },
+        "Frequency":{
+          "type":"number",
+          "title": "Billow module Frequency schema",
+          "description": "Specifies the value of Frequency used in this Billow module."
+        },
+        "Lacunarity":{
+          "type":"number",
+          "title": "Billow module Lacunarity schema",
+          "description": "Specifies the value of Lacunarity used in this Billow module."
+        },
+        "Persistence":{
+          "type":"number",
+          "title": "Billow module Persistence schema",
+          "description": "Specifies the value of Persistence used in this Billow module."
+        },
+        "OctaveCount":{
+          "type":"number",
+          "title": "Billow module OctaveCount schema",
+          "description": "Specifies the value of OctaveCount used in this Billow module.",
+          "multipleOf": 1,
+          "minValue": 1
+        },
+        "NoiseQuality":{
+          "$ref": "#/definitions/noise_quality"
+        },
+        "Seed":{
+          "type":"number",
+          "title": "Billow module Seed schema",
+          "description": "Specifies the value of Seed used in this Billow module.",
+          "multipleOf": 1
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "blend": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Blend module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Blend.",
+          "pattern": "^Blend$"
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_2"
+        },
+        "ControlModule": {
+          "type": "string",
+          "title": "Blend Module ControlModule schema",
+          "description": "Specifies which of the keys in this module group contains the module that should be used as this module's control module."
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule",
+        "ControlModule"
+      ]
+    },
+    "cache": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Cache module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Cache.",
+          "pattern": "^Cache$"
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "checkerboard": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Checkerboard module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Checkerboard.",
+          "pattern": "^Checkerboard$"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "clamp": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Clamp module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Clamp.",
+          "pattern": "^Clamp$"
+        },
+        "Bounds":{
+          "type":"array",
+          "title": "Clamp module Bounds schema",
+          "description": "Specifies the value of Bounds used in this Clamp module.",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "number"
+          }
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "const": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Const module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Const.",
+          "pattern": "^Const$"
+        },
+        "ConstValue":{
+          "type":"number",
+          "title": "Const module ConstValue schema",
+          "description": "Specifies the value of ConstValue used in this Const module."
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "corner_combiner_base": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a CornerCombinerBase module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type CornerCombinerBase.",
+          "pattern": "^CornerCombinerBase$"
+        },
+        "Power":{
+          "type":"number",
+          "title": "CornerCombinerBase module Power schema",
+          "description": "Specifies the value of Power used in this CornerCombinerBase module."
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "curve": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Curve module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Curve.",
+          "pattern": "^Curve$"
+        },
+        "ControlPoints":{
+          "type":"array",
+          "title": "Curve module ControlPoints schema",
+          "description": "Specifies the value of ControlPoints used in this Curve module.",
+          "minItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "type": "array",
+            "title": "Curve Module ControlPoint schema",
+            "description": "Specifies one of the ControlPoints used in this Curve Module.",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "type": "number"
+            }
+          }
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "cylinders": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Cylinders module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Cylinders.",
+          "pattern": "^Cylinders$"
+        },
+        "Frequency":{
+          "type":"number",
+          "title": "Cylinders module Frequency schema",
+          "description": "Specifies the value of Frequency used in this Cylinders module."
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "displace": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Displace module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Displace.",
+          "pattern": "^Displace$"
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        },
+        "DisplaceModules": {
+          "type": "array",
+          "title": "Module DisplaceModules schema",
+          "description": "Specifies an array of keys in this module group which contain the modules that should be used as this module's displacement modules.",
+          "minLength": 3,
+          "maxLength": 3,
+          "items":{
+            "type": "string",
+            "title": "Module DisplaceModules item schema",
+            "description": "Specifies a key in this module group which contains a module that should be used as one of this module's displacement modules."
+          }
+        },
+        "XDisplaceModule": {
+          "type": "string",
+          "title": "Module XDisplaceModule schema",
+          "description": "Specifies which of the keys in this module group contains the module that should be used as this module's X displacement module."
+        },
+        "YDisplaceModule": {
+          "type": "string",
+          "title": "Module XDisplaceModule schema",
+          "description": "Specifies which of the keys in this module group contains the module that should be used as this module's Y displacement module."
+        },
+        "ZDisplaceModule": {
+          "type": "string",
+          "title": "Module XDisplaceModule schema",
+          "description": "Specifies which of the keys in this module group contains the module that should be used as this module's Z displacement module."
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "type",
+            "SourceModule",
+            "DisplaceModules"
+          ]
+        },
+        {
+          "required": [
+              "type",
+              "SourceModule",
+              "XDisplaceModule",
+              "YDisplaceModule",
+              "ZDisplaceModule"
+          ]
+        }
+      ]
+    },
+    "exponent": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Exponent module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Exponent.",
+          "pattern": "^Exponent$"
+        },
+        "Exponent":{
+          "type":"number",
+          "title": "Exponent module Exponent schema",
+          "description": "Specifies the value of Exponent used in this Exponent module."
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "exp": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Exp module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Exp.",
+          "pattern": "^Exp$"
+        },
+        "Base":{
+          "type":"number",
+          "title": "Exp module Base schema",
+          "description": "Specifies the value of Base used in this Exp module."
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "forward": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Forward module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Forward. Forward modules are intended to have source modules external to the module group, so the SourceModule field is optional.",
+          "pattern": "^Forward$"
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "gradient_x": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a GradientX module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type GradientX.",
+          "pattern": "^GradientX$"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "gradient_y": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a GradientY module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type GradientY.",
+          "pattern": "^GradientY$"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "gradient_z": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a GradientZ module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type GradientZ.",
+          "pattern": "^GradientZ$"
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "invert": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Invert module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Invert.",
+          "pattern": "^Invert$"
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "max": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Max module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Max.",
+          "pattern": "^Max$"
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_2"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "min": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Min module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Min.",
+          "pattern": "^Min$"
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    }
+  }
+}
