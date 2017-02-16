@@ -659,6 +659,149 @@
         "type",
         "SourceModule"
       ]
+    },
+    "multiply": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Multiply module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Multiply.",
+          "pattern": "^Multiply$"
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_2"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "norm_lp_q": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a NormLPQ module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type NormLPQ.",
+          "pattern": "^NormLPQ$"
+        },
+        "P":{
+          "type":"null",
+          "title": "NormLPQ module P schema",
+          "description": "Specifies the value of P used in this NormLPQ module."
+        },
+        "Q":{
+          "type":"null",
+          "title": "NormLPQ module Q schema",
+          "description": "Specifies the value of Q used in this NormLPQ module."
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "perlin ": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Perlin module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Perlin.",
+          "pattern": "^Perlin$"
+        },
+        "Frequency":{
+          "type":"number",
+          "title": "Perlin module Frequency schema",
+          "description": "Specifies the value of Frequency used in this Perlin module."
+        },
+        "Lacunarity":{
+          "type":"number",
+          "title": "Perlin module Lacunarity schema",
+          "description": "Specifies the value of Lacunarity used in this Perlin module."
+        },
+        "Persistence":{
+          "type":"number",
+          "title": "Perlin module Persistence schema",
+          "description": "Specifies the value of Persistence used in this Perlin module."
+        },
+        "OctaveCount":{
+          "type":"number",
+          "title": "Perlin module OctaveCount schema",
+          "description": "Specifies the value of OctaveCount used in this Perlin module.",
+          "multipleOf": 1,
+          "minValue": 1
+        },
+        "NoiseQuality":{
+          "$ref": "#/definitions/noise_quality"
+        },
+        "Seed":{
+          "type":"number",
+          "title": "Perlin module Seed schema",
+          "description": "Specifies the value of Seed used in this Perlin module.",
+          "multipleOf": 1
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "power": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Power module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Power.",
+          "pattern": "^Power$"
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_2"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "Pow": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Pow module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Pow.",
+          "pattern": "^Pow$"
+        },
+        "Power":{
+          "type":"number",
+          "title": "Pow module Power schema",
+          "description": "Specifies the value of Power used in this Pow module."
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
     }
   }
 }
