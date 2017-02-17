@@ -14,6 +14,15 @@ codec::object_t<TerraceWrapper> default_codec_t<TerraceWrapper>::codec()
         auto codec = codec::object<TerraceWrapper>();
         codec.required("type", codec::eq<std::string>("Terrace"));
         codec.required("SourceModule", codec::ignore_t<int>());
+        codec.optional("InvertTerraces",
+                       [](const TerraceWrapper& mw)
+        {
+            return mw.module->IsTerracesInverted();
+        },
+                       [](const TerraceWrapper& mw, bool invert_terraces)
+        {
+            mw.module->InvertTerraces(true);
+        });
         codec.optional("ControlPoints",
                        [](const TerraceWrapper& mw)
                        {
