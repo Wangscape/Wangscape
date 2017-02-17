@@ -1,11 +1,6 @@
 #include "EncodedModuleGroup.h"
+#include "module/WangscapeModules.h"
 #include "module/Wrapper.h"
-#include "module/Gradient.h"
-#include "module/CornerCombinerBase.h"
-#include "module/Exp.h"
-#include "module/Pow.h"
-#include "module/NormLPQ.h"
-#include "module/Forward.h"
 #include "ModuleGroup.h"
 
 namespace noise
