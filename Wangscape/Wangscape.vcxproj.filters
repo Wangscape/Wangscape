@@ -163,6 +163,9 @@
     <ClInclude Include="noise\module\codecs\UniformTripleCodec.h" />
     <ClInclude Include="noise\module\codecs\ScalePointWrapperCodec.h" />
     <ClInclude Include="noise\ModuleID.h" />
+    <ClInclude Include="noise\module\WangscapeModules.h" />
+    <ClInclude Include="noise\WangscapeNoise.h" />
+    <ClInclude Include="noise\WangscapeNoiseCodecs.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
