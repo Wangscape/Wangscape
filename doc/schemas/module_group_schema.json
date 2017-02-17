@@ -4,22 +4,23 @@
   "title": "ModuleGroup schema",
   "description": "Specifies a group of libnoise and Wangscape modules with output and possible inputs.",
   "properties": {
-    "OutputModule": {
+    "defaultoutputmodule": {
       "type": "string",
-      "title": "ModuleGroup OutputModule schema",
+      "title": "ModuleGroup defaultoutputmodule schema",
       "description": "Specifies which of the keys in Modules contains the module which should be used for the module group's output."
     },
-    "InputModules": {
+    "inputmodules": {
       "type": "array",
-      "title": "Specifies which of the keys in Modules, if any, contain modules which should be used to relay the module group's external input modules.",
+      "title": "ModuleGroup inputmodules schema",
+      "description": "Specifies which of the keys in Modules, if any, contain modules which should be used to relay the module group's external input modules.",
       "items": {
         "type": "string",
         "title": "Specifies a key in Modules which contains a module that should be used to relay one of the module group's external input modules. The module referred to must be of a type with at least one source module, and only the first will be used."
       }
     },
-    "Modules": {
+    "modules": {
       "type": "object",
-      "title": "ModuleGroup Modules schema",
+      "title": "ModuleGroup modules schema",
       "description": "Specifies the names, types, and attributes of a group of libnoise and Wangscape modules.",
       "additionalProperties":{
         "oneOf":[
@@ -65,8 +66,8 @@
     }
   },
   "required": [
-    "OutputModule",
-    "Modules"
+    "defaultoutputmodule",
+    "modules"
   ],
   "definitions":{
     "source_module_1":{
@@ -708,7 +709,7 @@
         "type"
       ]
     },
-    "perlin ": {
+    "perlin": {
       "type": "object",
       "title": "ModuleGroup module schema",
       "description": "Specifies a Perlin module and its attributes.",
@@ -789,10 +790,10 @@
           "description": "Specifies that this module is of type Pow.",
           "pattern": "^Pow$"
         },
-        "Power":{
+        "Exponent":{
           "type":"number",
-          "title": "Pow module Power schema",
-          "description": "Specifies the value of Power used in this Pow module."
+          "title": "Pow module Exponent schema",
+          "description": "Specifies the value of Exponent used in this Pow module."
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"

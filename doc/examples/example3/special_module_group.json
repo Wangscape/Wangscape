@@ -1,6 +1,6 @@
 {
-  "OutputModule":"OUTPUT",
-  "Modules":{
+  "defaultoutputmodule":"OUTPUT",
+  "modules":{
     "OUTPUT":{
       "type":"Clamp",
       "Bounds":[-1,1],

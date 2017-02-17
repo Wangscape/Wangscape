@@ -1,6 +1,6 @@
 {
-  "OutputModule":"OUTPUT",
-  "Modules":{
+  "defaultoutputmodule":"OUTPUT",
+  "modules":{
     "OUTPUT":{
       "type":"TranslatePoint",
       "Translation":[1.1,2.2,3.3],

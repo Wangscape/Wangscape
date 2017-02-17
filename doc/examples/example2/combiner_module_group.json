@@ -1,7 +1,7 @@
 {
-  "OutputModule":"OUTPUT",
-  "InputModules":["INPUT_H","INPUT_V","INPUT_C"],
-  "Modules":{
+  "defaultoutputmodule":"OUTPUT",
+  "inputmodules":["INPUT_H","INPUT_V","INPUT_C"],
+  "modules":{
     "INPUT_H":{
       "type":"Forward",
       "SourceModule":[]
