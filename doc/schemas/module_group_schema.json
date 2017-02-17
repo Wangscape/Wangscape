@@ -456,23 +456,31 @@
           "description": "Specifies which of the keys in this module group contains the module that should be used as this module's Z displacement module."
         }
       },
-      "oneOf": [
-        {
-          "required": [
-            "type",
-            "SourceModule",
-            "DisplaceModules"
-          ]
-        },
-        {
-          "required": [
-              "type",
-              "SourceModule",
-              "XDisplaceModule",
-              "YDisplaceModule",
-              "ZDisplaceModule"
-          ]
-        }
+      "allOf": [
+        {"required":[
+          "type",
+          "SourceModule"
+        ]},
+        {"anyOf": [
+          {
+            "not": {"required": ["DisplaceModules"]}
+          },
+          {
+            "allOf": [
+              {"not": {"required": ["XDisplaceModule"]}},
+              {"not": {"required": ["YDisplaceModule"]}},
+              {"not": {"required": ["ZDisplaceModule"]}}
+            ]
+          },
+          {
+            "allOf": [
+              {"not": {"required": ["XDisplaceModule"]}},
+              {"not": {"required": ["YDisplaceModule"]}},
+              {"not": {"required": ["ZDisplaceModule"]}},
+              {"not": {"required": ["DisplaceModules"]}}
+            ]
+          }
+        ]}
       ]
     },
     "exponent": {
@@ -870,9 +878,51 @@
           "$ref": "#/definitions/source_module_1"
         }
       },
-      "required": [
-        "type",
-        "SourceModule"
+      "allOf": [
+        {"required":[
+          "type",
+          "SourceModule"
+        ]},
+        {"anyOf": [
+          {
+            "not": {"required": ["Translate"]}
+          },
+          {
+            "allOf": [
+              {"not": {"required": ["XTranslate"]}},
+              {"not": {"required": ["YTranslate"]}},
+              {"not": {"required": ["ZTranslate"]}}
+            ]
+          },
+          {
+            "allOf": [
+              {"not": {"required": ["XTranslate"]}},
+              {"not": {"required": ["YTranslate"]}},
+              {"not": {"required": ["ZTranslate"]}},
+              {"not": {"required": ["Translate"]}}
+            ]
+          }
+        ]},
+        {"anyOf": [
+          {
+            "not": {"required": ["TranslateIgnored"]}
+          },
+          {
+            "allOf": [
+              {"not": {"required": ["XTranslateIgnored"]}},
+              {"not": {"required": ["YTranslateIgnored"]}},
+              {"not": {"required": ["ZTranslateIgnored"]}}
+            ]
+          },
+          {
+            "allOf": [
+              {"not": {"required": ["XTranslateIgnored"]}},
+              {"not": {"required": ["YTranslateIgnored"]}},
+              {"not": {"required": ["ZTranslateIgnored"]}},
+              {"not": {"required": ["TranslateIgnored"]}}
+            ]
+          }
+        ]}
       ]
     },
     "ridged_multi": {
@@ -963,9 +1013,31 @@
           "$ref": "#/definitions/source_module_1"
         }
       },
-      "required": [
-        "type",
-        "SourceModule"
+      "allOf": [
+        {"required":[
+          "type",
+          "SourceModule"
+        ]},
+        {"anyOf": [
+          {
+            "not": {"required": ["Angles"]}
+          },
+          {
+            "allOf": [
+              {"not": {"required": ["XAngle"]}},
+              {"not": {"required": ["YAngle"]}},
+              {"not": {"required": ["ZAngle"]}}
+            ]
+          },
+          {
+            "allOf": [
+              {"not": {"required": ["XAngle"]}},
+              {"not": {"required": ["YAngle"]}},
+              {"not": {"required": ["ZAngle"]}},
+              {"not": {"required": ["Angles"]}}
+            ]
+          }
+        ]}
       ]
     },
     "scale_bias": {
@@ -1049,9 +1121,31 @@
           "$ref": "#/definitions/source_module_1"
         }
       },
-      "required": [
-        "type",
-        "SourceModule"
+      "allOf": [
+        {"required":[
+          "type",
+          "SourceModule"
+        ]},
+        {"anyOf": [
+          {
+            "not": {"required": ["Scale"]}
+          },
+          {
+            "allOf": [
+              {"not": {"required": ["XScale"]}},
+              {"not": {"required": ["YScale"]}},
+              {"not": {"required": ["ZScale"]}}
+            ]
+          },
+          {
+            "allOf": [
+              {"not": {"required": ["XScale"]}},
+              {"not": {"required": ["YScale"]}},
+              {"not": {"required": ["ZScale"]}},
+              {"not": {"required": ["Scale"]}}
+            ]
+          }
+        ]}
       ]
     },
     "select": {
@@ -1203,9 +1297,31 @@
           "$ref": "#/definitions/source_module_1"
         }
       },
-      "required": [
-        "type",
-        "SourceModule"
+      "allOf": [
+        {"required":[
+          "type",
+          "SourceModule"
+        ]},
+        {"anyOf": [
+          {
+            "not": {"required": ["Translation"]}
+          },
+          {
+            "allOf": [
+              {"not": {"required": ["XTranslation"]}},
+              {"not": {"required": ["YTranslation"]}},
+              {"not": {"required": ["ZTranslation"]}}
+            ]
+          },
+          {
+            "allOf": [
+              {"not": {"required": ["XTranslation"]}},
+              {"not": {"required": ["YTranslation"]}},
+              {"not": {"required": ["ZTranslation"]}},
+              {"not": {"required": ["Translation"]}}
+            ]
+          }
+        ]}
       ]
     },
     "turbulence": {
