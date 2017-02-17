@@ -694,12 +694,12 @@
           "pattern": "^NormLPQ$"
         },
         "P":{
-          "type":"null",
+          "type":"number",
           "title": "NormLPQ module P schema",
           "description": "Specifies the value of P used in this NormLPQ module."
         },
         "Q":{
-          "type":"null",
+          "type":"number",
           "title": "NormLPQ module Q schema",
           "description": "Specifies the value of Q used in this NormLPQ module."
         }
@@ -777,7 +777,7 @@
         "SourceModule"
       ]
     },
-    "Pow": {
+    "pow": {
       "type": "object",
       "title": "ModuleGroup module schema",
       "description": "Specifies a Pow module and its attributes.",
@@ -793,6 +793,495 @@
           "type":"number",
           "title": "Pow module Power schema",
           "description": "Specifies the value of Power used in this Pow module."
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "quadrant_selector": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a QuadrantSelector module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type QuadrantSelector.",
+          "pattern": "^QuadrantSelector$"
+        },
+        "Translate":{
+          "type":"array",
+          "title": "QuadrantSelector module Translate schema",
+          "description": "Specifies the value of Translate used in this QuadrantSelector module.",
+          "minItems":3,
+          "maxItems":3,
+          "items": {
+            "type": "boolean"
+          }
+        },
+        "XTranslate":{
+          "type":"boolean",
+          "title": "QuadrantSelector module XTranslate schema",
+          "description": "Specifies the value of XTranslate used in this QuadrantSelector module."
+        },
+        "YTranslate":{
+          "type":"boolean",
+          "title": "QuadrantSelector module YTranslate schema",
+          "description": "Specifies the value of YTranslate used in this QuadrantSelector module."
+        },
+        "ZTranslate":{
+          "type":"boolean",
+          "title": "QuadrantSelector module ZTranslate schema",
+          "description": "Specifies the value of ZTranslate used in this QuadrantSelector module."
+        },
+        "TranslateIgnored":{
+          "type":"array",
+          "title": "QuadrantSelector module TranslateIgnored schema",
+          "description": "Specifies the value of TranslateIgnored used in this QuadrantSelector module.",
+          "minItems":3,
+          "maxItems":3,
+          "items": {
+            "type": "boolean"
+          }
+        },
+        "XTranslateIgnored":{
+          "type":"boolean",
+          "title": "QuadrantSelector module XTranslateIgnored schema",
+          "description": "Specifies the value of XTranslateIgnored used in this QuadrantSelector module."
+        },
+        "YTranslateIgnored":{
+          "type":"boolean",
+          "title": "QuadrantSelector module YTranslateIgnored schema",
+          "description": "Specifies the value of YTranslateIgnored used in this QuadrantSelector module."
+        },
+        "ZTranslateIgnored":{
+          "type":"boolean",
+          "title": "QuadrantSelector module ZTranslateIgnored schema",
+          "description": "Specifies the value of ZTranslateIgnored used in this QuadrantSelector module."
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "ridged_multi": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a RidgedMulti module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type RidgedMulti.",
+          "pattern": "^RidgedMulti$"
+        },
+        "Frequency":{
+          "type":"number",
+          "title": "RidgedMulti module Frequency schema",
+          "description": "Specifies the value of Frequency used in this RidgedMulti module."
+        },
+        "Lacunarity":{
+          "type":"number",
+          "title": "RidgedMulti module Lacunarity schema",
+          "description": "Specifies the value of Lacunarity used in this RidgedMulti module."
+        },
+        "OctaveCount":{
+          "type":"number",
+          "title": "RidgedMulti module OctaveCount schema",
+          "description": "Specifies the value of OctaveCount used in this RidgedMulti module.",
+          "multipleOf": 1,
+          "minValue": 1
+        },
+        "NoiseQuality":{
+          "$ref": "#/definitions/noise_quality"
+        },
+        "Seed":{
+          "type":"number",
+          "title": "RidgedMulti module Seed schema",
+          "description": "Specifies the value of Seed used in this RidgedMulti module.",
+          "multipleOf": 1
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "rotate_point": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a RotatePoint module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type RotatePoint.",
+          "pattern": "^RotatePoint$"
+        },
+        "XAngle":{
+          "type":"number",
+          "title": "RotatePoint module XAngle schema",
+          "description": "Specifies the value of XAngle used in this RotatePoint module."
+        },
+        "YAngle":{
+          "type":"number",
+          "title": "RotatePoint module YAngle schema",
+          "description": "Specifies the value of YAngle used in this RotatePoint module."
+        },
+        "ZAngle":{
+          "type":"number",
+          "title": "RotatePoint module ZAngle schema",
+          "description": "Specifies the value of ZAngle used in this RotatePoint module."
+        },
+        "Angles":{
+          "type": "array",
+          "title": "RotatePoint module Angles schema",
+          "description": "Specifies the values of XAngle, YAngle, and ZAngle used in this RotatePoint module.",
+          "minLength": 3,
+          "maxLength": 3,
+          "items":{
+            "type": "number"
+          }
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "scale_bias": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a ScaleBias module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type ScaleBias.",
+          "pattern": "^ScaleBias$"
+        },
+        "Scale":{
+          "type":"number",
+          "title": "ScaleBias module Scale schema",
+          "description": "Specifies the value of Scale used in this ScaleBias module."
+        },
+        "Bias":{
+          "type":"number",
+          "title": "ScaleBias module Bias schema",
+          "description": "Specifies the value of Bias used in this ScaleBias module."
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "scale_point": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a ScalePoint module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type ScalePoint.",
+          "pattern": "^ScalePoint$"
+        },
+        "XScale":{
+          "type":"number",
+          "title": "ScalePoint module XScale schema",
+          "description": "Specifies the value of XScale used in this ScalePoint module."
+        },
+        "YScale":{
+          "type":"number",
+          "title": "ScalePoint module YScale schema",
+          "description": "Specifies the value of YScale used in this ScalePoint module."
+        },
+        "ZScale":{
+          "type":"number",
+          "title": "ScalePoint module ZScale schema",
+          "description": "Specifies the value of ZScale used in this ScalePoint module."
+        },
+        "Scale":{
+          "oneOf":[
+            {
+              "type": "array",
+              "title": "ScalePoint module Scale schema",
+              "description": "Specifies the values of XScale, YScale, and ZScale used in this ScalePoint module.",
+              "minLength": 3,
+              "maxLength": 3,
+              "items":{
+                "type": "number"
+              }
+            },
+            {
+              "type": "number",
+              "title": "ScalePoint modulel Scale schema",
+              "description": "Specifies the single value used in this ScalePoint module for XScale, YScale, and ZScale."
+            }
+          ]
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "select": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Select module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Select.",
+          "pattern": "^Select$"
+        },
+        "Bounds":{
+          "type":"array",
+          "title": "Select module Bounds schema",
+          "description": "Specifies the value of Bounds used in this Select module.",
+          "minLength": 2,
+          "maxLength": 2,
+          "items": {
+            "type": "number"
+          }
+        },
+        "EdgeFalloff":{
+          "type":"number",
+          "title": "Select module EdgeFalloff schema",
+          "description": "Specifies the value of EdgeFalloff used in this Select module."
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_2"
+        },
+        "ControlModule": {
+          "type": "string",
+          "title": "Blend Module ControlModule schema",
+          "description": "Specifies which of the keys in this module group contains the module that should be used as this module's control module."
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule",
+        "ControlModule"
+      ]
+    },
+    "spheres": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Spheres module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Spheres.",
+          "pattern": "^Spheres$"
+        },
+        "Frequency":{
+          "type":"number",
+          "title": "Spheres module Frequency schema",
+          "description": "Specifies the value of Frequency used in this Spheres module."
+        }
+      },
+      "required": [
+        "type"
+      ]
+    },
+    "terrace": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Terrace module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Terrace.",
+          "pattern": "^Terrace$"
+        },
+        "InvertTerraces":{
+          "type":"boolean",
+          "title": "Terrace module InvertTerraces schema",
+          "description": "Specifies the value of InvertTerraces used in this Terrace module."
+        },
+        "ControlPoints":{
+          "type":"array",
+          "title": "Terrace module ControlPoints schema",
+          "description": "Specifies the value of ControlPoints used in this Terrace module.",
+          "minLength": 2,
+          "items": {
+            "type": "number"
+          }
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "translate_point": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a TranslatePoint module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type TranslatePoint.",
+          "pattern": "^TranslatePoint$"
+        },
+        "XTranslation":{
+          "type":"number",
+          "title": "TranslatePoint module XTranslation schema",
+          "description": "Specifies the value of XTranslation used in this TranslatePoint module."
+        },
+        "YTranslation":{
+          "type":"number",
+          "title": "TranslatePoint module YTranslation schema",
+          "description": "Specifies the value of YTranslation used in this TranslatePoint module."
+        },
+        "ZTranslation":{
+          "type":"number",
+          "title": "TranslatePoint module ZTranslation schema",
+          "description": "Specifies the value of ZTranslation used in this TranslatePoint module."
+        },
+        "Translation":{
+          "oneOf":[
+            {
+              "type": "array",
+              "title": "TranslatePoint module Translation schema",
+              "description": "Specifies the values of XTranslation, YTranslation, and ZTranslation used in this TranslatePoint module.",
+              "minLength": 3,
+              "maxLength": 3,
+              "items":{
+                "type": "number"
+              }
+            },
+            {
+              "type": "number",
+              "title": "TranslatePoint modulel Translation schema",
+              "description": "Specifies the single value used in this TranslatePoint module for XTranslation, YTranslation, and ZTranslation."
+            }
+          ]
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "turbulence": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Turbulence module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Turbulence.",
+          "pattern": "^Turbulence$"
+        },
+        "Frequency":{
+          "type":"number",
+          "title": "Turbulence module Frequency schema",
+          "description": "Specifies the value of Frequency used in this Turbulence module."
+        },
+        "Power":{
+          "type":"number",
+          "title": "Turbulence module Power schema",
+          "description": "Specifies the value of Power used in this Turbulence module."
+        },
+        "Roughness":{
+          "type":"number",
+          "title": "Turbulence module Roughness schema",
+          "description": "Specifies the value of Roughness used in this Turbulence module.",
+          "multipleOf": 1
+        },
+        "Seed":{
+          "type":"number",
+          "title": "Turbulence module Seed schema",
+          "description": "Specifies the value of Seed used in this Turbulence module.",
+          "multipleOf": 1
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
+    "voronoi": {
+      "type": "object",
+      "title": "ModuleGroup module schema",
+      "description": "Specifies a Voronoi module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Voronoi.",
+          "pattern": "^Voronoi$"
+        },
+        "Frequency":{
+          "type":"number",
+          "title": "Voronoi module Frequency schema",
+          "description": "Specifies the value of Frequency used in this Voronoi module."
+        },
+        "Displacement":{
+          "type":"number",
+          "title": "Voronoi module Displacement schema",
+          "description": "Specifies the value of Displacement used in this Voronoi module."
+        },
+        "EnableDistance":{
+          "type":"boolean",
+          "title": "Voronoi module EnableDistance schema",
+          "description": "Specifies the value of EnableDistance used in this Voronoi module."
+        },
+        "Seed":{
+          "type":"number",
+          "title": "Voronoi module Seed schema",
+          "description": "Specifies the value of Seed used in this Voronoi module.",
+          "multipleOf": 1
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
