@@ -48,4 +48,14 @@ const std::map<ModuleID, module::ModulePtr>& ModuleGroup::getModules() const
     return mModules;
 }
 
+std::shared_ptr<ModuleGroup> ModuleGroup::makeConstModuleGroup(double const_value)
+{
+    auto result = std::make_shared<ModuleGroup>();
+    auto module = std::make_shared<module::Wrapper<module::Const>>();
+    module->module->SetConstValue(const_value);
+    result->mModules["OUTPUT"] = module;
+    result->mOutputModule = "OUTPUT";
+    return result;
+}
+
 } // namespace noise

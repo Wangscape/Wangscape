@@ -33,8 +33,8 @@ struct default_codec_t<Options>
         codec.required("CombinerModuleGroup", &Options::combinerModuleGroup);
         codec.optional("DefaultModuleGroup", &Options::defaultModuleGroup);
         codec.optional("CentralModuleGroups", &Options::centralModuleGroups);
-        codec.optional("HorizontalBorderModuleGroups", &Options::horizontalBorderModuleGroups);
-        codec.optional("VerticalBorderModuleGroups", &Options::verticalBorderModuleGroups);
+        codec.optional("LeftBorderModuleGroups", &Options::leftBorderModuleGroups);
+        codec.optional("TopBorderModuleGroups", &Options::topBorderModuleGroups);
         codec.required("DebugOutput", &Options::debugOutput);
         return codec;
     }

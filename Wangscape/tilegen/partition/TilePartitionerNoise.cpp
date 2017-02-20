@@ -21,10 +21,16 @@ noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& c
 
     noise::ModuleGroup& combiner = mNoiseModuleManager.getCombiner();
     noise::ModuleGroup& central = mNoiseModuleManager.getCentral(corner_id);
-    noise::ModuleGroup& border_h = mNoiseModuleManager.getHorizontalBorder(left ? corner_id : corner_h,
-                                                                           left ? corner_h : corner_id);
-    noise::ModuleGroup& border_v = mNoiseModuleManager.getVerticalBorder(top ? corner_id : corner_v,
-                                                                         top ? corner_v : corner_id);
+    noise::ModuleGroup& border_h = 
+        left
+        ? mNoiseModuleManager.getLeftBorder(left ? corner_id : corner_h,
+                                            left ? corner_h : corner_id)
+        : mNoiseModuleManager.getBottomRightBorder();
+    noise::ModuleGroup& border_v =
+        top
+        ? mNoiseModuleManager.getTopBorder(top ? corner_id : corner_v,
+                                           top ? corner_v : corner_id)
+        : mNoiseModuleManager.getBottomRightBorder();
     central.setQuadrant(left, top, false);
     border_h.setQuadrant(left, top, false);
     border_v.setQuadrant(left, top, false);

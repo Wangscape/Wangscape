@@ -16,6 +16,8 @@ namespace noise {
 ModuleManager::ModuleManager(const Options & options) :
     mRNG((unsigned int)time(nullptr))
 {
+    mBottomRightBorder = ModuleGroup::makeConstModuleGroup(0.0);
+
     boost::filesystem::path p(options.directory);
 
     p /= options.combinerModuleGroup;
@@ -31,20 +33,20 @@ ModuleManager::ModuleManager(const Options & options) :
         if (!inserted.second)
             throw std::runtime_error("Tried to load two central module groups with the same terrain");
     }
-    for (auto it : options.horizontalBorderModuleGroups)
+    for (auto it : options.leftBorderModuleGroups)
     {
         p /= it.filename;
-        auto inserted = mHorizontalBorders.insert({it.terrains, loadModuleGroup(p.string())});
+        auto inserted = mLeftBorders.insert({it.terrains, loadModuleGroup(p.string())});
         p.remove_filename();
 
         if (!inserted.second)
             throw std::runtime_error("Tried to load two horizontal border module groups with the same terrain pair");
         inserted.first->second->setSeeds(mRNG());
     }
-    for (auto it : options.verticalBorderModuleGroups)
+    for (auto it : options.topBorderModuleGroups)
     {
         p /= it.filename;
-        auto inserted = mVerticalBorders.insert({it.terrains, loadModuleGroup(p.string())});
+        auto inserted = mTopBorders.insert({it.terrains, loadModuleGroup(p.string())});
         p.remove_filename();
 
         if (!inserted.second)
@@ -72,33 +74,38 @@ ModuleManager::ModuleManager(const Options & options) :
             for (const auto& t2 : clique)
             {
                 TerrainIDPair tp{t1, t2};
-                if (mHorizontalBorders.find(tp) == mHorizontalBorders.end())
+                if (mLeftBorders.find(tp) == mLeftBorders.end())
                 {
                     if (options.defaultModuleGroup)
-                        mHorizontalBorders.insert({tp, loadModuleGroup(p.string())});
+                        mLeftBorders.insert({tp, loadModuleGroup(p.string())});
                     else
-                        throw std::runtime_error("Missing vertical module group, and no default module group");
+                        throw std::runtime_error("Missing left border module group, and no default module group");
                 }
-                if (mVerticalBorders.find(tp) == mVerticalBorders.end())
+                if (mTopBorders.find(tp) == mTopBorders.end())
                 {
                     if(options.defaultModuleGroup)
-                        mVerticalBorders.insert({tp, loadModuleGroup(p.string())});
+                        mTopBorders.insert({tp, loadModuleGroup(p.string())});
                     else
-                        throw std::runtime_error("Missing vertical module group, and no default module group");
+                        throw std::runtime_error("Missing top border module group, and no default module group");
                 }
             }
     }
     
 }
 
-ModuleGroup& ModuleManager::getVerticalBorder(TerrainID top, TerrainID bottom)
+ModuleGroup& ModuleManager::getTopBorder(TerrainID top, TerrainID bottom)
 {
-    return *mVerticalBorders.at({top, bottom});
+    return *mTopBorders.at({top, bottom});
 }
 
-ModuleGroup& ModuleManager::getHorizontalBorder(TerrainID left, TerrainID right)
+ModuleGroup& ModuleManager::getLeftBorder(TerrainID left, TerrainID right)
 {
-    return *mHorizontalBorders.at({left, right});
+    return *mLeftBorders.at({left, right});
+}
+
+ModuleGroup & ModuleManager::getBottomRightBorder()
+{
+    return *mBottomRightBorder;
 }
 
 ModuleGroup& ModuleManager::getCentral(TerrainID terrain)
