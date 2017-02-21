@@ -15,9 +15,9 @@ namespace partition
 noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& corners,
                                                                 bool left, bool top)
 {
-    TerrainID corner_id = corners[ (left ? 0 : 1) +  (top ? 0 : 2)];
-    TerrainID corner_h =  corners[(!left ? 0 : 1) +  (top ? 0 : 2)];
-    TerrainID corner_v =  corners[ (left ? 0 : 1) + (!top ? 0 : 2)];
+    TerrainID corner_id = corners[ (left ? 0 : 2) +  (top ? 0 : 1)];
+    TerrainID corner_h =  corners[(!left ? 0 : 2) +  (top ? 0 : 1)];
+    TerrainID corner_v =  corners[ (left ? 0 : 2) + (!top ? 0 : 1)];
 
     noise::ModuleGroup& combiner = mNoiseModuleManager.getCombiner();
     noise::ModuleGroup& central = mNoiseModuleManager.getCentral(corner_id);
