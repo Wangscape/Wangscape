@@ -40,7 +40,7 @@ ModuleManager::ModuleManager(const Options & options) :
         p.remove_filename();
 
         if (!inserted.second)
-            throw std::runtime_error("Tried to load two horizontal border module groups with the same terrain pair");
+            throw std::runtime_error("Tried to load two left border module groups with the same terrain pair");
         inserted.first->second->setSeeds(mRNG());
     }
     for (auto it : options.topBorderModuleGroups)
@@ -50,7 +50,7 @@ ModuleManager::ModuleManager(const Options & options) :
         p.remove_filename();
 
         if (!inserted.second)
-            throw std::runtime_error("Tried to load two vertical border module groups with the same terrain pair");
+            throw std::runtime_error("Tried to load two top border module groups with the same terrain pair");
         inserted.first->second->setSeeds(mRNG());
     }
     if (options.defaultModuleGroup)
@@ -77,14 +77,20 @@ ModuleManager::ModuleManager(const Options & options) :
                 if (mLeftBorders.find(tp) == mLeftBorders.end())
                 {
                     if (options.defaultModuleGroup)
-                        mLeftBorders.insert({tp, loadModuleGroup(p.string())});
+                    {
+                        auto inserted = mLeftBorders.insert({tp, loadModuleGroup(p.string())});
+                        inserted.first->second->setSeeds(mRNG());
+                    }
                     else
                         throw std::runtime_error("Missing left border module group, and no default module group");
                 }
                 if (mTopBorders.find(tp) == mTopBorders.end())
                 {
-                    if(options.defaultModuleGroup)
-                        mTopBorders.insert({tp, loadModuleGroup(p.string())});
+                    if (options.defaultModuleGroup)
+                    {
+                        auto inserted = mTopBorders.insert({tp, loadModuleGroup(p.string())});
+                        inserted.first->second->setSeeds(mRNG());
+                    }
                     else
                         throw std::runtime_error("Missing top border module group, and no default module group");
                 }
