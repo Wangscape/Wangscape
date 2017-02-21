@@ -82,7 +82,7 @@ inline CartesianPowerIterator<ForwardIt>::CartesianPowerIterator(ForwardIt first
 }
 
 template<typename ForwardIt>
-inline CartesianPowerIterator<ForwardIt>& CartesianPowerIterator<typename ForwardIt>::operator++()
+inline CartesianPowerIterator<ForwardIt>& CartesianPowerIterator<ForwardIt>::operator++()
 {
     for (size_t i = 0; i < getPower(); i++)
     {
@@ -111,7 +111,7 @@ inline CartesianPowerIterator<ForwardIt>& CartesianPowerIterator<typename Forwar
 }
 
 template<typename ForwardIt>
-inline CartesianPowerIterator<ForwardIt> CartesianPowerIterator<typename ForwardIt>::operator++(int)
+inline CartesianPowerIterator<ForwardIt> CartesianPowerIterator<ForwardIt>::operator++(int)
 {
     CartesianPowerIterator previous = *this;
     ++(*this);
