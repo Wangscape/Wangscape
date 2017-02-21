@@ -33,9 +33,18 @@ Do you want to reduce visual repetition by making duplicate border tiles that st
 Then Wangscape can help.
 
 # What are corner Wang tiles?
+
 A good explanation of the corner Wang tiles (and the related Wang tiles) can be found at [cr31.co.uk](http://cr31.co.uk/stagecast/wang/2corn.html). Examples of the natural boundary lines that can be produced with corner Wang tiles in an isometric display can be seen by searching for screenshots of [Civilization 3 terrain](https://www.google.co.uk/search?q=civilization+3+terrain&tbm=isch).
 
-Rather than matching graphical tiles with the representation of logical tiles on screen, corner Wang tiles should be displayed offset by half a tile in both axes. Thus each logical tile is represented by the matching corners of four graphical tiles, and the logical boundary between tiles will pass through the central axes of the graphical tiles. Thus the graphical boundary between tiles can intrude on both sides of the logical boundary, simply by being drawn on one side or the other of the graphical tile.
+In corner Wang tiles, each corner corresponds to the centre of a logical terrain tile. In the middle of a corner Wang tile, anything can happen, provided the borders match.
+
+![corner-wang-tiles-separate](https://cloud.githubusercontent.com/assets/15715657/23168061/b4a264b6-f83e-11e6-9cb9-2eba145532d6.png)
+
+When you place four corner Wang tiles together, the four quarter-tiles around the joining point combine to form a display tile.
+
+![corner-wang-tiles-together](https://cloud.githubusercontent.com/assets/15715657/23168059/b49ea510-f83e-11e6-8117-4d521d6fdadf.png)
+
+Different combinations of the 8 surrounding terrains can produce different display tiles. If you generate redundant tilesets, there can be even more options.
 
 # How does Wangscape make corner Wang tiles?
 * A set of cliques is defined on the terrain types. Each clique produces a separate tileset to avoid making excessively large textures.
