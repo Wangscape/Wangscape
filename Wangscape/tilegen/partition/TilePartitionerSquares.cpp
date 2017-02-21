@@ -9,11 +9,11 @@ void TilePartitionerSquares::makePartition(TilePartition& regions, const Corners
 {
     sf::RectangleShape quarter_tile;
     const auto resolution = mOptions.tileFormat.resolution;
-    quarter_tile.setSize(sf::Vector2f(resolution / 2.f, resolution / 2.f));
+    quarter_tile.setSize(sf::Vector2f(resolution) / 2.f);
     quarter_tile.setFillColor(sf::Color::White);
     quarter_tile.setOutlineThickness(0.f);
     sf::RenderTexture mask;
-    mask.create(resolution, resolution);
+    mask.create(resolution.x, resolution.y);
 
     auto make_mask = [&](sf::Vector2f origin, TerrainID tid)
     {
@@ -25,9 +25,9 @@ void TilePartitionerSquares::makePartition(TilePartition& regions, const Corners
         regions.push_back({ t, tid });
     };
     make_mask(sf::Vector2f(0, 0), corners[0]);
-    make_mask(sf::Vector2f(0, resolution / 2.f), corners[1]);
-    make_mask(sf::Vector2f(resolution / 2.f, 0), corners[2]);
-    make_mask(sf::Vector2f(resolution / 2.f, resolution / 2.f), corners[3]);
+    make_mask(sf::Vector2f(0, resolution.y / 2.f), corners[1]);
+    make_mask(sf::Vector2f(resolution.x / 2.f, 0), corners[2]);
+    make_mask(sf::Vector2f(resolution) / 2.f, corners[3]);
 };
 
 } // namespace partition

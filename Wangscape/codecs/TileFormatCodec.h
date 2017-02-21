@@ -3,6 +3,7 @@
 #include <spotify/json.hpp>
 
 #include "TileFormat.h"
+#include "Vector2Codec.h"
 
 namespace spotify
 {

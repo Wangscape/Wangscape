@@ -7,28 +7,29 @@ void TerrainImages::rearrangeTile(sf::Texture& t)
     auto resolution = t.getSize();
     sf::Vector2i origin(0, 0);
     sf::Vector2i middle(resolution.x / 2, resolution.y / 2);
+    sf::Vector2i middle_to_end = sf::Vector2i(resolution) - middle;
     sf::RenderTexture new_tile;
     new_tile.create(resolution.x, resolution.y);
     sf::Sprite corner;
     corner.setTexture(t);
-    auto draw_corner = [&](int from_x, int  from_y,
-                           int to_x, int to_y)
+    auto draw_corner = [&](sf::Vector2i from,
+                           sf::Vector2i to,
+                           sf::Vector2i size)
     {
-        // TODO odd tile sizes will definitely break this!
-        corner.setTextureRect(sf::IntRect(from_x, from_y, middle.x, middle.y));
-        corner.setPosition((float)to_x, (float)to_y);
+        corner.setTextureRect(sf::IntRect(from.x, from.y, size.x, size.y));
+        corner.setPosition((float)to.x, (float)to.y);
         new_tile.draw(corner);
     };
-    draw_corner(origin.x, origin.y, middle.x, middle.y);
-    draw_corner(middle.x, middle.y, origin.x, origin.y);
-    draw_corner(origin.x, middle.y, middle.x, origin.y);
-    draw_corner(middle.x, origin.y, origin.x, middle.y);
+    draw_corner(origin, middle, middle_to_end);
+    draw_corner({origin.x, middle_to_end.y}, {middle.x, origin.y}, {middle_to_end.x, middle.y});
+    draw_corner({middle_to_end.x, origin.y}, {origin.x, middle.y}, {middle.x, middle_to_end.y});
+    draw_corner(middle_to_end, origin, middle);
     new_tile.display();
     t = new_tile.getTexture();
 }
 
 void TerrainImages::addTerrain(TerrainID tid, std::string image_filename, std::string json_filename,
-                               size_t offset_x, size_t offset_y, size_t resolution)
+                               size_t offset_x, size_t offset_y, sf::Vector2u resolution)
 {
     std::string filename = image_filename;
     boost::filesystem::path p(json_filename);
@@ -44,10 +45,8 @@ void TerrainImages::addTerrain(TerrainID tid, std::string image_filename, std::s
         it = source_images.insert({ filename, img }).first;
     }
     sf::Vector2i offset(offset_x, offset_y);
-    sf::Vector2i box(resolution, resolution);
-    offset *= (int)resolution;
     sf::Texture tex;
-    if (!tex.loadFromImage((*it).second, sf::IntRect(offset, box)))
+    if (!tex.loadFromImage((*it).second, sf::IntRect(offset, sf::Vector2i(resolution))))
         throw std::runtime_error("Couldn't make texture from image");
     rearrangeTile(tex);
     terrain_textures.insert({ tid, tex });

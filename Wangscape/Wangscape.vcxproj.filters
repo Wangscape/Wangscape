@@ -204,6 +204,7 @@
     <ClInclude Include="tilegen\alpha\CalculatorMode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="codecs\Vector2Codec.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

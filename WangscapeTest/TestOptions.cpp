@@ -42,7 +42,7 @@ TEST_F(TestOptions, TestOptionsValues)
     EXPECT_STREQ(options.outputFilenames.terrainHypergraphFilename.c_str(),
                  "terrain_hypergraph.json") <<
         "Incorrect terrain hypergraph filename";
-    EXPECT_EQ(options.tileFormat.resolution, 32) <<
+    EXPECT_EQ(options.tileFormat.resolution, sf::Vector2u(32,32)) <<
         "Incorrect resolution";
     EXPECT_NE(options.terrains.find("g"), options.terrains.cend()) <<
         "Options did not load grass terrain info";
