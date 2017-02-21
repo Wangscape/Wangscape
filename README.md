@@ -7,9 +7,30 @@ Converts terrain tiles to procedural corner Wang tilesets.
 Procjam 2016 project (in progress)
 
 # What is Wangscape for?
-Let's say you've drawn or procedurally generated a set of beautiful square terrain tiles to use in a game. But you don't have any nice-looking borders between them, or the borders you do have are all straight and boring, or the borders are all on the same side of the line dividing the in-game tiles.
+Does your game have nice square terrain tiles like these ones by David Gervais? [CC BY 3.0](creativecommons.org/licenses/by/3.0/)
 
-Wangscape is intended to convert your tiles into a set of corner Wang tiles that solve all those problems.
+![gervais-terrain-3](https://cloud.githubusercontent.com/assets/15715657/23166703/8cfa561c-f839-11e6-8c43-bdd54cd9a4f7.png)
+
+Do they make sharp borders and ugly right angles like these when you combine them into a map?
+
+![wangscape-squares-sample](https://cloud.githubusercontent.com/assets/15715657/23166720/a0e63a9c-f839-11e6-9b6b-1393204cb0c2.png)
+
+Would you prefer to have smooth transitions and curved boundaries like these in your map display?
+
+![wangscape-natural-sample](https://cloud.githubusercontent.com/assets/15715657/23166724/a3d6dbb2-f839-11e6-8e1c-4654cb2a11f6.png)
+
+Do you want meandering borders that affect both sides of the logical tile boundaries?
+
+![wangscape-natural-sample-grid](https://cloud.githubusercontent.com/assets/15715657/23166727/a5bf4f86-f839-11e6-84f7-2530d5fcbfa7.png)
+
+Do you think the above tiles need some adjustment before they look right?
+
+![wangscape-options-sample](https://cloud.githubusercontent.com/assets/15715657/23166825/0720fbb2-f83a-11e6-8f48-7a2345dc2444.PNG)
+![wangscape-module-sample](https://cloud.githubusercontent.com/assets/15715657/23166827/08b9c30a-f83a-11e6-9e47-d4fe31dea779.PNG)
+
+Do you want to reduce visual repetition by making duplicate border tiles that still tessellate seamlessly? Do you want to do all of this automatically using just the base tile images and a few JSON configuration files?
+
+Then Wangscape can help.
 
 # What are corner Wang tiles?
 A good explanation of the corner Wang tiles (and the related Wang tiles) can be found at [cr31.co.uk](http://cr31.co.uk/stagecast/wang/2corn.html). Examples of the natural boundary lines that can be produced with corner Wang tiles in an isometric display can be seen by searching for screenshots of [Civilization 3 terrain](https://www.google.co.uk/search?q=civilization+3+terrain&tbm=isch).
@@ -17,12 +38,14 @@ A good explanation of the corner Wang tiles (and the related Wang tiles) can be 
 Rather than matching graphical tiles with the representation of logical tiles on screen, corner Wang tiles should be displayed offset by half a tile in both axes. Thus each logical tile is represented by the matching corners of four graphical tiles, and the logical boundary between tiles will pass through the central axes of the graphical tiles. Thus the graphical boundary between tiles can intrude on both sides of the logical boundary, simply by being drawn on one side or the other of the graphical tile.
 
 # How does Wangscape make corner Wang tiles?
-* A set of cliques each with up to 4 members is defined on the terrain types. Each clique produces a separate tileset to avoid making excessively large textures.
+* A set of cliques is defined on the terrain types. Each clique produces a separate tileset to avoid making excessively large textures.
 * For each valid combination of terrain types in the corners:
-    * An alpha mask is generated for each corner (currently it's just a smooth gradient with no randomness).
+    * An alpha mask is generated for each corner.
     * These alpha masks are used to combine each corner's terrain texture into a single tile.
-* In future this will be much more customisable, using Perlin noise to generate noisy gradients and boundaries betwen corners.
 * Currently all tile generation is done through a command-line application configured using a JSON file. In the future, this should be migrated to a GUI interface which allows the user to alter tile generation parameters and immediately see the range of possible results.
+
+# How can I use corner Wang tilesets in my project?
+Wangscape's sibling project, [Wangview](https://github.com/Wangscape/Wangview/tree/documentation), demonstrates how to use tilesets produced by Wangscape. Wangview provides as a set of well-commented IPython notebooks and Python scripts to enable easy porting to the platform used by your project.
 
 # How can I build Wangscape?
 
@@ -41,6 +64,7 @@ Wangscape depends on these libraries:
   - system
   - graphics
 * **spotify-json** (submodule)
+* **libnoise**
 
 After installing them, you can compile Wangscape using either of the methods
 below.
