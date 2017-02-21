@@ -1,4 +1,4 @@
-# Wangscape
+# Wangscape [![Build Status](https://travis-ci.org/Wangscape/Wangscape.svg?branch=master)](https://travis-ci.org/Wangscape/Wangscape)
 
 Converts terrain tiles to procedural corner Wang tilesets.
 
