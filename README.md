@@ -45,7 +45,45 @@ Wangscape depends on these libraries:
 After installing them, you can compile Wangscape using either of the methods
 below.
 
-## CMake (Linux)
+## Docker
+
+There's a Docker image that can be used for building, based on Ubuntu, with all
+dependencies installed, so the only thing to do is execute in Wangscape's
+root directory:
+
+```shell
+docker run -it -v $(pwd):/Wangscape lukequaint/wangscape-build
+```
+
+After that, go to the **Linux/Compilation** section below.
+
+## Linux
+
+### Installing dependencies
+
+#### Ubuntu
+
+First, install necessary packages with `apt`:
+
+```shell
+apt install cmake g++ libsfml-dev libboost-system-dev \
+    libboost-filesystem-dev libboost-program-options-dev \
+    libgtest-dev
+```
+
+Next, build `gtest` (that's specific to Ubuntu, take a look on Stack Overflow
+questions
+[here](https://stackoverflow.com/questions/13513905/how-to-setup-googletest-as-a-shared-library-on-linux)
+or [here](https://stackoverflow.com/questions/38395984/how-to-install-google-test-on-ubuntu-without-root-access)):
+
+```shell
+cd /usr/src/gtest
+cmake .
+make
+cp *.a /usr/lib/
+```
+
+### Compilation
 
 #### 1. Create `build` directory in **Wangscape** project root and move into it:
 
@@ -58,6 +96,13 @@ cd build
 
 ```shell
 cmake ..
+```
+
+In some distributions (e.g. **Ubuntu**) you have to specify a path to SFML's
+CMake module passing `CMAKE_MODULE_PATH` to the above command:
+
+```shell
+cmake .. -DCMAKE_MODULE_PATH=/usr/share/SFML/cmake/Modules/
 ```
 
 It will check for required libraries and prepare files for the next step.
