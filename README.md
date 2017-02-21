@@ -1,8 +1,7 @@
-# Wangscape [![Build Status](https://travis-ci.org/Wangscape/Wangscape.svg?branch=master)](https://travis-ci.org/Wangscape/Wangscape)
+# Wangscape [![Build Status](https://travis-ci.org/Wangscape/Wangscape.svg?branch=master)](https://travis-ci.org/Wangscape/Wangscape) [![Gitter chat](https://badges.gitter.im/Wangscape.png)](https://gitter.im/Wangscape/Lobby)
 
 Converts terrain tiles to procedural corner Wang tilesets.
 
-[![Gitter chat](https://badges.gitter.im/Wangscape.png)](https://gitter.im/Wangscape/Lobby)
 
 Procjam 2016 project (in progress)
 
