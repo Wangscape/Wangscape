@@ -46,7 +46,7 @@
   ],
   "AlphaCalculatorMode":"Linear",
   "DefaultModuleGroup":"default_module_group.json",
-  "HorizontalBorderModuleGroups": [
+  "LeftBorderModuleGroups": [
     {
       "Terrains":["s","g"],
       "Filename":"special_module_group.json"
@@ -56,7 +56,7 @@
       "Filename":"special_module_group.json"
     }
   ],
-  "VerticalBorderModuleGroups": [
+  "TopBorderModuleGroups": [
     {
       "Terrains":["s","g"],
       "Filename":"special_module_group.json"
