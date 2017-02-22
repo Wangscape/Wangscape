@@ -131,11 +131,11 @@ IBase ipow(IBase base, IExp exp)
     if (base == base_two)
     {
         cpp::static_if<UseBitshift>
-        ([&](auto) {
+        ([&result, base_one, exp](auto) {
             result = base_one << exp;
         })
         .else_
-        ([&](auto) {
+        ([&result, base, exp](auto) {
             result = ipow_imp(base, exp);
         });
     }

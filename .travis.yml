@@ -1,0 +1,9 @@
+sudo: required
+
+services:
+    - docker
+
+script:
+    - pwd
+    - mkdir build
+    - docker run -v $(pwd):/Wangscape lukequaint/wangscape-build:latest /bin/sh -c "cd /Wangscape/build && cmake .. && make && ./bin/WangscapeTest"
