@@ -7,7 +7,7 @@ Converts terrain tiles to procedural corner Wang tilesets.
 Procjam 2016 project (in progress)
 
 # What is Wangscape for?
-Does your game have nice square terrain tiles like these ones by David Gervais? [CC BY 3.0](creativecommons.org/licenses/by/3.0/)
+Does your game have nice square terrain tiles like these ones by David Gervais? ([CC BY 3.0](creativecommons.org/licenses/by/3.0/))
 
 ![gervais-terrain-3](https://cloud.githubusercontent.com/assets/15715657/23166703/8cfa561c-f839-11e6-8c43-bdd54cd9a4f7.png)
 
@@ -54,7 +54,7 @@ Different combinations of the 8 surrounding terrains can produce different displ
 * Currently all tile generation is done through a command-line application configured using a JSON file. In the future, this should be migrated to a GUI interface which allows the user to alter tile generation parameters and immediately see the range of possible results.
 
 # How can I use corner Wang tilesets in my project?
-Wangscape's sibling project, [Wangview](https://github.com/Wangscape/Wangview/tree/documentation), demonstrates how to use tilesets produced by Wangscape. Wangview provides as a set of well-commented IPython notebooks and Python scripts to enable easy porting to the platform used by your project.
+Wangscape's sibling project, [Wangview](https://github.com/Wangscape/Wangview/tree/documentation), demonstrates how to use tilesets produced by Wangscape. Wangview provides a set of well-commented IPython notebooks and Python scripts to enable easy porting to the platform used by your project.
 
 # How can I build Wangscape?
 
