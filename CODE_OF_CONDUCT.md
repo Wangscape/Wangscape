@@ -60,7 +60,7 @@ which is a shared inbox. If the complaint involves someone who receives that
 shared inbox, you can contact an individual maintainer.
 Currently the recipients of the inbox and their email addresses are:
 * [@serin-delaunay](https://github.com/serin-delaunay); to contact, remove all punctuation from the Github username and add `@gmail.com`.
-* Further members pending.
+* [@hryniuk](https://github.com/hryniuk); to contact, email `lukasz.hryniuk[at]wp.pl`.
 
 All complaints will be reviewed and investigated and will result in a response that
 is deemed necessary and appropriate to the circumstances. The project team is
