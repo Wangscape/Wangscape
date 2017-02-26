@@ -234,6 +234,7 @@
     <ClInclude Include="noise\RasterImage.h" />
     <ClInclude Include="noise\RasterValues.h" />
     <ClInclude Include="noise\WangscapeNoise.h" />
+    <ClInclude Include="OptionsPaths.h" />
     <ClInclude Include="TerrainModuleGroupLocation.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="OptionsManager.h" />
@@ -311,6 +312,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="OptionsManager.cpp" />
     <ClCompile Include="noise\module\QuadrantSelector.cpp" />
+    <ClCompile Include="OptionsPaths.cpp" />
     <ClCompile Include="TerrainImages.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorBase.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorLinear.cpp" />

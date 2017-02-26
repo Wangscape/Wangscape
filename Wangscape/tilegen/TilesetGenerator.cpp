@@ -17,7 +17,7 @@ TilesetGenerator::TilesetGenerator(const Options& options,
 {
     for (auto& terrain : options.terrains)
     {
-        images.addTerrain(terrain.first, terrain.second.fileName, options.filename,
+        images.addTerrain(terrain.first, terrain.second.fileName, options.paths.filename,
                           terrain.second.offsetX, terrain.second.offsetY, options.tileFormat.resolution);
     }
 }

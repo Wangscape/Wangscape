@@ -11,6 +11,7 @@
 #include "TileFormat.h"
 #include "BorderModuleGroupLocation.h"
 #include "TerrainModuleGroupLocation.h"
+#include "OptionsPaths.h"
 
 class Options
 {
@@ -19,8 +20,7 @@ public:
     typedef std::vector<TerrainID> Clique;
     typedef std::vector<Clique> CliqueList;
 
-    std::string filename;
-    std::string directory;
+    OptionsPaths paths;
     TileFormat tileFormat;
     std::string outputDirectory;
     std::string relativeOutputDirectory;

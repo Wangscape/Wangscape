@@ -15,7 +15,7 @@ ModuleManager::ModuleManager(const Options & options) :
     mHorizontalBorders.moduleGroupDescription = "horizontal border";
     mVerticalBorders.moduleGroupDescription = "vertical border";
 
-    boost::filesystem::path p(options.directory);
+    boost::filesystem::path p(options.paths.directory);
 
     mCombiner = loadModuleGroup((p / options.combinerModuleGroup).string());
 
