@@ -5,7 +5,6 @@ set(noise-src
     RasterBase.cpp
     RasterImage.cpp
     RasterValues.cpp
-    Reseedable.cpp
 )
 
 add_subdirectory(module)
