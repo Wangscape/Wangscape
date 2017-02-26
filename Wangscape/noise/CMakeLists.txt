@@ -1,6 +1,7 @@
 set(noise-src
     EncodedModuleGroup.cpp
     ModuleGroup.cpp
+    ModuleGroupContainer.cpp
     ModuleManager.cpp
     RasterBase.cpp
     RasterImage.cpp

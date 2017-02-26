@@ -1,6 +1,7 @@
 set(lib-src
     OptionsManager.cpp
     TerrainImages.cpp
+    OptionsPaths.cpp
 )
 
 add_subdirectory(metaoutput)
