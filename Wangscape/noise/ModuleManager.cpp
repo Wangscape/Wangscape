@@ -9,12 +9,11 @@
 namespace noise {
 
 ModuleManager::ModuleManager(const Options & options) :
-    mRNG((unsigned int)time(nullptr))
+    mRNG((unsigned int)time(nullptr)),
+    mCentres("centre"),
+    mHorizontalBorders("horizontal border"),
+    mVerticalBorders("vertical border")
 {
-    mCentres.moduleGroupDescription = "centre";
-    mHorizontalBorders.moduleGroupDescription = "horizontal border";
-    mVerticalBorders.moduleGroupDescription = "vertical border";
-
     boost::filesystem::path p(options.paths.directory);
 
     mCombiner = loadModuleGroup((p / options.combinerModuleGroup).string());

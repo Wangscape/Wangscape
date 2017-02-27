@@ -10,13 +10,18 @@
 
 namespace noise
 {
+template<typename T>
+ModuleGroupContainer<T>::ModuleGroupContainer(std::string module_group_description_) :
+    mModuleGroupDescription(module_group_description_)
+{
+}
 
 template<typename T>
 void ModuleGroupContainer<T>::addSpecificModuleGroup(T key, std::string filename)
 {
     auto inserted = mModuleGroups.insert(ModuleGroups::value_type(key, loadModuleGroup(filename)));
     if (!inserted.second)
-        throw std::runtime_error("Tried to load two " + moduleGroupDescription + " module groups with the same terrain");
+        throw std::runtime_error("Tried to load two " + mModuleGroupDescription + " module groups with the same terrain");
 }
 
 template<typename T>
@@ -27,7 +32,7 @@ void ModuleGroupContainer<T>::tryAddDefaultModuleGroup(T key, boost::optional<st
         if (filename)
             mModuleGroups.insert(ModuleGroups::value_type(key, loadModuleGroup(filename.get())));
         else
-            throw std::runtime_error("Missing " + moduleGroupDescription + " module group, and no default module group");
+            throw std::runtime_error("Missing " + mModuleGroupDescription + " module group, and no default module group");
     }
 }
 
