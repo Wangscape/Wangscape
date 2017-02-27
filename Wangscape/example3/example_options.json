@@ -52,6 +52,6 @@
       "Terrains": ["s", "g"]
     }
   ],
-  "AlphaCalculatorMode":"TopTwo",
-  "AlphaCalculatorTopTwoPower":8
+  "AlphaCalculatorMode":"Dither",
+  "AlphaCalculatorTopTwoPower":5
 }

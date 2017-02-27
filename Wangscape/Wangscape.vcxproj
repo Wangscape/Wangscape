@@ -154,6 +154,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="tilegen\alpha\CalculatorDither.h" />
     <ClInclude Include="tilegen\alpha\CalculatorTopTwo.h" />
     <ClInclude Include="codecs\OptionsCodec.h" />
     <ClInclude Include="codecs\TerrainSpecCodec.h" />
@@ -204,6 +205,7 @@
     <ClInclude Include="ipow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="tilegen\alpha\CalculatorDither.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorTopTwo.cpp" />
     <ClCompile Include="metaoutput\MetaOutput.cpp" />
     <ClCompile Include="metaoutput\Tile.cpp" />

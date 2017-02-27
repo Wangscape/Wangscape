@@ -28,6 +28,7 @@
     <ClCompile Include="tilegen\TileGenerator.cpp" />
     <ClCompile Include="tilegen\TilesetGenerator.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorTopTwo.cpp" />
+    <ClCompile Include="tilegen\alpha\CalculatorDither.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codecs\OptionsCodec.h" />
@@ -78,6 +79,7 @@
     <ClInclude Include="tilegen\TilesetGenerator.h" />
     <ClInclude Include="ipow.h" />
     <ClInclude Include="tilegen\alpha\CalculatorTopTwo.h" />
+    <ClInclude Include="tilegen\alpha\CalculatorDither.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

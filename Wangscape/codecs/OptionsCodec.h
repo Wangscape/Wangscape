@@ -28,7 +28,8 @@ struct default_codec_t<Options>
                        codec::enumeration<tilegen::alpha::CalculatorMode, std::string>({
                            {tilegen::alpha::CalculatorMode::Max, "Max"},
                            {tilegen::alpha::CalculatorMode::Linear, "Linear"},
-                           {tilegen::alpha::CalculatorMode::TopTwo, "TopTwo"}}));
+                           {tilegen::alpha::CalculatorMode::TopTwo, "TopTwo"},
+                           {tilegen::alpha::CalculatorMode::Dither, "Dither"}}));
         codec.optional("AlphaCalculatorTopTwoPower", &Options::alphaCalculatorTopTwoPower);
         return codec;
     }

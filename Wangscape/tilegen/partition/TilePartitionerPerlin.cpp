@@ -5,6 +5,7 @@
 #include "tilegen/alpha/CalculatorMax.h"
 #include "tilegen/alpha/CalculatorLinear.h"
 #include "tilegen/alpha/CalculatorTopTwo.h"
+#include "tilegen/alpha/CalculatorDither.h"
 
 namespace tilegen
 {
@@ -53,8 +54,16 @@ void TilePartitionerPerlin::noiseToAlpha(std::vector<noise::RasterValues<double>
         if (mOptions.alphaCalculatorTopTwoPower)
             ac_top_two->power = mOptions.alphaCalculatorTopTwoPower.get();
         ac = std::move(ac_top_two);
-    }
         break;
+    }
+    case alpha::CalculatorMode::Dither:
+    {
+        auto ac_dither = std::make_unique<alpha::CalculatorDither>();
+        if (mOptions.alphaCalculatorTopTwoPower)
+            ac_dither->power = mOptions.alphaCalculatorTopTwoPower.get();
+        ac = std::move(ac_dither);
+        break;
+    }
     default:
         throw std::runtime_error("Invalid CalculatorMode");
     }
