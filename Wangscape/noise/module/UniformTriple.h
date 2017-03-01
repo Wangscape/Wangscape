@@ -30,7 +30,7 @@ struct UniformTriple
     }
     std::tuple<double, double, double> asTuple() const
     {
-        return{x, y, z};
+        return std::tuple<double, double, double>{x, y, z};
     }
 };
 } // namespace module
