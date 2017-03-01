@@ -1,0 +1,9 @@
+{
+    "type" : "Perlin",
+    "Seed" : 123,
+    "Frequency" : 2.2,
+    "Persistence" : 0.5,
+    "Lacunarity" : 1.8,
+    "OctaveCount" : 14,
+    "NoiseQuality" : 2
+}

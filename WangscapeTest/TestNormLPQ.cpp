@@ -1,28 +1,34 @@
 #include <gtest/gtest.h>
 #include <noise/module/NormLPQ.h>
-#include <noise/module/ModuleFactories.h>
+#include <memory>
 
 class TestNormLPQ : public ::testing::Test
 {
 protected:
-    noise::ModulePtr n1_1;
-    noise::ModulePtr n1_2;
+    std::shared_ptr<noise::module::NormLPQ> n1_1;
+    std::shared_ptr<noise::module::NormLPQ> n1_2;
 
-    noise::ModulePtr n2_1;
-    noise::ModulePtr n2_2;
+    std::shared_ptr<noise::module::NormLPQ> n2_1;
+    std::shared_ptr<noise::module::NormLPQ> n2_2;
 
-    noise::ModulePtr n05_1;
-    noise::ModulePtr n05_05;
+    std::shared_ptr<noise::module::NormLPQ> n05_1;
+    std::shared_ptr<noise::module::NormLPQ> n05_05;
 
     TestNormLPQ() :
-        n1_1(std::make_shared<noise::module::NormLPQ>(1)),
-        n1_2(std::make_shared<noise::module::NormLPQ>(1, 2)),
-        n2_1(std::make_shared<noise::module::NormLPQ>(2, 1)),
-        n2_2(std::make_shared<noise::module::NormLPQ>(2, 2)),
-        n05_1(std::make_shared<noise::module::NormLPQ>(0.5, 1)),
-        n05_05(std::make_shared<noise::module::NormLPQ>(0.5, 0.5))
+        n1_1(std::make_shared<noise::module::NormLPQ>()),
+        n1_2(std::make_shared<noise::module::NormLPQ>()),
+        n2_1(std::make_shared<noise::module::NormLPQ>()),
+        n2_2(std::make_shared<noise::module::NormLPQ>()),
+        n05_1(std::make_shared<noise::module::NormLPQ>()),
+        n05_05(std::make_shared<noise::module::NormLPQ>())
     {
-
+        // TODO test SetP, SetQ
+        n1_1->SetPQ(1, 1);
+        n1_2->SetPQ(1, 2);
+        n2_1->SetPQ(2, 1);
+        n2_2->SetPQ(2, 2);
+        n05_1->SetPQ(0.5, 1);
+        n05_05->SetPQ(0.5, 0.5);
     };
     ~TestNormLPQ() {};
 };

@@ -1,0 +1,7 @@
+{
+  "type" : "ScalePoint",
+  "SourceModule" : "mySourceModule",
+  "XScale" : 2.0,
+  "YScale" : 3.5,
+  "ZScale" : -1.4
+}

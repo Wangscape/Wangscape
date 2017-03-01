@@ -33,25 +33,13 @@
     <ClCompile Include="TestNormLPQ.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestEdgeFavouringMask.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TestModuleGroup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TestReseedable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TestMovingScaleBias.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TestTileGenerationPlan.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TestTilePartitionerGradient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TestTilePartitionerSquares.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestEncodedModuleGroup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TestRequiringOptions.cpp">
@@ -66,7 +54,13 @@
     <ClCompile Include="TestCoordinatePacker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="OptionsFilename.cpp">
+    <ClCompile Include="removeWhitespace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TestModuleDecode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DocumentationPath.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,7 +71,10 @@
     <ClInclude Include="TestRequiringOptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="OptionsFilename.h">
+    <ClInclude Include="removeWhitespace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DocumentationPath.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

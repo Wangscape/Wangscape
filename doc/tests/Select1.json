@@ -1,0 +1,8 @@
+{
+  "type" : "Select",
+  "SourceModule" : [ "mySourceModule", 
+                    "myOtherSourceModule" ],
+  "ControlModule" : "myControlModule",
+  "Bounds" : [ 0.2, 0.87 ],
+  "EdgeFalloff" : 0.25
+}
