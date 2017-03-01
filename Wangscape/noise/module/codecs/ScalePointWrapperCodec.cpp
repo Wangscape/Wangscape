@@ -1,5 +1,3 @@
-#pragma once
-
 #include "ScalePointWrapperCodec.h"
 
 namespace spotify

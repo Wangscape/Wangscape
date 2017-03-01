@@ -1,5 +1,3 @@
-#pragma once
-
 #include "PerlinWrapperCodec.h"
 
 namespace spotify

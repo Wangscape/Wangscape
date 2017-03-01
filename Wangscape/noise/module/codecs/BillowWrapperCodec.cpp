@@ -1,5 +1,3 @@
-#pragma once
-
 #include "BillowWrapperCodec.h"
 
 namespace spotify
