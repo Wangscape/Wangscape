@@ -186,7 +186,7 @@ TYPED_TEST(TestIPow, TestIPowExamples)
 
 TYPED_TEST(TestIPow, TestIPowLargestResults)
 {
-    TestFixture::IBase highest = this->baseOne << this->expDigitsMinusOne;
+    typename TestFixture::IBase highest = this->baseOne << this->expDigitsMinusOne;
     EXPECT_LT(this->baseTwo, highest);
     EXPECT_EQ(highest, this->ipowWrapper(this->baseTwo, this->expDigitsMinusOne));
 
