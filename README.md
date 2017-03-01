@@ -13,7 +13,7 @@ Does your game have nice square terrain tiles like these ones by David Gervais? 
 
 Do they make sharp borders and ugly right angles like these when you combine them into a map?
 
-![wangscape-squares-sample](https://cloud.githubusercontent.com/assets/15715657/23166720/a0e63a9c-f839-11e6-9b6b-1393204cb0c2.png)
+![wangscape-squares-sample-fixed](https://cloud.githubusercontent.com/assets/15715657/23484807/7660d0a0-fed0-11e6-892d-2346da221ac9.png)
 
 Would you prefer to have smooth transitions and curved boundaries like these in your map display?
 
