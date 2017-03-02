@@ -21,7 +21,7 @@ Would you prefer to have smooth transitions and curved boundaries like these in 
 
 Do you want meandering borders that affect both sides of the logical tile boundaries?
 
-![map-natural-grid](doc/images/map-natural-grid)
+![map-natural-grid](doc/images/map-natural-grid.png)
 
 Do you think the above tiles need some adjustment before they look right?
 
