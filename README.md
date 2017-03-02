@@ -16,12 +16,17 @@ A good explanation of the corner Wang tiles (and the related Wang tiles) can be 
 Rather than matching graphical tiles with the representation of logical tiles on screen, corner Wang tiles should be displayed offset by half a tile in both axes. Thus each logical tile is represented by the matching corners of four graphical tiles, and the logical boundary between tiles will pass through the central axes of the graphical tiles. Thus the graphical boundary between tiles can intrude on both sides of the logical boundary, simply by being drawn on one side or the other of the graphical tile.
 
 # How does Wangscape make corner Wang tiles?
+
 * A set of cliques each with up to 4 members is defined on the terrain types. Each clique produces a separate tileset to avoid making excessively large textures.
 * For each valid combination of terrain types in the corners:
     * An alpha mask is generated for each corner (currently it's just a smooth gradient with no randomness).
     * These alpha masks are used to combine each corner's terrain texture into a single tile.
 * In future this will be much more customisable, using Perlin noise to generate noisy gradients and boundaries betwen corners.
 * Currently all tile generation is done through a command-line application configured using a JSON file. In the future, this should be migrated to a GUI interface which allows the user to alter tile generation parameters and immediately see the range of possible results.
+
+# How can I help Wangscape?
+
+We would value your input in bug reports, feature requests, documentation improvements, examples, or code. Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for further information. Note that a [code of conduct](./CODE_OF_CONDUCT.md) applies to all participation in this project.
 
 # How can I build Wangscape?
 
