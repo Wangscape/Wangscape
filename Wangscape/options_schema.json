@@ -185,7 +185,9 @@
       "title":"AlphaCalculatorMode schema",
       "description":"Specifies which type of AlphaCalculator should be used to convert corner weights into alpha values.",
       "enum":["Max",
-              "Linear"]
+              "Linear",
+              "TopTwo",
+              "Dither"]
               
     }
   },
