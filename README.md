@@ -28,6 +28,15 @@ Rather than matching graphical tiles with the representation of logical tiles on
 
 We would value your input in bug reports, feature requests, documentation improvements, examples, or code. Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for further information. Note that a [code of conduct](./CODE_OF_CONDUCT.md) applies to all participation in this project.
 
+# What platforms does Wangscape support?
+
+Wangscape is actively tested by the maintainers on:
+* Windows 7 (64-bit) with Visual Studio 2015
+* Arch Linux with CMake
+* Ubuntu (Trusty) with CMake (in travis-ci)
+
+We also hope to run travis-ci builds under Mac OS X soon.
+
 # How can I build Wangscape?
 
 First of all, you need to clone all needed submodules. To get them, execute
