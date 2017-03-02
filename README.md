@@ -9,24 +9,24 @@ Procjam 2016 project (in progress)
 # What is Wangscape for?
 Does your game have nice square terrain tiles like these ones by David Gervais? ([CC BY 3.0](creativecommons.org/licenses/by/3.0/))
 
-![gervais-terrain-3](https://cloud.githubusercontent.com/assets/15715657/23166703/8cfa561c-f839-11e6-8c43-bdd54cd9a4f7.png)
+![gervais-terrain-3](doc/images/gervais-terrain-3.png)
 
 Do they make sharp borders and ugly right angles like these when you combine them into a map?
 
-![wangscape-squares-sample-fixed](https://cloud.githubusercontent.com/assets/15715657/23484807/7660d0a0-fed0-11e6-892d-2346da221ac9.png)
+![map-squares](doc/images/map-squares.png)
 
 Would you prefer to have smooth transitions and curved boundaries like these in your map display?
 
-![wangscape-natural-sample](https://cloud.githubusercontent.com/assets/15715657/23166724/a3d6dbb2-f839-11e6-8e1c-4654cb2a11f6.png)
+![map-natural](doc/images/map-natural.png)
 
 Do you want meandering borders that affect both sides of the logical tile boundaries?
 
-![wangscape-natural-sample-grid](https://cloud.githubusercontent.com/assets/15715657/23166727/a5bf4f86-f839-11e6-84f7-2530d5fcbfa7.png)
+![map-natural-grid](doc/images/map-natural-grid)
 
 Do you think the above tiles need some adjustment before they look right?
 
-![wangscape-options-sample](https://cloud.githubusercontent.com/assets/15715657/23166825/0720fbb2-f83a-11e6-8f48-7a2345dc2444.PNG)
-![wangscape-module-sample](https://cloud.githubusercontent.com/assets/15715657/23166827/08b9c30a-f83a-11e6-9e47-d4fe31dea779.PNG)
+![options-sample](doc/images/options-sample.png)
+![module-sample](doc/images/module-sample.png)
 
 Do you want to reduce visual repetition by making duplicate border tiles that still tessellate seamlessly? Do you want to do all of this automatically using just the base tile images and a few JSON configuration files?
 
