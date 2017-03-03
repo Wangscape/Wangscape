@@ -236,12 +236,23 @@ This example will illustrate with diagrams how noise values are calculated for a
 
 Wangscape has a few different methods available to convert noise values into corner mask (alpha) values.
 
-* `Max` assigns all 255 points to the terrain with the highest noise value.
+* `Max` assigns all 255 points to the terrain with the highest noise value. Example:
+
+![alpha-max](./images/alpha-max.png)
+
 * `Linear` tries to split the 255 points between all four terrains in a ratio as close as possible to the noise values.
 For this to work, all the noise values should be positive.
 Using this alpha calculator is very prone to error, reflected in black pixels in the output tiles.
+Noise values can be very similar in the centre, so it is a good idea to raise them to a power (5 or more) before applying linear alpha calculation. Example:
+
+![alpha-linear](./images/alpha-linear.png)
+
 * `TopTwo` splits the 255 points between the two terrains with the highest noise values.
 The third highest noise value is used as a baseline, and the ratio is raised to a user-specified power before application,
 so the resulting formula is `(v1-v3)^p : (v2-v3)^p`.
-The resulting visual effect can closely resemble `Linear`, `Max`, or `Max` with antialiasing, depending on the value of `p`.
-* `Dither` uses the same ratio calculation as `TopTwo`, but uses it to randomly select one of the top two terrains. The winner gets all 255 points.
+The resulting visual effect can closely resemble `Linear`, `Max`, or `Max` with antialiasing, depending on the value of `p`. Example:
+
+![alpha-top-top](./images/alpha-top-two.png)
+* `Dither` uses the same ratio calculation as `TopTwo`, but uses it to randomly select one of the top two terrains. The winner gets all 255 points. Example:
+
+![alpha-dither](./images/alpha-dither.png)
