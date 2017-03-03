@@ -172,6 +172,7 @@ user-specified horizontal module groups are replaced with a constant value of 0 
 User-specified vertical module groups are similarly replaced when the corner is on the bottom.
 
 The corner combiner group uses 3 major components to combine the central and border module groups:
+
 1. A `CornerCombiner` module, which has value 1 along one of the axes, value -1 along the other axis, and value 0 along diagonals.
 This is used as the control module to blend the horizontal and vertical border module groups into one texture with border compatibility.
 2. A `NormLPQ` module, which has value 0 at the associated corner and value at least 1 at the other three corners.
