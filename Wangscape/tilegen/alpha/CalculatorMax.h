@@ -9,7 +9,7 @@ namespace alpha
 class CalculatorMax : public CalculatorBase
 {
 protected:
-    virtual void updateAlphasAux(const Weights& weights);
+    virtual void updateAlphasAux(const Weights& weights) override;
 };
 
 } // namespace alpha

@@ -18,7 +18,7 @@ class CalculatorTopTwo :
 public:
     double power = 1.;
 protected:
-    virtual void updateAlphasAux(const Weights& weights);
+    virtual void updateAlphasAux(const Weights& weights) override;
 private:
     typedef std::pair<double, size_t> IndexedWeight;
     std::vector<IndexedWeight> mIndexedWeights;
