@@ -185,6 +185,53 @@ and fade noisily along the two incident borders.
 3. Another `NormLPQ` module, which is scaled and clamped to have value -1 at the centre of the tile and value 1 near to all the borders.
 This is used as the control module to blend the central module group with the combined and faded border modules, without allowing reseeded central module groups to affect border compatibility.
 
+#### Example
+
+This example will illustrate with diagrams how noise values are calculated for a bottom left corner. Blue pixels represent positive values, red values represent negative values, and black represents 0.
+
+0. Central module group:
+
+  ![combiner_INPUT_C](./images/combiner_INPUT_C.png)
+0. Horizontal module group:
+
+  ![combiner_INPUT_H](./images/combiner_INPUT_H.png)
+0. Horizontal module group (2), translated by `(0,-1,0)` because the corner is on the bottom. Note how the bottom border of this image matches the top border of the untranslated horizontal module group:
+
+  ![combiner_border_horizontal_qs](./images/combiner_border_horizontal_qs.png)
+0. Vertical module group (replaced by `Const` 0 because the corner is on the bottom):
+
+  ![combiner_INPUT_V](./images/combiner_INPUT_V.png)
+0. Corner combiner module (translated and clamped):
+
+  ![combiner_corner_combiner_ctqs](./images/combiner_corner_combiner_ctqs)
+0. Blend of vertical border module (4) and translated horizontal border module (3), controlled by corner combiner. Note how the left border resembles the vertical border module, and the bottom border resembles the translated horizontal border module. Closer to the diagonal the values are a more even blend:
+
+  ![combiner_border_hv](./images/combiner_border_hv.png)
+0. Distance (using the [L1 metric](https://en.wikipedia.org/wiki/Taxicab_geometry)) between the pixel and the corner. White pixels represent values greater than 1:
+
+  ![combiner_norm_lpq_1_qs](./images/combiner_norm_lpq_1_qs.png)
+0. Pair of modules derived from the corner distance (7), creating an envelope used to fade the blended border modules (6):
+
+  ![combiner_peak_lower_clamped](./images/combiner_peak_lower_clamped.png)
+  ![combiner_peak_upper_clamped](./images/combiner_peak_upper_clamped.png)
+
+0. Blend of the lower and upper bounds of the envelope (8), controlled by the blended border modules (6):
+
+  ![combiner_edges](./images/combiner_edges)
+
+0. Distance (using the [L(1.5) metric](https://en.wikipedia.org/wiki/Lp_space#The_p-norm_in_finite_dimensions)) between the pixel and the tile centre, scaled and clamped to `[-1,1]`:
+
+  ![combiner_edge_favouring_mask](./images/combiner_edge_favouring_mask.png)
+
+0. Blend of the central module group (1) and the enveloped border modules (9), controlled by the distance from the centre (10).
+
+  ![combiner_corner](./images/combiner_corner.png)
+
+0. Module 11, scaled and clamped to `[0,1]`:
+
+  ![combiner_corner_c](./images/combiner_corner_c.png)
+
+
 ### Alpha calculation
 
 Wangscape has a few different methods available to convert noise values into corner mask (alpha) values.
