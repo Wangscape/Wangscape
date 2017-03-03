@@ -15,12 +15,13 @@ Understanding them may help you to configure Wangscape to make the tilesets you 
 
 Wangscape's input is:
 * A set of image files containing your source terrain tiles.
-* A set of configurations files describing the locations of the source terrain tiles and how to combine them into tilesets. This includes:
+* A set of configuration files describing the locations of the source terrain tiles and how to combine them into tilesets. The exact format is specified in the [options schema](./schemas/options_schema.json), and includes:
   * The resolution (in pixels) of tiles used.
   * The image file and offset within the image of each terrain.
   * A set of terrain cliques (see [Terrain hypergraph](#terrain-hypergraph)).
   * Filenames of noise module groups used for [generating corner masks](#generating-corner-masks).
   * Which method is used to convert noise values into corner masks ([generating corner masks](#generating-corner-masks)).
+* A set of JSON files describing module groups used to [generate noise values](#generating-noise-values).
 
 Wangscape's output is:
 * A set of image files, each one containing a full corner Wang tileset for a subset of the input terrain types,
@@ -139,9 +140,49 @@ such that the above constraints on corner mask values are satisfied.
 
 ### Generating noise values
 
-The generation of noise values is quite delicate, mostly because of the border constraints.
+Noise values are generated using libnoise modules, and a few libnoise-compatible modules defined by Wangscape.
+All modules, and their connections to source modules, are fully customisable by the user.
+This is done using a module group format similar to that specified by [RESTnoise](restnoise.readme.io/).
+The exact format of Wangscape module groups is specified in the [module group schema](./schemas/module_group_schema.json).
+The output noise module is evaluated at regularly spaced points in the square `[0,1]x[0,1]`.
 
-TODO: detailed explanation with diagrams.
+The generation of noise values is quite delicate, mostly because of the border constraints.
+In order to satisfy them while maintaining fully customisability,
+four module groups are combined in order to generate noise values for a corner mask:
+0. A horizontal border module group.
+0. A vertical border module group.
+0. A central module group.
+0. A combiner module group.
+
+The central and border module groups take no input, and should output values between -1 and 1.
+
+The combiner module group uses weighting functions to construct a module with values derived from the other three. It should satisfy the following constraints:
+* Along the horizontal border incident on the associated corner, it fades from 1 to -1, with exact values modulated by the horizontal border module.
+* Along the vertical border incident on the associated corner, it fades from 1 to -1, with exact values modulated by the vertical border module.
+* Along the other two borders, it has value 0.
+* In the centre, it has values primarily influenced by the central module group.
+
+To ensure variety in output tiles, all seedable modules in the central module group are reseeded before each use.
+
+To ensure border compatibility, all seedable modules in the border module groups are reseeded only once, at the start of execution.
+Also, when the corner is at the top of the tile, the horizontal border module group is translated upwards by 1. A similar conditional translation is applied to the vertical border module group.
+
+To ensure that border module group output values are used meaningfully,
+user-specified horizontal module groups are replaced with a constant value of 0 when the corner is on the right.
+User-specified vertical module groups are similarly replaced when the corner is on the bottom.
+
+The corner combiner group uses 3 major components to combine the central and border module groups:
+1. A `CornerCombiner` module, which has value 1 along one of the axes, value -1 along the other axis, and value 0 along diagonals.
+This is used as the control module to blend the horizontal and vertical border module groups into one texture with border compatibility.
+2. A `NormLPQ` module, which has value 0 at the associated corner and value at least 1 at the other three corners.
+This is used as input to two `Curve` modules,
+which together form an envelope with range [1,1] at the associated corner and [-1,-1] at the other corners.
+Near the associated corner the range of the envelope is a subrange of [-1,1].
+This envelope is used to transform the combined border modules into a texture
+which will reliably produce correct alpha values at the corners,
+and fade noisily along the two incident borders.
+3. Another `NormLPQ` module, which is scaled and clamped to have value -1 at the centre of the tile and value 1 near to all the borders.
+This is used as the control module to blend the central module group with the combined and faded border modules, without allowing reseeded central module groups to affect border compatibility.
 
 ### Alpha calculation
 
