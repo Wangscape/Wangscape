@@ -187,4 +187,14 @@ This is used as the control module to blend the central module group with the co
 
 ### Alpha calculation
 
-TODO: Description of existing alpha calculators.
+Wangscape has a few different methods available to convert noise values into corner mask (alpha) values.
+
+* `Max` assigns all 255 points to the terrain with the highest noise value.
+* `Linear` tries to split the 255 points between all four terrains in a ratio as close as possible to the noise values.
+For this to work, all the noise values should be positive.
+Using this alpha calculator is very prone to error, reflected in black pixels in the output tiles.
+* `TopTwo` splits the 255 points between the two terrains with the highest noise values.
+The third highest noise value is used as a baseline, and the ratio is raised to a user-specified power before application,
+so the resulting formula is `(v1-v3)^p : (v2-v3)^p`.
+The resulting visual effect can closely resemble `Linear`, `Max`, or `Max` with antialiasing, depending on the value of `p`.
+* `Dither` uses the same ratio calculation as `TopTwo`, but uses it to randomly select one of the top two terrains. The winner gets all 255 points.
