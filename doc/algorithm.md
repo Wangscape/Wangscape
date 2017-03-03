@@ -203,7 +203,7 @@ This example will illustrate with diagrams how noise values are calculated for a
   ![combiner_INPUT_V](./images/combiner_INPUT_V.png)
 0. Corner combiner module (translated and clamped):
 
-  ![combiner_corner_combiner_ctqs](./images/combiner_corner_combiner_ctqs)
+  ![combiner_corner_combiner_ctqs](./images/combiner_corner_combiner_ctqs.png)
 0. Blend of vertical border module (4) and translated horizontal border module (3), controlled by corner combiner. Note how the left border resembles the vertical border module, and the bottom border resembles the translated horizontal border module. Closer to the diagonal the values are a more even blend:
 
   ![combiner_border_hv](./images/combiner_border_hv.png)
@@ -217,7 +217,7 @@ This example will illustrate with diagrams how noise values are calculated for a
 
 0. Blend of the lower and upper bounds of the envelope (8), controlled by the blended border modules (6):
 
-  ![combiner_edges](./images/combiner_edges)
+  ![combiner_edges](./images/combiner_edges.png)
 
 0. Distance (using the [L(1.5) metric](https://en.wikipedia.org/wiki/Lp_space#The_p-norm_in_finite_dimensions)) between the pixel and the tile centre, scaled and clamped to `[-1,1]`:
 
