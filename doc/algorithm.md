@@ -96,7 +96,7 @@ Make sure your hypergraph, where appropriate.
 If your hypergraph is (for instance) `[["a","b"],["c","d"]]`,
 then it will be impossible for terrains `a` and `b` to be on the same map as terrains `c` and `d`.
 
-If have a set of `N` terrains in which all combinations must be allowed,
+If you have a set of `N` terrains in which all combinations must be allowed,
 you have a few different options:
 * Put them all in one clique. This will generate the smallest number of tiles,
 but the largest texture size.
