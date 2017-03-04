@@ -660,8 +660,7 @@ TYPED_TEST(TestModuleDecode, TestModuleDecode)
                 << e.what();
             throw;
         }
-        this->compareModules(*exampleModules[i].module, *decoded_module->module);
-        this->compareSources(exampleSources[i], decoded_sources);
-        
+        this->compareModules(*this->exampleModules[i].module, *decoded_module->module);
+        this->compareSources(this->exampleSources[i], decoded_sources);
     }
 }

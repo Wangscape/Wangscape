@@ -174,6 +174,7 @@
     <ClInclude Include="metaoutput\Tileset.h" />
     <ClInclude Include="noise\codecs\EncodedModuleGroupCodec.h" />
     <ClInclude Include="noise\ModuleGroup.h" />
+    <ClInclude Include="noise\ModuleGroupContainer.h" />
     <ClInclude Include="noise\ModuleID.h" />
     <ClInclude Include="noise\module\codecs\AbsWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\AddWrapperCodec.h" />
@@ -233,6 +234,7 @@
     <ClInclude Include="noise\RasterImage.h" />
     <ClInclude Include="noise\RasterValues.h" />
     <ClInclude Include="noise\WangscapeNoise.h" />
+    <ClInclude Include="OptionsPaths.h" />
     <ClInclude Include="TerrainModuleGroupLocation.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="OptionsManager.h" />
@@ -261,6 +263,7 @@
     <ClCompile Include="metaoutput\TileLocation.cpp" />
     <ClCompile Include="metaoutput\Tileset.cpp" />
     <ClCompile Include="noise\ModuleGroup.cpp" />
+    <ClCompile Include="noise\ModuleGroupContainer.cpp" />
     <ClCompile Include="noise\module\codecs\AbsWrapperCodec.cpp" />
     <ClCompile Include="noise\module\codecs\AddWrapperCodec.cpp" />
     <ClCompile Include="noise\module\codecs\BillowWrapperCodec.cpp" />
@@ -309,6 +312,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="OptionsManager.cpp" />
     <ClCompile Include="noise\module\QuadrantSelector.cpp" />
+    <ClCompile Include="OptionsPaths.cpp" />
     <ClCompile Include="TerrainImages.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorBase.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorLinear.cpp" />

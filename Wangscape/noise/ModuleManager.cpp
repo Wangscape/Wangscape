@@ -1,71 +1,45 @@
 #include "ModuleManager.h"
 #include <random>
 #include <time.h>
-#include <algorithm>
-
-#include <fstream>
-#include <iostream>
 
 #include <boost/filesystem.hpp>
 
-#include "EncodedModuleGroup.h"
-#include "codecs/EncodedModuleGroupCodec.h"
+#include "ModuleGroup.h"
 
 namespace noise {
 
 ModuleManager::ModuleManager(const Options & options) :
-    mRNG((unsigned int)time(nullptr))
+    mRNG((unsigned int)time(nullptr)),
+    mCentres("centre"),
+    mLeftBorders("horizontal border"),
+    mTopBorders("vertical border")
 {
     mBottomRightBorder = ModuleGroup::makeConstModuleGroup(0.0);
 
-    boost::filesystem::path p(options.directory);
+    boost::filesystem::path p(options.paths.directory);
 
-    p /= options.combinerModuleGroup;
-    mCombiner = loadModuleGroup(p.string());
-    p.remove_filename();
+    mCombiner = loadModuleGroup((p / options.combinerModuleGroup).string());
 
     for (auto it : options.centralModuleGroups)
     {
-        p /= it.filename;
-        auto inserted = mCentres.insert({it.terrain, loadModuleGroup(p.string())});
-        p.remove_filename();
-
-        if (!inserted.second)
-            throw std::runtime_error("Tried to load two central module groups with the same terrain");
+        mCentres.addSpecificModuleGroup(it.terrain, (p / it.filename).string());
     }
     for (auto it : options.leftBorderModuleGroups)
     {
-        p /= it.filename;
-        auto inserted = mLeftBorders.insert({it.terrains, loadModuleGroup(p.string())});
-        p.remove_filename();
-
-        if (!inserted.second)
-            throw std::runtime_error("Tried to load two left border module groups with the same terrain pair");
-        inserted.first->second->setSeeds(mRNG());
+        mLeftBorders.addSpecificModuleGroup(it.terrains, (p / it.filename).string());
     }
     for (auto it : options.topBorderModuleGroups)
     {
-        p /= it.filename;
-        auto inserted = mTopBorders.insert({it.terrains, loadModuleGroup(p.string())});
-        p.remove_filename();
-
-        if (!inserted.second)
-            throw std::runtime_error("Tried to load two top border module groups with the same terrain pair");
-        inserted.first->second->setSeeds(mRNG());
+        mTopBorders.addSpecificModuleGroup(it.terrains, (p / it.filename).string());
     }
+    boost::optional<std::string> default_module_filename;
     if (options.defaultModuleGroup)
     {
-        p /= options.defaultModuleGroup.get();
+        default_module_filename = (p / options.defaultModuleGroup.get()).string();
     }
     for (const auto& terrain : options.terrains)
     {
-        if (mCentres.find(terrain.first) == mCentres.cend())
-        {
-            if (options.defaultModuleGroup)
-                mCentres.insert({terrain.first, loadModuleGroup(p.string())});
-            else
-                throw std::runtime_error("Missing central module group, and no default module group");
-        }
+        mCentres.tryAddDefaultModuleGroup(terrain.first, default_module_filename);
     }
     for (const auto& clique : options.cliques)
     {
@@ -74,26 +48,9 @@ ModuleManager::ModuleManager(const Options & options) :
             for (const auto& t2 : clique)
             {
                 TerrainIDPair tp{t1, t2};
-                if (mLeftBorders.find(tp) == mLeftBorders.end())
-                {
-                    if (options.defaultModuleGroup)
-                    {
-                        auto inserted = mLeftBorders.insert({tp, loadModuleGroup(p.string())});
-                        inserted.first->second->setSeeds(mRNG());
-                    }
-                    else
-                        throw std::runtime_error("Missing left border module group, and no default module group");
-                }
-                if (mTopBorders.find(tp) == mTopBorders.end())
-                {
-                    if (options.defaultModuleGroup)
-                    {
-                        auto inserted = mTopBorders.insert({tp, loadModuleGroup(p.string())});
-                        inserted.first->second->setSeeds(mRNG());
-                    }
-                    else
-                        throw std::runtime_error("Missing top border module group, and no default module group");
-                }
+
+                mLeftBorders.tryAddDefaultModuleGroup(tp, default_module_filename);
+                mTopBorders.tryAddDefaultModuleGroup(tp, default_module_filename);
             }
     }
     
@@ -101,12 +58,12 @@ ModuleManager::ModuleManager(const Options & options) :
 
 ModuleGroup& ModuleManager::getTopBorder(TerrainID top, TerrainID bottom)
 {
-    return *mTopBorders.at({top, bottom});
+    return mTopBorders.at({top, bottom});
 }
 
 ModuleGroup& ModuleManager::getLeftBorder(TerrainID left, TerrainID right)
 {
-    return *mLeftBorders.at({left, right});
+    return mLeftBorders.at({left, right});
 }
 
 ModuleGroup & ModuleManager::getBottomRightBorder()
@@ -116,7 +73,7 @@ ModuleGroup & ModuleManager::getBottomRightBorder()
 
 ModuleGroup& ModuleManager::getCentral(TerrainID terrain)
 {
-    ModuleGroup& r = *mCentres.at(terrain);
+    ModuleGroup& r = mCentres.at(terrain);
     r.setSeeds(mRNG());
     return r;
 }
@@ -124,33 +81,6 @@ ModuleGroup& ModuleManager::getCentral(TerrainID terrain)
 ModuleGroup& ModuleManager::getCombiner()
 {
     return *mCombiner;
-}
-
-std::shared_ptr<ModuleGroup> loadModuleGroup(std::string filename)
-{
-    std::ifstream ifs(filename);
-    if (!ifs.good())
-    {
-        throw std::runtime_error("Could not open options file");
-    }
-
-    std::string str{std::istreambuf_iterator<char>(ifs),
-        std::istreambuf_iterator<char>()};
-    EncodedModuleGroup encoded_module_group;
-    try
-    {
-        encoded_module_group = spotify::json::decode<EncodedModuleGroup>(str.c_str());
-    }
-    catch (const spotify::json::decode_exception& e)
-    {
-        std::cout << "spotify::json::decode_exception encountered at "
-            << e.offset()
-            << ": "
-            << e.what();
-        throw;
-    }
-    encoded_module_group.decode();
-    return encoded_module_group.moduleGroup;
 }
 
 } // namespace noise

@@ -4,6 +4,7 @@
 #include "tilegen/alpha/CalculatorMax.h"
 #include "tilegen/alpha/CalculatorLinear.h"
 #include "noise/RasterImage.h"
+#include "noise/ModuleGroup.h"
 
 #include <iostream>
 

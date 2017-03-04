@@ -1,5 +1,3 @@
-#pragma once
-
 #include "AbsWrapperCodec.h"
 
 namespace spotify

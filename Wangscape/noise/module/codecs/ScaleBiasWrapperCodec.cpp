@@ -1,5 +1,3 @@
-#pragma once
-
 #include "ScaleBiasWrapperCodec.h"
 
 namespace spotify

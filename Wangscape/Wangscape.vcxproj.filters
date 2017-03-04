@@ -64,6 +64,8 @@
     <ClCompile Include="noise\module\codecs\VoronoiWrapperCodec.cpp" />
     <ClCompile Include="noise\module\codecs\AddWrapperCodec.cpp" />
     <ClCompile Include="noise\module\codecs\ScalePointWrapperCodec.cpp" />
+    <ClCompile Include="noise\ModuleGroupContainer.cpp" />
+    <ClCompile Include="OptionsPaths.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codecs\OptionsCodec.h" />
@@ -166,6 +168,8 @@
     <ClInclude Include="noise\module\WangscapeModules.h" />
     <ClInclude Include="noise\WangscapeNoise.h" />
     <ClInclude Include="noise\WangscapeNoiseCodecs.h" />
+    <ClInclude Include="noise\ModuleGroupContainer.h" />
+    <ClInclude Include="OptionsPaths.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

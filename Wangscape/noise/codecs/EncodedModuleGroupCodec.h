@@ -3,6 +3,7 @@
 #include <spotify/json.hpp>
 
 #include "noise/EncodedModuleGroup.h"
+#include "noise/ModuleGroup.h"
 
 namespace spotify
 {

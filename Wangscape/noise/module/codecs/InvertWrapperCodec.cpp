@@ -1,5 +1,3 @@
-#pragma once
-
 #include "InvertWrapperCodec.h"
 
 namespace spotify
