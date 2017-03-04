@@ -164,7 +164,7 @@ TEST_F(TestCartesianPower, TestCartesianPowerSize2D)
 {
     std::pair<size_t, size_t> size{45, 36};
     EXPECT_EQ(size, cp.size2D({5, 4}));
-    size = {45, 15};
+    size = {45, 12};
     EXPECT_EQ(size, tilegen::CartesianPower<Iterator>(base, 3).size2D({5, 4}));
 }
 
