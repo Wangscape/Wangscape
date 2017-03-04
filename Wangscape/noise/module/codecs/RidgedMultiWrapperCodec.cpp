@@ -1,5 +1,3 @@
-#pragma once
-
 #include "RidgedMultiWrapperCodec.h"
 
 namespace spotify

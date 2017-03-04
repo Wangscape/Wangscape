@@ -1,5 +1,3 @@
-#pragma once
-
 #include "RotatePointWrapperCodec.h"
 
 namespace spotify

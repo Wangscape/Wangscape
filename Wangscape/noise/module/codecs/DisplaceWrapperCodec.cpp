@@ -1,5 +1,3 @@
-#pragma once
-
 #include "DisplaceWrapperCodec.h"
 
 namespace spotify

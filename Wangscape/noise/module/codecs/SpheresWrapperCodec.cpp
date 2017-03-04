@@ -1,5 +1,3 @@
-#pragma once
-
 #include "SpheresWrapperCodec.h"
 
 namespace spotify

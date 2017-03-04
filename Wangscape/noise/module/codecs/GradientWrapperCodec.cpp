@@ -1,5 +1,3 @@
-#pragma once
-
 #include "GradientWrapperCodec.h"
 
 namespace spotify

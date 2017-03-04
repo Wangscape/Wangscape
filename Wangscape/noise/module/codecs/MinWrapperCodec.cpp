@@ -1,5 +1,3 @@
-#pragma once
-
 #include "MinWrapperCodec.h"
 
 namespace spotify

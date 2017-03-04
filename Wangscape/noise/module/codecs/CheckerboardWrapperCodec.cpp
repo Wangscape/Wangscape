@@ -1,5 +1,3 @@
-#pragma once
-
 #include "CheckerboardWrapperCodec.h"
 
 namespace spotify

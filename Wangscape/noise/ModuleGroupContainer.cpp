@@ -19,7 +19,7 @@ ModuleGroupContainer<T>::ModuleGroupContainer(std::string module_group_descripti
 template<typename T>
 void ModuleGroupContainer<T>::addSpecificModuleGroup(T key, std::string filename)
 {
-    auto inserted = mModuleGroups.insert(ModuleGroups::value_type(key, loadModuleGroup(filename)));
+    auto inserted = mModuleGroups.insert(typename ModuleGroups::value_type(key, loadModuleGroup(filename)));
     if (!inserted.second)
         throw std::runtime_error("Tried to load two " + mModuleGroupDescription + " module groups with the same terrain");
 }
@@ -30,7 +30,7 @@ void ModuleGroupContainer<T>::tryAddDefaultModuleGroup(T key, boost::optional<st
     if (mModuleGroups.find(key) == mModuleGroups.cend())
     {
         if (filename)
-            mModuleGroups.insert(ModuleGroups::value_type(key, loadModuleGroup(filename.get())));
+            mModuleGroups.insert(typename ModuleGroups::value_type(key, loadModuleGroup(filename.get())));
         else
             throw std::runtime_error("Missing " + mModuleGroupDescription + " module group, and no default module group");
     }

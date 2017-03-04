@@ -1,5 +1,3 @@
-#pragma once
-
 #include "CacheWrapperCodec.h"
 
 namespace spotify
