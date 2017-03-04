@@ -12,14 +12,15 @@ class TestIPow : public ::testing::Test
 public:
     typedef typename std::tuple_element<0, T>::type IBase;
     typedef typename std::tuple_element<1, T>::type IExp;
+    typedef std::tuple<IBase, IExp, IBase> Example;
     const static bool UseBitshift = std::tuple_element<2, T>::type::value;
 
     std::vector<IBase> basesPositive;
     std::vector<IBase> basesNegative;
     std::vector<IExp> expsPositive;
     std::vector<IExp> expsNegative;
-    std::vector<std::tuple<IBase, IExp, IBase>> examplesPositive;
-    std::vector<std::tuple<IBase, IExp, IBase>> examplesNegative;
+    std::vector<Example> examplesPositive;
+    std::vector<Example> examplesNegative;
     const IBase baseZero = 0;
     const IBase baseOne = 1;
     const IBase baseTwo = 2;
@@ -49,18 +50,18 @@ public:
         });
 
         examplesPositive = {
-            {2, 2, 4},
-            {2, 3, 8},
-            {3, 2, 9},
-            {3, 3, 27}
+            Example{2, 2, 4},
+            Example{2, 3, 8},
+            Example{3, 2, 9},
+            Example{3, 3, 27}
         };
         cpp::static_if<std::is_signed<IBase>::value>(
         [&](auto) {
             examplesNegative = {
-                {-2, 2, 4},
-                {-2, 3, -8},
-                {-3, 2, 9},
-                {-3, 3, -27}
+                Example{-2, 2, 4},
+                Example{-2, 3, -8},
+                Example{-3, 2, 9},
+                Example{-3, 3, -27}
         };
         });
     }
