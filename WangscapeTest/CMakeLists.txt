@@ -1,5 +1,6 @@
 set(tst-src
     main.cpp
+    TestCalculatorTopTwo.cpp
     removeWhitespace.cpp
     DocumentationPath.cpp
     TestCartesianPower.cpp

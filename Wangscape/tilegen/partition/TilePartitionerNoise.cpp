@@ -3,6 +3,7 @@
 #include "noise/module/Pow.h"
 #include "tilegen/alpha/CalculatorMax.h"
 #include "tilegen/alpha/CalculatorLinear.h"
+#include "tilegen/alpha/CalculatorTopTwo.h"
 #include "noise/RasterImage.h"
 #include "noise/ModuleGroup.h"
 
@@ -86,13 +87,21 @@ void TilePartitionerNoise::noiseToAlpha(std::vector<noise::RasterValues<double>>
 {
     std::vector<double> weights((int)CORNERS);
     std::unique_ptr<alpha::CalculatorBase> ac;
-    switch (mOptions.CalculatorMode)
+    switch (mOptions.calculatorMode)
     {
     case alpha::CalculatorMode::Max:
         ac = std::make_unique<alpha::CalculatorMax>();
         break;
     case alpha::CalculatorMode::Linear:
         ac = std::make_unique<alpha::CalculatorLinear>();
+        break;
+    case alpha::CalculatorMode::TopTwo:
+    {
+        auto ac_top_two = std::make_unique<alpha::CalculatorTopTwo>();
+        if (mOptions.alphaCalculatorTopTwoPower)
+            ac_top_two->power = mOptions.alphaCalculatorTopTwoPower.get();
+        ac = std::move(ac_top_two);
+    }
         break;
     default:
         throw std::runtime_error("Invalid CalculatorMode");

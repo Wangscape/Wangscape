@@ -157,9 +157,15 @@
       "description": "Specifies which type of AlphaCalculator should be used to convert corner weights into alpha values.",
       "enum": [
         "Max",
-        "Linear"
+        "Linear",
+        "TopTwo"
       ]
     },
+    "AlphaCalculatorTopTwoPower": {
+      "type": "number",
+      "title": "AlphaCalculatorTopTwoPower schema",
+      "description": "Specifies an exponent to which noise values should be raised before applying TopTwo or related alpha calculators."
+    }
     "DefaultModuleGroup": {
       "type": "string",
       "title": "DefaultModuleGroup schema",

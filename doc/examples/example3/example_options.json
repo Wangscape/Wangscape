@@ -44,7 +44,8 @@
       "g"
     ]
   ],
-  "AlphaCalculatorMode":"Linear",
+  "AlphaCalculatorMode":"TopTwo",
+  "AlphaCalculatorTopTwoPower":8,
   "DefaultModuleGroup":"default_module_group.json",
   "HorizontalBorderModuleGroups": [
     {

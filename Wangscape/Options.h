@@ -27,7 +27,8 @@ public:
     metaoutput::Filenames outputFilenames;
     TerrainSpecMap terrains;
     CliqueList cliques;
-    tilegen::alpha::CalculatorMode CalculatorMode;
+    boost::optional<double> alphaCalculatorTopTwoPower;
+    tilegen::alpha::CalculatorMode calculatorMode;
     std::string combinerModuleGroup;
     boost::optional<std::string> defaultModuleGroup;
     std::vector<TerrainModuleGroupLocation> centralModuleGroups;
