@@ -1,0 +1,5 @@
+{
+  "type" : "QuadrantSelector",
+  "SourceModule" : [ "mySourceModule" ],
+  "TranslateIgnored" : [ false, false, true ]
+}

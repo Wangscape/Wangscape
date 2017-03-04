@@ -3,16 +3,16 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <LibraryPath>C:\libs\libnoise\libnoisedll-1.0.0\bin;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\libs\libnoise\libnoiseheaders-1.0.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Serin\Documents\Visual Studio 2015\Projects\Wangscape\lib\libnoise\build\src\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\Serin\Documents\Visual Studio 2015\Projects\Wangscape\lib\libnoise\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile />
     <Link>
-      <AdditionalDependencies>libnoise.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>noise.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d "C:\libs\libnoise\libnoisedll-1.0.0\bin\libnoise.dll" "$(TargetDir)"</Command>
+      <Command>xcopy /y /d "$(SolutionDir)lib\libnoise\build\src\$(Configuration)\noise.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copy libnoise dll to output dir</Message>

@@ -3,6 +3,11 @@
 #include <stdexcept>
 #include <static_if.hpp>
 
+/* note: because of some nasty bug in gcc 6.3.1 we have to use explicit capture
+ * list in lambdas in this file (and others using cpp::static_if)
+ *
+ * DO NOT REPLACE them with [&] */
+
 namespace
 {
 
@@ -86,7 +91,7 @@ IBase ipow(IBase base, IExp exp)
     bool stop = false;
     IBase result;
 
-    cpp::static_if<std::is_signed<IBase>::value>([&](auto)
+    cpp::static_if<std::is_signed<IBase>::value>([&base, &base_one, &exp, &exp_two, &stop, &result](auto)
     {
         if (base == -base_one)
         {
@@ -97,7 +102,7 @@ IBase ipow(IBase base, IExp exp)
     if (stop)
         return result;
 
-    cpp::static_if<std::is_signed<IExp>::value>([&](auto)
+    cpp::static_if<std::is_signed<IExp>::value>([&exp, &exp_zero](auto)
     {
         if(exp < exp_zero)
             throw std::domain_error("Integer pow() with exp < 0 and |base| != 1");
@@ -106,7 +111,7 @@ IBase ipow(IBase base, IExp exp)
     if (base == base_zero)
         return base_zero;
 
-    cpp::static_if<std::is_signed<IBase>::value>([&](auto)
+    cpp::static_if<std::is_signed<IBase>::value>([&base, &base_one, &base_two, &exp, &exp_two, &exp_digits, &result, &stop](auto)
     {
         if (exp > exp_digits)
             throw std::range_error("Integer pow() with exp > digits and |base| > 1");
@@ -114,11 +119,11 @@ IBase ipow(IBase base, IExp exp)
         {
             stop = true;
             cpp::static_if<UseBitshift>
-            ([&](auto) {
+            ([base_one, exp, exp_two, &result](auto) {
                 result = ((exp % exp_two) ? -base_one : base_one) << exp;
             })
             .else_
-            ([&](auto) {
+            ([&base, &exp, &result](auto) {
                 result = ipow_imp(base, exp);
             });
         }

@@ -1,16 +1,18 @@
 set(tst-src
     main.cpp
-    OptionsFilename.cpp
+    TestCalculatorTopTwo.cpp
+    removeWhitespace.cpp
+    DocumentationPath.cpp
+    TestCartesianPower.cpp
+    TestCoordinatePacker.cpp
     TestCornerCombiner.cpp
-    TestEdgeFavouringMask.cpp
+    TestEncodedModuleGroup.cpp
+    TestIPow.cpp
     TestMetaOutput.cpp
-    TestModuleGroup.cpp
-    TestMovingScaleBias.cpp
-    TestOptions.cpp
+    TestModuleDecode.cpp
     TestNormLPQ.cpp
+    TestOptions.cpp
     TestRequiringOptions.cpp
-    TestReseedable.cpp
-    TestTileGenerationPlan.cpp
     TestTilePartitionerGradient.cpp
     TestTilePartitionerSquares.cpp
     TestTilesetGenerator.cpp)

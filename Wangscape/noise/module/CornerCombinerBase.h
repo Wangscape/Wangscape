@@ -4,6 +4,8 @@ namespace noise
 {
 namespace module
 {
+// Default power for the noise::module::CornerCombinerBase module.
+const static double DEFAULT_CORNER_COMBINER_POWER = 1.;
 
 // Noise module that outputs a radial pattern.
 //
@@ -27,14 +29,17 @@ namespace module
 class CornerCombinerBase : public Module
 {
 public:
-    CornerCombinerBase(double power_ = 1.);
+    CornerCombinerBase();
     virtual int GetSourceModuleCount() const
     {
         return 0;
     }
+    double GetPower() const;
+    void SetPower(double power);
 
     virtual double GetValue(double x, double y, double z) const;
-    double power;
+private:
+    double mPower;
 };
 
 } // namespace module

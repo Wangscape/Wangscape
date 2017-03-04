@@ -7,11 +7,10 @@ namespace noise
 namespace module
 {
 
-
-NormLPQ::NormLPQ(double p, double q):
+NormLPQ::NormLPQ():
     Module(GetSourceModuleCount())
 {
-    setPQ(p, q);
+    SetPQ(DEFAULT_NORM_LP_Q_P, DEFAULT_NORM_LP_Q_Q);
 }
 
 double NormLPQ::GetValue(double x, double y, double z) const
@@ -23,15 +22,38 @@ double NormLPQ::GetValue(double x, double y, double z) const
     return pow(dp, mQP);
 }
 
-void NormLPQ::setPQ(double p, double q)
+void NormLPQ::SetPQ(double p, double q)
 {
     mP = p;
-    setQ(q);
+    mQ = q;
+    updateQP();
 }
 
-void NormLPQ::setQ(double q)
+void NormLPQ::SetQ(double q)
 {
-    mQP = q / mP;
+    mQ = q;
+    updateQP();
+}
+
+void NormLPQ::SetP(double p)
+{
+    mP = p;
+    updateQP();
+}
+
+double NormLPQ::GetP() const
+{
+    return mP;
+}
+
+double NormLPQ::GetQ() const
+{
+    return mQ;
+}
+
+void NormLPQ::updateQP()
+{
+    mQP = mQ / mP;
 }
 
 } // namespace module
