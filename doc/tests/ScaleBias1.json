@@ -1,0 +1,6 @@
+{
+  "type" : "ScaleBias",
+  "SourceModule" : "mySourceModule",
+  "Bias" : -0.75,
+  "Scale" : 1.1
+}

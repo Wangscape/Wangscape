@@ -1,0 +1,37 @@
+{
+  "defaultoutputmodule":"OUTPUT",
+  "inputmodules":["INPUT_1","INPUT_2"],
+  "modules":{
+    "INPUT_1":{
+      "type":"Forward",
+      "SourceModule":[]
+    },
+    "INPUT_2":{
+      "type":"Forward",
+      "SourceModule":[]
+    },
+    "generator_1":{
+      "type":"Perlin"
+    },
+    "generator_2":{
+      "type":"GradientY"
+    },
+    "generator_3":{
+      "type":"GradientZ"
+    },
+    "displace_module":{
+      "type":"Displace",
+      "SourceModule":"INPUT_1",
+      "DisplaceModules":["generator_1", "generator_2", "generator_3"]
+    },
+    "blend_module":{
+      "type":"Blend",
+      "SourceModule":["generator_3", "generator_2"],
+      "ControlModule":"INPUT_2"
+    },
+    "OUTPUT":{
+      "type":"QuadrantSelector",
+      "SourceModule":"displace_module"
+    }
+  }
+}

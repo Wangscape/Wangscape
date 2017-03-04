@@ -37,10 +37,14 @@ RasterImage::Colour RasterImage::get(size_t x, size_t y) const
 
 RasterImage::Colour RasterImage::makeColour(Real value)
 {
-    return Colour(std::min(255, std::max(0, int(-value * 256))),
-                  0,
-                  std::min(255, std::max(0, int(value * 256))),
-                  255);
+    if (value < -1)
+        return Colour(0, 255, 0);
+    else if (value < 0)
+        return Colour(std::min(255, std::max(0, int(-value * 256))), 0, 0);
+    else if (value <= 1)
+        return Colour(0, 0, std::min(255, std::max(0, int(value * 256))));
+    else
+        return Colour(255, 255, 255);
 }
 
 void RasterImage::set(size_t x, size_t y, Real value)
