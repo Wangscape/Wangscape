@@ -30,9 +30,9 @@ void TilePartitionerGradient::makePartition(TilePartition & regions,
     const sf::Vector2u resolution_sub_1 = mOptions.tileFormat.resolution - sf::Vector2u(1,1);
     const sf::Vector2u quarter_res = mOptions.tileFormat.resolution / (unsigned int)4;
     alpha::CalculatorLinear ac;
-    for (size_t x = 0; x < mOptions.tileFormat.resolution.x; x++)
+    for (unsigned int x = 0; x < mOptions.tileFormat.resolution.x; x++)
     {
-        for (size_t y = 0; y < mOptions.tileFormat.resolution.y; y++)
+        for (unsigned int y = 0; y < mOptions.tileFormat.resolution.y; y++)
         {
             weights[0] = static_cast<double>(gradientWeight({x, y}, {0, 0}, quarter_res));
             weights[1] = static_cast<double>(gradientWeight({x, y}, {0, resolution_sub_1.y}, quarter_res));
