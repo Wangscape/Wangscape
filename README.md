@@ -22,6 +22,7 @@ Rather than matching graphical tiles with the representation of logical tiles on
     * These alpha masks are used to combine each corner's terrain texture into a single tile.
 * In future this will be much more customisable, using Perlin noise to generate noisy gradients and boundaries betwen corners.
 * Currently all tile generation is done through a command-line application configured using a JSON file. In the future, this should be migrated to a GUI interface which allows the user to alter tile generation parameters and immediately see the range of possible results.
+* See [algorithm.md](./doc/algorithm.md) for detailed information about the tileset generation process.
 
 # How can I build Wangscape?
 
