@@ -17,3 +17,4 @@ target_include_directories(wangscape-noise PUBLIC ${PROJECT_SOURCE_DIR}/lib/libn
 target_include_directories(wangscape-noise PUBLIC ${PROJECT_SOURCE_DIR}/lib/spotify-json/include)
 target_include_directories(wangscape-noise PUBLIC ${PROJECT_SOURCE_DIR}/lib/spotify-json/vendor/double-conversion)
 target_link_libraries(wangscape-noise noise)
+target_link_libraries(wangscape-noise double-conversion)
