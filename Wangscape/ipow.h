@@ -111,7 +111,7 @@ IBase ipow(IBase base, IExp exp)
     if (base == base_zero)
         return base_zero;
 
-    cpp::static_if<std::is_signed<IBase>::value>([&base, &base_two, &exp, &exp_digits, &result, &stop](auto)
+    cpp::static_if<std::is_signed<IBase>::value>([&base, &base_one, &base_two, &exp, &exp_two, &exp_digits, &result, &stop](auto)
     {
         if (exp > exp_digits)
             throw std::range_error("Integer pow() with exp > digits and |base| > 1");
