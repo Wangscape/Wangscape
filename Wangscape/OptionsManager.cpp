@@ -23,7 +23,7 @@ void OptionsManager::loadOptions(std::string optionsFilename)
     }
 
     std::string str{std::istreambuf_iterator<char>(ifs),
-                    std::istreambuf_iterator<char>()};
+        std::istreambuf_iterator<char>()};
     try
     {
         mOptions = spotify::json::decode<Options>(str.c_str());
@@ -36,18 +36,15 @@ void OptionsManager::loadOptions(std::string optionsFilename)
             << e.what();
         throw;
     }
-    mOptions.filename = optionsFilename;
-
-    createOutputDirectory(optionsFilename);
+    mOptions.paths.initialise(optionsFilename);
+    createOutputDirectory();
 }
 
-void OptionsManager::createOutputDirectory(std::string optionsFilename)
+void OptionsManager::createOutputDirectory()
 {
     // TODO(hryniuk): move it elsewhere
-    auto outputDirectory = mOptions.outputDirectory;
-    boost::filesystem::path p(optionsFilename);
-    p.remove_filename();
-    p.append(outputDirectory);
+    boost::filesystem::path p(mOptions.paths.directory);
+    p.append(mOptions.outputDirectory);
     boost::filesystem::create_directories(p);
     auto relativeOutputDirectory = p.string();
     mOptions.relativeOutputDirectory = relativeOutputDirectory;

@@ -31,6 +31,7 @@ void TerrainImages::addTerrain(TerrainID tid, std::string image_filename, std::s
                                size_t offset_x, size_t offset_y, size_t resolution)
 {
     std::string filename = image_filename;
+    // TODO(serin-delaunay): use mOptions.directory
     boost::filesystem::path p(json_filename);
     p.remove_filename();
     p.append(filename);

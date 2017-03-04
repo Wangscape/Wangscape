@@ -1,0 +1,7 @@
+{
+  "type" : "TranslatePoint",
+  "SourceModule" : "mySourceModule",
+  "XTranslation" : 2.0,
+  "YTranslation" : 3.5,
+  "ZTranslation" : -1.4
+}

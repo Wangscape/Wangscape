@@ -1,8 +1,10 @@
 #include "TestRequiringOptions.h"
-#include "OptionsFilename.h"
+#include "DocumentationPath.h"
+#include <boost/filesystem.hpp>
 
 TestRequiringOptions::TestRequiringOptions() :
-    optionsFilename(getOptionsFilename()),
+    optionsFilename((boost::filesystem::path(getDocumentationPath()) /
+                     "examples" / "example2" / "example_options.json").string()),
     optionsManager(optionsFilename),
     options(optionsManager.getOptions())
 {

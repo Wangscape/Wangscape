@@ -1,0 +1,6 @@
+{
+  "type" : "Blend",
+  "SourceModule" : [ "mySourceModule", 
+                    "myOtherSourceModule" ],
+  "ControlModule" : "myControlModule"
+}

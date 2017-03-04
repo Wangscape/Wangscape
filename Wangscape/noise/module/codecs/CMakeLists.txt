@@ -1,0 +1,42 @@
+set(noise-module-codecs-src
+    ${CMAKE_CURRENT_SOURCE_DIR}/AbsWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/AddWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/BillowWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/BlendWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CacheWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CheckerboardWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ClampWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ConstWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CornerCombinerBaseWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CurveWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CylindersWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DisplaceWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ExponentWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ExpWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ForwardWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/GradientWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/InvertWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/MaxWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/MinWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/MultiplyWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/NormLPQWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/PerlinWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/PowerWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/PowWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/QuadrantSelectorWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/RidgedMultiWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/RotatePointWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ScaleBiasWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ScalePointWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SelectWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SpheresWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/TerraceWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/TranslatePointWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/TurbulenceWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/VoronoiWrapperCodec.cpp)
+
+set(noise-module-src
+    ${noise-module-src}
+    ${noise-module-codecs-src}
+    PARENT_SCOPE
+)

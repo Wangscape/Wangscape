@@ -1,0 +1,7 @@
+{
+  "type" : "Displace",
+  "SourceModule" : "mySourceModule",
+  "XDisplaceModule" : "mySourceModuleX", 
+  "YDisplaceModule" : "mySourceModuleY", 
+  "ZDisplaceModule" : "mySourceModuleZ"
+}

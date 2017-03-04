@@ -1,0 +1,7 @@
+{
+    "type" : "Voronoi",
+    "Seed" : 123,
+    "Frequency" : 2.2,
+    "Displacement" : 0.5,
+    "EnableDistance" : true
+}

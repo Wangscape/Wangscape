@@ -1,12 +1,15 @@
 #pragma once
 
 #include <spotify/json.hpp>
+#include <spotify/json/codec/boost.hpp>
 
 #include "Options.h"
 #include "metaoutput/codecs/FilenamesCodec.h"
 #include "TerrainSpecCodec.h"
 #include "TileFormatCodec.h"
 #include "spotify/json/codec/boost.hpp"
+#include "BorderModuleGroupLocationCodec.h"
+#include "TerrainModuleGroupLocationCodec.h"
 
 namespace spotify
 {
@@ -30,6 +33,12 @@ struct default_codec_t<Options>
                            {tilegen::alpha::CalculatorMode::Linear, "Linear"},
                            {tilegen::alpha::CalculatorMode::TopTwo, "TopTwo"}}));
         codec.optional("AlphaCalculatorTopTwoPower", &Options::alphaCalculatorTopTwoPower);
+        codec.required("CombinerModuleGroup", &Options::combinerModuleGroup);
+        codec.optional("DefaultModuleGroup", &Options::defaultModuleGroup);
+        codec.optional("CentralModuleGroups", &Options::centralModuleGroups);
+        codec.optional("HorizontalBorderModuleGroups", &Options::horizontalBorderModuleGroups);
+        codec.optional("VerticalBorderModuleGroups", &Options::verticalBorderModuleGroups);
+        codec.required("DebugOutput", &Options::debugOutput);
         return codec;
     }
 };

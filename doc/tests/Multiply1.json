@@ -1,0 +1,5 @@
+{
+  "type" : "Multiply",
+  "SourceModule" : [ "mySourceModule", 
+                    "myOtherSourceModule" ]
+}
