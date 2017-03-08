@@ -1,0 +1,45 @@
+{
+  "defaultoutputmodule":"OUTPUT",
+  "inputmodules":["INPUT_H","INPUT_V","INPUT_C"],
+  "modules":{
+    "INPUT_H":{
+      "type":"Forward",
+      "SourceModule":[]
+    },
+    "INPUT_V":{
+      "type":"Forward",
+      "SourceModule":[]
+    },
+    "INPUT_C":{
+      "type":"Forward",
+      "SourceModule":[]
+    },
+    "checkerboard":{
+      "type":"Checkerboard"
+    },
+    "xor":{
+      "type":"ScaleBias",
+      "Scale":0.5,
+      "Bias":0.5,
+      "SourceModule":"checkerboard"
+    },
+    "rows":{
+      "type":"ScalePoint",
+      "Scale":[0,1,0],
+      "SourceModule":"xor"
+    },
+    "and":{
+      "type":"Multiply",
+      "SourceModule":["xor", "rows"]
+    },
+    "and_t":{
+      "type": "TranslatePoint",
+      "Translation": [-0.5, 0.5, 0],
+      "SourceModule":"and"
+    },
+    "OUTPUT":{
+      "type":"QuadrantSelector",
+      "SourceModule":["and_t"]
+    }
+  }
+}

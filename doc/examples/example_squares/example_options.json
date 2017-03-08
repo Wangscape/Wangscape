@@ -1,0 +1,37 @@
+{
+  "MetaOutput": {
+    "TileData": "tiles.json",
+    "TileGroups": "tile_groups.json",
+    "TilesetData": "tilesets.json",
+    "TerrainHypergraph": "terrain_hypergraph.json"
+  },
+  "TileFormat": {
+    "Resolution": 32,
+    "FileType": "png"
+  },
+  "OutputDirectory": "output",
+  "Terrains": {
+    "g": {
+      "FullName": "grass",
+      "FileName": "grass.png",
+      "OffsetX": 0,
+      "OffsetY": 0
+    },
+    "s": {
+      "FullName": "sea",
+      "FileName": "sea.png",
+      "OffsetX": 0,
+      "OffsetY": 0
+    }
+  },
+  "Cliques": [
+    [
+      "g",
+      "s"
+    ]
+  ],
+  "AlphaCalculatorMode":"Max",
+  "DefaultModuleGroup": "default_module_group.json",
+  "CombinerModuleGroup":"combiner_module_group.json",
+  "DebugOutput":true
+}
