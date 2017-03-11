@@ -8,6 +8,7 @@
 #include <set>
 #include <vector>
 #include <unordered_map>
+#include <SFML/System/Vector2.hpp>
 
 namespace metaoutput
 {
@@ -23,9 +24,9 @@ public:
     
     void addTile(std::vector<TerrainID> corners,
                  std::string filename, size_t offset_x, size_t offset_y);
-    void addTileset(std::vector<TerrainID> terrains,
+    void addTileset(TerrainSet terrains,
                     std::string filename, size_t size_x, size_t size_y);
-    void setResolution(size_t resolution);
+    void setResolution(sf::Vector2u resolution);
     void writeTileData(std::string filename) const;
     void writeTileGroups(std::string filename) const;
     void writeTilesetData(std::string filename) const;
@@ -41,7 +42,7 @@ protected:
     TileGroups mTileGroups;
     TerrainHypergraph mTerrainHypergraph;
 private:
-    size_t mResolution;
+    sf::Vector2u mResolution;
 };
 
 } // namespace metaoutput

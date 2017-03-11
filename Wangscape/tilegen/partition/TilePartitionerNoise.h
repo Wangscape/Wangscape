@@ -21,7 +21,7 @@ public:
     noise::module::ModulePtr makeCornerModule(const Corners & corners, bool left, bool top);
     void noiseToAlpha(std::vector<noise::RasterValues<double>>& noise_values,
                       std::vector<sf::Image>& outputs,
-                      size_t resolution) const;
+                      sf::Vector2u resolution) const;
 private:
     noise::ModuleManager mNoiseModuleManager;
     bool mDebugOutput;

@@ -6,7 +6,7 @@
     "TerrainHypergraph": "terrain_hypergraph.json"
   },
   "TileFormat": {
-    "Resolution": 32,
+    "Resolution": [32,32],
     "FileType": "png"
   },
   "OutputDirectory": "output",

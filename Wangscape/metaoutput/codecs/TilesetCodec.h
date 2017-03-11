@@ -3,6 +3,7 @@
 #include <spotify/json.hpp>
 
 #include "metaoutput/Tileset.h"
+#include "codecs/Vector2Codec.h"
 
 namespace spotify
 {

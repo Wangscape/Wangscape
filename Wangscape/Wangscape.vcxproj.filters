@@ -172,6 +172,7 @@
     <ClInclude Include="noise\WangscapeNoiseCodecs.h" />
     <ClInclude Include="noise\ModuleGroupContainer.h" />
     <ClInclude Include="OptionsPaths.h" />
+    <ClInclude Include="codecs\Vector2Codec.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

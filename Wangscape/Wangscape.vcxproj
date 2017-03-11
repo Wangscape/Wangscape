@@ -154,6 +154,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="codecs\Vector2Codec.h" />
     <ClInclude Include="tilegen\alpha\CalculatorTopTwo.h" />
     <ClInclude Include="BorderModuleGroupLocation.h" />
     <ClInclude Include="codecs\BorderModuleGroupLocationCodec.h" />

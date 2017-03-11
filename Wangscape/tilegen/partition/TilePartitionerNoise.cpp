@@ -88,8 +88,8 @@ noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& c
 }
 
 void TilePartitionerNoise::noiseToAlpha(std::vector<noise::RasterValues<double>>& noise_values,
-                                         std::vector<sf::Image>& outputs,
-                                         size_t resolution) const
+                                        std::vector<sf::Image>& outputs,
+                                        sf::Vector2u resolution) const
 {
     std::vector<double> weights((int)CORNERS);
     std::unique_ptr<alpha::CalculatorBase> ac;
@@ -112,9 +112,9 @@ void TilePartitionerNoise::noiseToAlpha(std::vector<noise::RasterValues<double>>
     default:
         throw std::runtime_error("Invalid CalculatorMode");
     }
-    for (size_t x = 0; x < resolution; x++)
+    for (size_t x = 0; x < resolution.x; x++)
     {
-        for (size_t y = 0; y < resolution; y++)
+        for (size_t y = 0; y < resolution.y; y++)
         {
             for (int i = 0; i < (int)CORNERS; i++)
             {
@@ -137,8 +137,8 @@ void TilePartitionerNoise::makePartition(TilePartition & regions, const Corners&
     std::vector<noise::RasterValues<double>> noise_values;
     for (int i = 0; i < (int)CORNERS; i++)
     {
-        noise_values.emplace_back(mOptions.tileFormat.resolution,
-                          mOptions.tileFormat.resolution,
+        noise_values.emplace_back(mOptions.tileFormat.resolution.x,
+                          mOptions.tileFormat.resolution.y,
                           sf::Rect<double>{0, 0, 1, 1});
     }
     // Construct noise modules and render them.
@@ -155,7 +155,7 @@ void TilePartitionerNoise::makePartition(TilePartition & regions, const Corners&
     // Prepare output storage
     std::vector<sf::Image> outputs((int)CORNERS);
     for (int i = 0; i < (int)CORNERS; i++)
-        outputs[i].create(mOptions.tileFormat.resolution, mOptions.tileFormat.resolution);
+        outputs[i].create(mOptions.tileFormat.resolution.x, mOptions.tileFormat.resolution.y);
     // Convert noise values to alpha values
     noiseToAlpha(noise_values, outputs, mOptions.tileFormat.resolution);
     // Convert output images to required format
