@@ -125,8 +125,8 @@
     },
     "abs": {
       "type": "object",
-      "title": "ModuleGroup module schema",
-      "description": "Specifies a Abs module and its attributes.",
+      "title": "Abs module schema",
+      "description": "Specifies an Abs module and its attributes.",
       "additionalProperties":false,
       "properties":{
         "type":{
@@ -146,8 +146,8 @@
     },
     "add": {
       "type": "object",
-      "title": "ModuleGroup module schema",
-      "description": "Specifies a Add module and its attributes.",
+      "title": "Add module schema",
+      "description": "Specifies an Add module and its attributes.",
       "additionalProperties":false,
       "properties":{
         "type":{
@@ -167,7 +167,7 @@
     },
     "billow": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Billow module schema",
       "description": "Specifies a Billow module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -215,7 +215,7 @@
     },
     "blend": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Blend module schema",
       "description": "Specifies a Blend module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -242,7 +242,7 @@
     },
     "cache": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Cache module schema",
       "description": "Specifies a Cache module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -263,7 +263,7 @@
     },
     "checkerboard": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Checkerboard module schema",
       "description": "Specifies a Checkerboard module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -280,7 +280,7 @@
     },
     "clamp": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Clamp module schema",
       "description": "Specifies a Clamp module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -311,7 +311,7 @@
     },
     "const": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Const module schema",
       "description": "Specifies a Const module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -333,7 +333,7 @@
     },
     "corner_combiner_base": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "CornerCombinerBase module schema",
       "description": "Specifies a CornerCombinerBase module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -355,7 +355,7 @@
     },
     "curve": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Curve module schema",
       "description": "Specifies a Curve module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -393,7 +393,7 @@
     },
     "cylinders": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Cylinders module schema",
       "description": "Specifies a Cylinders module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -415,7 +415,7 @@
     },
     "displace": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Displace module schema",
       "description": "Specifies a Displace module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -485,8 +485,8 @@
     },
     "exponent": {
       "type": "object",
-      "title": "ModuleGroup module schema",
-      "description": "Specifies a Exponent module and its attributes.",
+      "title": "Exponent module schema",
+      "description": "Specifies an Exponent module and its attributes.",
       "additionalProperties":false,
       "properties":{
         "type":{
@@ -511,8 +511,8 @@
     },
     "exp": {
       "type": "object",
-      "title": "ModuleGroup module schema",
-      "description": "Specifies a Exp module and its attributes.",
+      "title": "Exp module schema",
+      "description": "Specifies an Exp module and its attributes.",
       "additionalProperties":false,
       "properties":{
         "type":{
@@ -537,7 +537,7 @@
     },
     "forward": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Forward module schema",
       "description": "Specifies a Forward module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -557,7 +557,7 @@
     },
     "gradient_x": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "GradientX module schema",
       "description": "Specifies a GradientX module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -574,7 +574,7 @@
     },
     "gradient_y": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "GradientY module schema",
       "description": "Specifies a GradientY module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -591,7 +591,7 @@
     },
     "gradient_z": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "GradientZ module schema",
       "description": "Specifies a GradientZ module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -608,8 +608,8 @@
     },
     "invert": {
       "type": "object",
-      "title": "ModuleGroup module schema",
-      "description": "Specifies a Invert module and its attributes.",
+      "title": "Invert module schema",
+      "description": "Specifies an Invert module and its attributes.",
       "additionalProperties":false,
       "properties":{
         "type":{
@@ -629,7 +629,7 @@
     },
     "max": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Max module schema",
       "description": "Specifies a Max module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -650,7 +650,7 @@
     },
     "min": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Min module schema",
       "description": "Specifies a Min module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -671,7 +671,7 @@
     },
     "multiply": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Multiply module schema",
       "description": "Specifies a Multiply module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -692,7 +692,7 @@
     },
     "norm_lp_q": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "NormLPQ module schema",
       "description": "Specifies a NormLPQ module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -719,7 +719,7 @@
     },
     "perlin": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Perlin module schema",
       "description": "Specifies a Perlin module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -767,7 +767,7 @@
     },
     "power": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Power module schema",
       "description": "Specifies a Power module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -788,7 +788,7 @@
     },
     "pow": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Pow module schema",
       "description": "Specifies a Pow module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -814,7 +814,7 @@
     },
     "quadrant_selector": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "QuadrantSelector module schema",
       "description": "Specifies a QuadrantSelector module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -927,7 +927,7 @@
     },
     "ridged_multi": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "RidgedMulti module schema",
       "description": "Specifies a RidgedMulti module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -974,7 +974,7 @@
     },
     "rotate_point": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "RotatePoint module schema",
       "description": "Specifies a RotatePoint module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -1042,7 +1042,7 @@
     },
     "scale_bias": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "ScaleBias module schema",
       "description": "Specifies a ScaleBias module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -1073,7 +1073,7 @@
     },
     "scale_point": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "ScalePoint module schema",
       "description": "Specifies a ScalePoint module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -1150,7 +1150,7 @@
     },
     "select": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Select module schema",
       "description": "Specifies a Select module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -1192,7 +1192,7 @@
     },
     "spheres": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Spheres module schema",
       "description": "Specifies a Spheres module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -1214,7 +1214,7 @@
     },
     "terrace": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Terrace module schema",
       "description": "Specifies a Terrace module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -1249,7 +1249,7 @@
     },
     "translate_point": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "TranslatePoint module schema",
       "description": "Specifies a TranslatePoint module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -1326,7 +1326,7 @@
     },
     "turbulence": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Turbulence module schema",
       "description": "Specifies a Turbulence module and its attributes.",
       "additionalProperties":false,
       "properties":{
@@ -1369,7 +1369,7 @@
     },
     "voronoi": {
       "type": "object",
-      "title": "ModuleGroup module schema",
+      "title": "Voronoi module schema",
       "description": "Specifies a Voronoi module and its attributes.",
       "additionalProperties":false,
       "properties":{

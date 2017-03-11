@@ -169,13 +169,13 @@
     "DefaultModuleGroup": {
       "type": "string",
       "title": "DefaultModuleGroup schema",
-      "description":"Optionally specifies the location of a JSON file containing a default module group to use for tile centres and borders which don't have a module group specified in CentralModuleGroups, HorizontalBorderModuleGroups, or VerticalBorderModuleGroups.",
+      "description":"Optionally specifies the location of a JSON file containing a default module group to use for tile centres and borders which don't have a module group specified in CentralModuleGroups, LeftBorderModuleGroups, or RightBorderModuleGroups.",
       "minLength":1
     },
-    "HorizontalBorderModuleGroups": {
+    "LeftBorderModuleGroups": {
       "type": "array",
-      "title":"HorizontalBorderModuleGroup schema",
-      "description":"Specifies the locations of JSON files containing module groups to use along horizontal borders in tile generation.",
+      "title":"LeftBorderModuleGroup schema",
+      "description":"Specifies the locations of JSON files containing module groups to use to weight the left side of horizontal borders in tile generation.",
       "uniqueItems": true,
       "minItems":1,
       "items": {
@@ -211,10 +211,10 @@
         "additionalProperties":false
       }
     },
-    "VerticalBorderModuleGroups": {
+    "TopBorderModuleGroups": {
       "type": "array",
-      "title":"VerticalBorderModuleGroup schema",
-      "description":"Specifies the locations of JSON files containing module groups to use along vertical borders in tile generation.",
+      "title":"TopBorderModuleGroup schema",
+      "description":"Specifies the locations of JSON files containing module groups to use to weight the top side of vertical borders in tile generation.",
       "uniqueItems": true,
       "minItems": 1,
       "items": {
