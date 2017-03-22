@@ -1,17 +1,45 @@
 #include "ModuleManager.h"
-#include "module/ModuleFactories.h"
 #include <random>
 #include <time.h>
-#include <algorithm>
+
+#include <boost/filesystem.hpp>
+
+#include "ModuleGroup.h"
 
 namespace noise {
 
 ModuleManager::ModuleManager(const Options & options) :
-    mRNG((unsigned int)time(nullptr))
+    mRNG((unsigned int)time(nullptr)),
+    mCentres("centre"),
+    mLeftBorders("horizontal border"),
+    mTopBorders("vertical border")
 {
+    mBottomRightBorder = ModuleGroup::makeConstModuleGroup(0.0);
+
+    boost::filesystem::path p(options.paths.directory);
+
+    mCombiner = loadModuleGroup((p / options.combinerModuleGroup).string());
+
+    for (auto it : options.centralModuleGroups)
+    {
+        mCentres.addSpecificModuleGroup(it.terrain, (p / it.filename).string());
+    }
+    for (auto it : options.leftBorderModuleGroups)
+    {
+        mLeftBorders.addSpecificModuleGroup(it.terrains, (p / it.filename).string());
+    }
+    for (auto it : options.topBorderModuleGroups)
+    {
+        mTopBorders.addSpecificModuleGroup(it.terrains, (p / it.filename).string());
+    }
+    boost::optional<std::string> default_module_filename;
+    if (options.defaultModuleGroup)
+    {
+        default_module_filename = (p / options.defaultModuleGroup.get()).string();
+    }
     for (const auto& terrain : options.terrains)
     {
-        mStochasticMasks.insert({terrain.first, module::makePlaceholder().scaleBias(0.5, 0.5)});
+        mCentres.tryAddDefaultModuleGroup(terrain.first, default_module_filename);
     }
     for (const auto& clique : options.cliques)
     {
@@ -20,31 +48,39 @@ ModuleManager::ModuleManager(const Options & options) :
             for (const auto& t2 : clique)
             {
                 TerrainIDPair tp{t1, t2};
-                if (mBordersHorizontal.find(tp) == mBordersHorizontal.end())
-                    mBordersHorizontal.insert({tp, module::makePlaceholder(mRNG())});
-                if (mBordersVertical.find(tp) == mBordersVertical.end())
-                    mBordersVertical.insert({tp, module::makePlaceholder(mRNG())});
+
+                mLeftBorders.tryAddDefaultModuleGroup(tp, default_module_filename);
+                mTopBorders.tryAddDefaultModuleGroup(tp, default_module_filename);
             }
     }
+    
 }
 
-Reseedable ModuleManager::getBorderVertical(TerrainID top, TerrainID bottom, bool x_positive)
+ModuleGroup& ModuleManager::getTopBorder(TerrainID top, TerrainID bottom)
 {
-    Reseedable& r = mBordersVertical.at({top, bottom});
-    return module::makeQuadrantSelector(r, x_positive, true);
+    return mTopBorders.at({top, bottom});
 }
 
-Reseedable ModuleManager::getBorderHorizontal(TerrainID left, TerrainID right, bool y_positive)
+ModuleGroup& ModuleManager::getLeftBorder(TerrainID left, TerrainID right)
 {
-    Reseedable& r = mBordersHorizontal.at({left, right});
-    return module::makeQuadrantSelector(r, true, y_positive);
+    return mLeftBorders.at({left, right});
 }
 
-Reseedable& ModuleManager::getStochastic(TerrainID terrain)
+ModuleGroup & ModuleManager::getBottomRightBorder()
 {
-    Reseedable& r = mStochasticMasks.at(terrain);
-    r.setSeed(mRNG());
+    return *mBottomRightBorder;
+}
+
+ModuleGroup& ModuleManager::getCentral(TerrainID terrain)
+{
+    ModuleGroup& r = mCentres.at(terrain);
+    r.setSeeds(mRNG());
     return r;
+}
+
+ModuleGroup& ModuleManager::getCombiner()
+{
+    return *mCombiner;
 }
 
 } // namespace noise

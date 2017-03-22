@@ -1,8 +1,7 @@
-# Wangscape
+# Wangscape [![Build Status](https://travis-ci.org/Wangscape/Wangscape.svg?branch=master)](https://travis-ci.org/Wangscape/Wangscape) [![Gitter chat](https://badges.gitter.im/Wangscape.png)](https://gitter.im/Wangscape/Lobby)
 
 Converts terrain tiles to procedural corner Wang tilesets.
 
-[![Gitter chat](https://badges.gitter.im/Wangscape.png)](https://gitter.im/Wangscape/Lobby)
 
 Procjam 2016 project (in progress)
 
@@ -47,14 +46,30 @@ When you place four corner Wang tiles together, the four quarter-tiles around th
 Different combinations of the 8 surrounding terrains can produce different display tiles. If you generate redundant tilesets, there can be even more options.
 
 # How does Wangscape make corner Wang tiles?
-* A set of cliques is defined on the terrain types. Each clique produces a separate tileset to avoid making excessively large textures.
+
+* A set of cliques each with up to 4 members is defined on the terrain types. Each clique produces a separate tileset to avoid making excessively large textures.
+
 * For each valid combination of terrain types in the corners:
     * An alpha mask is generated for each corner.
     * These alpha masks are used to combine each corner's terrain texture into a single tile.
 * Currently all tile generation is done through a command-line application configured using a JSON file. In the future, this should be migrated to a GUI interface which allows the user to alter tile generation parameters and immediately see the range of possible results.
 
+
 # How can I use corner Wang tilesets in my project?
 Wangscape's sibling project, [Wangview](https://github.com/Wangscape/Wangview/tree/documentation), demonstrates how to use tilesets produced by Wangscape. Wangview provides a set of well-commented IPython notebooks and Python scripts to enable easy porting to the platform used by your project.
+
+# How can I help Wangscape?
+
+We would value your input in bug reports, feature requests, documentation improvements, examples, or code. Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for further information. Note that a [code of conduct](./CODE_OF_CONDUCT.md) applies to all participation in this project.
+
+# What platforms does Wangscape support?
+
+Wangscape is actively tested by the maintainers on:
+* Windows 7 (64-bit) with Visual Studio 2015
+* Arch Linux with CMake
+* Ubuntu (Trusty) with CMake (in travis-ci)
+
+We also hope to run travis-ci builds under Mac OS X soon.
 
 # How can I build Wangscape?
 
@@ -78,7 +93,45 @@ Wangscape depends on these libraries:
 After installing them, you can compile Wangscape using either of the methods
 below.
 
-## CMake (Linux)
+## Docker
+
+There's a Docker image that can be used for building, based on Ubuntu, with all
+dependencies installed, so the only thing to do is execute in Wangscape's
+root directory:
+
+```shell
+docker run -it -v $(pwd):/Wangscape lukequaint/wangscape-build
+```
+
+After that, go to the **Linux/Compilation** section below.
+
+## Linux
+
+### Installing dependencies
+
+#### Ubuntu
+
+First, install necessary packages with `apt`:
+
+```shell
+apt install cmake g++ libsfml-dev libboost-system-dev \
+    libboost-filesystem-dev libboost-program-options-dev \
+    libgtest-dev
+```
+
+Next, build `gtest` (that's specific to Ubuntu, take a look on Stack Overflow
+questions
+[here](https://stackoverflow.com/questions/13513905/how-to-setup-googletest-as-a-shared-library-on-linux)
+or [here](https://stackoverflow.com/questions/38395984/how-to-install-google-test-on-ubuntu-without-root-access)):
+
+```shell
+cd /usr/src/gtest
+cmake .
+make
+cp *.a /usr/lib/
+```
+
+### Compilation
 
 #### 1. Create `build` directory in **Wangscape** project root and move into it:
 
@@ -91,6 +144,13 @@ cd build
 
 ```shell
 cmake ..
+```
+
+In some distributions (e.g. **Ubuntu**) you have to specify a path to SFML's
+CMake module passing `CMAKE_MODULE_PATH` to the above command:
+
+```shell
+cmake .. -DCMAKE_MODULE_PATH=/usr/share/SFML/cmake/Modules/
 ```
 
 It will check for required libraries and prepare files for the next step.

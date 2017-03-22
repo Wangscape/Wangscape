@@ -1,6 +1,7 @@
 set(lib-src
     OptionsManager.cpp
     TerrainImages.cpp
+    OptionsPaths.cpp
 )
 
 add_subdirectory(metaoutput)
@@ -13,6 +14,7 @@ add_executable(Wangscape Main.cpp)
 target_link_libraries(wangscape metaoutput)
 target_link_libraries(wangscape noise)
 target_link_libraries(wangscape tilegen)
+target_link_libraries(wangscape double-conversion)
 target_link_libraries(wangscape spotify-json)
 
 target_link_libraries(Wangscape wangscape)

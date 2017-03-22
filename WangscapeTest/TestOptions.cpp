@@ -18,10 +18,9 @@ protected:
 
 TEST_F(TestOptions, TestOptionsValues)
 {
-    EXPECT_EQ(options.filename, optionsFilename) <<
+    EXPECT_EQ(options.paths.filename, optionsFilename) <<
         "Incorrect options filename";
-    boost::filesystem::path expected_output_dir(optionsFilename);
-    expected_output_dir.remove_filename();
+    boost::filesystem::path expected_output_dir(options.paths.directory);
     expected_output_dir /= "output";
     EXPECT_TRUE(boost::filesystem::equivalent(
         boost::filesystem::path(options.relativeOutputDirectory),
@@ -42,7 +41,7 @@ TEST_F(TestOptions, TestOptionsValues)
     EXPECT_STREQ(options.outputFilenames.terrainHypergraphFilename.c_str(),
                  "terrain_hypergraph.json") <<
         "Incorrect terrain hypergraph filename";
-    EXPECT_EQ(options.tileFormat.resolution, 32) <<
+    EXPECT_EQ(options.tileFormat.resolution, sf::Vector2u(32,32)) <<
         "Incorrect resolution";
     EXPECT_NE(options.terrains.find("g"), options.terrains.cend()) <<
         "Options did not load grass terrain info";

@@ -1,0 +1,5 @@
+{
+  "type" : "Clamp",
+  "SourceModule" : "mySourceModule",
+  "Bounds" : [ -0.5, 1.5 ]
+}

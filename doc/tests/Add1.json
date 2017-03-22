@@ -1,0 +1,5 @@
+{
+  "type" : "Add",
+  "SourceModule" : [ "mySourceModule", 
+                    "myOtherSourceModule" ]
+}

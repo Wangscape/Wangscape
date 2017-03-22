@@ -17,7 +17,7 @@ TilesetGenerator::TilesetGenerator(const Options& options,
 {
     for (auto& terrain : options.terrains)
     {
-        images.addTerrain(terrain.first, terrain.second.fileName, options.filename,
+        images.addTerrain(terrain.first, terrain.second.fileName, options.paths.filename,
                           terrain.second.offsetX, terrain.second.offsetY, options.tileFormat.resolution);
     }
 }
@@ -58,8 +58,8 @@ void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderT
         TileGenerator::generate(image, tile_position.first, tile_position.second, corner_terrains,
                                 images, options, *mTilePartitioner.get());
         metaOutput.addTile(corner_terrains, filename,
-                   tile_position.first*options.tileFormat.resolution,
-                   tile_position.second*options.tileFormat.resolution);
+                   tile_position.first*options.tileFormat.resolution.x,
+                   tile_position.second*options.tileFormat.resolution.y);
     }
 }
 

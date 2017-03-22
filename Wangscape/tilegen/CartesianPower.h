@@ -1,6 +1,7 @@
 #pragma once
 #include "CartesianPowerIterator.h"
 #include <utility>
+#include <SFML/System/Vector2.hpp>
 #include <iostream>
 #include "ipow.h"
 
@@ -27,7 +28,7 @@ public:
     iterator end() const;
 
     size_t size() const;
-    std::pair<size_t, size_t> size2D(size_t resolution) const;
+    std::pair<size_t, size_t> size2D(sf::Vector2u resolution) const;
 
     ForwardIt first;
     size_t baseSize;
@@ -92,14 +93,14 @@ inline size_t CartesianPower<ForwardIt>::size() const
 }
 
 template<typename ForwardIt>
-inline std::pair<size_t, size_t> CartesianPower<ForwardIt>::size2D(size_t resolution) const
+inline std::pair<size_t, size_t> CartesianPower<ForwardIt>::size2D(sf::Vector2u resolution) const
 {
     std::div_t div_mod = std::div((int)power, 2);
-    size_t res_y = resolution*ipow(baseSize, (size_t)div_mod.quot);
-    size_t res_x = res_y;
+    size_t tiles_y = ipow(baseSize, (size_t)div_mod.quot);
+    size_t tiles_x = tiles_y;
     if (div_mod.rem != 0)
-        res_x *= baseSize;
-    return{res_x, res_y};
+        tiles_x *= baseSize;
+    return{resolution.x*tiles_x, resolution.y*tiles_y};
 }
 
 } // namespace tilegen

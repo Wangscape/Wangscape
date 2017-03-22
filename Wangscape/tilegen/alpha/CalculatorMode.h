@@ -8,7 +8,8 @@ namespace alpha
 enum class CalculatorMode
 {
     Max,
-    Linear
+    Linear,
+    TopTwo
 };
 
 } // namespace alpha

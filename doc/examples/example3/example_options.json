@@ -1,0 +1,78 @@
+{
+  "MetaOutput": {
+    "TileData": "tiles.json",
+    "TileGroups": "tile_groups.json",
+    "TilesetData": "tilesets.json",
+    "TerrainHypergraph": "terrain_hypergraph.json"
+  },
+  "TileFormat": {
+    "Resolution": [32,32],
+    "FileType": "png"
+  },
+  "OutputDirectory": "output",
+  "Terrains": {
+    "g": {
+      "FullName": "grass",
+      "FileName": "grass.png",
+      "OffsetX": 0,
+      "OffsetY": 0
+    },
+    "s": {
+      "FullName": "sea",
+      "FileName": "sea.png",
+      "OffsetX": 0,
+      "OffsetY": 0
+    },
+    "v": {
+      "FullName": "void",
+      "FileName": "void.png",
+      "OffsetX": 0,
+      "OffsetY": 0
+    }
+  },
+  "Cliques": [
+    [
+      "g",
+      "s"
+    ],
+    [
+      "s",
+      "v"
+    ],
+    [
+      "v",
+      "g"
+    ]
+  ],
+  "AlphaCalculatorMode":"TopTwo",
+  "AlphaCalculatorTopTwoPower":8,
+  "DefaultModuleGroup":"default_module_group.json",
+  "LeftBorderModuleGroups": [
+    {
+      "Terrains":["s","g"],
+      "Filename":"special_module_group.json"
+    },
+    {
+      "Terrains":["g","s"],
+      "Filename":"special_module_group.json"
+    }
+  ],
+  "TopBorderModuleGroups": [
+    {
+      "Terrains":["s","g"],
+      "Filename":"special_module_group.json"
+    },
+    {
+      "Terrains":["g","s"],
+      "Filename":"special_module_group.json"
+    }
+  ],
+  "CentralModuleGroups":[
+    {
+      "Terrain":"v",
+      "Filename":"special_module_group.json"
+    }
+  ],
+  "CombinerModuleGroup":"combiner_module_group.json",
+  "DebugOutput":false
+}

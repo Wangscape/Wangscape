@@ -2,6 +2,7 @@ set(tilegen-alpha-src
     ${CMAKE_CURRENT_SOURCE_DIR}/CalculatorBase.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CalculatorLinear.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CalculatorMax.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CalculatorTopTwo.cpp
 )
 
 set(tilegen-src
