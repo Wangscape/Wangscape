@@ -39,6 +39,7 @@ struct default_codec_t<Options>
         codec.optional("LeftBorderModuleGroups", &Options::leftBorderModuleGroups);
         codec.optional("TopBorderModuleGroups", &Options::topBorderModuleGroups);
         codec.required("DebugOutput", &Options::debugOutput);
+        codec.required("DebugTileResolution", &Options::debugTileResolution);
         return codec;
     }
 };

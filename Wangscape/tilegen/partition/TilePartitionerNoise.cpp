@@ -57,7 +57,7 @@ noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& c
             (left ? "left" : "right") <<
             "...\n";
         sf::Image output;
-        output.create(256, 256);
+        output.create(mOptions.debugTileResolution.first,mOptions.debugTileResolution.second);
         noise::RasterBase::Bounds xy(0, 0, 1, 1);
         noise::RasterImage nmixy(output, xy);
         auto write_map = [&](const noise::module::ModulePtr module,
