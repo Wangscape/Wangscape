@@ -60,7 +60,7 @@ noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& c
                              noise::RasterImage& nmi)
         {
             nmi.build(module->getModule());
-            output.saveToFile("test/" + filename + ".png");
+            output.saveToFile(mOptions.outputDirectory + "/debug/" + filename + ".png");
         };
         auto write_group = [&](const noise::ModuleGroup& mg,
                                std::string mg_name)
