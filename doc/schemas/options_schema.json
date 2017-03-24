@@ -170,7 +170,7 @@
       "type": "number",
       "title": "AlphaCalculatorTopTwoPower schema",
       "description": "Specifies an exponent to which noise values should be raised before applying TopTwo or related alpha calculators."
-    }
+    },
     "DefaultModuleGroup": {
       "type": "string",
       "title": "DefaultModuleGroup schema",
