@@ -6,6 +6,7 @@
 #include "tilegen/alpha/CalculatorTopTwo.h"
 #include "noise/RasterImage.h"
 #include "noise/ModuleGroup.h"
+#include <boost/filesystem.hpp>
 
 #include <iostream>
 
@@ -43,6 +44,10 @@ noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& c
     combiner.setInputModuleSource(2, central.getOutputModule());
     if (mDebugOutput)
     {
+        boost::filesystem::path debug_dir(mOptions.paths.directory);
+        debug_dir /= mOptions.outputDirectory;
+        debug_dir /= "debug";
+        boost::filesystem::create_directory(debug_dir);
         std::cout << "Writing debug modules for terrains " <<
             corners[0] << ", " <<
             corners[1] << ", " <<
@@ -60,7 +65,7 @@ noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& c
                              noise::RasterImage& nmi)
         {
             nmi.build(module->getModule());
-            output.saveToFile(mOptions.outputDirectory + "/debug/" + filename + ".png");
+            output.saveToFile((debug_dir / (filename + ".png")).string());
         };
         auto write_group = [&](const noise::ModuleGroup& mg,
                                std::string mg_name)
