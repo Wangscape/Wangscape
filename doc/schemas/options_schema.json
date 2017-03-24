@@ -48,12 +48,17 @@
       "additionalProperties": false,
       "properties": {
         "Resolution": {
-          "type": "integer",
+          "type": "array",
           "title": "Tile resolution",
           "description": "Specifies the width and height of the square tiles Wangscape will operate on.",
-          "multipleOf": 1,
-          "maximum": 512,
-          "minimum": 8
+          "items": {
+            "type": "integer",
+            "multipleOf": 1,
+            "maximum": 512,
+            "minimum": 8
+          },
+          "minItems": 2,
+          "maxItems": 2
         },
         "FileType": {
           "type": "string",
