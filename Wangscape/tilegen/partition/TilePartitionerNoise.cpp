@@ -47,7 +47,16 @@ noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& c
         boost::filesystem::path debug_dir(mOptions.paths.directory);
         debug_dir /= mOptions.outputDirectory;
         debug_dir /= "debug";
-        boost::filesystem::create_directory(debug_dir);
+        std::string corner_description;
+        for (auto terrain_id : corners)
+        {
+            corner_description += terrain_id;
+            corner_description += ".";
+        }
+        corner_description += top ? "T" : "B";
+        corner_description += left ? "L" : "R";
+        debug_dir /= corner_description;
+        boost::filesystem::create_directories(debug_dir);
         std::cout << "Writing debug modules for terrains " <<
             corners[0] << ", " <<
             corners[1] << ", " <<
