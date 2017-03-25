@@ -1,12 +1,16 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "array",
-  "title": "Wangscape terrain hypergraph schema",
-  "description": "Specifies the clique membership of each terrain in a Wangscape configuration",
+  "title": "",
+  "description": "",
   "items":{
+    "title":"",
+    "description":"",
     "type": "object",
     "properties":{
       "resolution":{
+        "title":"",
+        "description":"",
         "type": "array",
         "items": {
           "type": "integer",
@@ -14,17 +18,26 @@
         }
       },
       "filename":{
+        "title":"",
+        "description":"",
         "type": "string"
       },
       "x":{
+        "title":"",
+        "description":"",
         "type": "integer",
         "minimum": 1
       },
       "y":{
+        "title":"",
+        "description":"",
         "type": "integer",
         "minimum": 1
       },
       "terrains":{
+        "type": "array",
+        "title":"",
+        "description":"",
         "items": {
           "type": "string",
           "pattern": "^[0-9a-zA-Z_-]+$"
