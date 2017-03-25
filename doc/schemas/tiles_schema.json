@@ -34,6 +34,12 @@
         "type": "integer",
         "minimum": 0
       }
-    }
+    },
+    "required":[
+      "corners",
+      "filename",
+      "x",
+      "y"
+    ]
   }
 }
