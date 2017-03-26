@@ -4,7 +4,7 @@
   "title": "Wangscape tile groups schema",
   "description": "Lists Wangscape output tiles with locations, grouped by corner terrain types.",
   "patternProperties":{
-    "^[0-9a-zA-Z_-]+.[0-9a-zA-Z_-]+.[0-9a-zA-Z_-]+.[0-9a-zA-Z_-]+$": {
+    "^[0-9a-zA-Z_-]+\\.[0-9a-zA-Z_-]+\\.[0-9a-zA-Z_-]+\\.[0-9a-zA-Z_-]+$": {
       "type": "array",
       "title":"Tile group schema",
       "description":"Lists the locations of all output tiles with a given sequence of corner terrain types.",
