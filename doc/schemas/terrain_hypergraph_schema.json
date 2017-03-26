@@ -10,7 +10,7 @@
       "type": "array",
       "items":{
         "title":"Clique schema",
-        "description":"Specifies a terrain clique as a list of terrain IDs",
+        "description":"Specifies a terrain clique as a list of terrain IDs.",
         "type": "array",
         "items": {
           "title":"Terrain ID schema",
