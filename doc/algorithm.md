@@ -28,6 +28,19 @@ Wangscape's output is:
 all of them with compatible borders (if configured correctly).
 * A set of JSON files describing the tilesets generated, and where to find a specific tile within them.
 
+The schemas defining the JSON formats used by Wangscape are found in the `doc/schemas` directory,
+and can be viewed in human-readable format using [docson](https://wangscape.github.io/docson/) by [@lbovet](https://github.com/lbovet).
+
+### Input schema docson links
+* [Options schema](https://wangscape.github.io/docson/#https://raw.githubusercontent.com/Wangscape/Wangscape/master/doc/schemas/options_schema.json)
+* [Module group schema](https://wangscape.github.io/docson/#https://raw.githubusercontent.com/Wangscape/Wangscape/master/doc/schemas/module_group_schema.json)
+
+### Metaoutput schema docson links
+* [Tiles schema](https://wangscape.github.io/docson/#https://raw.githubusercontent.com/Wangscape/Wangscape/master/doc/schemas/tiles_schema.json)
+* [Tile groups schema](https://wangscape.github.io/docson/#https://raw.githubusercontent.com/Wangscape/Wangscape/master/doc/schemas/tile_groups_schema.json)
+* [Tilesets schema](https://wangscape.github.io/docson/#https://raw.githubusercontent.com/Wangscape/Wangscape/master/doc/schemas/tilesets_schema.json)
+* [Terrain hypergraph schema](https://wangscape.github.io/docson/#https://raw.githubusercontent.com/Wangscape/Wangscape/master/doc/schemas/terrain_hypergraph_schema.json)
+
 ## Rearranging source tiles
 
 Wangscape's output tiles are designed to be displayed offset by a quarter tile.
