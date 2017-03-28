@@ -6,4 +6,4 @@ services:
 script:
     - pwd
     - mkdir build
-    - docker run -v $(pwd):/Wangscape lukequaint/wangscape-build:latest /bin/sh -c "cd /Wangscape/build && cmake .. && make && ./bin/WangscapeTest ../doc --gtest_filter=-*TestMetaOutput*:*Squares*:*TestGradientPartition*"
+    - docker run -v $(pwd):/Wangscape lukequaint/wangscape-build:latest /bin/sh -c "cd /Wangscape/build && cmake .. && make && ./bin/WangscapeTest ../doc --gtest_filter=-*TestMetaOutput*:*Squares*:*TestGradientPartition*:*TestTilesetGenerator*"
