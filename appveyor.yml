@@ -51,6 +51,11 @@ before_build:
 build:
   project: Wangscape.sln
   verbosity: minimal
+after_build:
+- cmd: >-
+    Release\Wangscape.exe doc\examples\example3\example_options.json
+
+    7z a example3_output.zip doc\examples\example3\output
 test_script:
 - cmd: Release\WangscapeTest.exe --gtest_output=xml --gtest_filter=-*Squares*
 after_test:
@@ -59,5 +64,10 @@ after_test:
 
     $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\test_detail.xml))
 artifacts:
-- path: Release\Wangscape.exe
-- path: Release\WangscapeTest.exe
+  - path: Release\Wangscape.exe
+    name: Wangscape executable
+  - path: Release\WangscapeTest.exe
+    name: Wangscape Test executable
+  - path: example3_output.zip
+    name: Example 3 output
+    type: zip
