@@ -1,4 +1,4 @@
-# Wangscape [![Build Status](https://travis-ci.org/Wangscape/Wangscape.svg?branch=master)](https://travis-ci.org/Wangscape/Wangscape) [![Gitter chat](https://badges.gitter.im/Wangscape.png)](https://gitter.im/Wangscape/Lobby)
+# Wangscape [![Build Status](https://travis-ci.org/Wangscape/Wangscape.svg?branch=master)](https://travis-ci.org/Wangscape/Wangscape) [![Build status](https://ci.appveyor.com/api/projects/status/qob6o9umrf5nwidl?svg=true)](https://ci.appveyor.com/project/serin-delaunay/wangscape) [![Gitter chat](https://badges.gitter.im/Wangscape.png)](https://gitter.im/Wangscape/Lobby)
 
 Converts terrain tiles to procedural corner Wang tilesets.
 
