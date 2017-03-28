@@ -12,7 +12,7 @@ int TilePartitionerGradient::gradientWeight(sf::Vector2u xy, sf::Vector2u corner
     sf::Vector2i distance = {std::abs((int)xy.x - (int)corner.x), std::abs((int)xy.y - (int)corner.y)};
     sf::Vector2i size = sf::Vector2i(mOptions.tileFormat.resolution) - sf::Vector2i(margin);
     sf::Vector2i values = size - distance;
-    return std::max({0, values.x, values.y});
+    return std::max({0, std::min(values.x, values.y)});
 }
 
 void TilePartitionerGradient::makePartition(TilePartition & regions,
