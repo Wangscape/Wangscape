@@ -52,7 +52,7 @@ build:
   project: Wangscape.sln
   verbosity: minimal
 test_script:
-- cmd: Release\WangscapeTest.exe --gtest_output=xml
+- cmd: Release\WangscapeTest.exe --gtest_output=xml --gtest_filter=-*Squares*
 #after_test:
 #- ps: >-
 #    $wc = New-Object 'System.Net.WebClient'
