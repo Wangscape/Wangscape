@@ -53,11 +53,11 @@ build:
   verbosity: minimal
 test_script:
 - cmd: Release\WangscapeTest.exe --gtest_output=xml --gtest_filter=-*Squares*
-#after_test:
-#- ps: >-
-#    $wc = New-Object 'System.Net.WebClient'
-#
-#    $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\test_detail.xml))
+after_test:
+- ps: >-
+    $wc = New-Object 'System.Net.WebClient'
+
+    $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\test_detail.xml))
 artifacts:
 - path: Release\Wangscape.exe
 - path: Release\WangscapeTest.exe
