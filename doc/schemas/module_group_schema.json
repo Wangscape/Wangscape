@@ -7,7 +7,7 @@
     "defaultoutputmodule": {
       "type": "string",
       "title": "ModuleGroup defaultoutputmodule schema",
-      "description": "Specifies which of the keys in Modules contains the module which should be used for the module group's output."
+      "description": "Specifies which of the keys in 'modules' contains the module which should be used for the module group's output."
     },
     "inputmodules": {
       "type": "array",
