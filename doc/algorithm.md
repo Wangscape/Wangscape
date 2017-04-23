@@ -105,7 +105,7 @@ extra tiles will be generated for each combination of those tiles.
 The extra tiles will have different borders (except for the single-terrain tiles),
 and can be used to add variety to output displays.
 
-Make sure your hypergraph, where appropriate.
+Make sure your hypergraph is connected, where appropriate.
 If your hypergraph is (for instance) `[["a","b"],["c","d"]]`,
 then it will be impossible for terrains `a` and `b` to be on the same map as terrains `c` and `d`.
 
