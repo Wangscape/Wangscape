@@ -43,9 +43,16 @@ and can be viewed in human-readable format using [docson](https://wangscape.gith
 
 ## Rearranging source tiles
 
-Wangscape's output tiles are designed to be displayed offset by a quarter tile.
-In order for the display tiles to match the source tiles,
-the source images must be chopped into quarters and reassembled in this arrangement:
+Wangscape takes input tiles which could be drawn in a chess board-style display without alteration.
+For instance,
+[void.png](./examples/example3/void.png) (![void.png](./examples/example3/void.png))
+has a faint purple circle which should be drawn at the centre of a game tile.
+Wangscape's output tiles are designed to be drawn with a half-tile offset in both x and y directions,
+as seen in [README.md#what-are-corner-wang-tiles](./../README.md#what-are-corner-wang-tiles).
+
+In order to have the purple circles correctly centred in the final display,
+the output tilesets must have the circles centred at the corners of the tiles (![void-corners.png](./images/void-corners.png)).
+To do this, each input terrain tile must be cut into quarters and rearranged as follows:
 ```
 12 -> 43
 34    21
