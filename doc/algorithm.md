@@ -56,7 +56,7 @@ So, to correctly display output tiles, they should be translated left and up by 
 
 ## Terrain hypergraph
 
-###Adjacency restrictions
+### Adjacency restrictions
 
 In a display map built strictly from square tiles, there are no restrictions on which terrain types can border each other.
 In a display map built from corner Wang tiles, there are restrictions on which terrain types can meet at a single corner.
