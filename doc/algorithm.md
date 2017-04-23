@@ -5,11 +5,11 @@ Understanding them may help you to configure Wangscape to make the tilesets you 
 
 ## Table of contents
 
-0. [Tiles and tilesets](#tiles-and-tilesets)
-0. [Rearranging source tiles](#rearranging-source-tiles)
-0. [Terrain hyperraph](#terrain-hypergraph)
-0. [Combining terrains](#combining-terrains)
-0. [Generating corner masks](#generating-corner-masks)
+1. [Tiles and tilesets](#tiles-and-tilesets)
+1. [Rearranging source tiles](#rearranging-source-tiles)
+1. [Terrain hyperraph](#terrain-hypergraph)
+1. [Combining terrains](#combining-terrains)
+1. [Generating corner masks](#generating-corner-masks)
 
 ## Tiles and tilesets
 
@@ -123,17 +123,19 @@ you will need to introduce more adjacency constraints.
 
 Each tile has corner terrains `t1, ..., t4`, and is generated as follows:
 
-0. Generate a [corner mask](#generating-corner-masks) for each corner.
+1. Generate a [corner mask](#generating-corner-masks) for each corner.
 They are essentially 8-bit greyscale images with the same resolution as a tile,
 and should satisfy these constraints:
-    0. The total of the corner masks in each pixel is 255.
-    0. Each one has value 255 at the corresponding corner (hence each one has value 0 at all other corners).
-    0. Along the horizontal border (transitioning from `t1` to `t2` or from `t3` to `t4`) incident on the corresponding corner,
+    
+    1. The total of the corner masks in each pixel is 255.
+    1. Each one has value 255 at the corresponding corner (hence each one has value 0 at all other corners).
+    1. Along the horizontal border (transitioning from `t1` to `t2` or from `t3` to `t4`) incident on the corresponding corner,
     each one has values similar to those generated for all other corner masks with a similar horizontal border.
-    0. Equivalent constraints for vertical borders.
-0. Initialise the output tile to opaque black `(0,0,0,255)`.
-0. For each corner mask and corresponding ([rearranged](#rearranging-source-tiles)) terrain texture:
-    0. Add the terrain texture, multiplied by the corner mask and scaled, to the output tile.
+    1. Equivalent constraints for vertical borders.
+1. Initialise the output tile to opaque black `(0,0,0,255)`.
+1. For each corner mask and corresponding ([rearranged](#rearranging-source-tiles)) terrain texture:
+    
+    1. Add the terrain texture, multiplied by the corner mask and scaled, to the output tile.
 
 Note that this is not the standard alpha blending algorithm.
 However, it is easy to configure OpenGL's blending equation and parameters to perform this operation.
@@ -142,13 +144,14 @@ However, it is easy to configure OpenGL's blending equation and parameters to pe
 
 Corner masks (effectively 8-bit greyscale images) are generated in two stages:
 
-0. A raster of floating-point noise values is calculated for each corner. They should satisfy these constraints:
-    0. Each one has value 1 or greater at the corresponding corner.
-    0. Each one has value 0 at all other corners.
-    0. Along the horizontal border (transitioning from `t1` to `t2` or from `t3` to `t4`) incident on the corresponding corner,
+1. A raster of floating-point noise values is calculated for each corner. They should satisfy these constraints:
+    
+    1. Each one has value 1 or greater at the corresponding corner.
+    1. Each one has value 0 at all other corners.
+    1. Along the horizontal border (transitioning from `t1` to `t2` or from `t3` to `t4`) incident on the corresponding corner,
 each one has values similar to those generated for all other corner masks with a similar horizontal border.
-    0. Equivalent constraints for vertical borders.
-0. For each pixel, an alpha calculator converts the four floating-point values at that pixel into four 8-bit unsigned integer values,
+    1. Equivalent constraints for vertical borders.
+1. For each pixel, an alpha calculator converts the four floating-point values at that pixel into four 8-bit unsigned integer values,
 such that the above constraints on corner mask values are satisfied.
 
 ### Generating noise values
@@ -162,10 +165,10 @@ The output noise module is evaluated at regularly spaced points in the square `[
 The generation of noise values is quite delicate, mostly because of the border constraints.
 In order to satisfy them while maintaining fully customisability,
 four module groups are combined in order to generate noise values for a corner mask:
-0. A horizontal border module group.
-0. A vertical border module group.
-0. A central module group.
-0. A combiner module group.
+1. A horizontal border module group.
+1. A vertical border module group.
+1. A central module group.
+1. A combiner module group.
 
 The central and border module groups take no input, and should output values between -1 and 1.
 
@@ -188,59 +191,59 @@ The corner combiner group uses 3 major components to combine the central and bor
 
 1. A `CornerCombiner` module, which has value 1 along one of the axes, value -1 along the other axis, and value 0 along diagonals.
 This is used as the control module to blend the horizontal and vertical border module groups into one texture with border compatibility.
-2. A `NormLPQ` module, which has value 0 at the associated corner and value at least 1 at the other three corners.
+1. A `NormLPQ` module, which has value 0 at the associated corner and value at least 1 at the other three corners.
 This is used as input to two `Curve` modules,
 which together form an envelope with range [1,1] at the associated corner and [-1,-1] at the other corners.
 Near the associated corner the range of the envelope is a subrange of [-1,1].
 This envelope is used to transform the combined border modules into a texture
 which will reliably produce correct alpha values at the corners,
 and fade noisily along the two incident borders.
-3. Another `NormLPQ` module, which is scaled and clamped to have value -1 at the centre of the tile and value 1 near to all the borders.
+1. Another `NormLPQ` module, which is scaled and clamped to have value -1 at the centre of the tile and value 1 near to all the borders.
 This is used as the control module to blend the central module group with the combined and faded border modules, without allowing reseeded central module groups to affect border compatibility.
 
 #### Example
 
 This example will illustrate with diagrams how noise values are calculated for a bottom left corner. Blue pixels represent positive values, red values represent negative values, and black represents 0.
 
-0. Central module group:
+1. Central module group:
 
   ![combiner_INPUT_C](./images/combiner_INPUT_C.png)
-0. Horizontal module group:
+1. Horizontal module group:
 
   ![combiner_INPUT_H](./images/combiner_INPUT_H.png)
-0. Horizontal module group (2), translated by `(0,-1,0)` because the corner is on the bottom. Note how the bottom border of this image matches the top border of the untranslated horizontal module group:
+1. Horizontal module group (2), translated by `(0,-1,0)` because the corner is on the bottom. Note how the bottom border of this image matches the top border of the untranslated horizontal module group:
 
   ![combiner_border_horizontal_qs](./images/combiner_border_horizontal_qs.png)
-0. Vertical module group (replaced by `Const` 0 because the corner is on the bottom):
+1. Vertical module group (replaced by `Const` 0 because the corner is on the bottom):
 
   ![combiner_INPUT_V](./images/combiner_INPUT_V.png)
-0. Corner combiner module (translated and clamped):
+1. Corner combiner module (translated and clamped):
 
   ![combiner_corner_combiner_ctqs](./images/combiner_corner_combiner_ctqs.png)
-0. Blend of vertical border module (4) and translated horizontal border module (3), controlled by corner combiner. Note how the left border resembles the vertical border module, and the bottom border resembles the translated horizontal border module. Closer to the diagonal the values are a more even blend:
+1. Blend of vertical border module (4) and translated horizontal border module (3), controlled by corner combiner. Note how the left border resembles the vertical border module, and the bottom border resembles the translated horizontal border module. Closer to the diagonal the values are a more even blend:
 
   ![combiner_border_hv](./images/combiner_border_hv.png)
-0. Distance (using the [L1 metric](https://en.wikipedia.org/wiki/Taxicab_geometry)) between the pixel and the corner. White pixels represent values greater than 1:
+1. Distance (using the [L1 metric](https://en.wikipedia.org/wiki/Taxicab_geometry)) between the pixel and the corner. White pixels represent values greater than 1:
 
   ![combiner_norm_lpq_1_qs](./images/combiner_norm_lpq_1_qs.png)
-0. Pair of modules derived from the corner distance (7), creating an envelope used to fade the blended border modules (6):
+1. Pair of modules derived from the corner distance (7), creating an envelope used to fade the blended border modules (6):
 
   ![combiner_peak_lower_clamped](./images/combiner_peak_lower_clamped.png)
   ![combiner_peak_upper_clamped](./images/combiner_peak_upper_clamped.png)
 
-0. Blend of the lower and upper bounds of the envelope (8), controlled by the blended border modules (6):
+1. Blend of the lower and upper bounds of the envelope (8), controlled by the blended border modules (6):
 
   ![combiner_edges](./images/combiner_edges.png)
 
-0. Distance (using the [L(1.5) metric](https://en.wikipedia.org/wiki/Lp_space#The_p-norm_in_finite_dimensions)) between the pixel and the tile centre, scaled and clamped to `[-1,1]`:
+1. Distance (using the [L(1.5) metric](https://en.wikipedia.org/wiki/Lp_space#The_p-norm_in_finite_dimensions)) between the pixel and the tile centre, scaled and clamped to `[-1,1]`:
 
   ![combiner_edge_favouring_mask](./images/combiner_edge_favouring_mask.png)
 
-0. Blend of the central module group (1) and the enveloped border modules (9), controlled by the distance from the centre (10).
+1. Blend of the central module group (1) and the enveloped border modules (9), controlled by the distance from the centre (10).
 
   ![combiner_corner](./images/combiner_corner.png)
 
-0. Module 11, scaled and clamped to `[0,1]`:
+1. Module 11, scaled and clamped to `[0,1]`:
 
   ![combiner_corner_c](./images/combiner_corner_c.png)
 
