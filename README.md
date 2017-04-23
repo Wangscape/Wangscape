@@ -53,6 +53,7 @@ Different combinations of the 8 surrounding terrains can produce different displ
     * An alpha mask is generated for each corner.
     * These alpha masks are used to combine each corner's terrain texture into a single tile.
 * Currently all tile generation is done through a command-line application configured using a JSON file. In the future, this should be migrated to a GUI interface which allows the user to alter tile generation parameters and immediately see the range of possible results.
+* See [algorithm.md](./doc/algorithm.md) for detailed information about the tileset generation process.
 
 
 # How can I use corner Wang tilesets in my project?
