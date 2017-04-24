@@ -1,0 +1,73 @@
+version: 0.1.{build}
+image: Visual Studio 2015
+configuration: Release
+platform: x86
+cache: packages
+nuget:
+  project_feed: true
+before_build:
+- cmd: >-
+    del "C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets"
+    
+    echo Restoring Nuget Packages
+
+    nuget restore
+
+    echo Fetching submodules
+
+    git submodule update --init --recursive
+
+    cd lib\spotify-json
+
+    echo Building spotify-json
+
+    mkdir build32
+
+    cd build32
+
+    cmake .. -DBoost_NO_BOOST_CMAKE=TRUE -DBOOST_ROOT=..\..\..\packages\boost.1.63.0.0\lib\native
+
+    cmake --build . --config Release
+
+    cd ..
+
+    cd ..\..
+
+    cd lib\libnoise
+
+    echo Building libnoise
+
+    mkdir build
+
+    cd build
+
+    cmake ..
+
+    cmake --build . --config Release
+
+    cd ..
+
+    cd ..\..
+build:
+  project: Wangscape.sln
+  verbosity: minimal
+after_build:
+- cmd: >-
+    Release\Wangscape.exe doc\examples\example3\example_options.json
+
+    7z a example3_output.zip doc\examples\example3\output
+test_script:
+- cmd: Release\WangscapeTest.exe --gtest_output=xml --gtest_filter=-*Squares*
+after_test:
+- ps: >-
+    $wc = New-Object 'System.Net.WebClient'
+
+    $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\test_detail.xml))
+artifacts:
+  - path: Release\Wangscape.exe
+    name: Wangscape executable
+  - path: Release\WangscapeTest.exe
+    name: Wangscape Test executable
+  - path: example3_output.zip
+    name: Example 3 output
+    type: zip

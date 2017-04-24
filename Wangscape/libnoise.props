@@ -3,8 +3,8 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <LibraryPath>C:\Users\Serin\Documents\Visual Studio 2015\Projects\Wangscape\lib\libnoise\build\src\$(Configuration);$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\Serin\Documents\Visual Studio 2015\Projects\Wangscape\lib\libnoise\src;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)lib\libnoise\build\src\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\libnoise\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile />
