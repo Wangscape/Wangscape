@@ -57,7 +57,7 @@ after_build:
     
     $basedir = $pwd.Path + "\"
     
-    $filepath = $basedir + "opengl32.dll"
+    $filepath = $basedir + "opengl32sw-32.7z"
     
     # Download and retry up to 3 times in case of network transient errors.
     
