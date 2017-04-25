@@ -7,8 +7,6 @@ nuget:
   project_feed: true
 before_build:
 - cmd: >-
-    dir C:\Qt\5.4\msvc2013_opengl /s
-    
     del "C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets"
     
     echo Restoring Nuget Packages
