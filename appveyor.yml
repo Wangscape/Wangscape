@@ -25,7 +25,7 @@ before_build:
 
     cd build32
 
-    cmake .. -DBoost_NO_BOOST_CMAKE=TRUE -DBOOST_ROOT=..\..\..\packages\boost.1.63.0.0\lib\native
+    cmake .. -DBoost_NO_BOOST_CMAKE=TRUE -DBOOST_ROOT=../../../packages/boost.1.63.0.0/lib/native
 
     cmake --build . --config Release
 
