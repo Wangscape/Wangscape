@@ -52,7 +52,7 @@ build:
   project: Wangscape.sln
   verbosity: minimal
 after_build:
-- ps2: >-
+- ps: >-
     $webclient = New-Object System.Net.WebClient
     
     $basedir = $pwd.Path + "\"
