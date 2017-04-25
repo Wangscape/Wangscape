@@ -74,7 +74,7 @@ after_build:
     7z a example3_output.zip doc\examples\example3\output
 test_script:
 - cmd: >-
-    Release\WangscapeTest.exe --gtest_output=xml --gtest_filter=-*Squares*
+    Release\WangscapeTest.exe --gtest_output=xml
 after_test:
 - ps: >-
     $wc = New-Object 'System.Net.WebClient'
