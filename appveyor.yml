@@ -25,7 +25,7 @@ before_build:
 
     cd build32
 
-    cmake .. -DBoost_NO_BOOST_CMAKE=TRUE -DBOOST_ROOT=..\..\..\packages\boost.1.63.0.0\lib\native
+    cmake .. -DBoost_NO_BOOST_CMAKE=TRUE -DBOOST_ROOT=../../../packages/boost.1.63.0.0/lib/native
 
     cmake --build . --config Release
 
@@ -52,12 +52,29 @@ build:
   project: Wangscape.sln
   verbosity: minimal
 after_build:
-- cmd: >-
+- ps: >-
+    $webclient = New-Object System.Net.WebClient
+    
+    $basedir = $pwd.Path + "\"
+    
+    $filepath = $basedir + "opengl32sw-32.7z"
+    
+    # Download and retry up to 3 times in case of network transient errors.
+    
+    $url = "http://download.qt.io/development_releases/prebuilt/llvmpipe/windows/opengl32sw-32.7z"
+    
+    $webclient.DownloadFile($url, $filepath)
+    
+    7z x opengl32sw-32.7z
+    
+    move opengl32sw.dll Release\opengl32.dll
+
     Release\Wangscape.exe doc\examples\example3\example_options.json
 
     7z a example3_output.zip doc\examples\example3\output
 test_script:
-- cmd: Release\WangscapeTest.exe --gtest_output=xml --gtest_filter=-*Squares*
+- cmd: >-
+    Release\WangscapeTest.exe --gtest_output=xml
 after_test:
 - ps: >-
     $wc = New-Object 'System.Net.WebClient'
