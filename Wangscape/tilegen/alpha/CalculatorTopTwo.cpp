@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cassert>
+#include <cmath>
 
 namespace tilegen
 {
@@ -30,7 +31,7 @@ void CalculatorTopTwo::updateAlphasAux(const Weights& weights)
     }
     else
     {
-        double runner_up_scaled = pow(runner_up_margin / margin_sum, power);
+        double runner_up_scaled = std::pow(runner_up_margin / margin_sum, power);
         sf::Uint8 runner_up_share = std::max(0, std::min(255, int((255. * runner_up_scaled) / (1. + runner_up_scaled))));
         getAlpha(winner.second) = 255 - runner_up_share;
         getAlpha(runner_up.second) = runner_up_share;
