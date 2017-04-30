@@ -131,11 +131,9 @@ after_test:
     
     mkdir example_output
     
-    cd doc\examples
+    $folders = Get-ChildItem -Path doc/examples | ?{ $_.PSIsContainer }
     
-    for /D %i in (*) do xcopy /s /i "%i\output" ..\..\example_output\%i
-    
-    cd ..\..
+    $folders | ForEach-Object {xcopy "doc/examples/$_/output" "example_output/$_"}
 
     7z a example_output.zip example_output
 artifacts:
