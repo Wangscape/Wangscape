@@ -68,23 +68,80 @@ after_build:
     7z x opengl32sw-32.7z
     
     move opengl32sw.dll Release\opengl32.dll
-
-    Release\Wangscape.exe doc\examples\example3\example_options.json
-
-    7z a example3_output.zip doc\examples\example3\output
+    
+    git clone -b appveyor-pyinstaller-package --single-branch https://github.com/Wangscape/Wangview.git
+    
+    cd Wangview
+    
+    set PYTHON=C:\Python34
+    
+    package.bat
+    
+    cd ..
+    
+    git clone -b py2exe-package --single-branch https://github.com/serin-delaunay/Wangcheck.git
+    
+    cd Wangcheck
+    
+    set PYTHON=C:\Python36
+    
+    package.bat
+    
+    cd ..
+    
+    mkdir dist\Wangscape
+    
+    cd dist\Wangscape
+    
+    robocopy ..\.. . CODE_OF_CONDUCT.md CONTRIBUTING.md LICENSE README.md STYLE_GUIDE.md
+    
+    mkdir Wangscape
+    
+    robocopy Release dist\Wangscape Wangscape.exe WangscapeTest.exe noise.dll sfml-graphics-2.dll sfml-system-2.dll sfml-window-2.dll
+    
+    mkdir Wangview
+    
+    xcopy /s /i ..\..\Wangview\dist\ Wangview
+    
+    mkdir Wangcheck
+    
+    xcopy /s /i ..\..\Wangcheck\dist\ Wangcheck
+    
+    mkdir doc
+    
+    xcopy /s /i ..\..\..\doc
+    
+    cd ..
+    
+    7z a Wangscape.zip Wangscape
+    
+    cd ..
 test_script:
 - cmd: >-
     Release\WangscapeTest.exe --gtest_output=xml
+    
+    for /D %i in (doc\examples\*) do Wangcheck\dist\Wangcheck.exe "%i" doc\schemas
+    
+    for /D %i in (doc\examples\*) do Release\Wangscape.exe "%i\example_options.json"
 after_test:
 - ps: >-
     $wc = New-Object 'System.Net.WebClient'
 
     $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\test_detail.xml))
+    
+    mkdir example_output
+    
+    cd doc\examples
+    
+    for /D %i in (*) do xcopy /s /i "%i\output" ..\..\example_output\%i
+    
+    cd ..\..
+
+    7z a example_output.zip example_output
 artifacts:
-  - path: Release\Wangscape.exe
-    name: Wangscape executable
-  - path: Release\WangscapeTest.exe
-    name: Wangscape Test executable
-  - path: example3_output.zip
-    name: Example 3 output
+  - path: dist\Wangscape.zip
+    name: Wangscape executable package
+    type: zip
+  - path: example_output.zip
+    name: Example output
     type: zip
