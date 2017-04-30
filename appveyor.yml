@@ -16,6 +16,10 @@ before_build:
     echo Fetching submodules
 
     git submodule update --init --recursive
+    
+    git clone -b appveyor-pyinstaller-package --single-branch https://github.com/Wangscape/Wangview.git
+    
+    git clone -b py2exe-package --single-branch https://github.com/serin-delaunay/Wangcheck.git
 
     cd lib\spotify-json
 
@@ -69,8 +73,6 @@ after_build:
     
     move opengl32sw.dll Release\opengl32.dll
     
-    git clone -b appveyor-pyinstaller-package --single-branch https://github.com/Wangscape/Wangview.git
-    
     cd Wangview
     
     set PYTHON=C:\Python34
@@ -78,8 +80,6 @@ after_build:
     package.bat
     
     cd ..
-    
-    git clone -b py2exe-package --single-branch https://github.com/serin-delaunay/Wangcheck.git
     
     cd Wangcheck
     
