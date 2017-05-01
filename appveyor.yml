@@ -75,17 +75,17 @@ after_build:
     
     cd Wangview
     
-    set PYTHON=C:\Python34
+    Set-Item Env:PYTHON "C:\Python34"
     
-    package.bat
+    C:package.bat
     
     cd ..
     
     cd Wangcheck
     
-    set PYTHON=C:\Python36
+    Set-Item Env:PYTHON "C:\Python36"
     
-    package.bat
+    C:package.bat
     
     cd ..
     
@@ -109,7 +109,7 @@ after_build:
     
     mkdir doc
     
-    xcopy /s /i ..\..\..\doc
+    xcopy /s /i ..\..\doc doc
     
     cd ..
     
@@ -120,7 +120,7 @@ test_script:
 - cmd: >-
     Release\WangscapeTest.exe --gtest_output=xml
     
-    for /D %i in (doc\examples\*) do Wangcheck\dist\Wangcheck.exe "%i" doc\schemas
+    for /D %i in (doc\examples\*) do Wangcheck\build\exe.win32-3.5\Wangcheck.exe "%i" doc\schemas
     
     for /D %i in (doc\examples\*) do Release\Wangscape.exe "%i\example_options.json"
 after_test:
