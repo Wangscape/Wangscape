@@ -93,11 +93,11 @@ after_build:
     
     mkdir Wangscape
     
-    robocopy Release dist\Wangscape Wangscape.exe WangscapeTest.exe noise.dll sfml-graphics-2.dll sfml-system-2.dll sfml-window-2.dll
+    robocopy ..\..\Release Wangscape Wangscape.exe WangscapeTest.exe noise.dll sfml-graphics-2.dll sfml-system-2.dll sfml-window-2.dll
     
     mkdir Wangview
     
-    xcopy /s /i ..\..\Wangview\dist Wangview
+    xcopy /s /i ..\..\Wangview\dist\Wangview Wangview
     
     mkdir Wangcheck
     
