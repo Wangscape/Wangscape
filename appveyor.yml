@@ -95,6 +95,8 @@ after_build:
     
     robocopy ..\..\Release Wangscape Wangscape.exe WangscapeTest.exe noise.dll sfml-graphics-2.dll sfml-system-2.dll sfml-window-2.dll
     
+    robocopy "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x86\Microsoft.VC140.CRT" Wangscape msvcp140.dll vcruntime140.dll
+    
     mkdir Wangview
     
     xcopy /s /i ..\..\Wangview\dist\Wangview Wangview
