@@ -101,7 +101,7 @@ after_build:
     
     mkdir Wangcheck
     
-    xcopy /s /i ..\..\Wangcheck\build\exe.win32-3.6 Wangcheck
+    xcopy /s /i ..\..\Wangcheck\build\Wangcheck Wangcheck
     
     mkdir doc
     
@@ -118,7 +118,7 @@ test_script:
     
     for /D %%i in (doc\examples\*) do echo "%%i"
     
-    for /D %%i in (doc\examples\*) do Wangcheck\build\exe.win32-3.5\Wangcheck.exe "%%i"\example_options.json doc\schemas
+    for /D %%i in (doc\examples\*) do Wangcheck\build\Wangcheck\Wangcheck.exe "%%i"\example_options.json doc\schemas
     
     for /D %%i in (doc\examples\*) do Release\Wangscape.exe "%%i"\example_options.json
 after_test:
