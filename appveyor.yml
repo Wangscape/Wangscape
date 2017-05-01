@@ -33,9 +33,7 @@ before_build:
 
     cmake --build . --config Release
 
-    cd ..
-
-    cd ..\..
+    cd ..\..\..
 
     cd lib\libnoise
 
@@ -49,9 +47,7 @@ before_build:
 
     cmake --build . --config Release
 
-    cd ..
-
-    cd ..\..
+    cd ..\..\..
 build:
   project: Wangscape.sln
   verbosity: minimal
@@ -101,11 +97,11 @@ after_build:
     
     mkdir Wangview
     
-    xcopy /s /i ..\..\Wangview\dist\ Wangview
+    xcopy /s /i ..\..\Wangview\dist Wangview
     
     mkdir Wangcheck
     
-    xcopy /s /i ..\..\Wangcheck\dist\ Wangcheck
+    xcopy /s /i ..\..\Wangcheck\build\exe.win32-3.6 Wangcheck
     
     mkdir doc
     
@@ -119,6 +115,8 @@ after_build:
 test_script:
 - cmd: >-
     Release\WangscapeTest.exe --gtest_output=xml
+    
+    for /D %%i in (doc\examples\*) do echo "%%i"
     
     for /D %%i in (doc\examples\*) do Wangcheck\build\exe.win32-3.5\Wangcheck.exe "%%i"\example_options.json doc\schemas
     
