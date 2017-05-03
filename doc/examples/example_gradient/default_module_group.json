@@ -1,0 +1,9 @@
+{
+  "defaultoutputmodule":"OUTPUT",
+  "modules":{
+    "OUTPUT":{
+      "type":"Const",
+      "ConstValue":0
+    }
+  }
+}
