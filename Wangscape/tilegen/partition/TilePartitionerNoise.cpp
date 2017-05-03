@@ -18,16 +18,22 @@ namespace partition
 noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& corners,
                                                                 bool left, bool top)
 {
-    TerrainID corner_id = corners[ (left ? 0 : 1) +  (top ? 0 : 2)];
-    TerrainID corner_h =  corners[(!left ? 0 : 1) +  (top ? 0 : 2)];
-    TerrainID corner_v =  corners[ (left ? 0 : 1) + (!top ? 0 : 2)];
+    TerrainID corner_id = corners[ (left ? 0 : 2) +  (top ? 0 : 1)];
+    TerrainID corner_h =  corners[(!left ? 0 : 2) +  (top ? 0 : 1)];
+    TerrainID corner_v =  corners[ (left ? 0 : 2) + (!top ? 0 : 1)];
 
     noise::ModuleGroup& combiner = mNoiseModuleManager.getCombiner();
     noise::ModuleGroup& central = mNoiseModuleManager.getCentral(corner_id);
-    noise::ModuleGroup& border_h = mNoiseModuleManager.getHorizontalBorder(left ? corner_id : corner_h,
-                                                                           left ? corner_h : corner_id);
-    noise::ModuleGroup& border_v = mNoiseModuleManager.getVerticalBorder(top ? corner_id : corner_v,
-                                                                         top ? corner_v : corner_id);
+    noise::ModuleGroup& border_h = 
+        left
+        ? mNoiseModuleManager.getLeftBorder(left ? corner_id : corner_h,
+                                            left ? corner_h : corner_id)
+        : mNoiseModuleManager.getBottomRightBorder();
+    noise::ModuleGroup& border_v =
+        top
+        ? mNoiseModuleManager.getTopBorder(top ? corner_id : corner_v,
+                                           top ? corner_v : corner_id)
+        : mNoiseModuleManager.getBottomRightBorder();
     central.setQuadrant(left, top, false);
     border_h.setQuadrant(left, top, false);
     border_v.setQuadrant(left, top, false);
@@ -83,8 +89,8 @@ noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& c
 }
 
 void TilePartitionerNoise::noiseToAlpha(std::vector<noise::RasterValues<double>>& noise_values,
-                                         std::vector<sf::Image>& outputs,
-                                         size_t resolution) const
+                                        std::vector<sf::Image>& outputs,
+                                        sf::Vector2u resolution) const
 {
     std::vector<double> weights((int)CORNERS);
     std::unique_ptr<alpha::CalculatorBase> ac;
@@ -115,9 +121,9 @@ void TilePartitionerNoise::noiseToAlpha(std::vector<noise::RasterValues<double>>
     default:
         throw std::runtime_error("Invalid CalculatorMode");
     }
-    for (size_t x = 0; x < resolution; x++)
+    for (size_t x = 0; x < resolution.x; x++)
     {
-        for (size_t y = 0; y < resolution; y++)
+        for (size_t y = 0; y < resolution.y; y++)
         {
             for (int i = 0; i < (int)CORNERS; i++)
             {
@@ -140,8 +146,8 @@ void TilePartitionerNoise::makePartition(TilePartition & regions, const Corners&
     std::vector<noise::RasterValues<double>> noise_values;
     for (int i = 0; i < (int)CORNERS; i++)
     {
-        noise_values.emplace_back(mOptions.tileFormat.resolution,
-                          mOptions.tileFormat.resolution,
+        noise_values.emplace_back(mOptions.tileFormat.resolution.x,
+                          mOptions.tileFormat.resolution.y,
                           sf::Rect<double>{0, 0, 1, 1});
     }
     // Construct noise modules and render them.
@@ -158,7 +164,7 @@ void TilePartitionerNoise::makePartition(TilePartition & regions, const Corners&
     // Prepare output storage
     std::vector<sf::Image> outputs((int)CORNERS);
     for (int i = 0; i < (int)CORNERS; i++)
-        outputs[i].create(mOptions.tileFormat.resolution, mOptions.tileFormat.resolution);
+        outputs[i].create(mOptions.tileFormat.resolution.x, mOptions.tileFormat.resolution.y);
     // Convert noise values to alpha values
     noiseToAlpha(noise_values, outputs, mOptions.tileFormat.resolution);
     // Convert output images to required format

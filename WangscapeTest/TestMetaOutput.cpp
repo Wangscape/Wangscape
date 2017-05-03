@@ -48,7 +48,7 @@ TEST_F(TestMetaOutput, TestMetaOutputCorrect)
     EXPECT_TRUE(std::any_of(std::cbegin(tsd), std::cend(tsd),
                 [](auto& t){return t.filename == "g.s.png";}));
     EXPECT_TRUE(std::all_of(std::begin(tsd), std::end(tsd),
-                [](auto& t){return t.resolution == 32;})) << "Incorrect resolution";
+                [](auto& t) {return t.resolution == sf::Vector2u(32, 32); })) << "Incorrect resolution";
 
     const auto& tgd = metaOutput.getTileGroups();
     EXPECT_TRUE(tgd.find("g.s.g.s") != tgd.end()) << "TileGroups is missing ""g.s.g.s""";

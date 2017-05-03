@@ -27,6 +27,7 @@ public:
     const module::ModulePtr getOutputModule() const;
     void setInputModuleSource(size_t index, module::ModulePtr source_module);
     const std::map<ModuleID, module::ModulePtr>& getModules() const;
+    static std::shared_ptr<ModuleGroup> makeConstModuleGroup(double const_value);
 private:
     friend class EncodedModuleGroup;
     //template<> 

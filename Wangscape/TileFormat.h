@@ -1,9 +1,10 @@
 #pragma once
 
 #include <string>
+#include <SFML/System/Vector2.hpp>
 
 struct TileFormat
 {
-    unsigned int resolution;
+    sf::Vector2u resolution;
     std::string fileType = "png";
 };

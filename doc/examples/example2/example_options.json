@@ -6,7 +6,7 @@
     "TerrainHypergraph": "terrain_hypergraph.json"
   },
   "TileFormat": {
-    "Resolution": 32,
+    "Resolution": [32,32],
     "FileType": "png"
   },
   "OutputDirectory": "output",
@@ -31,7 +31,8 @@
     ]
   ],
   "AlphaCalculatorMode":"Max",
-  "HorizontalBorderModuleGroups": [
+  "DefaultModuleGroup": "default_module_group.json",
+  "LeftBorderModuleGroups": [
     {
       "Terrains":["g","g"],
       "Filename":"default_module_group.json"
@@ -49,7 +50,7 @@
       "Filename":"default_module_group.json"
     }
   ],
-  "VerticalBorderModuleGroups": [
+  "TopBorderModuleGroups": [
     {
       "Terrains":["g","s"],
       "Filename":"default_module_group.json"

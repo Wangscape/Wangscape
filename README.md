@@ -1,4 +1,4 @@
-# Wangscape [![Build Status](https://travis-ci.org/Wangscape/Wangscape.svg?branch=master)](https://travis-ci.org/Wangscape/Wangscape) [![Gitter chat](https://badges.gitter.im/Wangscape.png)](https://gitter.im/Wangscape/Lobby)
+# Wangscape [![Build Status](https://travis-ci.org/Wangscape/Wangscape.svg?branch=master)](https://travis-ci.org/Wangscape/Wangscape) [![Build status](https://ci.appveyor.com/api/projects/status/qob6o9umrf5nwidl?svg=true)](https://ci.appveyor.com/project/serin-delaunay/wangscape) [![Gitter chat](https://badges.gitter.im/Wangscape.png)](https://gitter.im/Wangscape/Lobby)
 
 Converts terrain tiles to procedural corner Wang tilesets.
 
@@ -6,22 +6,71 @@ Converts terrain tiles to procedural corner Wang tilesets.
 Procjam 2016 project (in progress)
 
 # What is Wangscape for?
-Let's say you've drawn or procedurally generated a set of beautiful square terrain tiles to use in a game. But you don't have any nice-looking borders between them, or the borders you do have are all straight and boring, or the borders are all on the same side of the line dividing the in-game tiles.
+Does your game have nice square terrain tiles like these ones by David Gervais? ([CC BY 3.0](creativecommons.org/licenses/by/3.0/))
 
-Wangscape is intended to convert your tiles into a set of corner Wang tiles that solve all those problems.
+![gervais-terrain-3](doc/images/gervais-terrain-3.png)
+
+Do they make sharp borders and ugly right angles like these when you combine them into a map?
+
+![map-squares](doc/images/map-squares.png)
+
+Would you prefer to have smooth transitions and curved boundaries like these in your map display?
+
+![map-natural](doc/images/map-natural.png)
+
+Do you want meandering borders that affect both sides of the logical tile boundaries?
+
+![map-natural-grid](doc/images/map-natural-grid.png)
+
+Do you think the above tiles need some adjustment before they look right?
+
+![options-sample](doc/images/options-sample.png)
+![module-sample](doc/images/module-sample.png)
+
+Do you want to reduce visual repetition by making duplicate border tiles that still tessellate seamlessly? Do you want to do all of this automatically using just the base tile images and a few JSON configuration files?
+
+Then Wangscape can help.
 
 # What are corner Wang tiles?
+
 A good explanation of the corner Wang tiles (and the related Wang tiles) can be found at [cr31.co.uk](http://cr31.co.uk/stagecast/wang/2corn.html). Examples of the natural boundary lines that can be produced with corner Wang tiles in an isometric display can be seen by searching for screenshots of [Civilization 3 terrain](https://www.google.co.uk/search?q=civilization+3+terrain&tbm=isch).
 
-Rather than matching graphical tiles with the representation of logical tiles on screen, corner Wang tiles should be displayed offset by half a tile in both axes. Thus each logical tile is represented by the matching corners of four graphical tiles, and the logical boundary between tiles will pass through the central axes of the graphical tiles. Thus the graphical boundary between tiles can intrude on both sides of the logical boundary, simply by being drawn on one side or the other of the graphical tile.
+In corner Wang tiles, each corner corresponds to the centre of a logical terrain tile. In the middle of a corner Wang tile, anything can happen, provided the borders match.
+
+![corner-wang-tiles-separate](https://cloud.githubusercontent.com/assets/15715657/23168061/b4a264b6-f83e-11e6-9cb9-2eba145532d6.png)
+
+When you place four corner Wang tiles together, the four quarter-tiles around the joining point combine to form a display tile.
+
+![corner-wang-tiles-together](https://cloud.githubusercontent.com/assets/15715657/23168059/b49ea510-f83e-11e6-8117-4d521d6fdadf.png)
+
+Different combinations of the 8 surrounding terrains can produce different display tiles. If you generate redundant tilesets, there can be even more options.
 
 # How does Wangscape make corner Wang tiles?
+
 * A set of cliques each with up to 4 members is defined on the terrain types. Each clique produces a separate tileset to avoid making excessively large textures.
+
 * For each valid combination of terrain types in the corners:
-    * An alpha mask is generated for each corner (currently it's just a smooth gradient with no randomness).
+    * An alpha mask is generated for each corner.
     * These alpha masks are used to combine each corner's terrain texture into a single tile.
-* In future this will be much more customisable, using Perlin noise to generate noisy gradients and boundaries betwen corners.
 * Currently all tile generation is done through a command-line application configured using a JSON file. In the future, this should be migrated to a GUI interface which allows the user to alter tile generation parameters and immediately see the range of possible results.
+* See [algorithm.md](./doc/algorithm.md) for detailed information about the tileset generation process.
+
+
+# How can I use corner Wang tilesets in my project?
+Wangscape's sibling project, [Wangview](https://github.com/Wangscape/Wangview/tree/documentation), demonstrates how to use tilesets produced by Wangscape. Wangview provides a set of well-commented IPython notebooks and Python scripts to enable easy porting to the platform used by your project.
+
+# How can I help Wangscape?
+
+We would value your input in bug reports, feature requests, documentation improvements, examples, or code. Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for further information. Note that a [code of conduct](./CODE_OF_CONDUCT.md) applies to all participation in this project.
+
+# What platforms does Wangscape support?
+
+Wangscape is actively tested by the maintainers on:
+* Windows 7 (64-bit) with Visual Studio 2015
+* Arch Linux with CMake
+* Ubuntu (Trusty) with CMake (in travis-ci)
+
+We also hope to run travis-ci builds under Mac OS X soon.
 
 # How can I build Wangscape?
 
@@ -40,6 +89,7 @@ Wangscape depends on these libraries:
   - system
   - graphics
 * **spotify-json** (submodule)
+* **libnoise**
 
 After installing them, you can compile Wangscape using either of the methods
 below.

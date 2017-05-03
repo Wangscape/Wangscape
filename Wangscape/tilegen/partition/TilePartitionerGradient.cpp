@@ -7,11 +7,12 @@ namespace tilegen
 namespace partition
 {
 
-int TilePartitionerGradient::gradientWeight(int x, int y, int x_corner, int y_corner, int margin)
+int TilePartitionerGradient::gradientWeight(sf::Vector2u xy, sf::Vector2u corner, sf::Vector2u margin)
 {
-    return std::max(0, ((int)mOptions.tileFormat.resolution - 1 - margin -
-                        std::max(std::abs(x - x_corner),
-                                 std::abs(y - y_corner))));
+    sf::Vector2i distance = {std::abs((int)xy.x - (int)corner.x), std::abs((int)xy.y - (int)corner.y)};
+    sf::Vector2i size = sf::Vector2i(mOptions.tileFormat.resolution) - sf::Vector2i(margin);
+    sf::Vector2i values = size - distance;
+    return std::max({0, std::min(values.x, values.y)});
 }
 
 void TilePartitionerGradient::makePartition(TilePartition & regions,
@@ -21,22 +22,22 @@ void TilePartitionerGradient::makePartition(TilePartition & regions,
     for (auto corner : corners)
     {
         sf::Image img;
-        img.create(mOptions.tileFormat.resolution,
-                   mOptions.tileFormat.resolution);
+        img.create(mOptions.tileFormat.resolution.x,
+                   mOptions.tileFormat.resolution.y);
         masks.push_back(img);
     }
     std::vector<double> weights(corners.size(), 0.);
-    const int resolution_sub_1 = mOptions.tileFormat.resolution - 1;
-    const int quarter_res = mOptions.tileFormat.resolution / 4;
+    const sf::Vector2u resolution_sub_1 = mOptions.tileFormat.resolution - sf::Vector2u(1,1);
+    const sf::Vector2u quarter_res = mOptions.tileFormat.resolution / (unsigned int)4;
     alpha::CalculatorLinear ac;
-    for (size_t x = 0; x < mOptions.tileFormat.resolution; x++)
+    for (unsigned int x = 0; x < mOptions.tileFormat.resolution.x; x++)
     {
-        for (size_t y = 0; y < mOptions.tileFormat.resolution; y++)
+        for (unsigned int y = 0; y < mOptions.tileFormat.resolution.y; y++)
         {
-            weights[0] = static_cast<double>(gradientWeight(x, y, 0, 0, quarter_res));
-            weights[1] = static_cast<double>(gradientWeight(x, y, 0, resolution_sub_1, quarter_res));
-            weights[2] = static_cast<double>(gradientWeight(x, y, resolution_sub_1, 0, quarter_res));
-            weights[3] = static_cast<double>(gradientWeight(x, y, resolution_sub_1, resolution_sub_1, quarter_res));
+            weights[0] = static_cast<double>(gradientWeight({x, y}, {0, 0}, quarter_res));
+            weights[1] = static_cast<double>(gradientWeight({x, y}, {0, resolution_sub_1.y}, quarter_res));
+            weights[2] = static_cast<double>(gradientWeight({x, y}, {resolution_sub_1.x, 0}, quarter_res));
+            weights[3] = static_cast<double>(gradientWeight({x, y}, {resolution_sub_1.x, resolution_sub_1.y}, quarter_res));
             ac.updateAlphas(weights);
             const auto& alphas = ac.getAlphas();
             for (size_t i = 0; i < masks.size(); i++)

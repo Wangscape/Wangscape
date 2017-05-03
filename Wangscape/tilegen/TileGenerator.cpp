@@ -13,7 +13,7 @@ void TileGenerator::generate(sf::RenderTexture& image, size_t x, size_t y,
     partition::TilePartitionerBase::TilePartition tp;
     tile_partitioner.makePartition(tp, corners);
     sf::RenderTexture temp;
-    temp.create(options.tileFormat.resolution, options.tileFormat.resolution);
+    temp.create(options.tileFormat.resolution.x, options.tileFormat.resolution.y);
     for (const auto& it : tp)
     {
         sf::Sprite tex(images.terrain_textures.at(it.second));
@@ -22,7 +22,9 @@ void TileGenerator::generate(sf::RenderTexture& image, size_t x, size_t y,
         temp.draw(mask, sf::RenderStates(sf::BlendMultiply));
         temp.display();
         sf::Sprite tile(temp.getTexture());
-        tile.setPosition(sf::Vector2f((float)x, (float)y)*(float)options.tileFormat.resolution);
+        tile.setPosition(sf::Vector2f(
+            (float)x*options.tileFormat.resolution.x,
+            (float)y*options.tileFormat.resolution.y));
         image.draw(tile, sf::RenderStates(sf::BlendMode(sf::BlendMode::SrcAlpha, sf::BlendMode::One, sf::BlendMode::Add,
                                                         sf::BlendMode::Zero,     sf::BlendMode::One, sf::BlendMode::Add)));
         //image.draw(tile, sf::RenderStates(sf::BlendNone));

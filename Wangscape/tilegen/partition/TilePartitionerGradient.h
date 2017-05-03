@@ -12,7 +12,7 @@ class TilePartitionerGradient : public TilePartitionerBase
 public:
     using TilePartitionerBase::TilePartitionerBase;
     virtual void makePartition(TilePartition& regions, const Corners& corners);
-    int gradientWeight(int x, int y, int x_corner, int y_corner, int margin = 0);
+    int gradientWeight(sf::Vector2u xy, sf::Vector2u corner, sf::Vector2u margin = {0, 0});
 };
 
 } // namespace partition

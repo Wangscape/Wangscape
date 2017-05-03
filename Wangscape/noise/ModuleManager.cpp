@@ -11,9 +11,11 @@ namespace noise {
 ModuleManager::ModuleManager(const Options & options) :
     mRNG((unsigned int)time(nullptr)),
     mCentres("centre"),
-    mHorizontalBorders("horizontal border"),
-    mVerticalBorders("vertical border")
+    mLeftBorders("horizontal border"),
+    mTopBorders("vertical border")
 {
+    mBottomRightBorder = ModuleGroup::makeConstModuleGroup(0.0);
+
     boost::filesystem::path p(options.paths.directory);
 
     mCombiner = loadModuleGroup((p / options.combinerModuleGroup).string());
@@ -22,13 +24,13 @@ ModuleManager::ModuleManager(const Options & options) :
     {
         mCentres.addSpecificModuleGroup(it.terrain, (p / it.filename).string());
     }
-    for (auto it : options.horizontalBorderModuleGroups)
+    for (auto it : options.leftBorderModuleGroups)
     {
-        mHorizontalBorders.addSpecificModuleGroup(it.terrains, (p / it.filename).string());
+        mLeftBorders.addSpecificModuleGroup(it.terrains, (p / it.filename).string());
     }
-    for (auto it : options.verticalBorderModuleGroups)
+    for (auto it : options.topBorderModuleGroups)
     {
-        mVerticalBorders.addSpecificModuleGroup(it.terrains, (p / it.filename).string());
+        mTopBorders.addSpecificModuleGroup(it.terrains, (p / it.filename).string());
     }
     boost::optional<std::string> default_module_filename;
     if (options.defaultModuleGroup)
@@ -46,21 +48,27 @@ ModuleManager::ModuleManager(const Options & options) :
             for (const auto& t2 : clique)
             {
                 TerrainIDPair tp{t1, t2};
-                mHorizontalBorders.tryAddDefaultModuleGroup(tp, default_module_filename);
-                mVerticalBorders.tryAddDefaultModuleGroup(tp, default_module_filename);
+
+                mLeftBorders.tryAddDefaultModuleGroup(tp, default_module_filename);
+                mTopBorders.tryAddDefaultModuleGroup(tp, default_module_filename);
             }
     }
     
 }
 
-ModuleGroup& ModuleManager::getVerticalBorder(TerrainID top, TerrainID bottom)
+ModuleGroup& ModuleManager::getTopBorder(TerrainID top, TerrainID bottom)
 {
-    return mVerticalBorders.at({top, bottom});
+    return mTopBorders.at({top, bottom});
 }
 
-ModuleGroup& ModuleManager::getHorizontalBorder(TerrainID left, TerrainID right)
+ModuleGroup& ModuleManager::getLeftBorder(TerrainID left, TerrainID right)
 {
-    return mHorizontalBorders.at({left, right});
+    return mLeftBorders.at({left, right});
+}
+
+ModuleGroup & ModuleManager::getBottomRightBorder()
+{
+    return *mBottomRightBorder;
 }
 
 ModuleGroup& ModuleManager::getCentral(TerrainID terrain)

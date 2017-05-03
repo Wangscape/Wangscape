@@ -32,8 +32,8 @@ public:
     std::string combinerModuleGroup;
     boost::optional<std::string> defaultModuleGroup;
     std::vector<TerrainModuleGroupLocation> centralModuleGroups;
-    std::vector<BorderModuleGroupLocation> horizontalBorderModuleGroups;
-    std::vector<BorderModuleGroupLocation> verticalBorderModuleGroups;
+    std::vector<BorderModuleGroupLocation> leftBorderModuleGroups;
+    std::vector<BorderModuleGroupLocation> topBorderModuleGroups;
     bool debugOutput;
     
     virtual ~Options() = default;

@@ -37,7 +37,7 @@ void MetaOutput::addTileset(TerrainSet terrains, std::string filename, size_t si
     mTilesets.push_back(Tileset(filename, mResolution, size_x, size_y, terrains));
 }
 
-void MetaOutput::setResolution(size_t resolution)
+void MetaOutput::setResolution(sf::Vector2u resolution)
 {
     mResolution = resolution;
 }
