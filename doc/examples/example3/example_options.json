@@ -74,6 +74,5 @@
     }
   ],
   "CombinerModuleGroup":"combiner_module_group.json",
-  "DebugOutput":true,
-  "DebugTileResolution":[256,256]
+  "DebugOutput":false
 }

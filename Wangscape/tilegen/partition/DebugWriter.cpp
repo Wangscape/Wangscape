@@ -12,7 +12,14 @@ DebugWriter::DebugWriter(const Options& options_) :
 {
     mDebugDir /= mOptions.outputDirectory;
     mDebugDir /= "debug";
-    mImage.create(mOptions.debugTileResolution.first, mOptions.debugTileResolution.second);
+    if (mOptions.debugTileResolution)
+    {
+        mImage.create(mOptions.debugTileResolution->first, mOptions.debugTileResolution->second);
+    }
+    else
+    {
+        mImage.create(mOptions.tileFormat.resolution.x * 8, mOptions.tileFormat.resolution.y * 8);
+    }
 }
 
 void DebugWriter::setCorner(bool top, bool left)

@@ -313,7 +313,6 @@
     "Terrains",
     "Cliques",
     "AlphaCalculatorMode",
-    "CombinerModuleGroup",
-    "DebugTileResolution"
+    "CombinerModuleGroup"
   ]
 }
