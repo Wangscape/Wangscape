@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <random>
 #include <numeric>
+#include <algorithm>
 
 #include <tilegen/alpha/CalculatorMax.h>
 
