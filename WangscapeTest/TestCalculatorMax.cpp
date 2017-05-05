@@ -55,7 +55,7 @@ TEST_F(TestCalculatorMax, TestCalculatorMaxRandom)
     std::uniform_real_distribution<double> weight_gen(-10, 10);
     for (int i = 0; i < 100; i++)
     {
-        for (tilegen::alpha::CalculatorBase::Weights::value_type& w : weights)
+        for (auto& w : weights)
         {
             w = weight_gen(rng);
         }
@@ -69,7 +69,7 @@ TEST_F(TestCalculatorMax, TestCalculatorMaxRandomBiased)
     std::uniform_real_distribution<double> weight_gen(-10, 10);
     for (int i = 0; i < 1000; i++)
     {
-        for (tilegen::alpha::CalculatorBase::Weights::value_type& w : weights)
+        for (auto& w : weights)
         {
             w = weight_gen(rng);
         }
