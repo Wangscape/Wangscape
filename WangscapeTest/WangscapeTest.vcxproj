@@ -155,6 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestCalculatorMax.cpp" />
     <ClCompile Include="TestCalculatorTopTwo.cpp" />
     <ClCompile Include="removeWhitespace.cpp" />
     <ClCompile Include="TestCartesianPower.cpp" />
