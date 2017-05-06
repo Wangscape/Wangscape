@@ -1,4 +1,4 @@
-#Introduction
+# Introduction
 
 Wangscape includes many different types of text, including English prose, C++,
 Python, and JSON. This document provides style guidelines for text contributions
@@ -17,13 +17,13 @@ If you feel this guide should be altered, please open an issue with your suggest
 Possible changes to the style guide should only be discussed in dedicated spaces,
 not in pull requests for features and bugfixes.
 
-#Contents
+# Contents
 0. [English](#english)
 0. [C++](#c)
 0. [Python](#python)
 0. [JSON](#json)
 
-#English
+# English
 
 Wangscape is intended to be usable by non-programmers. All documentation related
 to configuration of Wangscape and libnoise module groups should, to the fullest
@@ -40,20 +40,20 @@ and their documentation and tutorials.
 All documentation and comments should be clear and precise, while maintaining an
 approachable tone.
 
-##Capitalisation
+## Capitalisation
 
 * Anything named after Hao Wang should capitalise his name. This includes "Wangscape", 
 "Wangview", and "corner Wang tile".
 * libnoise should not be capitalised, even at the start of a sentence.
 
-##Dialect
+## Dialect
 * Wangscape uses British English spellings and vocabulary.
 
-#C++
+# C++
 
-##Naming conventions
+## Naming conventions
 
-###Case
+### Case
 
 * Names of `class`es, `struct`s, and other types should be in `PascalCase`.
 * Names of `class` and `struct` methods should be in `camelCase`.
@@ -74,10 +74,10 @@ non-const or non-static should be in `mCamelCase` with an `m` prefix.
 * Acronyms and initialisms in `PascalCase` and `camelCase` should be written in
 upper case, even at the start of an identifier (`JSONData`).
 
-###Filenames
+### Filenames
 Filenames are in `PascalCase`, with `.cpp` and `.h` extensions.
 
-###General
+### General
 
 * All identifiers should clearly and concisely describe the purpose of the associated
 type, variable, function, or namespace. 
@@ -87,25 +87,25 @@ number of characters is saved.
 or other tricks to avoid name collisions. In the rare cases when a method parameter
 hides a data member, use `this->` to access the data member.
 
-##Brackets and indentation
+## Brackets and indentation
 
 * Wangscape uses BSD (Allman) style braces, with 4 space indentation.
 * Very short functions may be written on one line, if readability is improved.
 * Single-statement code blocks may be written without braces, if readability is 
 improved **and** it is unlikely that another statement will be added to the block.
 
-##Long lines
+## Long lines
 
 * There is no hard limit on line length, but line breaks and appropriate indentation
 should be used to make the code as readable as possible.
 
-##Comments
+## Comments
 * Comments should be used to clarify anything which is not obvious from the code
 itself.
 * Wangscape does not yet use a documentation generator, so there is no specific
 format for class and function documentation comments.
 
-##Modern C++
+## Modern C++
 * C++14 features should be used wherever possible to make the code safer and more
 readable.
 * Raw pointers should only be used when absolutely necessary (for instance, if
@@ -113,18 +113,18 @@ library code requires raw pointers, or addresses must be compared).
 * Some features of C++14 and C++17 may not yet be supported in the maintainers'
 build environments; these should not be used.
 
-##Other
+## Other
 * In pointer and reference declarations, there should be a space on the right side
 of the `*` or `&`, and no space on the left.
 * Do not use `using namespace x` declarations.
 
-##Exemptions
+## Exemptions
 
 Some code in Wangscape is meant to extend public APIs from other projects. Such
 code may diverge from the Wangscape style guide in order to make its own public
 API conform to the base code.
 
-#Python
+# Python
 
 * Python code should conform to PEP8.
 * `import *` should never be used.
@@ -136,7 +136,7 @@ should be synchronised.
 * Names of class members should be in `snake_case`.
 * Names of free variables should be in `snake_case`.
 
-#JSON
+# JSON
 
 * JSON code should conform to JSON Lint's style.
 * Each indentation level should use a single tab character.
