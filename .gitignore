@@ -222,3 +222,5 @@ doc/examples/example*/output/
 
 Wangview/.ipynb_checkpoints/
 Wangview/Untitled*
+
+*.orig
