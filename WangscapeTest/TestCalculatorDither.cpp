@@ -60,7 +60,7 @@ public:
             if (cd.power < 10)
                 EXPECT_EQ(expected_winners, results.size()) <<
                 "Unexpected number of winners. power = " << std::to_string(cd.power);
-            else
+            else // Dither behaviour for power==256 is very different from power==2 or 1.
                 EXPECT_EQ(1, results.size()) <<
                 "Unexpected number of winners. power = " << std::to_string(cd.power);
         }
