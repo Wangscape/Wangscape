@@ -163,7 +163,8 @@
       "enum": [
         "Max",
         "Linear",
-        "TopTwo"
+        "TopTwo",
+        "Dither"
       ]
     },
     "AlphaCalculatorTopTwoPower": {
