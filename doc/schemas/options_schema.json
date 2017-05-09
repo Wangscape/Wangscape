@@ -299,6 +299,18 @@
       "title": "DebugOutput schema",
       "description": "Specifies whether Wangscape should write debug data during tile generation.",
       "default": false
+    },
+    "DebugTileResolution": {
+      "type": "array",
+      "title": "DebugTileResolution schema",
+      "description": "Specifies the resolution of the images written as debug data during tile generation.",
+      "items": {
+        "type": "integer",
+        "multipleOf": 1,
+        "minimum": 1
+      },
+      "minItems": 2,
+      "maxItems": 2
     }
   },
   "required": [

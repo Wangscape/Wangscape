@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClInclude Include="tilegen\alpha\CalculatorDither.h" />
     <ClInclude Include="codecs\Vector2Codec.h" />
+    <ClInclude Include="tilegen\partition\DebugWriter.h" />
     <ClInclude Include="tilegen\alpha\CalculatorTopTwo.h" />
     <ClInclude Include="BorderModuleGroupLocation.h" />
     <ClInclude Include="codecs\BorderModuleGroupLocationCodec.h" />
@@ -261,6 +262,7 @@
     <ClInclude Include="ipow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="tilegen\partition\DebugWriter.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorDither.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorTopTwo.cpp" />
     <ClCompile Include="metaoutput\MetaOutput.cpp" />
