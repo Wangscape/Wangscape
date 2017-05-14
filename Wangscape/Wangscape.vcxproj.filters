@@ -27,6 +27,7 @@
     <ClCompile Include="tilegen\partition\TilePartitionerSquares.cpp" />
     <ClCompile Include="tilegen\TileGenerator.cpp" />
     <ClCompile Include="tilegen\TilesetGenerator.cpp" />
+    <ClCompile Include="tilegen\alpha\CalculatorDither.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerNoise.cpp" />
     <ClCompile Include="noise\module\QuadrantSelector.cpp" />
     <ClCompile Include="noise\ModuleGroup.cpp" />
@@ -67,6 +68,7 @@
     <ClCompile Include="noise\module\codecs\ScalePointWrapperCodec.cpp" />
     <ClCompile Include="noise\ModuleGroupContainer.cpp" />
     <ClCompile Include="OptionsPaths.cpp" />
+    <ClCompile Include="tilegen\partition\DebugWriter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codecs\OptionsCodec.h" />
@@ -123,6 +125,7 @@
     <ClInclude Include="tilegen\TileGenerator.h" />
     <ClInclude Include="tilegen\TilesetGenerator.h" />
     <ClInclude Include="ipow.h" />
+    <ClInclude Include="tilegen\alpha\CalculatorDither.h" />
     <ClInclude Include="noise\module\codecs\ModuleCodecs.h" />
     <ClInclude Include="noise\module\codecs\AbsWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\BillowWrapperCodec.h" />
@@ -173,6 +176,7 @@
     <ClInclude Include="noise\ModuleGroupContainer.h" />
     <ClInclude Include="OptionsPaths.h" />
     <ClInclude Include="codecs\Vector2Codec.h" />
+    <ClInclude Include="tilegen\partition\DebugWriter.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

@@ -283,6 +283,6 @@ so the resulting formula is `(v1-v3)^p : (v2-v3)^p`.
 The resulting visual effect can closely resemble `Linear`, `Max`, or `Max` with antialiasing, depending on the value of `p`. Example:
 
 ![alpha-top-top](./images/alpha-top-two.png)
-* `Dither` (currently unavailable in `master`) uses the same ratio calculation as `TopTwo`, but uses it to randomly select one of the top two terrains. The winner gets all 255 points. Example:
+* `Dither` uses the same ratio calculation as `TopTwo`, but uses it to randomly select one of the top two terrains. The winner gets all 255 points. Example:
 
 ![alpha-dither](./images/alpha-dither.png)

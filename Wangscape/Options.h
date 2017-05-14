@@ -35,6 +35,7 @@ public:
     std::vector<BorderModuleGroupLocation> leftBorderModuleGroups;
     std::vector<BorderModuleGroupLocation> topBorderModuleGroups;
     bool debugOutput;
+    boost::optional<std::pair<size_t, size_t>> debugTileResolution;
     
     virtual ~Options() = default;
 };

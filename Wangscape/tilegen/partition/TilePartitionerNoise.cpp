@@ -4,8 +4,10 @@
 #include "tilegen/alpha/CalculatorMax.h"
 #include "tilegen/alpha/CalculatorLinear.h"
 #include "tilegen/alpha/CalculatorTopTwo.h"
+#include "tilegen/alpha/CalculatorDither.h"
 #include "noise/RasterImage.h"
 #include "noise/ModuleGroup.h"
+#include <boost/filesystem.hpp>
 
 #include <iostream>
 
@@ -43,47 +45,14 @@ noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& c
     combiner.setInputModuleSource(2, central.getOutputModule());
     if (mDebugOutput)
     {
-        std::cout << "Writing debug modules for terrains " <<
-            corners[0] << ", " <<
-            corners[1] << ", " <<
-            corners[2] << ", " <<
-            corners[3] << ", " <<
-            (top ? "top " : "bottom ") <<
-            (left ? "left" : "right") <<
-            "...\n";
-        sf::Image output;
-        output.create(256, 256);
-        noise::RasterBase::Bounds xy(0, 0, 1, 1);
-        noise::RasterImage nmixy(output, xy);
-        auto write_map = [&](const noise::module::ModulePtr module,
-                             std::string filename,
-                             noise::RasterImage& nmi)
+        if (!mDebugWriter)
         {
-            nmi.build(module->getModule());
-            output.saveToFile("test/" + filename + ".png");
-        };
-        auto write_group = [&](const noise::ModuleGroup& mg,
-                               std::string mg_name)
-        {
-            for (auto it : mg.getModules())
-            {
-                write_map(it.second, mg_name + "_" + it.first, nmixy);
-            }
-        };
-        write_group(central, "central");
-        write_group(border_h, "border_h");
-        write_group(border_v, "border_v");
-        write_group(combiner, "combiner");
-        std::cout << "Debug modules written. Press 'q' <ENTER> to stop debugging.\n" <<
-            "Press <ENTER> to write the next set...\n";
-        int keypress = std::cin.get();
-        if (keypress == 'q')
-        {
-            mDebugOutput = false;
-            std::cout << "Debugging cancelled. Generating remaining tilesets as normal...\n";
+            mDebugWriter.emplace(mOptions);
         }
+        mDebugWriter->setTerrains(corners);
+        mDebugWriter->setCorner(top, left);
+        writeDebugData(central, border_h, border_v, combiner);
     }
-
     return combiner.getOutputModule();
 }
 
@@ -107,8 +76,16 @@ void TilePartitionerNoise::noiseToAlpha(std::vector<noise::RasterValues<double>>
         if (mOptions.alphaCalculatorTopTwoPower)
             ac_top_two->power = mOptions.alphaCalculatorTopTwoPower.get();
         ac = std::move(ac_top_two);
-    }
         break;
+    }
+    case alpha::CalculatorMode::Dither:
+    {
+        auto ac_dither = std::make_unique<alpha::CalculatorDither>();
+        if (mOptions.alphaCalculatorTopTwoPower)
+            ac_dither->power = mOptions.alphaCalculatorTopTwoPower.get();
+        ac = std::move(ac_dither);
+        break;
+    }
     default:
         throw std::runtime_error("Invalid CalculatorMode");
     }
@@ -128,6 +105,27 @@ void TilePartitionerNoise::noiseToAlpha(std::vector<noise::RasterValues<double>>
                 outputs[i].setPixel(x, y, sf::Color(255, 255, 255, alphas[i]));
             }
         }
+    }
+}
+
+void TilePartitionerNoise::writeDebugData(const noise::ModuleGroup & central,
+                                          const noise::ModuleGroup & border_h,
+                                          const noise::ModuleGroup & border_v,
+                                          const noise::ModuleGroup & combiner)
+{
+
+    std::cout << "Writing debug modules for " << mDebugWriter->getCornerDescription() << "...\n" ;
+    mDebugWriter->writeDebugGroup(central, "central");
+    mDebugWriter->writeDebugGroup(border_h, "border_h");
+    mDebugWriter->writeDebugGroup(border_v, "border_v");
+    mDebugWriter->writeDebugGroup(combiner, "combiner");
+    std::cout << "Debug modules written. Press 'q' <ENTER> to stop debugging.\n" <<
+        "Press <ENTER> to write the next set...\n";
+    int keypress = std::cin.get();
+    if (keypress == 'q')
+    {
+        mDebugOutput = false;
+        std::cout << "Debugging cancelled. Generating remaining tilesets as normal...\n";
     }
 }
 

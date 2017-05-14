@@ -9,7 +9,8 @@ enum class CalculatorMode
 {
     Max,
     Linear,
-    TopTwo
+    TopTwo,
+    Dither
 };
 
 } // namespace alpha

@@ -6,6 +6,8 @@
 #include "Options.h"
 #include "noise/ModuleManager.h"
 #include "noise/RasterValues.h"
+#include "DebugWriter.h"
+#include <boost/optional.hpp>
 
 namespace tilegen
 {
@@ -25,6 +27,11 @@ public:
 private:
     noise::ModuleManager mNoiseModuleManager;
     bool mDebugOutput;
+    boost::optional<DebugWriter> mDebugWriter;
+    void writeDebugData(const noise::ModuleGroup& central,
+                        const noise::ModuleGroup& border_h,
+                        const noise::ModuleGroup& border_v,
+                        const noise::ModuleGroup& combiner);
 };
 
 } // namespace partition

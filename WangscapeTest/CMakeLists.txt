@@ -1,6 +1,7 @@
 set(tst-src
     main.cpp
     TestCalculatorMax.cpp
+    TestCalculatorDither.cpp
     TestCalculatorTopTwo.cpp
     removeWhitespace.cpp
     DocumentationPath.cpp
