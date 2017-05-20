@@ -8,6 +8,7 @@
 #include <spotify/json.hpp>
 
 #include "codecs/OptionsCodec.h"
+#include "logging/Logging.h"
 
 OptionsManager::OptionsManager(std::string optionsFilename)
 {
@@ -30,7 +31,7 @@ void OptionsManager::loadOptions(std::string optionsFilename)
     }
     catch (const spotify::json::decode_exception& e)
     {
-        std::cout << "spotify::json::decode_exception encountered at "
+        LOG_ERROR << "spotify::json::decode_exception encountered at "
             << e.offset()
             << ": "
             << e.what();

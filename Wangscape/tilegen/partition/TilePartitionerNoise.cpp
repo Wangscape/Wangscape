@@ -1,4 +1,5 @@
 #include "TilePartitionerNoise.h"
+#include "logging/Logging.h"
 #include "noise/RasterValues.h"
 #include "noise/module/Pow.h"
 #include "tilegen/alpha/CalculatorMax.h"
@@ -45,6 +46,7 @@ noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& c
     combiner.setInputModuleSource(2, central.getOutputModule());
     if (mDebugOutput)
     {
+        setLoggingLevel(logging::Level::Debug);
         if (!mDebugWriter)
         {
             mDebugWriter.emplace(mOptions);
@@ -114,18 +116,18 @@ void TilePartitionerNoise::writeDebugData(const noise::ModuleGroup & central,
                                           const noise::ModuleGroup & combiner)
 {
 
-    std::cout << "Writing debug modules for " << mDebugWriter->getCornerDescription() << "...\n" ;
+    LOG_DEBUG << "Writing debug modules for " << mDebugWriter->getCornerDescription() << "...\n" ;
     mDebugWriter->writeDebugGroup(central, "central");
     mDebugWriter->writeDebugGroup(border_h, "border_h");
     mDebugWriter->writeDebugGroup(border_v, "border_v");
     mDebugWriter->writeDebugGroup(combiner, "combiner");
-    std::cout << "Debug modules written. Press 'q' <ENTER> to stop debugging.\n" <<
+    LOG_DEBUG << "Debug modules written. Press 'q' <ENTER> to stop debugging.\n" <<
         "Press <ENTER> to write the next set...\n";
     int keypress = std::cin.get();
     if (keypress == 'q')
     {
         mDebugOutput = false;
-        std::cout << "Debugging cancelled. Generating remaining tilesets as normal...\n";
+        LOG_DEBUG << "Debugging cancelled. Generating remaining tilesets as normal...\n";
     }
 }
 

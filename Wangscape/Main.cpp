@@ -6,6 +6,7 @@
 #include <boost/program_options/parsers.hpp>
 #include <boost/program_options/variables_map.hpp>
 
+#include "logging/Logging.h"
 #include "tilegen/TilesetGenerator.h"
 #include "tilegen/TileGenerator.h"
 #include "tilegen/partition/TilePartitionerNoise.h"
@@ -42,7 +43,7 @@ int main(int argc, char** argv)
 
         if (vm.count("help"))
         {
-            std::cout << cmd_options;
+            LOG_INFO << cmd_options;
             return 0;
         }
         po::notify(vm);
@@ -54,8 +55,8 @@ int main(int argc, char** argv)
     }
     catch(const std::exception& e)
     {
-        std::cout << e.what() << "\n";
-        std::cout << cmd_options;
+        LOG_ERROR << e.what() << "\n";
+        LOG_ERROR << cmd_options;
         return 1;
     }
 
