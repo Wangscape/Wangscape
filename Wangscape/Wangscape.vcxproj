@@ -166,6 +166,12 @@
     <ClInclude Include="codecs\TileFormatCodec.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="Corners.h" />
+    <ClInclude Include="logging\AppenderType.h" />
+    <ClInclude Include="logging\Level.h" />
+    <ClInclude Include="logging\Logger.h" />
+    <ClInclude Include="logging\Logging.h" />
+    <ClInclude Include="logging\TileLocation.h" />
+    <ClInclude Include="logging\Tileset.h" />
     <ClInclude Include="metaoutput\codecs\FilenamesCodec.h" />
     <ClInclude Include="metaoutput\codecs\TileCodec.h" />
     <ClInclude Include="metaoutput\codecs\TileLocationCodec.h" />
@@ -264,6 +270,7 @@
     <ClCompile Include="tilegen\partition\DebugWriter.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorDither.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorTopTwo.cpp" />
+    <ClCompile Include="logging\Logging.cpp" />
     <ClCompile Include="metaoutput\MetaOutput.cpp" />
     <ClCompile Include="metaoutput\Tile.cpp" />
     <ClCompile Include="metaoutput\TileLocation.cpp" />
