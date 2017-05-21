@@ -12,24 +12,24 @@ class Logger
 {
 public:
     Logger() = default;
-    explicit Logger(std::ostream* out)
-        : appender_{out}
+    explicit Logger(std::ostream* out_)
+        : mAppender{out_}
     {
     }
     void setStream(std::ostream* out)
     {
-        appender_ = out;
+        mAppender = out;
     }
     template<typename T>
     Logger& operator<<(T&& msg)
     {
-        if (appender_ != nullptr) {
-            *appender_ << msg;
+        if (mAppender != nullptr) {
+            *mAppender << std::forward<T>(msg);
         }
         return *this;
     }
 private:
-    std::ostream* appender_ = nullptr;
+    std::ostream* mAppender = nullptr;
 };
 
 
