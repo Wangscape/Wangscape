@@ -169,7 +169,6 @@
     <ClCompile Include="TestOptions.cpp" />
     <ClCompile Include="TestIPow.cpp" />
     <ClCompile Include="TestRequiringOptions.cpp" />
-    <ClCompile Include="TestTilePartitionerGradient.cpp" />
     <ClCompile Include="TestTilePartitionerSquares.cpp" />
     <ClCompile Include="TestTilesetGenerator.cpp" />
   </ItemGroup>

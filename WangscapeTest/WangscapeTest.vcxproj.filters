@@ -33,9 +33,6 @@
     <ClCompile Include="TestNormLPQ.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestTilePartitionerGradient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TestTilePartitionerSquares.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
