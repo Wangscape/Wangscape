@@ -32,6 +32,9 @@ size_t RasterImage::sizeY() const
 
 RasterImage::Colour RasterImage::get(size_t x, size_t y) const
 {
+    if (x < 0 || x >= sizeX() ||
+        y < 0 || y >= sizeY())
+        throw std::out_of_range("Tried to get RasterImage pixel out of range");
     return mImage.getPixel(x, y);
 }
 
