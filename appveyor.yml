@@ -19,7 +19,7 @@ before_build:
     
     git clone --single-branch https://github.com/Wangscape/Wangview.git
     
-    git clone --single-branch https://github.com/serin-delaunay/Wangcheck.git
+    git clone --single-branch https://github.com/Wangscape/Wangcheck.git
 
     cd lib\spotify-json
 
@@ -77,11 +77,7 @@ after_build:
     
     cd ..
     
-    (Get-Location)
-    
     cd Wangcheck
-    
-    (Get-Location)
     
     dir
     
