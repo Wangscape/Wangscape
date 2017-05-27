@@ -43,7 +43,7 @@ int main(int argc, char** argv)
 
         if (vm.count("help"))
         {
-            LOG_INFO << cmd_options;
+            logInfo() << cmd_options;
             return 0;
         }
         po::notify(vm);
@@ -55,8 +55,8 @@ int main(int argc, char** argv)
     }
     catch(const std::exception& e)
     {
-        LOG_ERROR << e.what() << "\n";
-        LOG_ERROR << cmd_options;
+        logError() << e.what() << "\n";
+        logError() << cmd_options;
         return 1;
     }
 

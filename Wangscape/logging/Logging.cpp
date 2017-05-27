@@ -6,6 +6,28 @@
 #include <memory>
 #include <ostream>
 
+
+logging::Logger& logDebug()
+{
+    return getLogger(logging::Level::Debug);
+}
+
+logging::Logger& logInfo()
+{
+    return getLogger(logging::Level::Info);
+}
+
+logging::Logger& logWarning()
+{
+    return getLogger(logging::Level::Warning);
+}
+
+logging::Logger& logError()
+{
+    return getLogger(logging::Level::Error);
+}
+
+
 namespace logging
 {
 

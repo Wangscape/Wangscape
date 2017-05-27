@@ -60,7 +60,7 @@ std::shared_ptr<ModuleGroup> loadModuleGroup(std::string filename)
     }
     catch (const spotify::json::decode_exception& e)
     {
-        LOG_ERROR << "spotify::json::decode_exception encountered at "
+        logError() << "spotify::json::decode_exception encountered at "
             << e.offset()
             << ": "
             << e.what();

@@ -6,10 +6,10 @@
 
 #include <ostream>
 
-#define LOG_ERROR getLogger(logging::Level::Error)
-#define LOG_WARNING getLogger(logging::Level::Warning)
-#define LOG_DEBUG getLogger(logging::Level::Debug)
-#define LOG_INFO getLogger(logging::Level::Info)
+logging::Logger& logDebug();
+logging::Logger& logInfo();
+logging::Logger& logWarning();
+logging::Logger& logError();
 
 namespace logging
 {
