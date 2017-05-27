@@ -17,9 +17,9 @@ before_build:
 
     git submodule update --init --recursive
     
-    git clone -b appveyor-pyinstaller-package --single-branch https://github.com/Wangscape/Wangview.git
+    git clone --single-branch https://github.com/Wangscape/Wangview.git
     
-    git clone -b py2exe-package --single-branch https://github.com/serin-delaunay/Wangcheck.git
+    git clone --single-branch https://github.com/serin-delaunay/Wangcheck.git
 
     cd lib\spotify-json
 
