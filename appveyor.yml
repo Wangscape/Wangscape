@@ -77,6 +77,12 @@ after_build:
     
     cd ..
     
+    (Get-Location)
+    
+    cd ..
+    
+    (Get-Location)
+    
     cd Wangcheck
     
     Set-Item Env:PYTHON "C:\Python36"
