@@ -14,7 +14,6 @@ set(tst-src
     TestNormLPQ.cpp
     TestOptions.cpp
     TestRequiringOptions.cpp
-    TestTilePartitionerGradient.cpp
     TestTilePartitionerSquares.cpp
     TestTilesetGenerator.cpp)
 
