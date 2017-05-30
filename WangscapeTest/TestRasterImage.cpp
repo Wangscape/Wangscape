@@ -14,7 +14,6 @@ protected:
     {
         constModule.SetConstValue(0.);
     };
-    ~TestRasterImage() {};
 };
 
 TEST_F(TestRasterImage, TestRasterImageGetInBounds)

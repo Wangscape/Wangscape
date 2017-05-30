@@ -16,7 +16,6 @@ protected:
         tpg(options)
     {
     };
-    ~TestTilePartitionerGradient() {};
 };
 
  

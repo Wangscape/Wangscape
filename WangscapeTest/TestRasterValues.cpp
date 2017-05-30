@@ -13,7 +13,6 @@ protected:
     {
         constModule.SetConstValue(10.);
     };
-    ~TestRasterValues() {};
 };
 
 TEST_F(TestRasterValues, TestRasterValuesConstructors)

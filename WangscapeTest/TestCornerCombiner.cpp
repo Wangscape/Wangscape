@@ -14,7 +14,6 @@ protected:
         cc2.SetPower(2.);
 
     };
-    ~TestCornerCombiner() {};
 };
 
 TEST_F(TestCornerCombiner, TestCornerCombinerBasePowers)

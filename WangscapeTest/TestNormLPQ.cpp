@@ -30,7 +30,6 @@ protected:
         n05_1->SetPQ(0.5, 1);
         n05_05->SetPQ(0.5, 0.5);
     };
-    ~TestNormLPQ() {};
 };
 
 TEST_F(TestNormLPQ, TestNormLPQ1_1)
