@@ -24,9 +24,10 @@ public:
         double total_weight = std::accumulate(weights.cbegin(), weights.cend(), 0.);
         for (size_t i = 0; i < 4; i++)
         {
-            double alpha_fraction = double(alphas[i]) / 255;
-            double weight_fraction = double(weights[i]) / total_weight;
-            EXPECT_NEAR(alpha_fraction, weight_fraction, 1.5 / 255);
+            double alpha_fraction = alphas[i];
+            double weight_fraction = double(weights[i]) * total_alpha / total_weight;
+            // Maximum absolute error is 0.5 from integer quantisation plus 1.0 from distribution of remainder.
+            EXPECT_NEAR(alpha_fraction, weight_fraction, 1.5);
         }
         ptrdiff_t winner_index = std::distance(alphas.cbegin(), std::max_element(alphas.cbegin(), alphas.cend()));
         return winner_index;
