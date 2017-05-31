@@ -2,6 +2,7 @@
 
 #include <noise/RasterImage.h>
 #include <noise/module/WangscapeModules.h>
+#include <SFML/System/Vector2.hpp>
 
 class TestRasterImage : public ::testing::Test
 {
@@ -18,17 +19,18 @@ protected:
 
 TEST_F(TestRasterImage, TestRasterImageGetInBounds)
 {
-    image.create(20, 20);
+    sf::Vector2u size(19, 21);
+    image.create(size.x, size.y);
     noise::RasterImage ri(image, {0, 0, 1, 1}, constModule);
-    EXPECT_EQ(20, ri.sizeX());
-    EXPECT_EQ(20, ri.sizeY());
+    EXPECT_EQ(size.x, ri.sizeX());
+    EXPECT_EQ(size.y, ri.sizeY());
     EXPECT_EQ(0., ri.bounds().left);
     EXPECT_EQ(0., ri.bounds().top);
     EXPECT_EQ(1., ri.bounds().width);
     EXPECT_EQ(1., ri.bounds().height);
-    for (size_t x = 0; x < 20; x++)
+    for (size_t x = 0; x < size.x; x++)
     {
-        for (size_t y = 0; y < 20; y++)
+        for (size_t y = 0; y < size.y; y++)
         {
             EXPECT_EQ(0, ri.get(x, y).r);
             EXPECT_EQ(0, ri.get(x, y).g);
@@ -39,66 +41,82 @@ TEST_F(TestRasterImage, TestRasterImageGetInBounds)
 
 TEST_F(TestRasterImage, TestRasterValuesOutOfRange)
 {
-    image.create(10, 10);
+    sf::Vector2u size(11, 9);
+    image.create(size.x, size.y);
     noise::RasterImage ri(image, {0, 0, 1, 1}, constModule);
     EXPECT_ANY_THROW(ri.get(-1, -1););
     EXPECT_ANY_THROW(ri.get(0, -1););
-    EXPECT_ANY_THROW(ri.get(9, -1););
-    EXPECT_ANY_THROW(ri.get(10, -1););
+    EXPECT_ANY_THROW(ri.get(size.x - 1, -1););
+    EXPECT_ANY_THROW(ri.get(size.x, -1););
 
     EXPECT_ANY_THROW(ri.get(-1, 0););
-    EXPECT_ANY_THROW(ri.get(10, 0););
+    EXPECT_ANY_THROW(ri.get(size.x, 0););
 
-    EXPECT_ANY_THROW(ri.get(-1, 9););
-    EXPECT_ANY_THROW(ri.get(10, 9););
+    EXPECT_ANY_THROW(ri.get(-1, size.y - 1););
+    EXPECT_ANY_THROW(ri.get(size.x, size.y - 1););
 
-    EXPECT_ANY_THROW(ri.get(-1, 10););
-    EXPECT_ANY_THROW(ri.get(0, 10););
-    EXPECT_ANY_THROW(ri.get(9, 10););
-    EXPECT_ANY_THROW(ri.get(10, 10););
+    EXPECT_ANY_THROW(ri.get(-1, size.y););
+    EXPECT_ANY_THROW(ri.get(0, size.y););
+    EXPECT_ANY_THROW(ri.get(size.x - 1, size.y););
+    EXPECT_ANY_THROW(ri.get(size.x, size.y););
 }
 
 TEST_F(TestRasterImage, TestRasterValuesBuild)
 {
-    image.create(15, 15);
-    noise::RasterImage ri(image, {-2, -2, 4, 4});
+    sf::Rect<double> bounds{-2, -2, 4, 4};
+
+    const unsigned int size = 15;
+    const unsigned int size_sub_1 = size - 1;
+    const unsigned int almost_quarter_size = size_sub_1 / 4;
+    const unsigned int size_1_2 = size / 2;
+    // These must be closer to 0.0 than -2.0 or 2.0 in the raster rectangle.
+    const unsigned int size_1_4 = size_1_2 - almost_quarter_size;  
+    const unsigned int size_3_4 = size_1_2 + almost_quarter_size;
+
+    image.create(size, size);
+    noise::RasterImage ri(image, bounds);
 
     ri.build(gradientXModule);
 
     EXPECT_EQ(sf::Color::Green, ri.get(0, 0));
-    EXPECT_EQ(sf::Color::Green, ri.get(0, 14));
+    EXPECT_EQ(sf::Color::Green, ri.get(0, size_sub_1));
 
-    EXPECT_EQ(sf::Color::White, ri.get(14, 0));
-    EXPECT_EQ(sf::Color::White, ri.get(14, 14));
+    EXPECT_EQ(sf::Color::White, ri.get(size_sub_1, 0));
+    EXPECT_EQ(sf::Color::White, ri.get(size_sub_1, size_sub_1));
 
-    EXPECT_EQ(sf::Color::Black, ri.get(7, 0));
-    EXPECT_EQ(sf::Color::Black, ri.get(7, 14));
+    EXPECT_EQ(sf::Color::Black, ri.get(size_1_2, 0));
+    EXPECT_EQ(sf::Color::Black, ri.get(size_1_2, size_sub_1));
 
-    EXPECT_LT(128, ri.get(4, 7).r);
-    EXPECT_EQ(0, ri.get(4, 7).g);
-    EXPECT_EQ(0, ri.get(4, 7).b);
+    sf::Color c;
+    c = ri.get(size_1_4, size_1_2);
+    EXPECT_LT(128, c.r);
+    EXPECT_EQ(0, c.g);
+    EXPECT_EQ(0, c.b);
 
-    EXPECT_EQ(0, ri.get(10, 7).r);
-    EXPECT_EQ(0, ri.get(10, 7).g);
-    EXPECT_LT(128, ri.get(10, 7).b);
+    c = ri.get(size_3_4, size_1_2);
+    EXPECT_EQ(0, c.r);
+    EXPECT_EQ(0, c.g);
+    EXPECT_LT(128, c.b);
 
     ri.build(gradientYModule);
 
     EXPECT_EQ(sf::Color::Green, ri.get(0, 0));
-    EXPECT_EQ(sf::Color::Green, ri.get(14, 0));
+    EXPECT_EQ(sf::Color::Green, ri.get(size_sub_1, 0));
 
-    EXPECT_EQ(sf::Color::White, ri.get(0, 14));
-    EXPECT_EQ(sf::Color::White, ri.get(14, 14));
+    EXPECT_EQ(sf::Color::White, ri.get(0, size_sub_1));
+    EXPECT_EQ(sf::Color::White, ri.get(size_sub_1, size_sub_1));
 
-    EXPECT_EQ(sf::Color::Black, ri.get(0, 7));
-    EXPECT_EQ(sf::Color::Black, ri.get(14, 7));
+    EXPECT_EQ(sf::Color::Black, ri.get(0, size_1_2));
+    EXPECT_EQ(sf::Color::Black, ri.get(size_sub_1, size_1_2));
 
-    EXPECT_LT(128, ri.get(7, 4).r);
-    EXPECT_EQ(0, ri.get(7, 4).g);
-    EXPECT_EQ(0, ri.get(7, 4).b);
+    c = ri.get(size_1_2, size_1_4);
+    EXPECT_LT(128, c.r);
+    EXPECT_EQ(0, c.g);
+    EXPECT_EQ(0, c.b);
 
-    EXPECT_EQ(0, ri.get(7, 10).r);
-    EXPECT_EQ(0, ri.get(7, 10).g);
-    EXPECT_LT(128, ri.get(7, 10).b);
+    c = ri.get(size_1_2, size_3_4);
+    EXPECT_EQ(0, c.r);
+    EXPECT_EQ(0, c.g);
+    EXPECT_LT(128, c.b);
 
 }
