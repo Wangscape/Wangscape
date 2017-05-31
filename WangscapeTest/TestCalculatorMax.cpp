@@ -17,9 +17,8 @@ public:
     }
     int countValue(const tilegen::alpha::CalculatorBase::Alphas& alphas, int value)
     {
-        return std::accumulate(alphas.cbegin(), alphas.cend(), 0,
-                               [&value](int acc, sf::Uint8 x)
-        { return (x == value) ? acc + 1 : acc; });
+        return std::count_if(alphas.cbegin(), alphas.cend(),
+                             [&value](sf::Uint8 x) {return x == value; });
     }
     ptrdiff_t validateResults(const tilegen::alpha::CalculatorBase::Weights& weights)
     {
