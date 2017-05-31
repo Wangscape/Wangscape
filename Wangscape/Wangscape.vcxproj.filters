@@ -22,7 +22,6 @@
     <ClCompile Include="tilegen\alpha\CalculatorLinear.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorMax.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerBase.cpp" />
-    <ClCompile Include="tilegen\partition\TilePartitionerGradient.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorTopTwo.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerSquares.cpp" />
     <ClCompile Include="tilegen\TileGenerator.cpp" />
@@ -120,7 +119,6 @@
     <ClInclude Include="tilegen\alpha\CalculatorTopTwo.h" />
     <ClInclude Include="tilegen\alpha\CalculatorMode.h" />
     <ClInclude Include="tilegen\partition\TilePartitionerBase.h" />
-    <ClInclude Include="tilegen\partition\TilePartitionerGradient.h" />
     <ClInclude Include="tilegen\partition\TilePartitionerSquares.h" />
     <ClInclude Include="tilegen\TileGenerator.h" />
     <ClInclude Include="tilegen\TilesetGenerator.h" />

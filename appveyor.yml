@@ -16,6 +16,10 @@ before_build:
     echo Fetching submodules
 
     git submodule update --init --recursive
+    
+    git clone --single-branch https://github.com/Wangscape/Wangview.git
+    
+    git clone --single-branch https://github.com/Wangscape/Wangcheck.git
 
     cd lib\spotify-json
 
@@ -29,9 +33,7 @@ before_build:
 
     cmake --build . --config Release
 
-    cd ..
-
-    cd ..\..
+    cd ..\..\..
 
     cd lib\libnoise
 
@@ -45,9 +47,7 @@ before_build:
 
     cmake --build . --config Release
 
-    cd ..
-
-    cd ..\..
+    cd ..\..\..
 build:
   project: Wangscape.sln
   verbosity: minimal
@@ -68,23 +68,82 @@ after_build:
     7z x opengl32sw-32.7z
     
     move opengl32sw.dll Release\opengl32.dll
-
-    Release\Wangscape.exe doc\examples\example3\example_options.json
-
-    7z a example3_output.zip doc\examples\example3\output
+    
+    cd Wangview
+    
+    Set-Item Env:PYTHON "C:\Python34"
+    
+    C:package.bat
+    
+    cd ..
+    
+    cd Wangcheck
+    
+    dir
+    
+    Set-Item Env:PYTHON "C:\Python36"
+    
+    C:package.bat
+    
+    cd ..
+    
+    mkdir dist\Wangscape
+    
+    cd dist\Wangscape
+    
+    robocopy ..\.. . CODE_OF_CONDUCT.md CONTRIBUTING.md LICENSE README.md STYLE_GUIDE.md
+    
+    mkdir Wangscape
+    
+    robocopy ..\..\Release Wangscape Wangscape.exe WangscapeTest.exe noise.dll sfml-graphics-2.dll sfml-system-2.dll sfml-window-2.dll
+    
+    robocopy "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x86\Microsoft.VC140.CRT" Wangscape msvcp140.dll vcruntime140.dll
+    
+    mkdir Wangview
+    
+    xcopy /s /i ..\..\Wangview\dist\Wangview Wangview
+    
+    mkdir Wangcheck
+    
+    xcopy /s /i ..\..\Wangcheck\build\Wangcheck Wangcheck
+    
+    xcopy "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\redist\x86\Microsoft.VC140.CRT\vcruntime140.dll" Wangcheck
+    
+    mkdir doc
+    
+    xcopy /s /i ..\..\doc doc
+    
+    cd ..
+    
+    7z a Wangscape.zip Wangscape
+    
+    cd ..
 test_script:
 - cmd: >-
     Release\WangscapeTest.exe --gtest_output=xml
+    
+    for /D %%i in (doc\examples\*) do echo "%%i"
+    
+    for /D %%i in (doc\examples\*) do Wangcheck\build\Wangcheck\Wangcheck.exe "%%i"\example_options.json doc\schemas
+    
+    for /D %%i in (doc\examples\*) do Release\Wangscape.exe "%%i"\example_options.json
 after_test:
 - ps: >-
     $wc = New-Object 'System.Net.WebClient'
 
     $wc.UploadFile("https://ci.appveyor.com/api/testresults/junit/$($env:APPVEYOR_JOB_ID)", (Resolve-Path .\test_detail.xml))
+    
+    mkdir example_output
+    
+    $folders = Get-ChildItem -Path doc/examples | ?{ $_.PSIsContainer }
+    
+    $folders | ForEach-Object { robocopy doc/examples/"$_"/output example_output/"$_" * }
+
+    7z a example_output.zip example_output
 artifacts:
-  - path: Release\Wangscape.exe
-    name: Wangscape executable
-  - path: Release\WangscapeTest.exe
-    name: Wangscape Test executable
-  - path: example3_output.zip
-    name: Example 3 output
+  - path: dist\Wangscape.zip
+    name: Wangscape executable package
+    type: zip
+  - path: example_output.zip
+    name: Example output
     type: zip
