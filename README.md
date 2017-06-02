@@ -78,7 +78,7 @@ First of all, you need to clone all needed submodules. To get them, execute
 this command in Wangscape's root directory:
 
 ```bash
-git submodule update --init
+git submodule update --init --recursive
 ```
 
 Wangscape depends on these libraries:
