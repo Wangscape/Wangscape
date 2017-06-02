@@ -1,5 +1,7 @@
 sudo: required
 
+language: cpp
+
 os:
   - linux
   - osx
@@ -12,4 +14,4 @@ services:
 
 script:
     - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./travis-ubuntu.sh; fi
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then pwd; fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ./travis-osx.sh; fi
