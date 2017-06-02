@@ -1,9 +1,15 @@
 sudo: required
 
+os:
+  - linux
+  - osx
+
+compiler:
+  - clang
+
 services:
     - docker
 
 script:
-    - pwd
-    - mkdir build
-    - docker run -v $(pwd):/Wangscape lukequaint/wangscape-build:latest /bin/sh -c '../travis-ubuntu-docker.sh'
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./travis-ubuntu.sh; fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then pwd; fi
