@@ -6,4 +6,4 @@ services:
 script:
     - pwd
     - mkdir build
-    - docker run -v $(pwd):/Wangscape lukequaint/wangscape-build:latest /bin/sh -c 'travis-ubuntu-docker.sh'
+    - docker run -v $(pwd):/Wangscape lukequaint/wangscape-build:latest /bin/sh -c '../travis-ubuntu-docker.sh'
