@@ -155,6 +155,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestCalculatorLinear.cpp" />
+    <ClCompile Include="TestCalculatorMax.cpp" />
     <ClCompile Include="TestCalculatorDither.cpp" />
     <ClCompile Include="TestCalculatorTopTwo.cpp" />
     <ClCompile Include="removeWhitespace.cpp" />
@@ -168,6 +170,8 @@
     <ClCompile Include="TestNormLPQ.cpp" />
     <ClCompile Include="TestOptions.cpp" />
     <ClCompile Include="TestIPow.cpp" />
+    <ClCompile Include="TestRasterImage.cpp" />
+    <ClCompile Include="TestRasterValues.cpp" />
     <ClCompile Include="TestRequiringOptions.cpp" />
     <ClCompile Include="TestTilePartitionerSquares.cpp" />
     <ClCompile Include="TestTilesetGenerator.cpp" />

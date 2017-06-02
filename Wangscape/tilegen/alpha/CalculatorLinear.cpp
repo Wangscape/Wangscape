@@ -29,13 +29,10 @@ void CalculatorLinear::updateAlphasAux(const Weights& weights)
     if (alpha_remaining == 0)
         return;
     // Count the number of corners that have nonzero alpha.
-    size_t nonzero_alphas = std::accumulate(
-        getAlphas().cbegin(),
-        getAlphas().cend(),
-        (size_t)0,
-        [](const size_t& acc, const sf::Uint8& alpha)
+    size_t nonzero_alphas = std::count_if(getAlphas().cbegin(), getAlphas().cend(),
+                                          [](const sf::Uint8& alpha)
     {
-        return alpha > 0 ? acc + 1 : acc;
+        return alpha > 0;
     });
     assert(nonzero_alphas > 0);
     // Divide the remaining few alpha points as evenly as possible

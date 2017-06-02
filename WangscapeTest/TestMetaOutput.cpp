@@ -27,7 +27,6 @@ protected:
     {
         tg.generate([&](const sf::Texture& output, std::string filename) {});
     };
-    ~TestMetaOutput() {};
 };
 
 // TODO replace this test with something faster
