@@ -8,16 +8,16 @@ add_subdirectory(metaoutput)
 add_subdirectory(noise)
 add_subdirectory(tilegen)
 
-add_library(wangscape STATIC ${lib-src})
+add_library(wangscape-main STATIC ${lib-src})
 add_executable(Wangscape Main.cpp)
 
-target_link_libraries(wangscape metaoutput)
-target_link_libraries(wangscape noise)
-target_link_libraries(wangscape tilegen)
-target_link_libraries(wangscape double-conversion)
-target_link_libraries(wangscape spotify-json)
+target_link_libraries(wangscape-main metaoutput)
+target_link_libraries(wangscape-main noise)
+target_link_libraries(wangscape-main tilegen)
+target_link_libraries(wangscape-main double-conversion)
+target_link_libraries(wangscape-main spotify-json)
 
-target_link_libraries(Wangscape wangscape)
+target_link_libraries(Wangscape wangscape-main)
 
 
 find_package(Boost COMPONENTS system filesystem program_options REQUIRED)
