@@ -11,4 +11,4 @@ target_include_directories(tilegen PUBLIC ${PROJECT_SOURCE_DIR}/Wangscape)
 
 target_link_libraries(tilegen noise)
 target_link_libraries(tilegen wangscape-noise)
-target_link_libraries(tilegen wangscape)
+target_link_libraries(tilegen wangscape-main)
