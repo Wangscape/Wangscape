@@ -95,7 +95,7 @@ inline size_t CartesianPower<ForwardIt>::size() const
 template<typename ForwardIt>
 inline std::pair<size_t, size_t> CartesianPower<ForwardIt>::size2D(sf::Vector2u resolution) const
 {
-    std::div_t div_mod = std::div((int)power, 2);
+    std::div_t div_mod = div((int)power, 2);
     size_t tiles_y = ipow(baseSize, (size_t)div_mod.quot);
     size_t tiles_x = tiles_y;
     if (div_mod.rem != 0)
