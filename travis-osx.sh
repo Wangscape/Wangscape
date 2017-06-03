@@ -1,7 +1,7 @@
 pwd
 git submodule update --init --recursive
-brew install sfml boost
+brew install -vd sfml
 mkdir build
 cd build
-cmake ..
+cmake .. -DSFML_DIR=/usr/local/bin/SFML/
 make
