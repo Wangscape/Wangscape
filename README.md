@@ -69,8 +69,13 @@ Wangscape is actively tested by the maintainers on:
 * Windows 7 (64-bit) with Visual Studio 2015
 * Arch Linux with CMake
 * Ubuntu (Trusty) with CMake (in travis-ci)
+* Mac OS X with CMake (in travis-ci)
 
-We also hope to run travis-ci builds under Mac OS X soon.
+# Can I use a prebuilt binary package?
+
+If you're using Windows, you can download a zip file containing compiled executable files from the [Releases page](https://github.com/Wangscape/Wangscape/releases). If you need the latest development version, equivalent packages can be downloaded from [AppVeyor](https://ci.appveyor.com/project/serin-delaunay/wangscape).
+
+In the future, we hope to be able to offer `.app` bundles or Homebrew formulas for Mac OS X.
 
 # How can I build Wangscape?
 
@@ -89,7 +94,9 @@ Wangscape depends on these libraries:
   - system
   - graphics
 * **spotify-json** (submodule)
-* **libnoise**
+  - **double-conversion** (submodule)
+* **libnoise** (submodule)
+* **cpp_utils** (submodule)
 
 After installing them, you can compile Wangscape using either of the methods
 below.
@@ -165,7 +172,49 @@ make
 #### 4. To run **unit tests** just execute:
 
 ```shell
-./bin/WangscapeTest
+./bin/WangscapeTest ../doc
+```
+
+## Mac OS X
+
+### Installing dependencies
+
+First, install necessary packages with `Homebrew`:
+
+```shell
+brew install boost sfml cmake
+```
+
+Next, build `gtest`:
+
+```shell
+git clone https://github.com/google/googletest.git
+cd googletest
+mkdir build
+cd build
+cmake ..
+make
+sudo make install # TODO remove this line, update CMake command
+cd ../..
+```
+
+### Building
+
+Next, build Wangscape:
+
+```shell
+mkdir build
+cd build
+cmake .. -DCMAKE_MODULE_PATH=/usr/local/opt/sfml/share/SFML/cmake/Modules # TODO update this line to find GTest
+make
+```
+
+### Testing
+
+To run **unit tests** just execute:
+
+```shell
+./bin/WangscapeTest ../doc
 ```
 
 # Example
