@@ -1,9 +1,7 @@
 pwd
 git submodule update --init --recursive
-brew install -vd sfml
-ls -R /usr/local/opt/sfml/
-ls -a /usr/share
+brew install sfml
 mkdir build
 cd build
-cmake .. -DSFML_DIR=/usr/local/opt/sfml/
+cmake .. -DCMAKE_MODULE_PATH=/usr/local/opt/sfml/share/SFML/cmake/Modules
 make
