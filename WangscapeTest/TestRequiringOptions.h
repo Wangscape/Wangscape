@@ -10,8 +10,8 @@ class TestRequiringOptions : public ::testing::Test
 public:
 protected:
     const std::string optionsFilename;
-    const Options& options;
     const OptionsManager optionsManager;
+    const Options& options;
 
     TestRequiringOptions();
     virtual ~TestRequiringOptions() = default;
