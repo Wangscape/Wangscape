@@ -12,12 +12,11 @@ cd ../..
 
 mkdir build
 cd build
-ls -R ../googletest/googletest
 cmake .. \
  -DCMAKE_MODULE_PATH=/usr/local/opt/sfml/share/SFML/cmake/Modules \
  -DGTEST_LIBRARY=../googletest/build/googlemock/gtest/libgtest.a \
  -DGTEST_MAIN_LIBRARY=../googletest/build/googlemock/gtest/libgtest_main.a \
- -DGTEST_INCLUDE_DIR=../googletest/googletest/include
+ -DGTEST_INCLUDE_DIR=../googletest/googletest/include/
 make
 
 ./bin/WangscapeTest ../doc
