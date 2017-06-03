@@ -19,7 +19,7 @@ set(tst-src
 
 add_executable(WangscapeTest ${tst-src})
 
-target_link_libraries(WangscapeTest wangscape)
+target_link_libraries(WangscapeTest wangscape-main)
 
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
