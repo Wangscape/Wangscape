@@ -19,5 +19,6 @@ make
 ./bin/WangscapeTest ../doc
 
 for d in ../doc/examples/*/ ; do
+    echo "Running example in $d/"
     ./bin/Wangscape "$d"/example_options.json
 done
