@@ -98,6 +98,8 @@ Wangscape depends on these libraries:
 * **libnoise** (submodule)
 * **cpp_utils** (submodule)
 
+WangscapeTest depends on **googletest** (submodule).
+
 After installing them, you can compile Wangscape using either of the methods
 below.
 
@@ -123,20 +125,7 @@ First, install necessary packages with `apt`:
 
 ```shell
 apt install cmake g++ libsfml-dev libboost-system-dev \
-    libboost-filesystem-dev libboost-program-options-dev \
-    libgtest-dev
-```
-
-Next, build `gtest` (that's specific to Ubuntu, take a look on Stack Overflow
-questions
-[here](https://stackoverflow.com/questions/13513905/how-to-setup-googletest-as-a-shared-library-on-linux)
-or [here](https://stackoverflow.com/questions/38395984/how-to-install-google-test-on-ubuntu-without-root-access)):
-
-```shell
-cd /usr/src/gtest
-cmake .
-make
-cp *.a /usr/lib/
+    libboost-filesystem-dev libboost-program-options-dev
 ```
 
 ### Compilation
@@ -185,19 +174,6 @@ First, install necessary packages with `Homebrew`:
 brew install boost sfml cmake
 ```
 
-Next, build `gtest`:
-
-```shell
-git clone https://github.com/google/googletest.git
-cd googletest
-mkdir build
-cd build
-cmake ..
-make
-sudo make install # TODO remove this line, update CMake command
-cd ../..
-```
-
 ### Building
 
 Next, build Wangscape:
@@ -205,7 +181,7 @@ Next, build Wangscape:
 ```shell
 mkdir build
 cd build
-cmake .. -DCMAKE_MODULE_PATH=/usr/local/opt/sfml/share/SFML/cmake/Modules # TODO update this line to find GTest
+cmake .. -DCMAKE_MODULE_PATH=/usr/local/opt/sfml/share/SFML/cmake/Modules
 make
 ```
 
