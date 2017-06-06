@@ -6,7 +6,7 @@ Converts terrain tiles to procedural corner Wang tilesets.
 Procjam 2016 project (in progress)
 
 # What is Wangscape for?
-Does your game have nice square terrain tiles like these ones by David Gervais? ([CC BY 3.0](creativecommons.org/licenses/by/3.0/))
+Does your game have nice square terrain tiles like these ones by David Gervais? ([CC BY 3.0](https://creativecommons.org/licenses/by/3.0/))
 
 ![gervais-terrain-3](doc/images/gervais-terrain-3.png)
 
