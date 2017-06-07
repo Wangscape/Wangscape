@@ -10,3 +10,6 @@
 	path = lib/libnoise
 	url = https://github.com/qknight/libnoise.git
 	ignore = dirty
+[submodule "lib/googletest"]
+	path = lib/googletest
+	url = https://github.com/google/googletest

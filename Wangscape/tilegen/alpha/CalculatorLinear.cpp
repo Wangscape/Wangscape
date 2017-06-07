@@ -37,7 +37,7 @@ void CalculatorLinear::updateAlphasAux(const Weights& weights)
     assert(nonzero_alphas > 0);
     // Divide the remaining few alpha points as evenly as possible
     // between the nonzero corners.
-    auto divmod = std::div(alpha_remaining, nonzero_alphas);
+    auto divmod = div(alpha_remaining, nonzero_alphas);
     assert(divmod.quot >= 0);
     int alphas_incremented = 0;
     for(size_t i = 0; i < getAlphas().size(); i++)

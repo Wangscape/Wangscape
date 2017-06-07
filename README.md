@@ -69,8 +69,13 @@ Wangscape is actively tested by the maintainers on:
 * Windows 7 (64-bit) with Visual Studio 2015
 * Arch Linux with CMake
 * Ubuntu (Trusty) with CMake (in travis-ci)
+* Mac OS X with CMake (in travis-ci)
 
-We also hope to run travis-ci builds under Mac OS X soon.
+# Can I use a prebuilt binary package?
+
+If you're using Windows, you can download a zip file containing compiled executable files from the [Releases page](https://github.com/Wangscape/Wangscape/releases). If you need the latest development version, equivalent packages can be downloaded from [AppVeyor](https://ci.appveyor.com/project/serin-delaunay/wangscape).
+
+In the future, we hope to be able to offer `.app` bundles or Homebrew formulas for Mac OS X.
 
 # How can I build Wangscape?
 
@@ -89,7 +94,11 @@ Wangscape depends on these libraries:
   - system
   - graphics
 * **spotify-json** (submodule)
-* **libnoise**
+  - **double-conversion** (submodule)
+* **libnoise** (submodule)
+* **cpp_utils** (submodule)
+
+WangscapeTest depends on **googletest** (submodule).
 
 After installing them, you can compile Wangscape using either of the methods
 below.
@@ -116,20 +125,7 @@ First, install necessary packages with `apt`:
 
 ```shell
 apt install cmake g++ libsfml-dev libboost-system-dev \
-    libboost-filesystem-dev libboost-program-options-dev \
-    libgtest-dev
-```
-
-Next, build `gtest` (that's specific to Ubuntu, take a look on Stack Overflow
-questions
-[here](https://stackoverflow.com/questions/13513905/how-to-setup-googletest-as-a-shared-library-on-linux)
-or [here](https://stackoverflow.com/questions/38395984/how-to-install-google-test-on-ubuntu-without-root-access)):
-
-```shell
-cd /usr/src/gtest
-cmake .
-make
-cp *.a /usr/lib/
+    libboost-filesystem-dev libboost-program-options-dev
 ```
 
 ### Compilation
@@ -165,7 +161,36 @@ make
 #### 4. To run **unit tests** just execute:
 
 ```shell
-./bin/WangscapeTest
+./bin/WangscapeTest ../doc
+```
+
+## Mac OS X
+
+### Installing dependencies
+
+First, install necessary packages with `Homebrew`:
+
+```shell
+brew install boost sfml cmake
+```
+
+### Building
+
+Next, build Wangscape:
+
+```shell
+mkdir build
+cd build
+cmake .. -DCMAKE_MODULE_PATH=/usr/local/opt/sfml/share/SFML/cmake/Modules
+make
+```
+
+### Testing
+
+To run **unit tests** just execute:
+
+```shell
+./bin/WangscapeTest ../doc
 ```
 
 # Example

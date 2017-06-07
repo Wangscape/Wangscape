@@ -46,7 +46,7 @@ public:
         expsPositive = {1, 2, 3, expDigits};
         cpp::static_if<std::is_signed<IExp>::value>(
         [&](auto) {
-            expsNegative = {-1, -2, -3, -expDigits};
+            expsNegative = {IExp(-1), IExp(-2), IExp(-3), IExp(-expDigits)};
         });
 
         examplesPositive = {
@@ -58,10 +58,10 @@ public:
         cpp::static_if<std::is_signed<IBase>::value>(
         [&](auto) {
             examplesNegative = {
-                Example{-2, 2, 4},
-                Example{-2, 3, -8},
-                Example{-3, 2, 9},
-                Example{-3, 3, -27}
+                Example{IBase(-2), 2, 4},
+                Example{IBase(-2), 3, IBase(-8)},
+                Example{IBase(-3), 2, 9},
+                Example{IBase(-3), 3, IBase(-27)}
         };
         });
     }

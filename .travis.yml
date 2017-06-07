@@ -1,13 +1,17 @@
 sudo: required
 
+language: cpp
+
+os:
+  - linux
+  - osx
+
+compiler:
+  - clang
+
 services:
     - docker
 
 script:
-    - pwd
-    - mkdir build
-    - docker run -v $(pwd):/Wangscape lukequaint/wangscape-build:latest /bin/sh -c \
-      'cd /Wangscape/build && cmake .. && make;
-       Xvfb :1 -screen 0 1600x900x24 &> xvfb.log &
-       DISPLAY=:1.0; export DISPLAY;
-       xvfb-run --server-args "-screen 0 1600x900x24" ./bin/WangscapeTest ../doc'
+    - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then ./travis-ubuntu.sh; fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then ./travis-osx.sh; fi
