@@ -28,7 +28,6 @@
           {"$ref": "#/definitions/add"},
           {"$ref": "#/definitions/billow"},
           {"$ref": "#/definitions/blend"},
-          {"$ref": "#/definitions/abs"},
           {"$ref": "#/definitions/checkerboard"},
           {"$ref": "#/definitions/clamp"},
           {"$ref": "#/definitions/const"},
