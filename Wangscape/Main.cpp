@@ -6,7 +6,10 @@
 #include <boost/program_options/parsers.hpp>
 #include <boost/program_options/variables_map.hpp>
 
+#include "logging/Logger.h"
 #include "logging/Logging.h"
+#include "logging/ConsoleAppender.h"
+#include "logging/FileAppender.h"
 #include "tilegen/TilesetGenerator.h"
 #include "tilegen/TileGenerator.h"
 #include "tilegen/partition/TilePartitionerNoise.h"
@@ -23,11 +26,14 @@ std::string usage(std::string program_path)
 int main(int argc, char** argv)
 {
     po::options_description cmd_options(usage(argv[0]) + "\nOptions:");
+    logging::addAppender(std::make_unique<logging::ConsoleAppender>("console", logging::Level::Debug));
 
     cmd_options.add_options()
         ("help,h", "print usage")
+        ("log-file", po::value<std::string>(), "write logs to a given file")
         ("options-file", po::value<std::string>()->required(),
-            "input options file");
+            "input options file")
+        ("verbose,v", "enable debug messages");
 
     po::positional_options_description positional_options;
     positional_options.add("options-file", -1);
@@ -51,6 +57,15 @@ int main(int argc, char** argv)
         if (vm.count("options-file"))
         {
             filename = vm["options-file"].as<std::string>();
+        }
+
+        const auto loggingLevel = vm.count("verbose") ? logging::Level::Debug : logging::Level::Info;
+        logging::setLevel("console", loggingLevel);
+
+        if (vm.count("log-file"))
+        {
+            const std::string logFile = vm["log-file"].as<std::string>();
+            logging::addAppender(std::make_unique<logging::FileAppender>("file", logFile, loggingLevel));
         }
     }
     catch(const std::exception& e)
