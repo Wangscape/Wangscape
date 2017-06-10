@@ -1,3 +1,4 @@
+#include "Appender.h"
 #include "Level.h"
 #include "Logging.h"
 
@@ -5,26 +6,27 @@
 #include <iostream>
 #include <memory>
 #include <ostream>
+#include <vector>
 
 
-logging::Logger& logDebug()
+logging::Logger<logging::Level::Debug> logDebug()
 {
-    return getLogger(logging::Level::Debug);
+    return logging::log<logging::Level, logging::Level::Debug>();
 }
 
-logging::Logger& logInfo()
+logging::Logger<logging::Level::Info> logInfo()
 {
-    return getLogger(logging::Level::Info);
+    return logging::log<logging::Level, logging::Level::Info>();
 }
 
-logging::Logger& logWarning()
+logging::Logger<logging::Level::Warning> logWarning()
 {
-    return getLogger(logging::Level::Warning);
+    return logging::log<logging::Level, logging::Level::Warning>();
 }
 
-logging::Logger& logError()
+logging::Logger<logging::Level::Error> logError()
 {
-    return getLogger(logging::Level::Error);
+    return logging::log<logging::Level, logging::Level::Error>();
 }
 
 
@@ -34,55 +36,30 @@ namespace logging
 namespace
 {
 
-std::ofstream out;
-Level currentLevel = Level::Info;
-Logger noopLogger;
-Logger currentLogger(&std::cout);
+std::vector<std::unique_ptr<Appender>> appenders;
 
 } // anonymous namespace
 
-void setAppender(AppenderType appenderType, std::string name)
+void addAppender(std::unique_ptr<Appender> appender)
 {
-    switch (appenderType)
+    appenders.push_back(std::move(appender));
+}
+
+void setLevel(std::string appender_name, logging::Level new_level)
+{
+    for (auto& appender : appenders)
     {
-        case AppenderType::StdOut:
+        if (appender->getName() == appender_name)
         {
-            currentLogger.setStream(&std::cout);
-            break;
-        }
-        case AppenderType::StdErr:
-        {
-            currentLogger.setStream(&std::cerr);
-            break;
-        }
-        case AppenderType::File:
-        {
-            if (out.is_open()) {
-                out.close();
-            }
-            out.open(name, std::ios_base::app);
-            currentLogger.setStream(&out);
-            break;
-        }
-        default:
-        {
-            currentLogger.setStream(&std::cout);
+            appender->setLevel(new_level);
         }
     }
 }
 
-void setLoggingLevel(Level level)
+template<typename LevelEnum, LevelEnum Level>
+Logger<Level> log()
 {
-    currentLevel = level;
-}
-
-Logger& getLogger(Level level)
-{
-    if (level < currentLevel)
-    {
-        return noopLogger;
-    }
-    return currentLogger;
+    return Logger<Level>{appenders};
 }
 
 } // namespace logging
