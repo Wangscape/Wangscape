@@ -46,7 +46,6 @@ noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& c
     combiner.setInputModuleSource(2, central.getOutputModule());
     if (mDebugOutput)
     {
-        setLoggingLevel(logging::Level::Debug);
         if (!mDebugWriter)
         {
             mDebugWriter.emplace(mOptions);
@@ -116,18 +115,18 @@ void TilePartitionerNoise::writeDebugData(const noise::ModuleGroup & central,
                                           const noise::ModuleGroup & combiner)
 {
 
-    logDebug() << "Writing debug modules for " << mDebugWriter->getCornerDescription() << "...\n" ;
+    logInfo() << "Writing debug modules for " << mDebugWriter->getCornerDescription() << "...\n" ;
     mDebugWriter->writeDebugGroup(central, "central");
     mDebugWriter->writeDebugGroup(border_h, "border_h");
     mDebugWriter->writeDebugGroup(border_v, "border_v");
     mDebugWriter->writeDebugGroup(combiner, "combiner");
-    logDebug() << "Debug modules written. Press 'q' <ENTER> to stop debugging.\n" <<
+    logInfo() << "Debug modules written. Press 'q' <ENTER> to stop debugging.\n" <<
         "Press <ENTER> to write the next set...\n";
     int keypress = std::cin.get();
     if (keypress == 'q')
     {
         mDebugOutput = false;
-        logDebug() << "Debugging cancelled. Generating remaining tilesets as normal...\n";
+        logInfo() << "Debugging cancelled. Generating remaining tilesets as normal...\n";
     }
 }
 
