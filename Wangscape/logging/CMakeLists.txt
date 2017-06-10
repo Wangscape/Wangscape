@@ -1,4 +1,6 @@
 set(logging-src
+    ConsoleAppender.cpp
+    FileAppender.cpp
     Logging.cpp
 )
 
