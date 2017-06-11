@@ -67,7 +67,6 @@
     <ClCompile Include="noise\module\codecs\ScalePointWrapperCodec.cpp" />
     <ClCompile Include="noise\ModuleGroupContainer.cpp" />
     <ClCompile Include="OptionsPaths.cpp" />
-    <ClCompile Include="tilegen\partition\DebugWriter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codecs\OptionsCodec.h" />
@@ -174,7 +173,8 @@
     <ClInclude Include="noise\ModuleGroupContainer.h" />
     <ClInclude Include="OptionsPaths.h" />
     <ClInclude Include="codecs\Vector2Codec.h" />
-    <ClInclude Include="tilegen\partition\DebugWriter.h" />
+    <ClInclude Include="tilegen\DebugTilesetID.h" />
+    <ClInclude Include="tilegen\ModuleGroupRole.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

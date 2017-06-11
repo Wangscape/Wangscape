@@ -45,13 +45,10 @@ noise::module::ModulePtr TilePartitionerNoise::makeCornerModule(const Corners& c
     combiner.setInputModuleSource(2, central.getOutputModule());
     if (mDebugOutput)
     {
-        if (!mDebugWriter)
-        {
-            mDebugWriter.emplace(mOptions);
-        }
-        mDebugWriter->setTerrains(corners);
-        mDebugWriter->setCorner(top, left);
-        writeDebugData(central, border_h, border_v, combiner);
+        writeDebugGroup(combiner, Combiner, top, left);
+        writeDebugGroup(border_h, HorizontalBorder, top, left);
+        writeDebugGroup(border_v, VerticalBorder, top, left);
+        writeDebugGroup(central, Central, top, left);
     }
     return combiner.getOutputModule();
 }
@@ -108,24 +105,13 @@ void TilePartitionerNoise::noiseToAlpha(std::vector<noise::RasterValues<double>>
     }
 }
 
-void TilePartitionerNoise::writeDebugData(const noise::ModuleGroup & central,
-                                          const noise::ModuleGroup & border_h,
-                                          const noise::ModuleGroup & border_v,
-                                          const noise::ModuleGroup & combiner)
+void TilePartitionerNoise::writeDebugGroup(const noise::ModuleGroup& module_group, tilegen::ModuleGroupRole module_group_role, bool top, bool left)
 {
-
-    std::cout << "Writing debug modules for " << mDebugWriter->getCornerDescription() << "...\n" ;
-    mDebugWriter->writeDebugGroup(central, "central");
-    mDebugWriter->writeDebugGroup(border_h, "border_h");
-    mDebugWriter->writeDebugGroup(border_v, "border_v");
-    mDebugWriter->writeDebugGroup(combiner, "combiner");
-    std::cout << "Debug modules written. Press 'q' <ENTER> to stop debugging.\n" <<
-        "Press <ENTER> to write the next set...\n";
-    int keypress = std::cin.get();
-    if (keypress == 'q')
+    if (!mDebugModuleWriter)
+        throw std::runtime_error("Requested debug data but didn't provide a debug module writer function");
+    for (auto it : module_group.getModules())
     {
-        mDebugOutput = false;
-        std::cout << "Debugging cancelled. Generating remaining tilesets as normal...\n";
+        mDebugModuleWriter(tilegen::DebugTilesetID(module_group_role, it.first, top, left), it.second, 0, 0);
     }
 }
 
