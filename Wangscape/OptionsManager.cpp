@@ -46,6 +46,7 @@ void OptionsManager::createOutputDirectory()
     // TODO(hryniuk): move it elsewhere
     boost::filesystem::path p(mOptions.paths.directory);
     p.append(mOptions.outputDirectory);
+    boost::filesystem::create_directories(p);
     auto relativeOutputDirectory = p.string();
     mOptions.relativeOutputDirectory = relativeOutputDirectory;
 }
