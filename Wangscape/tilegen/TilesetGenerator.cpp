@@ -86,15 +86,12 @@ void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderT
 
 void TilesetGenerator::writeDebugTile(const DebugTilesetID& debugTilesetID, noise::module::ModulePtr module, size_t x, size_t y)
 {
+    if (mDebugTilesets.find(debugTilesetID) == mDebugTilesets.end())
     {
-        auto& it = mDebugTilesets.find(debugTilesetID);
-        if (it == mDebugTilesets.end())
-        {
-            mDebugTilesets.emplace(std::make_pair(DebugTilesetID(debugTilesetID), std::move(getBlankImage(mResX, mResY)))).first;
-        }
+        mDebugTilesets.emplace(std::make_pair(DebugTilesetID(debugTilesetID), std::move(getBlankImage(mResX, mResY)))).first;
     }
-    auto& it = mDebugTilesets.find(debugTilesetID);
-    sf::RenderTexture& tileset = *it->second.get();
+    sf::RenderTexture& tileset = *mDebugTilesets.at(debugTilesetID).get();
+    // There are far more map lookups here than necessary.
 
     mDebugTileBuilder.build(module.get()->getModule());
     sf::Texture tile_texture;
