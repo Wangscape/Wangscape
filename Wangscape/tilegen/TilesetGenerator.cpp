@@ -22,9 +22,8 @@ TilesetGenerator::TilesetGenerator(const Options& options,
         mDebugTile.create(options.tileFormat.resolution.x, options.tileFormat.resolution.y);
         partition::TilePartitionerBase::DebugModuleWriter bound_debug_tile_writer = 
             std::bind(&TilesetGenerator::writeDebugTile, this,
-                      std::placeholders::_1, std::placeholders::_2,
-                      std::placeholders::_3, std::placeholders::_4);
-        tile_partitioner->setDebugModuleWriter(bound_debug_tile_writer);
+                      std::placeholders::_1, std::placeholders::_2);
+        mTilePartitioner->setDebugModuleWriter(bound_debug_tile_writer);
     }
     for (auto& terrain : options.terrains)
     {
@@ -75,16 +74,16 @@ void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderT
     for (auto it = corners_generator.cbegin(); it != corners_generator.cend(); ++it)
     {
         const auto& corner_terrains = *it;
-        std::pair<size_t, size_t> tile_position = it.coordinates2D();
-        TileGenerator::generate(image, tile_position.first, tile_position.second, corner_terrains,
+        mCurrentTilePosition = it.coordinates2D();
+        TileGenerator::generate(image, mCurrentTilePosition.first, mCurrentTilePosition.second, corner_terrains,
                                 images, options, *mTilePartitioner.get());
         metaOutput.addTile(corner_terrains, filename,
-                   tile_position.first*options.tileFormat.resolution.x,
-                   tile_position.second*options.tileFormat.resolution.y);
+                           mCurrentTilePosition.first*options.tileFormat.resolution.x,
+                           mCurrentTilePosition.second*options.tileFormat.resolution.y);
     }
 }
 
-void TilesetGenerator::writeDebugTile(const DebugTilesetID& debugTilesetID, noise::module::ModulePtr module, size_t x, size_t y)
+void TilesetGenerator::writeDebugTile(const DebugTilesetID& debugTilesetID, noise::module::ModulePtr module)
 {
     if (mDebugTilesets.find(debugTilesetID) == mDebugTilesets.end())
     {
@@ -97,7 +96,9 @@ void TilesetGenerator::writeDebugTile(const DebugTilesetID& debugTilesetID, nois
     sf::Texture tile_texture;
     tile_texture.loadFromImage(mDebugTile);
     sf::Sprite tile_sprite(tile_texture);
-    tile_sprite.setPosition((float)x, (float)y);
+    tile_sprite.setPosition(
+        (float)mCurrentTilePosition.first*options.tileFormat.resolution.x,
+        (float)mCurrentTilePosition.second*options.tileFormat.resolution.y);
     tileset.draw(tile_sprite);
 }
 

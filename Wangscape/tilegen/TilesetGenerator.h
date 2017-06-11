@@ -27,7 +27,7 @@ public:
     metaoutput::MetaOutput metaOutput;
     TerrainImages images;
 private:
-    void writeDebugTile(const DebugTilesetID& debugTilesetID, noise::module::ModulePtr module, size_t x, size_t y);
+    void writeDebugTile(const DebugTilesetID& debugTilesetID, noise::module::ModulePtr module);
 
     std::unique_ptr<tilegen::partition::TilePartitionerBase> mTilePartitioner;
     std::map<DebugTilesetID, std::unique_ptr<sf::RenderTexture>> mDebugTilesets;
@@ -35,6 +35,7 @@ private:
     noise::RasterImage mDebugTileBuilder;
     size_t mResX;
     size_t mResY;
+    std::pair<size_t, size_t> mCurrentTilePosition;
 
     std::string getOutputImageFilename(const Options::Clique& clique) const;
     std::unique_ptr<sf::RenderTexture> getBlankImage(size_t res_x, size_t res_y) const;

@@ -5,6 +5,7 @@
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/parsers.hpp>
 #include <boost/program_options/variables_map.hpp>
+#include <boost/filesystem.hpp>
 
 #include "tilegen/TilesetGenerator.h"
 #include "tilegen/TileGenerator.h"
@@ -69,6 +70,8 @@ int main(int argc, char** argv)
     
     tg.generate([](const sf::Texture& output, std::string filename)
     {
+        std::string file_dir = boost::filesystem::path(filename).remove_filename().string();
+        boost::filesystem::create_directories(file_dir);
         if (!output.copyToImage().saveToFile(filename))
             throw std::runtime_error("Couldn't write image");
     });

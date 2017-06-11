@@ -10,7 +10,7 @@ TilePartitionerBase::TilePartitionerBase(const Options & options) :
 {
 }
 
-void TilePartitionerBase::setDebugModuleWriter(DebugModuleWriter& debugModuleWriter)
+void TilePartitionerBase::setDebugModuleWriter(DebugModuleWriter debugModuleWriter)
 {
     mDebugModuleWriter = debugModuleWriter;
 }

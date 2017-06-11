@@ -111,7 +111,7 @@ void TilePartitionerNoise::writeDebugGroup(const noise::ModuleGroup& module_grou
         throw std::runtime_error("Requested debug data but didn't provide a debug module writer function");
     for (auto it : module_group.getModules())
     {
-        mDebugModuleWriter(tilegen::DebugTilesetID(module_group_role, it.first, top, left), it.second, 0, 0);
+        mDebugModuleWriter(tilegen::DebugTilesetID(module_group_role, it.first, top, left), it.second);
     }
 }
 

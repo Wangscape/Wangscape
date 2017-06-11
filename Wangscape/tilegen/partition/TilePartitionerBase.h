@@ -17,12 +17,12 @@ class TilePartitionerBase
 public:
     typedef std::vector<std::pair<sf::Texture, TerrainID>> TilePartition;
     typedef std::vector<TerrainID> Corners;
-    typedef std::function<void(const DebugTilesetID&, noise::module::ModulePtr, size_t, size_t)> DebugModuleWriter;
+    typedef std::function<void(const DebugTilesetID&, noise::module::ModulePtr)> DebugModuleWriter;
 
     explicit TilePartitionerBase(const Options& options);
     virtual ~TilePartitionerBase() = default;
     virtual void makePartition(TilePartition& regions, const Corners& corners) = 0;
-    void setDebugModuleWriter(DebugModuleWriter& debugModuleWriter);
+    void setDebugModuleWriter(DebugModuleWriter debugModuleWriter);
 protected:
     DebugModuleWriter mDebugModuleWriter;
     const Options& mOptions;
