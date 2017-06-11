@@ -1,4 +1,5 @@
 #include "TilePartitionerNoise.h"
+#include "logging/Logging.h"
 #include "noise/RasterValues.h"
 #include "noise/module/Pow.h"
 #include "tilegen/alpha/CalculatorMax.h"
@@ -108,7 +109,7 @@ void TilePartitionerNoise::noiseToAlpha(std::vector<noise::RasterValues<double>>
 void TilePartitionerNoise::writeDebugGroup(const noise::ModuleGroup& module_group, tilegen::ModuleGroupRole module_group_role, bool top, bool left)
 {
     if (!mDebugModuleWriter)
-        throw std::runtime_error("Requested debug data but didn't provide a debug module writer function");
+        logError() << "Requested debug data but didn't provide a debug module writer function!\n";
     for (auto it : module_group.getModules())
     {
         mDebugModuleWriter(tilegen::DebugTilesetID(module_group_role, it.first, top, left), it.second);
