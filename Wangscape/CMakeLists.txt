@@ -4,6 +4,7 @@ set(lib-src
     OptionsPaths.cpp
 )
 
+add_subdirectory(logging)
 add_subdirectory(metaoutput)
 add_subdirectory(noise)
 add_subdirectory(tilegen)

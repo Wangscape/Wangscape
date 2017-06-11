@@ -1,4 +1,5 @@
 #include "TilePartitionerNoise.h"
+#include "logging/Logging.h"
 #include "noise/RasterValues.h"
 #include "noise/module/Pow.h"
 #include "tilegen/alpha/CalculatorMax.h"
@@ -114,18 +115,18 @@ void TilePartitionerNoise::writeDebugData(const noise::ModuleGroup & central,
                                           const noise::ModuleGroup & combiner)
 {
 
-    std::cout << "Writing debug modules for " << mDebugWriter->getCornerDescription() << "...\n" ;
+    logInfo() << "Writing debug modules for " << mDebugWriter->getCornerDescription() << "...\n" ;
     mDebugWriter->writeDebugGroup(central, "central");
     mDebugWriter->writeDebugGroup(border_h, "border_h");
     mDebugWriter->writeDebugGroup(border_v, "border_v");
     mDebugWriter->writeDebugGroup(combiner, "combiner");
-    std::cout << "Debug modules written. Press 'q' <ENTER> to stop debugging.\n" <<
+    logInfo() << "Debug modules written. Press 'q' <ENTER> to stop debugging.\n" <<
         "Press <ENTER> to write the next set...\n";
     int keypress = std::cin.get();
     if (keypress == 'q')
     {
         mDebugOutput = false;
-        std::cout << "Debugging cancelled. Generating remaining tilesets as normal...\n";
+        logInfo() << "Debugging cancelled. Generating remaining tilesets as normal...\n";
     }
 }
 

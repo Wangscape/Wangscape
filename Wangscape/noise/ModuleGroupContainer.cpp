@@ -5,6 +5,7 @@
 
 #include "EncodedModuleGroup.h"
 #include "codecs/EncodedModuleGroupCodec.h"
+#include "logging/Logging.h"
 #include "common.h"
 #include "ModuleGroup.h"
 
@@ -59,7 +60,7 @@ std::shared_ptr<ModuleGroup> loadModuleGroup(std::string filename)
     }
     catch (const spotify::json::decode_exception& e)
     {
-        std::cout << "spotify::json::decode_exception encountered at "
+        logError() << "spotify::json::decode_exception encountered at "
             << e.offset()
             << ": "
             << e.what();
