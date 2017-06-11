@@ -174,6 +174,16 @@ First, install necessary packages with `Homebrew`:
 brew install boost sfml cmake
 ```
 
+#### Note
+On **OS X El Capitan**, to get a version of `clang` that searches `/usr/local`
+by default, it may be necessary to install the `Xcode Command Line tools` by
+executing ([see this question on Stack
+Overflow](https://stackoverflow.com/questions/32898887/boost-no-longer-works-with-homebrew-on-mac-el-capitan/32929012)):
+
+```shell
+xcode-select --install
+```
+
 ### Building
 
 Next, build Wangscape:
