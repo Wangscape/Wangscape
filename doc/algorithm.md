@@ -208,6 +208,23 @@ and fade noisily along the two incident borders.
 1. Another `NormLPQ` module, which is scaled and clamped to have value -1 at the centre of the tile and value 1 near to all the borders.
 This is used as the control module to blend the central module group with the combined and faded border modules, without allowing reseeded central module groups to affect border compatibility.
 
+#### Debugging
+
+Wangscape module configurations can be complex,
+and it's difficult to create or fine-tune a configuration based on just
+mathematical theory and the appearance of the output tilesets.
+To help with this, Wangscape provides the option to output debug tilesets.
+Just set the `DebugOutput` field to `true` in the main configuration file.
+This will output tilesets for each module named in the module groups,
+allowing you to debug them individually and localise the source of errors present in the end result.
+
+Be aware that making debug tilesets require a lot more graphical memory than normal execution.
+If the memory requirement exceeds your graphical memory,
+a workaround is to use a software implementation of OpenGL such as Mesa.
+This will possibly be slower, but will only be limited by your computer's main memory.
+A Windows DLL for Mesa can be downloaded [here](http://download.qt.io/development_releases/prebuilt/llvmpipe/windows/opengl32sw-32.7z);
+use [7-Zip](http://www.7-zip.org/) to extract the file into the same directory as `Wangscape.exe` and rename it to `opengl32.dll`.
+
 #### Example
 
 This example will illustrate with diagrams how noise values are calculated for a bottom left corner. Blue pixels represent positive values, red values represent negative values, and black represents 0.
