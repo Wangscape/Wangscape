@@ -9,12 +9,12 @@ help you make contributions that we can easily integrate into the project.
 
 ## Table of Contents
 
-0. [Project structure](#project-structure)
-0. [Types of contributions we're looking for](#types-of-contributions-were-looking-for)
-0. [Ground rules & expectations](#ground-rules--expectations)
-0. [How to contribute](#how-to-contribute)
-0. [Style guide](#style--guide)
-0. [Community](#community)
+1. [Project structure](#project-structure)
+1. [Types of contributions we're looking for](#types-of-contributions-were-looking-for)
+1. [Ground rules & expectations](#ground-rules--expectations)
+1. [How to contribute](#how-to-contribute)
+1. [Style guide](#style--guide)
+1. [Community](#community)
 
 ## Project structure
 
