@@ -18,10 +18,10 @@ Possible changes to the style guide should only be discussed in dedicated spaces
 not in pull requests for features and bugfixes.
 
 # Contents
-0. [English](#english)
-0. [C++](#c)
-0. [Python](#python)
-0. [JSON](#json)
+1. [English](#english)
+1. [C++](#c)
+1. [Python](#python)
+1. [JSON](#json)
 
 # English
 
