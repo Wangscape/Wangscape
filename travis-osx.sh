@@ -11,5 +11,5 @@ make
 
 for d in ../doc/examples/*/ ; do
     echo "Running example in $d"
-    ./bin/Wangscape "$d"/example_options.json
+    ./bin/Wangscape "$d"/example_options.json -v
 done

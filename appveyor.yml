@@ -126,7 +126,7 @@ test_script:
     
     for /D %%i in (doc\examples\*) do Wangcheck\build\Wangcheck\Wangcheck.exe "%%i"\example_options.json doc\schemas
     
-    for /D %%i in (doc\examples\*) do Release\Wangscape.exe "%%i"\example_options.json
+    for /D %%i in (doc\examples\*) do Release\Wangscape.exe -v "%%i"\example_options.json
 after_test:
 - ps: >-
     $wc = New-Object 'System.Net.WebClient'
