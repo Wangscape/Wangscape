@@ -109,7 +109,10 @@ void TilePartitionerNoise::noiseToAlpha(std::vector<noise::RasterValues<double>>
 void TilePartitionerNoise::writeDebugGroup(const noise::ModuleGroup& module_group, tilegen::ModuleGroupRole module_group_role, bool top, bool left)
 {
     if (!mDebugModuleWriter)
+    {
         logError() << "Requested debug data but didn't provide a debug module writer function!\n";
+        throw std::runtime_error("Unable to write debug data");
+    }
     for (auto it : module_group.getModules())
     {
         mDebugModuleWriter(tilegen::DebugTilesetID(module_group_role, it.first, top, left), it.second);
