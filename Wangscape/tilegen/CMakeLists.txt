@@ -1,4 +1,5 @@
 set(tilegen-src
+    DebugTilesetID.cpp
     TileGenerator.cpp
     TilesetGenerator.cpp)
 
