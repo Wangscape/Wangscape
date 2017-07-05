@@ -45,8 +45,8 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
         std::unique_ptr<sf::RenderTexture> output{getBlankImage(mResX, mResY)};
         mDebugTilesets.clear();
 
-        auto filename_base = getOutputImageFilename(clique);
-        auto filename = filename_base + options.tileFormat.fileType;
+        const auto filename_base = getOutputImageFilename(clique);
+        const auto filename = filename_base + options.tileFormat.fileType;
 
         // MetaOutput.addTileset, addTile should use this version of filename;
         // relative to output dir, not options dir!
@@ -57,12 +57,12 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
         p.append(filename);
         callback(output->getTexture(), p.string());
         p.remove_filename();
-        for (auto& it : mDebugTilesets)
+        for (const auto& it : mDebugTilesets)
         {
             it.second->display();
             std::stringstream debug_filename_ss;
             debug_filename_ss << filename_base << it.first.description() << "." << options.tileFormat.fileType;
-            auto debug_file_path = (p / "debug" / debug_filename_ss.str()).string();
+            const auto debug_file_path = (p / "debug" / debug_filename_ss.str()).string();
             callback(it.second->getTexture(), debug_file_path);
         }
     }
