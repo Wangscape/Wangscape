@@ -332,6 +332,7 @@
     <ClCompile Include="tilegen\alpha\CalculatorBase.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorLinear.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorMax.cpp" />
+    <ClCompile Include="tilegen\DebugTilesetID.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerBase.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerNoise.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerSquares.cpp" />
