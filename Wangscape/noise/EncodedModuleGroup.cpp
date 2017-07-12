@@ -54,6 +54,7 @@ ModuleDecodeTable moduleDecodeTable = {
     {"Curve", &EncodedModuleGroup::decodeModule<module::Curve>},
     {"Cylinders", &EncodedModuleGroup::decodeModule<module::Cylinders>},
     {"Displace", &EncodedModuleGroup::decodeModule<module::Displace>},
+    {"Divide", &EncodedModuleGroup::decodeModule<module::Divide>},
     {"Exp", &EncodedModuleGroup::decodeModule<module::Exp>},
     {"Exponent", &EncodedModuleGroup::decodeModule<module::Exponent>},
     {"Forward", &EncodedModuleGroup::decodeModule<module::Forward>},

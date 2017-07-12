@@ -53,6 +53,7 @@ template<> const std::string TestModuleDecode<noise::module::CornerCombinerBase>
 template<> const std::string TestModuleDecode<noise::module::Curve>::type = "Curve";
 template<> const std::string TestModuleDecode<noise::module::Cylinders>::type = "Cylinders";
 template<> const std::string TestModuleDecode<noise::module::Displace>::type = "Displace";
+template<> const std::string TestModuleDecode<noise::module::Divide>::type = "Divide";
 template<> const std::string TestModuleDecode<noise::module::Exp>::type = "Exp";
 template<> const std::string TestModuleDecode<noise::module::Exponent>::type = "Exponent";
 template<> const std::string TestModuleDecode<noise::module::Forward>::type = "Forward";
@@ -185,6 +186,16 @@ TestModuleDecode<noise::module::Displace>::TestModuleDecode()
                 "mySourceModuleY",
                 "mySourceModuleZ" });
     }
+}
+
+template<>
+TestModuleDecode<noise::module::Divide>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
+        "mySourceModule",
+            "myOtherSourceModule"});
 }
 
 template<>
@@ -608,6 +619,7 @@ typedef ::testing::Types<
     noise::module::Curve,
     noise::module::Cylinders,
     noise::module::Displace,
+    noise::module::Divide,
     noise::module::Exp,
     noise::module::Exponent,
     noise::module::Forward,

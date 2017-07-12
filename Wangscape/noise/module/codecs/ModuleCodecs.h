@@ -12,6 +12,7 @@
 #include "CurveWrapperCodec.h"
 #include "CylindersWrapperCodec.h"
 #include "DisplaceWrapperCodec.h"
+#include "DivideWrapperCodec.h"
 #include "ExpWrapperCodec.h"
 #include "ExponentWrapperCodec.h"
 #include "ForwardWrapperCodec.h"

@@ -482,6 +482,27 @@
         ]}
       ]
     },
+    "divide": {
+      "type": "object",
+      "title": "Divide module schema",
+      "description": "Specifies a Divide module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Divide.",
+          "pattern": "^Divide$"
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_2"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
     "exponent": {
       "type": "object",
       "title": "Exponent module schema",
