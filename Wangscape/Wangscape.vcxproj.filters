@@ -71,7 +71,6 @@
     <ClCompile Include="logging\FileAppender.cpp" />
     <ClCompile Include="logging\Logging.cpp" />
     <ClCompile Include="tilegen\DebugTilesetID.cpp" />
-    <ClCompile Include="tilegen\partition\DebugWriter.cpp" />
     <ClCompile Include="logging\ConsoleAppender.cpp" />
     <ClCompile Include="logging\FileAppender.cpp" />
     <ClCompile Include="logging\Logging.cpp" />
@@ -189,7 +188,6 @@
     <ClInclude Include="codecs\Vector2Codec.h" />
     <ClInclude Include="tilegen\DebugTilesetID.h" />
     <ClInclude Include="tilegen\ModuleGroupRole.h" />
-    <ClInclude Include="tilegen\partition\DebugWriter.h" />
     <ClInclude Include="logging\Appender.h" />
     <ClInclude Include="logging\ConsoleAppender.h" />
     <ClInclude Include="logging\FileAppender.h" />

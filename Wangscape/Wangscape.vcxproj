@@ -279,7 +279,6 @@
     <ClCompile Include="noise\module\Bitmap.cpp" />
     <ClCompile Include="noise\module\codecs\DivideWrapperCodec.cpp" />
     <ClCompile Include="noise\module\codecs\ReciprocalWrapperCodec.cpp" />
-    <ClCompile Include="tilegen\partition\DebugWriter.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorDither.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorTopTwo.cpp" />
     <ClCompile Include="logging\ConsoleAppender.cpp" />
