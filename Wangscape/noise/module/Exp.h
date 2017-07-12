@@ -21,7 +21,6 @@ const static double DEFAULT_EXP_BASE = 2;
 class Exp : public Module
 {
 public:
-    double base;
     Exp() :
         Module(GetSourceModuleCount()),
         mBase(DEFAULT_EXP_BASE)
