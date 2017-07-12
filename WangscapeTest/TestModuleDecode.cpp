@@ -61,6 +61,7 @@ template<> const std::string TestModuleDecode<noise::module::GradientX>::type = 
 template<> const std::string TestModuleDecode<noise::module::GradientY>::type = "GradientY";
 template<> const std::string TestModuleDecode<noise::module::GradientZ>::type = "GradientZ";
 template<> const std::string TestModuleDecode<noise::module::Invert>::type = "Invert";
+template<> const std::string TestModuleDecode<noise::module::Logarithm>::type = "Logarithm";
 template<> const std::string TestModuleDecode<noise::module::Max>::type = "Max";
 template<> const std::string TestModuleDecode<noise::module::Min>::type = "Min";
 template<> const std::string TestModuleDecode<noise::module::Multiply>::type = "Multiply";
@@ -421,6 +422,16 @@ TestModuleDecode<noise::module::Forward>::TestModuleDecode()
 }
 
 template<>
+TestModuleDecode<noise::module::Logarithm>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetBase(3.3);
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
+        "mySourceModule"});
+}
+
+template<>
 TestModuleDecode<noise::module::NormLPQ>::TestModuleDecode()
 {
     this->exampleModules.emplace_back();
@@ -504,6 +515,12 @@ template<>
 void TestModuleDecode<noise::module::Exponent>::compareModules(const noise::module::Exponent& expected, const noise::module::Exponent& actual)
 {
     EXPECT_EQ(expected.GetExponent(), actual.GetExponent());
+}
+
+template<>
+void TestModuleDecode<noise::module::Logarithm>::compareModules(const noise::module::Logarithm& expected, const noise::module::Logarithm& actual)
+{
+    EXPECT_EQ(expected.GetBase(), actual.GetBase());
 }
 
 template<>
@@ -627,6 +644,7 @@ typedef ::testing::Types<
     noise::module::GradientY,
     noise::module::GradientZ,
     noise::module::Invert,
+    noise::module::Logarithm,
     noise::module::Max,
     noise::module::Min,
     noise::module::Multiply,

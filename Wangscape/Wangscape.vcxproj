@@ -154,9 +154,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="noise\module\codecs\LogarithmWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\DivideWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\ReciprocalWrapperCodec.h" />
     <ClInclude Include="noise\module\Divide.h" />
+    <ClInclude Include="noise\module\Logarithm.h" />
     <ClInclude Include="noise\module\Reciprocal.h" />
     <ClInclude Include="tilegen\alpha\CalculatorDither.h" />
     <ClInclude Include="codecs\Vector2Codec.h" />
@@ -272,6 +274,7 @@
     <ClInclude Include="ipow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="noise\module\codecs\LogarithmWrapperCodec.cpp" />
     <ClCompile Include="noise\module\codecs\DivideWrapperCodec.cpp" />
     <ClCompile Include="noise\module\codecs\ReciprocalWrapperCodec.cpp" />
     <ClCompile Include="tilegen\partition\DebugWriter.cpp" />

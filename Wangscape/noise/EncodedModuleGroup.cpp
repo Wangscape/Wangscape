@@ -62,6 +62,7 @@ ModuleDecodeTable moduleDecodeTable = {
     {"GradientY", &EncodedModuleGroup::decodeModule<module::GradientY>},
     {"GradientZ", &EncodedModuleGroup::decodeModule<module::GradientZ>},
     {"Invert", &EncodedModuleGroup::decodeModule<module::Invert>},
+    {"Logarithm", &EncodedModuleGroup::decodeModule<module::Logarithm>},
     {"Max", &EncodedModuleGroup::decodeModule<module::Max>},
     {"Min", &EncodedModuleGroup::decodeModule<module::Min>},
     {"Multiply", &EncodedModuleGroup::decodeModule<module::Multiply>},

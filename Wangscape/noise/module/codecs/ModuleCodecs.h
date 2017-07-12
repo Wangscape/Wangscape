@@ -18,6 +18,7 @@
 #include "ForwardWrapperCodec.h"
 #include "GradientWrapperCodec.h"
 #include "InvertWrapperCodec.h"
+#include "LogarithmWrapperCodec.h"
 #include "MaxWrapperCodec.h"
 #include "MinWrapperCodec.h"
 #include "MultiplyWrapperCodec.h"

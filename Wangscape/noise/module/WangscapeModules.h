@@ -8,3 +8,4 @@
 #include "QuadrantSelector.h"
 #include "Reciprocal.h"
 #include "Divide.h"
+#include "Logarithm.h"

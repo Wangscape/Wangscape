@@ -73,6 +73,7 @@
     <ClCompile Include="tilegen\DebugTilesetID.cpp" />
     <ClCompile Include="tilegen\partition\DebugWriter.cpp" />
     <ClCompile Include="noise\module\codecs\DivideWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\LogarithmWrapperCodec.cpp" />
     <ClCompile Include="noise\module\codecs\ReciprocalWrapperCodec.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -193,7 +194,9 @@
     <ClInclude Include="rogging\Logging.h" />
     <ClInclude Include="noise\module\Reciprocal.h" />
     <ClInclude Include="noise\module\Divide.h" />
+    <ClInclude Include="noise\module\Logarithm.h" />
     <ClInclude Include="noise\module\codecs\DivideWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\LogarithmWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\ReciprocalWrapperCodec.h" />
 >>>>>>> Add Divide module
   </ItemGroup>
