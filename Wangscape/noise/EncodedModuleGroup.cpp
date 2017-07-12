@@ -69,6 +69,7 @@ ModuleDecodeTable moduleDecodeTable = {
     {"Pow", &EncodedModuleGroup::decodeModule<module::Pow>},
     {"Power", &EncodedModuleGroup::decodeModule<module::Power>},
     {"QuadrantSelector", &EncodedModuleGroup::decodeModule<module::QuadrantSelector>},
+    {"Reciprocal", &EncodedModuleGroup::decodeModule<module::Reciprocal>},
     {"RidgedMulti", &EncodedModuleGroup::decodeModule<module::RidgedMulti>},
     {"RotatePoint", &EncodedModuleGroup::decodeModule<module::RotatePoint>},
     {"ScaleBias", &EncodedModuleGroup::decodeModule<module::ScaleBias>},

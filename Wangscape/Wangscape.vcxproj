@@ -154,6 +154,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="noise\module\codecs\ReciprocalWrapperCodec.h" />
+    <ClInclude Include="noise\module\Reciprocal.h" />
     <ClInclude Include="tilegen\alpha\CalculatorDither.h" />
     <ClInclude Include="codecs\Vector2Codec.h" />
     <ClInclude Include="tilegen\DebugTilesetID.h" />
@@ -268,6 +270,8 @@
     <ClInclude Include="ipow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="noise\module\codecs\ReciprocalWrapperCodec.cpp" />
+    <ClCompile Include="tilegen\partition\DebugWriter.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorDither.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorTopTwo.cpp" />
     <ClCompile Include="logging\ConsoleAppender.cpp" />

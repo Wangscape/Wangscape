@@ -26,6 +26,7 @@
 #include "PowWrapperCodec.h"
 #include "PowerWrapperCodec.h"
 #include "QuadrantSelectorWrapperCodec.h"
+#include "ReciprocalWrapperCodec.h"
 #include "RidgedMultiWrapperCodec.h"
 #include "RotatePointWrapperCodec.h"
 #include "ScaleBiasWrapperCodec.h"

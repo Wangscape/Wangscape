@@ -68,6 +68,7 @@ template<> const std::string TestModuleDecode<noise::module::Perlin>::type = "Pe
 template<> const std::string TestModuleDecode<noise::module::Pow>::type = "Pow";
 template<> const std::string TestModuleDecode<noise::module::Power>::type = "Power";
 template<> const std::string TestModuleDecode<noise::module::QuadrantSelector>::type = "QuadrantSelector";
+template<> const std::string TestModuleDecode<noise::module::Reciprocal>::type = "Reciprocal";
 template<> const std::string TestModuleDecode<noise::module::RidgedMulti>::type = "RidgedMulti";
 template<> const std::string TestModuleDecode<noise::module::RotatePoint>::type = "RotatePoint";
 template<> const std::string TestModuleDecode<noise::module::ScaleBias>::type = "ScaleBias";
@@ -254,6 +255,14 @@ TestModuleDecode<noise::module::Power>::TestModuleDecode()
     this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
         "mySourceModule",
             "myOtherSourceModule" });
+}
+
+template<>
+TestModuleDecode<noise::module::Reciprocal>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{ "mySourceModule" });
 }
 
 template<>
@@ -614,6 +623,7 @@ typedef ::testing::Types<
     noise::module::Pow,
     noise::module::Power,
     noise::module::QuadrantSelector,
+    noise::module::Reciprocal,
     noise::module::RidgedMulti,
     noise::module::RotatePoint,
     noise::module::ScaleBias,

@@ -924,6 +924,27 @@
         ]}
       ]
     },
+    "reciprocal": {
+      "type": "object",
+      "title": "Reciprocal module schema",
+      "description": "Specifies a Reciprocal module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Reciprocal.",
+          "pattern": "^Reciprocal$"
+        },
+        "SourceModule": {
+          "$ref": "#/definitions/source_module_1"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
+      ]
+    },
     "ridged_multi": {
       "type": "object",
       "title": "RidgedMulti module schema",
