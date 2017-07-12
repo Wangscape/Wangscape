@@ -67,7 +67,10 @@
     <ClCompile Include="noise\module\codecs\ScalePointWrapperCodec.cpp" />
     <ClCompile Include="noise\ModuleGroupContainer.cpp" />
     <ClCompile Include="OptionsPaths.cpp" />
-    <ClCompile Include="tilegen\partition\DebugWriter.cpp" />
+    <ClCompile Include="logging\ConsoleAppender.cpp" />
+    <ClCompile Include="logging\FileAppender.cpp" />
+    <ClCompile Include="logging\Logging.cpp" />
+    <ClCompile Include="tilegen\DebugTilesetID.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codecs\OptionsCodec.h" />
@@ -174,7 +177,14 @@
     <ClInclude Include="noise\ModuleGroupContainer.h" />
     <ClInclude Include="OptionsPaths.h" />
     <ClInclude Include="codecs\Vector2Codec.h" />
-    <ClInclude Include="tilegen\partition\DebugWriter.h" />
+    <ClInclude Include="tilegen\DebugTilesetID.h" />
+    <ClInclude Include="tilegen\ModuleGroupRole.h" />
+    <ClInclude Include="logging\Appender.h" />
+    <ClInclude Include="logging\ConsoleAppender.h" />
+    <ClInclude Include="logging\FileAppender.h" />
+    <ClInclude Include="logging\Level.h" />
+    <ClInclude Include="logging\Logger.h" />
+    <ClInclude Include="rogging\Logging.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

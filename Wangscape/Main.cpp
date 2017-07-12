@@ -2,6 +2,7 @@
 #include <fstream>
 #include <memory>
 
+#include <boost/filesystem.hpp>
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/parsers.hpp>
 #include <boost/program_options/variables_map.hpp>
@@ -85,6 +86,8 @@ int main(int argc, char** argv)
     
     tg.generate([](const sf::Texture& output, std::string filename)
     {
+        const std::string image_dir = boost::filesystem::path(filename).remove_filename().string();
+        boost::filesystem::create_directories(image_dir);
         if (!output.copyToImage().saveToFile(filename))
             throw std::runtime_error("Couldn't write image");
     });

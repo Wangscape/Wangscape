@@ -156,7 +156,8 @@
   <ItemGroup>
     <ClInclude Include="tilegen\alpha\CalculatorDither.h" />
     <ClInclude Include="codecs\Vector2Codec.h" />
-    <ClInclude Include="tilegen\partition\DebugWriter.h" />
+    <ClInclude Include="tilegen\DebugTilesetID.h" />
+    <ClInclude Include="tilegen\ModuleGroupRole.h" />
     <ClInclude Include="tilegen\alpha\CalculatorTopTwo.h" />
     <ClInclude Include="BorderModuleGroupLocation.h" />
     <ClInclude Include="codecs\BorderModuleGroupLocationCodec.h" />
@@ -267,7 +268,6 @@
     <ClInclude Include="ipow.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="tilegen\partition\DebugWriter.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorDither.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorTopTwo.cpp" />
     <ClCompile Include="logging\ConsoleAppender.cpp" />
@@ -332,6 +332,7 @@
     <ClCompile Include="tilegen\alpha\CalculatorBase.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorLinear.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorMax.cpp" />
+    <ClCompile Include="tilegen\DebugTilesetID.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerBase.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerNoise.cpp" />
     <ClCompile Include="tilegen\partition\TilePartitionerSquares.cpp" />

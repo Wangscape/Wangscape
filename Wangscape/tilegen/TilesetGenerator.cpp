@@ -13,8 +13,18 @@ namespace tilegen
 TilesetGenerator::TilesetGenerator(const Options& options,
                                    std::unique_ptr<partition::TilePartitionerBase> tile_partitioner) :
     options(options),
-    mTilePartitioner(std::move(tile_partitioner))
+    mTilePartitioner(std::move(tile_partitioner)),
+    mDebugTileBuilder(mDebugTile, {0., 0., 1., 1.})
+    // TODO (Serin) this sf::Rect is repeated in TilePartitionerNoise, factor it out
 {
+    if (options.debugOutput)
+    {
+        mDebugTile.create(options.tileFormat.resolution.x, options.tileFormat.resolution.y);
+        partition::TilePartitionerBase::DebugModuleWriter bound_debug_tile_writer = 
+            std::bind(&TilesetGenerator::writeDebugTile, this,
+                      std::placeholders::_1, std::placeholders::_2);
+        mTilePartitioner->setDebugModuleWriter(bound_debug_tile_writer);
+    }
     for (auto& terrain : options.terrains)
     {
         images.addTerrain(terrain.first, terrain.second.fileName, options.paths.filename,
@@ -30,21 +40,31 @@ void TilesetGenerator::generate(std::function<void(const sf::Texture&, std::stri
     {
         CornersGenerator corners_generator(clique, static_cast<size_t>(CORNERS));
         std::pair<size_t, size_t> tileset_resolution = corners_generator.size2D(options.tileFormat.resolution);
-        size_t res_x = tileset_resolution.first;
-        size_t res_y = tileset_resolution.second;
-        std::unique_ptr<sf::RenderTexture> output{getBlankImage(res_x, res_y)};
+        mResX = tileset_resolution.first;
+        mResY = tileset_resolution.second;
+        std::unique_ptr<sf::RenderTexture> output{getBlankImage(mResX, mResY)};
+        mDebugTilesets.clear();
 
-        auto filename = getOutputImageFilename(clique);
+        const auto filename_base = getOutputImageFilename(clique);
+        const auto filename = filename_base + options.tileFormat.fileType;
 
         // MetaOutput.addTileset, addTile should use this version of filename;
         // relative to output dir, not options dir!
-        metaOutput.addTileset(clique, filename, res_x, res_y);
+        metaOutput.addTileset(clique, filename, mResX, mResY);
         generateClique(clique, *output, filename);
         output->display();
 
         p.append(filename);
         callback(output->getTexture(), p.string());
         p.remove_filename();
+        for (const auto& it : mDebugTilesets)
+        {
+            it.second->display();
+            std::stringstream debug_filename_ss;
+            debug_filename_ss << filename_base << it.first.description() << "." << options.tileFormat.fileType;
+            const auto debug_file_path = (p / "debug" / debug_filename_ss.str()).string();
+            callback(it.second->getTexture(), debug_file_path);
+        }
     }
 }
 
@@ -54,13 +74,32 @@ void TilesetGenerator::generateClique(const Options::Clique& clique, sf::RenderT
     for (auto it = corners_generator.cbegin(); it != corners_generator.cend(); ++it)
     {
         const auto& corner_terrains = *it;
-        std::pair<size_t, size_t> tile_position = it.coordinates2D();
-        TileGenerator::generate(image, tile_position.first, tile_position.second, corner_terrains,
+        mCurrentTilePosition = it.coordinates2D();
+        TileGenerator::generate(image, mCurrentTilePosition.first, mCurrentTilePosition.second, corner_terrains,
                                 images, options, *mTilePartitioner.get());
         metaOutput.addTile(corner_terrains, filename,
-                   tile_position.first*options.tileFormat.resolution.x,
-                   tile_position.second*options.tileFormat.resolution.y);
+                           mCurrentTilePosition.first*options.tileFormat.resolution.x,
+                           mCurrentTilePosition.second*options.tileFormat.resolution.y);
     }
+}
+
+void TilesetGenerator::writeDebugTile(const DebugTilesetID& debugTilesetID, noise::module::ModulePtr module)
+{
+    if (mDebugTilesets.find(debugTilesetID) == mDebugTilesets.end())
+    {
+        mDebugTilesets.emplace(std::make_pair(DebugTilesetID(debugTilesetID), std::move(getBlankImage(mResX, mResY)))).first;
+    }
+    sf::RenderTexture& tileset = *mDebugTilesets.at(debugTilesetID).get();
+    // There are far more map lookups here than necessary.
+
+    mDebugTileBuilder.build(module.get()->getModule());
+    sf::Texture tile_texture;
+    tile_texture.loadFromImage(mDebugTile);
+    sf::Sprite tile_sprite(tile_texture);
+    tile_sprite.setPosition(
+        (float)mCurrentTilePosition.first*options.tileFormat.resolution.x,
+        (float)mCurrentTilePosition.second*options.tileFormat.resolution.y);
+    tileset.draw(tile_sprite);
 }
 
 std::string TilesetGenerator::getOutputImageFilename(const Options::Clique& clique) const
@@ -70,7 +109,6 @@ std::string TilesetGenerator::getOutputImageFilename(const Options::Clique& cliq
     {
         ss << terrain << ".";
     }
-    ss << options.tileFormat.fileType;
     return ss.str();
 }
 

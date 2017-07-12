@@ -137,7 +137,7 @@ after_test:
     
     $folders = Get-ChildItem -Path doc/examples | ?{ $_.PSIsContainer }
     
-    $folders | ForEach-Object { robocopy doc/examples/"$_"/output example_output/"$_" * }
+    $folders | ForEach-Object { robocopy doc/examples/"$_"/output example_output/"$_" * /E }
 
     7z a example_output.zip example_output
 artifacts:

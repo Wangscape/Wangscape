@@ -10,5 +10,10 @@ TilePartitionerBase::TilePartitionerBase(const Options & options) :
 {
 }
 
+void TilePartitionerBase::setDebugModuleWriter(DebugModuleWriter debugModuleWriter)
+{
+    mDebugModuleWriter = debugModuleWriter;
+}
+
 } // namespace partition
 } // namespace tilegen

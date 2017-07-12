@@ -7,6 +7,9 @@
 #include "TerrainImages.h"
 #include "metaoutput/MetaOutput.h"
 #include "CartesianPower.h"
+#include "DebugTilesetID.h"
+#include "noise/module/ModulePtr.h"
+#include "noise/RasterImage.h"
 
 namespace tilegen
 {
@@ -24,11 +27,18 @@ public:
     metaoutput::MetaOutput metaOutput;
     TerrainImages images;
 private:
+    void writeDebugTile(const DebugTilesetID& debugTilesetID, noise::module::ModulePtr module);
+
     std::unique_ptr<tilegen::partition::TilePartitionerBase> mTilePartitioner;
+    std::map<DebugTilesetID, std::unique_ptr<sf::RenderTexture>> mDebugTilesets;
+    sf::Image mDebugTile;
+    noise::RasterImage mDebugTileBuilder;
+    size_t mResX;
+    size_t mResY;
+    std::pair<size_t, size_t> mCurrentTilePosition;
 
     std::string getOutputImageFilename(const Options::Clique& clique) const;
     std::unique_ptr<sf::RenderTexture> getBlankImage(size_t res_x, size_t res_y) const;
-    std::pair<size_t, size_t> calculateTilesetResolution(size_t clique_size) const;
 };
 
 } // namespace tilegen
