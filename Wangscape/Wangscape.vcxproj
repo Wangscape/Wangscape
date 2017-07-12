@@ -155,6 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="noise\module\codecs\LogarithmWrapperCodec.h" />
+    <ClInclude Include="noise\module\Bitmap.h" />
     <ClInclude Include="noise\module\codecs\DivideWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\ReciprocalWrapperCodec.h" />
     <ClInclude Include="noise\module\Divide.h" />
@@ -275,6 +276,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="noise\module\codecs\LogarithmWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\Bitmap.cpp" />
     <ClCompile Include="noise\module\codecs\DivideWrapperCodec.cpp" />
     <ClCompile Include="noise\module\codecs\ReciprocalWrapperCodec.cpp" />
     <ClCompile Include="tilegen\partition\DebugWriter.cpp" />

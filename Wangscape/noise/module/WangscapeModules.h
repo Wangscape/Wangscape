@@ -9,3 +9,4 @@
 #include "Reciprocal.h"
 #include "Divide.h"
 #include "Logarithm.h"
+#include "Bitmap.h"
