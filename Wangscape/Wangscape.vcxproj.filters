@@ -72,6 +72,9 @@
     <ClCompile Include="logging\Logging.cpp" />
     <ClCompile Include="tilegen\DebugTilesetID.cpp" />
     <ClCompile Include="tilegen\partition\DebugWriter.cpp" />
+    <ClCompile Include="logging\ConsoleAppender.cpp" />
+    <ClCompile Include="logging\FileAppender.cpp" />
+    <ClCompile Include="logging\Logging.cpp" />
     <ClCompile Include="noise\module\codecs\DivideWrapperCodec.cpp" />
     <ClCompile Include="noise\module\codecs\LogarithmWrapperCodec.cpp" />
     <ClCompile Include="noise\module\codecs\ReciprocalWrapperCodec.cpp" />
