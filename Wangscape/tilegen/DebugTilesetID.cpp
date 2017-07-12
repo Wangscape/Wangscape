@@ -26,14 +26,14 @@ const static std::map<std::pair<bool, bool>, std::string> corner_names = {
 
 std::string DebugTilesetID::description() const
 {
-    return role_names.at(moduleGroupRole) + "." + moduleID + "." + corner_names.at({top, left});
+    return role_names.at(mModuleGroupRole) + "." + mModuleID + "." + corner_names.at({mTop, mLeft});
 }
 
 
 bool DebugTilesetID::operator<(const DebugTilesetID& other) const
 {
-    return std::tie(moduleGroupRole, moduleID, top, left) <
-        std::tie(other.moduleGroupRole, other.moduleID, other.top, other.left);
+    return std::tie(mModuleGroupRole, mModuleID, mTop, mLeft) <
+        std::tie(other.mModuleGroupRole, other.mModuleID, other.mTop, other.mLeft);
 }
 
 } // namespace tilegen

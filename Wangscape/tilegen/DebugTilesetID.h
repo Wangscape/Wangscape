@@ -6,23 +6,25 @@
 namespace tilegen
 {
 
-struct DebugTilesetID
+class DebugTilesetID
 {
-    ModuleGroupRole moduleGroupRole;
-    noise::ModuleID moduleID;
-    bool top;
-    bool left;
+public:
     DebugTilesetID(ModuleGroupRole moduleGroupRole_,
                    noise::ModuleID moduleID_,
                    bool top_,
                    bool left_) :
-        moduleGroupRole(moduleGroupRole_),
-        moduleID(moduleID_),
-        top(top_),
-        left(left_)
+        mModuleGroupRole(moduleGroupRole_),
+        mModuleID(moduleID_),
+        mTop(top_),
+        mLeft(left_)
     {}
     std::string description() const;
     bool operator<(const DebugTilesetID& other) const;
+private:
+    ModuleGroupRole mModuleGroupRole;
+    noise::ModuleID mModuleID;
+    bool mTop;
+    bool mLeft;
 };
 
 } // namespace tilegen
