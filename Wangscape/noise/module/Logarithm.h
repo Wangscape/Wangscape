@@ -19,7 +19,9 @@ public:
     Logarithm() :
         Module(GetSourceModuleCount()),
         mBase(DEFAULT_LOGARITHM_BASE)
-    {};
+    {
+        setLogBase();
+    };
     virtual int GetSourceModuleCount() const
     {
         return 1;
@@ -28,7 +30,7 @@ public:
     void SetBase(double base)
     {
         mBase = base;
-        mLogBase = std::log(base);
+        setLogBase();
     }
     double GetBase() const
     {
@@ -42,6 +44,10 @@ public:
 private:
     double mBase;
     double mLogBase;
+    void setLogBase()
+    {
+        mLogBase = std::log(mBase);
+    }
 };
 
 } // namespace module
