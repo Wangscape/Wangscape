@@ -1,19 +1,22 @@
 set(tst-src
     main.cpp
+    removeWhitespace.cpp
+    DocumentationPath.cpp
     TestCalculatorMax.cpp
     TestCalculatorDither.cpp
     TestCalculatorTopTwo.cpp
-    removeWhitespace.cpp
-    DocumentationPath.cpp
     TestCartesianPower.cpp
     TestCoordinatePacker.cpp
     TestCornerCombiner.cpp
+    TestDivide.cpp
     TestEncodedModuleGroup.cpp
     TestIPow.cpp
+    TestLogarithm.cpp
     TestMetaOutput.cpp
     TestModuleDecode.cpp
     TestNormLPQ.cpp
     TestOptions.cpp
+    TestReciprocal.cpp
     TestRequiringOptions.cpp
     TestTilePartitionerSquares.cpp
     TestTilesetGenerator.cpp)
