@@ -164,7 +164,9 @@
     <ClCompile Include="TestCoordinatePacker.cpp" />
     <ClCompile Include="DocumentationPath.cpp" />
     <ClCompile Include="TestCornerCombiner.cpp" />
+    <ClCompile Include="TestDivide.cpp" />
     <ClCompile Include="TestEncodedModuleGroup.cpp" />
+    <ClCompile Include="TestLogarithm.cpp" />
     <ClCompile Include="TestMetaOutput.cpp" />
     <ClCompile Include="TestModuleDecode.cpp" />
     <ClCompile Include="TestNormLPQ.cpp" />
@@ -172,6 +174,7 @@
     <ClCompile Include="TestIPow.cpp" />
     <ClCompile Include="TestRasterImage.cpp" />
     <ClCompile Include="TestRasterValues.cpp" />
+    <ClCompile Include="TestReciprocal.cpp" />
     <ClCompile Include="TestRequiringOptions.cpp" />
     <ClCompile Include="TestTilePartitionerSquares.cpp" />
     <ClCompile Include="TestTilesetGenerator.cpp" />
