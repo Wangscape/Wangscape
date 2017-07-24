@@ -27,6 +27,19 @@
      <string>Generate tileset</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="optionsDirectoryButton">
+    <property name="geometry">
+     <rect>
+      <x>410</x>
+      <y>120</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Select options directory</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

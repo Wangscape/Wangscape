@@ -16,10 +16,12 @@ public:
     ~MainWindow();
 
 private slots:
-    void clickPushButton();
+    void clickGenerateButton();
+    void clickOptionsDirectoryButton();
 
 private:
     Ui::MainWindow *ui;
+    QString optionsFilePath;
 };
 
 #endif // MAINWINDOW_H

@@ -5,6 +5,8 @@
 #include <fstream>
 #include <memory>
 
+#include <QMessageBox>
+#include <QFileDialog>
 
 #include "logging/Logger.h"
 #include "logging/Logging.h"
@@ -27,16 +29,22 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    connect(ui->pushButton, SIGNAL(pressed()), this, SLOT(clickPushButton()));
+    connect(ui->pushButton, SIGNAL(pressed()), this, SLOT(clickGenerateButton()));
+    connect(ui->optionsDirectoryButton, SIGNAL(pressed()), this, SLOT(clickOptionsDirectoryButton()));
 }
 
-void MainWindow::clickPushButton()
+void MainWindow::clickGenerateButton()
 {
     logging::addAppender(std::make_unique<logging::ConsoleAppender>("console", logging::Level::Debug));
 
-    std::string filename = "/home/hryniuk/projekty/Wangscape/doc/examples/example2/example_options.json";
+    if (optionsFilePath.isEmpty())
+    {
+        QMessageBox errorMessage;
+        errorMessage.critical(this, "Error", QString("You have to select options file before clicking 'Generate...' button"));
+        return;
+    }
 
-    OptionsManager optionsManager(filename);
+    OptionsManager optionsManager(optionsFilePath.toLocal8Bit().constData());
     const Options& options = optionsManager.getOptions();
 
     std::unique_ptr<tilegen::partition::TilePartitionerBase> tp =
@@ -52,6 +60,20 @@ void MainWindow::clickPushButton()
             throw std::runtime_error("Couldn't write image");
     });
     tg.metaOutput.writeAll(optionsManager.getOptions());
+}
+
+void MainWindow::clickOptionsDirectoryButton()
+{
+    QFileDialog::Options options;
+    options |= QFileDialog::DontResolveSymlinks;
+    QString chosenPath = QFileDialog::getOpenFileName(this,
+                                                     tr("QFileDialog::getExistingDirectory()"),
+                                                     QString("hello"));
+    if (!chosenPath.isEmpty())
+    {
+        std::cout << "Chosen path: " << chosenPath.toLocal8Bit().constData() << std::endl;
+        optionsFilePath = chosenPath;
+    }
 }
 
 MainWindow::~MainWindow()
