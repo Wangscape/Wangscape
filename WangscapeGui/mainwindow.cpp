@@ -28,7 +28,10 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    scene = new QGraphicsScene(this);
     ui->setupUi(this);
+    ui->progressBar->setRange(0, 100);
+    ui->progressBar->setValue(0);
     connect(ui->pushButton, SIGNAL(pressed()), this, SLOT(clickGenerateButton()));
     connect(ui->optionsDirectoryButton, SIGNAL(pressed()), this, SLOT(clickOptionsDirectoryButton()));
 }
@@ -54,12 +57,40 @@ void MainWindow::clickGenerateButton()
 
     std::cout << "generating tiles..." << std::endl;
 
-    tg.generate([](const sf::Texture& output, std::string filename)
+    tg.generate([this](const sf::Texture& output, std::string /*filename*/)
     {
-        if (!output.copyToImage().saveToFile(filename))
-            throw std::runtime_error("Couldn't write image");
+        const sf::Image outputImage = output.copyToImage();
+        const sf::Vector2u outputImageSize = outputImage.getSize();
+
+        const QSize previewImageSize = previewImage.size();
+        if (outputImageSize.x != previewImageSize.width() || outputImageSize.y != previewImageSize.height())
+        {
+            previewImage = QImage(outputImageSize.x, outputImageSize.y, QImage::Format_RGB32);
+        }
+        for (int y = 0; y < outputImageSize.y; ++y)
+        {
+            for (int x = 0; x < outputImageSize.x; ++x)
+            {
+                const sf::Color sfmlColor = outputImage.getPixel(x, y);
+                const QColor color{sfmlColor.r, sfmlColor.g, sfmlColor.b, sfmlColor.a};
+                previewImage.setPixelColor(x, y, color);
+            }
+            const int progressValue = 100 * (static_cast<double>(y) / static_cast<double>(outputImageSize.y));
+            std::cout << y << " " << outputImageSize.y <<  " " << progressValue << std::endl;
+            ui->progressBar->setValue(progressValue);
+        }
+        ui->progressBar->setValue(100);
     });
-    tg.metaOutput.writeAll(optionsManager.getOptions());
+
+
+    const QPixmap pixmap = QPixmap::fromImage(previewImage);
+    scene->clear();
+    scene->addPixmap(pixmap);
+    scene->setSceneRect(pixmap.rect());
+
+    ui->tilesetPreview->setScene(scene);
+
+    // tg.metaOutput.writeAll(optionsManager.getOptions());
 }
 
 void MainWindow::clickOptionsDirectoryButton()

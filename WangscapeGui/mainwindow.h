@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QGraphicsScene>
 #include <QMainWindow>
 
 namespace Ui {
@@ -21,6 +22,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QGraphicsScene *scene;
+    QImage previewImage;
     QString optionsFilePath;
 };
 
