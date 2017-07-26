@@ -19,11 +19,12 @@ public:
 private slots:
     void clickGenerateButton();
     void clickOptionsDirectoryButton();
+    void displayTilesetPreview(const QString& name);
 
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
-    QImage previewImage;
+    std::map<std::string, QImage> previewImages;
     QString optionsFilePath;
 };
 
