@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>598</width>
-    <height>420</height>
+    <height>398</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -102,7 +102,6 @@
    </widget>
    <addaction name="menuWangscape_GUI"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
