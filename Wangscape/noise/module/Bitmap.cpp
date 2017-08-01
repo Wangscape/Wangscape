@@ -105,8 +105,10 @@ double Bitmap::getPixel(size_t x, size_t y) const
 {
     if (!mImage)
     {
-        return mImage->getPixel(x, y).r;
+        logError() << "Tried to call Bitmap::getPixel without valid image";
+        throw std::runtime_error("Bitmap not initialised");
     }
+    return mImage->getPixel(x, y).r;
 }
 
 } // namespace module
