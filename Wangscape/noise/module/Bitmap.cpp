@@ -84,8 +84,8 @@ double Bitmap::GetValue(double x, double y, double z) const
         return mDefaultValue;
     if (mResolution.x == 0 || mResolution.y == 0)
     {
-        logWarning() << "Tried to call Bitmap::GetValue with zero-pixel resolution";
-        return mDefaultValue;
+        logError() << "Tried to call Bitmap::GetValue with zero-pixel resolution";
+        throw std::runtime_error("Invalid Bitmap module configuration");
     }
     sf::Vector2<double> offset = {x, y};
 
