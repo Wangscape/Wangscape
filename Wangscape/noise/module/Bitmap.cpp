@@ -28,27 +28,24 @@ void Bitmap::SetFilename(const std::string & filename)
     auto it = loadedImages.find(filename);
     if (it == loadedImages.cend())
         return;
-    else
+    auto bitmap = std::make_shared<sf::Image>();
+    // TODO get base file path from Options. How?
+    bitmap->loadFromFile(filename);
+    for (size_t y = 0; y < bitmap->getSize().y; y++)
     {
-        auto bitmap = std::make_shared<sf::Image>();
-        // TODO get base file path from Options. How?
-        bitmap->loadFromFile(filename);
-        for (size_t y = 0; y < bitmap->getSize().y; y++)
+        for (size_t x = 0; x < bitmap->getSize().x; x++)
         {
-            for (size_t x = 0; x < bitmap->getSize().x; x++)
+            auto pixel = bitmap->getPixel(x, y);
+            if (pixel.r != pixel.g || pixel.g != pixel.b)
             {
-                auto pixel = bitmap->getPixel(x, y);
-                if (pixel.r != pixel.g || pixel.g != pixel.b)
-                {
-                    logWarning() << "Image at " << filename << " loaded into Bitmap module is not greyscale at " <<
-                        x << ", " << y << ".";
-                }
+                logWarning() << "Image at " << filename << " loaded into Bitmap module is not greyscale at " <<
+                    x << ", " << y << ".";
             }
         }
-         loadedImages.insert({filename, bitmap});
-         mImage = bitmap;
-         mFilename = filename;
     }
+    loadedImages.insert({filename, bitmap});
+    mImage = bitmap;
+    mFilename = filename;
 }
 
 const sf::Vector2u & Bitmap::GetResolution() const
