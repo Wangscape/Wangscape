@@ -41,6 +41,7 @@ private:
     sf::Rect<double> mRegion;
     double mDefaultValue;
     std::shared_ptr<sf::Image> mImage;
+    std::string filePath(const std::string& filename) const;
 };
 
 } // namespace module

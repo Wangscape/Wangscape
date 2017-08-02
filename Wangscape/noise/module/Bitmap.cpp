@@ -1,5 +1,7 @@
 #include "Bitmap.h"
 #include "logging/Logging.h"
+#include "OptionsManager.h"
+#include <boost/filesystem.hpp>
 
 namespace noise
 {
@@ -29,8 +31,7 @@ void Bitmap::SetFilename(const std::string & filename)
     if (it == loadedImages.cend())
         return;
     auto bitmap = std::make_shared<sf::Image>();
-    // TODO get base file path from Options. How?
-    bitmap->loadFromFile(filename);
+    bitmap->loadFromFile(filePath(filename));
     for (size_t y = 0; y < bitmap->getSize().y; y++)
     {
         for (size_t x = 0; x < bitmap->getSize().x; x++)
@@ -109,6 +110,13 @@ double Bitmap::getPixel(size_t x, size_t y) const
         throw std::runtime_error("Bitmap not initialised");
     }
     return mImage->getPixel(x, y).r;
+}
+
+std::string Bitmap::filePath(const std::string& filename) const
+{
+    const auto& base_path = getOptionsManager().getOptions().paths.directory;
+    return (boost::filesystem::path(base_path) / filename).string();
+
 }
 
 } // namespace module

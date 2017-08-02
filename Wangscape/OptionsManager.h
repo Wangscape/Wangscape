@@ -15,3 +15,4 @@ private:
     Options mOptions;
 };
 
+OptionsManager& getOptionsManager();

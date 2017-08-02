@@ -75,8 +75,9 @@ int main(int argc, char** argv)
         logError() << cmd_options;
         return 1;
     }
+    auto& optionsManager = getOptionsManager();
+    optionsManager.loadOptions(filename);
 
-    OptionsManager optionsManager(filename);
     const Options& options = optionsManager.getOptions();
     
     std::unique_ptr<tilegen::partition::TilePartitionerBase> tp =

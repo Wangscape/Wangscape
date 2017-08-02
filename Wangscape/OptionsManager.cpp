@@ -56,3 +56,11 @@ const Options& OptionsManager::getOptions() const
     return mOptions;
 }
 
+namespace {
+OptionsManager optionsManager;
+}
+
+OptionsManager& getOptionsManager()
+{
+    return optionsManager;
+}
