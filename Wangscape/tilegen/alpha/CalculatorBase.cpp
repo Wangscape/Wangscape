@@ -1,5 +1,6 @@
 #include "CalculatorBase.h"
 #include <algorithm>
+#include <numeric>
 #include "common.h"
 
 namespace tilegen
@@ -32,6 +33,13 @@ const CalculatorBase::Alphas & CalculatorBase::getAlphas() const
 void CalculatorBase::updateAlphas(const Weights & weights)
 {
     zeroAlphas();
+    for (double weight : weights)
+    {
+        if (weight == std::numeric_limits<double>::infinity() ||
+            weight == -std::numeric_limits<double>::infinity() ||
+            isnan(weight))
+            return;
+    }
     updateAlphasAux(weights);
 }
 
