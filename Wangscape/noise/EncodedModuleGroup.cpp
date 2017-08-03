@@ -44,6 +44,7 @@ namespace
 ModuleDecodeTable moduleDecodeTable = {
     {"Abs", &EncodedModuleGroup::decodeModule<module::Abs>},
     {"Add", &EncodedModuleGroup::decodeModule<module::Add>},
+    {"Bitmap", &EncodedModuleGroup::decodeModule<module::Bitmap>},
     {"Billow", &EncodedModuleGroup::decodeModule<module::Billow>},
     {"Blend", &EncodedModuleGroup::decodeModule<module::Blend>},
     {"Cache", &EncodedModuleGroup::decodeModule<module::Cache>},

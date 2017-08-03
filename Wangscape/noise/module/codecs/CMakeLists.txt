@@ -1,6 +1,7 @@
 set(noise-module-codecs-src
     ${CMAKE_CURRENT_SOURCE_DIR}/AbsWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/AddWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/BitmapWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/BillowWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/BlendWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CacheWrapperCodec.cpp
@@ -42,4 +43,4 @@ set(noise-module-src
     ${noise-module-src}
     ${noise-module-codecs-src}
     PARENT_SCOPE
-)
+)

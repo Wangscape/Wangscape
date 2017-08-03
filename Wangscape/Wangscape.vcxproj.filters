@@ -78,6 +78,7 @@
     <ClCompile Include="noise\module\codecs\DivideWrapperCodec.cpp" />
     <ClCompile Include="noise\module\codecs\LogarithmWrapperCodec.cpp" />
     <ClCompile Include="noise\module\codecs\ReciprocalWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\BitmapWrapperCodec.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codecs\OptionsCodec.h" />
@@ -201,6 +202,8 @@
     <ClInclude Include="noise\module\codecs\DivideWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\LogarithmWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\ReciprocalWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\BitmapWrapperCodec.h" />
+    <ClInclude Include="codecs\RectCodec.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

@@ -3,6 +3,7 @@
 #include "AbsWrapperCodec.h"
 #include "AddWrapperCodec.h"
 #include "BillowWrapperCodec.h"
+#include "BitmapWrapperCodec.h"
 #include "BlendWrapperCodec.h"
 #include "CacheWrapperCodec.h"
 #include "CheckerboardWrapperCodec.h"
