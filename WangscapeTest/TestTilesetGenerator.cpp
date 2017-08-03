@@ -12,7 +12,7 @@ protected:
     tilegen::TilesetGenerator tg;
     TestTilesetGenerator():
         TestRequiringOptions(),
-        tg(options, std::move(std::make_unique<tilegen::partition::TilePartitionerSquares>(options)))
+        tg(options(), std::move(std::make_unique<tilegen::partition::TilePartitionerSquares>(options())))
     {
 
     };

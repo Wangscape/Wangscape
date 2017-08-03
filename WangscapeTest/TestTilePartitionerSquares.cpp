@@ -13,7 +13,7 @@ protected:
     
     TestTilePartitionerSquares() :
         TestRequiringOptions(),
-        tps(options)
+        tps(options())
     {
         tps.makePartition(tp, { "g","g","s","s" });
     };

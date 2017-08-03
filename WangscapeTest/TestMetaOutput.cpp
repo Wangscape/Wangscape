@@ -21,8 +21,8 @@ protected:
     const metaoutput::MetaOutput& metaOutput;
     TestMetaOutput() :
         TestRequiringOptions(),
-        tg(options,
-           std::move(std::make_unique<tilegen::partition::TilePartitionerSquares>(options))),
+        tg(options(),
+           std::move(std::make_unique<tilegen::partition::TilePartitionerSquares>(options()))),
         metaOutput(tg.metaOutput)
     {
         tg.generate([&](const sf::Texture& output, std::string filename) {});
