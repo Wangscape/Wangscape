@@ -155,6 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="TestBitmap.cpp" />
     <ClCompile Include="TestCalculatorLinear.cpp" />
     <ClCompile Include="TestCalculatorMax.cpp" />
     <ClCompile Include="TestCalculatorDither.cpp" />
