@@ -71,5 +71,5 @@
     }
   ],
   "CombinerModuleGroup":"combiner_module_group.json",
-  "DebugOutput":true
+  "DebugOutput":false
 }

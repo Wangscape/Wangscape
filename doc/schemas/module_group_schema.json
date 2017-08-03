@@ -27,6 +27,7 @@
           {"$ref": "#/definitions/abs"},
           {"$ref": "#/definitions/add"},
           {"$ref": "#/definitions/billow"},
+          {"$ref": "#/definitions/bitmap"},
           {"$ref": "#/definitions/blend"},
           {"$ref": "#/definitions/checkerboard"},
           {"$ref": "#/definitions/clamp"},
@@ -210,6 +211,49 @@
       },
       "required": [
         "type"
+      ]
+    },
+    "bitmap": {
+      "type": "object",
+      "title": "Bitmap module schema",
+      "description": "Specifies a Bitmap module and its attributes.",
+      "additionalProperties":false,
+      "properties":{
+        "type":{
+          "type": "string",
+          "title": "Module type schema",
+          "description": "Specifies that this module is of type Bitmap.",
+          "pattern": "^Bitmap$"
+        },
+        "Filename":{
+          "type": "string",
+          "title": "Bitmap module Filename schema",
+          "description": "Specifies the filename of the image used in this Bitmap module."
+        },
+        "Region":{
+          "type":"array",
+          "title": "Bitmap module Region schema"
+          "description": "Specifies the rectangular region of noise coordinates where the image data will be used. The first pair of coordinates is the top left, and the second pair is the size.",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items":{
+              "type":"number"
+            }
+          }
+        },
+        "DefaultValue":{
+          "type":"number",
+          "title": "Bitmap module DefaultValue schema",
+          "description": "Specifies the value returned by the Bitmap module when the requested coordinates are outside the image region"
+        }
+      },
+      "required": [
+        "type",
+        "SourceModule"
       ]
     },
     "blend": {

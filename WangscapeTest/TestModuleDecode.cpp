@@ -9,15 +9,17 @@
 #include <vector>
 #include <boost/filesystem.hpp>
 #include "DocumentationPath.h"
+#include "TestRequiringOptions.h"
 
 #include <noise/noise.h>
 #include <noise/module/codecs/ModuleCodecs.h>
 
 template<typename T>
-class TestModuleDecode : public ::testing::Test
+class TestModuleDecode : public TestRequiringOptions
 {
 public:
-    TestModuleDecode()
+    TestModuleDecode() :
+        TestRequiringOptions()
     {
         exampleModules.emplace_back();
         exampleSources.emplace_back();
@@ -44,6 +46,7 @@ public:
 template<> const std::string TestModuleDecode<noise::module::Abs>::type = "Abs";
 template<> const std::string TestModuleDecode<noise::module::Add>::type = "Add";
 template<> const std::string TestModuleDecode<noise::module::Billow>::type = "Billow";
+template<> const std::string TestModuleDecode<noise::module::Bitmap>::type = "Bitmap";
 template<> const std::string TestModuleDecode<noise::module::Blend>::type = "Blend";
 template<> const std::string TestModuleDecode<noise::module::Cache>::type = "Cache";
 template<> const std::string TestModuleDecode<noise::module::Checkerboard>::type = "Checkerboard";
@@ -97,7 +100,7 @@ TestModuleDecode<noise::module::Add>::TestModuleDecode()
     this->exampleSources.emplace_back();
     this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
         "mySourceModule",
-            "myOtherSourceModule"});
+        "myOtherSourceModule"});
 }
 
 template<>
@@ -110,6 +113,17 @@ TestModuleDecode<noise::module::Billow>::TestModuleDecode()
     this->exampleModules[0].module->SetLacunarity(1.8);
     this->exampleModules[0].module->SetOctaveCount(14);
     this->exampleModules[0].module->SetNoiseQuality(noise::QUALITY_BEST);
+    this->exampleSources.emplace_back();
+}
+
+template<>
+TestModuleDecode<noise::module::Bitmap>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetFilename("../../tests/bitmap.png");
+    this->exampleModules[0].module->SetDefaultValue(0.0);
+    this->exampleModules[0].module->SetRegion(sf::Rect<double>(1.,2.,3.,4.));
+    this->exampleModules[0].module->SetMaxScale(true);
     this->exampleSources.emplace_back();
 }
 
@@ -461,6 +475,16 @@ TestModuleDecode<noise::module::QuadrantSelector>::TestModuleDecode()
 }
 
 template<>
+void TestModuleDecode<noise::module::Bitmap>::compareModules(const noise::module::Bitmap& expected, const noise::module::Bitmap& actual)
+{
+    EXPECT_EQ(expected.GetFilename(), actual.GetFilename());
+    EXPECT_EQ(expected.GetDefaultValue(), actual.GetDefaultValue());
+    EXPECT_EQ(expected.GetRegion(), actual.GetRegion());
+    EXPECT_EQ(expected.GetMaxScale(), actual.GetMaxScale());
+
+}
+
+template<>
 void TestModuleDecode<noise::module::Billow>::compareModules(const noise::module::Billow& expected, const noise::module::Billow& actual)
 {
     EXPECT_EQ(expected.GetFrequency(), actual.GetFrequency());
@@ -627,6 +651,7 @@ typedef ::testing::Types<
     noise::module::Abs,
     noise::module::Add,
     noise::module::Billow,
+    noise::module::Bitmap,
     noise::module::Blend,
     noise::module::Cache,
     noise::module::Checkerboard,

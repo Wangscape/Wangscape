@@ -1,0 +1,7 @@
+{
+  "type" : "Bitmap",
+  "Filename": "../../tests/bitmap.png",
+  "DefaultValue": 0.0,
+  "Region": [[0.0, 1.0], [2.0, 3.0]],
+  "MaxScale": true
+}
