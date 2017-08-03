@@ -14,8 +14,10 @@ static std::map<std::string, std::shared_ptr<sf::Image>> loadedImages;
 }
 
 
-Bitmap::Bitmap() : 
-    Module::Module(GetSourceModuleCount())
+Bitmap::Bitmap() :
+    Module::Module(GetSourceModuleCount()),
+    mRegion(0.0, 0.0, 1.0, 1.0),
+    mMaxScale(false)
 {
 }
 
@@ -28,10 +30,21 @@ void Bitmap::SetFilename(const std::string & filename)
 {
     // Load and process file if not already done
     auto it = loadedImages.find(filename);
-    if (it == loadedImages.cend())
+    if (it != loadedImages.cend())
+    {
+        mFilename = filename;
+        mImage = it->second;
+        if (mMaxScale)
+            updateMax();
         return;
+    }
+    auto file_path = filePath(filename);
     auto bitmap = std::make_shared<sf::Image>();
-    bitmap->loadFromFile(filePath(filename));
+    if (!bitmap->loadFromFile(file_path))
+    {
+        logError() << "Bitmap module: Could not load image from " << file_path;
+        throw std::runtime_error("Invalid Bitmap filename");
+    }
     for (size_t y = 0; y < bitmap->getSize().y; y++)
     {
         for (size_t x = 0; x < bitmap->getSize().x; x++)
@@ -39,7 +52,7 @@ void Bitmap::SetFilename(const std::string & filename)
             auto pixel = bitmap->getPixel(x, y);
             if (pixel.r != pixel.g || pixel.g != pixel.b)
             {
-                logWarning() << "Image at " << filename << " loaded into Bitmap module is not greyscale at " <<
+                logWarning() << "Image at " << file_path << " loaded into Bitmap module is not greyscale at " <<
                     x << ", " << y << ".";
             }
         }
@@ -47,16 +60,8 @@ void Bitmap::SetFilename(const std::string & filename)
     loadedImages.insert({filename, bitmap});
     mImage = bitmap;
     mFilename = filename;
-}
-
-const sf::Vector2u & Bitmap::GetResolution() const
-{
-    return mResolution;
-}
-
-void Bitmap::SetResolution(const sf::Vector2u & resolution)
-{
-    mResolution = resolution;
+    if (mMaxScale)
+        updateMax();
 }
 
 sf::Rect<double> Bitmap::GetRegion() const
@@ -74,16 +79,28 @@ double Bitmap::GetDefaultValue() const
     return mDefaultValue;
 }
 
-void Bitmap::SetDefaultValue(double defaultValue)
+void Bitmap::SetDefaultValue(double default_value)
 {
-    mDefaultValue = defaultValue;
+    mDefaultValue = default_value;
+}
+
+bool Bitmap::GetMaxScale() const
+{
+    return mMaxScale;
+}
+
+void Bitmap::SetMaxScale(bool max_scale)
+{
+    mMaxScale = max_scale;
+    if (mImage && max_scale)
+        updateMax();
 }
 
 double Bitmap::GetValue(double x, double y, double z) const
 {
-    if (mRegion.contains(x, y))
+    if (!mRegion.contains(x, y))
         return mDefaultValue;
-    if (mResolution.x == 0 || mResolution.y == 0)
+    if (mImage->getSize().x == 0 || mImage->getSize().y == 0)
     {
         logError() << "Tried to call Bitmap::GetValue with zero-pixel resolution";
         throw std::runtime_error("Invalid Bitmap module configuration");
@@ -96,10 +113,16 @@ double Bitmap::GetValue(double x, double y, double z) const
     offset.x /= mRegion.width;
     offset.y /= mRegion.height;
 
-    offset.x *= mResolution.x;
-    offset.y *= mResolution.y;
+    offset.x *= mImage->getSize().x;
+    offset.y *= mImage->getSize().y;
 
-    return getPixel(static_cast<size_t>(offset.x), static_cast<size_t>(offset.y));
+    size_t x_image = static_cast<size_t>(offset.x);
+    size_t y_image = static_cast<size_t>(offset.y);
+
+    if (mMaxScale)
+        return getPixel(x_image, y_image) / mMaxValue;
+    else
+        return getPixel(x_image, y_image);
 }
 
 double Bitmap::getPixel(size_t x, size_t y) const
@@ -116,7 +139,19 @@ std::string Bitmap::filePath(const std::string& filename) const
 {
     const auto& base_path = getOptionsManager().getOptions().paths.directory;
     return (boost::filesystem::path(base_path) / filename).string();
+}
 
+void Bitmap::updateMax()
+{
+    // This could also be automatically cached in loadedImages.
+    mMaxValue = 0;
+    for (size_t y = 0; y < mImage->getSize().y; y++)
+    {
+        for (size_t x = 0; x < mImage->getSize().x; x++)
+        {
+            mMaxValue = std::max(mMaxValue, mImage->getPixel(x, y).r);
+        }
+    }
 }
 
 } // namespace module
