@@ -35,9 +35,7 @@ void CalculatorBase::updateAlphas(const Weights & weights)
     zeroAlphas();
     for (double weight : weights)
     {
-        if (weight == std::numeric_limits<double>::infinity() ||
-            weight == -std::numeric_limits<double>::infinity() ||
-            isnan(weight))
+        if(!isfinite(weight))
             return;
     }
     updateAlphasAux(weights);
