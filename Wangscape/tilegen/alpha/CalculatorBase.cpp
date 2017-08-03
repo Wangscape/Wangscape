@@ -1,6 +1,6 @@
 #include "CalculatorBase.h"
 #include <algorithm>
-#include <numeric>
+#include <cmath>
 #include "common.h"
 
 namespace tilegen
@@ -35,7 +35,7 @@ void CalculatorBase::updateAlphas(const Weights & weights)
     zeroAlphas();
     for (double weight : weights)
     {
-        if(!isfinite(weight))
+        if(!std::isfinite(weight))
             return;
     }
     updateAlphasAux(weights);
