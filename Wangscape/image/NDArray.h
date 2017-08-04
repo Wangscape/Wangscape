@@ -1,11 +1,12 @@
 #pragma once
 
-#include <xtensor/xarray.hpp>
 #include <SFML/Graphics.hpp>
+#include <armadillo>
 
-template<typename T>
-using NDArray = xt::xarray<T, xt::layout_type::dynamic>;
+typedef arma::Cube<arma::u8> ImageColour;
+typedef arma::Mat<arma::u8> ImageGrey;
+typedef arma::Mat<double> ImageGreyFloat;
 
-NDArray<sf::Uint8> imageFromSFImage(const sf::Image& image);
+ImageColour imageFromSFImage(const sf::Image& image);
 
-NDArray<sf::Uint8> imageToGreyscale(const NDArray<sf::Uint8>& image);
+ImageGrey imageToGreyscale(const ImageColour& image);

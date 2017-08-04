@@ -52,7 +52,7 @@ private:
     bool mMaxScale;
     double mMaxValue;
     // Perhaps this should be an xview or xexpression
-    std::shared_ptr<NDArray<double>> mImage;
+    std::shared_ptr<ImageGreyFloat> mImage;
 };
 
 } // namespace module

@@ -10,8 +10,7 @@ namespace module
 {
 
 namespace {
-// TODO (Serin): extract the data format from noise::RasterBase into a separate class and use it here
-static std::map<std::string, std::shared_ptr<NDArray<double>>> loadedImages;
+static std::map<std::string, std::shared_ptr<ImageGreyFloat>> loadedImages;
 }
 
 
@@ -49,7 +48,7 @@ void Bitmap::SetFilename(const std::string & filename)
     }
     auto bitmap = imageFromSFImage(sf_bitmap);
     auto bitmap_gs = imageToGreyscale(bitmap);
-    auto bitmap_d = std::make_shared<NDArray<double>>(bitmap_gs);
+    auto bitmap_d = std::make_shared<ImageGreyFloat>(arma::conv_to<ImageGreyFloat>::from(bitmap_gs));
     loadedImages.insert({filename, bitmap_d});
     mImage = bitmap_d;
     mFilename = filename;
@@ -91,9 +90,13 @@ void Bitmap::SetMaxScale(bool max_scale)
 
 double Bitmap::GetValue(double x, double y, double z) const
 {
+    for (auto v : *mImage)
+    {
+        std::cout << int(v) << " ";
+    }
     if (!mRegion.contains(x, y))
         return mDefaultValue;
-    if (mImage->shape()[1] == 0 || mImage->shape()[0] == 0)
+    if (mImage->n_rows == 0 || mImage->n_cols == 0)
     {
         logError() << "Tried to call Bitmap::GetValue with zero-pixel resolution";
         throw std::runtime_error("Invalid Bitmap module configuration");
@@ -106,8 +109,8 @@ double Bitmap::GetValue(double x, double y, double z) const
     offset.x /= mRegion.width;
     offset.y /= mRegion.height;
 
-    offset.x *= mImage->shape()[1];
-    offset.y *= mImage->shape()[0];
+    offset.x *= mImage->n_rows;
+    offset.y *= mImage->n_cols;
 
     size_t x_image = static_cast<size_t>(offset.x);
     size_t y_image = static_cast<size_t>(offset.y);
@@ -125,7 +128,7 @@ double Bitmap::getPixel(size_t x, size_t y) const
         logError() << "Tried to call Bitmap::getPixel without valid image";
         throw std::runtime_error("Bitmap not initialised");
     }
-    return (*mImage)[y,x];
+    return (*mImage)(x,y);
 }
 
 std::string Bitmap::filePath(const std::string& filename) const
@@ -136,7 +139,7 @@ std::string Bitmap::filePath(const std::string& filename) const
 
 void Bitmap::updateMax()
 {
-    mMaxValue = xt::reduce(xt::math::maximum<double>(), *mImage, {0, 1})();
+    mMaxValue = mImage->max();
 }
 
 } // namespace module

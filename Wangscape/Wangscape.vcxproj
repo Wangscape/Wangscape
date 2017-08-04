@@ -375,6 +375,8 @@
     <Import Project="..\packages\boost_filesystem-vc140.1.64.0.0\build\native\boost_filesystem-vc140.targets" Condition="Exists('..\packages\boost_filesystem-vc140.1.64.0.0\build\native\boost_filesystem-vc140.targets')" />
     <Import Project="..\packages\boost_program_options-vc140.1.64.0.0\build\native\boost_program_options-vc140.targets" Condition="Exists('..\packages\boost_program_options-vc140.1.64.0.0\build\native\boost_program_options-vc140.targets')" />
     <Import Project="..\packages\boost_system-vc140.1.64.0.0\build\native\boost_system-vc140.targets" Condition="Exists('..\packages\boost_system-vc140.1.64.0.0\build\native\boost_system-vc140.targets')" />
+    <Import Project="..\packages\OpenBLAS.0.2.14.1\build\native\openblas.targets" Condition="Exists('..\packages\OpenBLAS.0.2.14.1\build\native\openblas.targets')" />
+    <Import Project="..\packages\armadillo-code.7.800.2\build\native\armadillo-code.targets" Condition="Exists('..\packages\armadillo-code.7.800.2\build\native\armadillo-code.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -391,5 +393,7 @@
     <Error Condition="!Exists('..\packages\boost_filesystem-vc140.1.64.0.0\build\native\boost_filesystem-vc140.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost_filesystem-vc140.1.64.0.0\build\native\boost_filesystem-vc140.targets'))" />
     <Error Condition="!Exists('..\packages\boost_program_options-vc140.1.64.0.0\build\native\boost_program_options-vc140.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost_program_options-vc140.1.64.0.0\build\native\boost_program_options-vc140.targets'))" />
     <Error Condition="!Exists('..\packages\boost_system-vc140.1.64.0.0\build\native\boost_system-vc140.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\boost_system-vc140.1.64.0.0\build\native\boost_system-vc140.targets'))" />
+    <Error Condition="!Exists('..\packages\OpenBLAS.0.2.14.1\build\native\openblas.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\OpenBLAS.0.2.14.1\build\native\openblas.targets'))" />
+    <Error Condition="!Exists('..\packages\armadillo-code.7.800.2\build\native\armadillo-code.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\armadillo-code.7.800.2\build\native\armadillo-code.targets'))" />
   </Target>
 </Project>
