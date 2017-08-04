@@ -1,6 +1,6 @@
 pwd
 git submodule update --init --recursive
-brew install sfml
+brew install sfml homebrew/science/armadillo
 
 mkdir build
 cd build
