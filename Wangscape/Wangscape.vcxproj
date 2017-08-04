@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codecs\RectCodec.h" />
+    <ClInclude Include="image\NDArray.h" />
     <ClInclude Include="noise\module\codecs\BitmapWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\LogarithmWrapperCodec.h" />
     <ClInclude Include="noise\module\Bitmap.h" />
@@ -281,6 +282,7 @@
     <ClInclude Include="ipow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="image\NDArray.cpp" />
     <ClCompile Include="noise\module\codecs\BitmapWrapperCodec.cpp" />
     <ClCompile Include="noise\module\codecs\LogarithmWrapperCodec.cpp" />
     <ClCompile Include="noise\module\Bitmap.cpp" />

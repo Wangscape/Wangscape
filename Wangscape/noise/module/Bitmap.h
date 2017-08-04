@@ -3,6 +3,7 @@
 #include <string>
 #include <noise/noise.h>
 #include <SFML/Graphics.hpp>
+#include "image/NDArray.h"
 
 namespace noise
 {
@@ -49,8 +50,9 @@ private:
     sf::Rect<double> mRegion;
     double mDefaultValue;
     bool mMaxScale;
-    sf::Uint8 mMaxValue;
-    std::shared_ptr<sf::Image> mImage;
+    double mMaxValue;
+    // Perhaps this should be an xview or xexpression
+    std::shared_ptr<NDArray<double>> mImage;
 };
 
 } // namespace module
