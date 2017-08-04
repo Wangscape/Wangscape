@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <functional>
 #include "RasterBase.h"
+#include <armadillo>
 
 namespace noise
 {
@@ -25,10 +26,7 @@ public:
 protected:
     virtual void set(size_t x, size_t y, Real value);
 private:
-    typedef std::vector<T> Data;
-    size_t index(size_t x, size_t y) const;
-    size_t mSizeX;
-    size_t mSizeY;
+    typedef arma::Mat<T> Data;
     Data mData;
 };
 

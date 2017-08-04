@@ -4,56 +4,46 @@ namespace noise {
 
 template<typename T>
 RasterValues<T>::RasterValues(size_t x, size_t y) :
-    mSizeX(x), mSizeY(y), mData(x*y)
+    mData(y,x)
 {
 }
 
 template<typename T>
 RasterValues<T>::RasterValues(size_t x, size_t y, RasterBase::Bounds bounds) :
     RasterBase(bounds),
-    mSizeX(x), mSizeY(y),
-    mData(x*y)
+    mData(y,x)
 {
 }
 
 template<typename T>
 RasterValues<T>::RasterValues(size_t x, size_t y, RasterBase::Bounds bounds, const module::Module & module) :
     RasterBase(bounds),
-    mSizeX(x), mSizeY(y),
-    mData(x*y)
+    mData(y,x)
 {
     build(module);
 }
 template<typename T>
 size_t RasterValues<T>::sizeX() const
 {
-    return mSizeX;
+    return mData.n_cols;
 }
 
 template<typename T>
 size_t RasterValues<T>::sizeY() const
 {
-    return mSizeY;
+    return mData.n_rows;
 }
 
 template<typename T>
 T RasterValues<T>::get(size_t x, size_t y) const
 {
-    return mData[index(x, y)];
+    return mData(y,x);
 }
 
 template<typename T>
 void RasterValues<T>::set(size_t x, size_t y, Real value)
 {
-    mData[index(x, y)] = static_cast<T>(value);
-}
-
-template<typename T>
-size_t RasterValues<T>::index(size_t x, size_t y) const
-{
-    if (x >= mSizeX || y >= mSizeY)
-        throw std::out_of_range("Tried to access NoiseMap with x or y out of bounds");
-    return y*mSizeX + x;
+    mData(y,x) = static_cast<T>(value);
 }
 
 template class RasterValues<double>;
