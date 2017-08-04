@@ -108,8 +108,8 @@ double Bitmap::GetValue(double x, double y, double z) const
     offset.x /= mRegion.width;
     offset.y /= mRegion.height;
 
-    offset.x *= mImage->n_rows;
-    offset.y *= mImage->n_cols;
+    offset.x *= mImage->n_cols;
+    offset.y *= mImage->n_rows;
 
     size_t x_image = static_cast<size_t>(offset.x);
     size_t y_image = static_cast<size_t>(offset.y);
