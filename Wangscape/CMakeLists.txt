@@ -8,6 +8,7 @@ add_subdirectory(logging)
 add_subdirectory(metaoutput)
 add_subdirectory(noise)
 add_subdirectory(tilegen)
+add_subdirectory(image)
 
 add_library(wangscape-main STATIC ${lib-src})
 add_executable(Wangscape Main.cpp)
