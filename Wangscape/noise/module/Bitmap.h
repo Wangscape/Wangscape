@@ -3,7 +3,7 @@
 #include <string>
 #include <noise/noise.h>
 #include <SFML/Graphics.hpp>
-#include "image/NDArray.h"
+#include "image/Image.h"
 
 namespace noise
 {

@@ -2,7 +2,6 @@
 #include "logging/Logging.h"
 #include "OptionsManager.h"
 #include <boost/filesystem.hpp>
-#include "image/NDArray.h"
 
 namespace noise
 {

@@ -1,4 +1,4 @@
-#include "NDArray.h"
+#include "Image.h"
 #include <vector>
 #include "logging/logging.h"
 
