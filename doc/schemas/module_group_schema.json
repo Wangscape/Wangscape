@@ -232,7 +232,7 @@
         },
         "Region":{
           "type":"array",
-          "title": "Bitmap module Region schema"
+          "title": "Bitmap module Region schema",
           "description": "Specifies the rectangular region of noise coordinates where the image data will be used. The first pair of coordinates is the top left, and the second pair is the size.",
           "minItems": 2,
           "maxItems": 2,
