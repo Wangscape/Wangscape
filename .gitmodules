@@ -13,6 +13,3 @@
 [submodule "lib/googletest"]
 	path = lib/googletest
 	url = https://github.com/google/googletest
-[submodule "lib/xtensor"]
-	path = lib/xtensor
-	url = https://github.com/QuantStack/xtensor
