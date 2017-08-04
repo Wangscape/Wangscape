@@ -5,15 +5,15 @@
 ImageColour imageFromSFImage(const sf::Image & sf_image)
 {
     auto shape = sf_image.getSize();
-    ImageColour image(shape.x, shape.y, 4);
+    ImageColour image(shape.y, shape.x, 4);
     for(size_t y = 0; y < shape.y; y++)
         for (size_t x = 0; x < shape.x; x++)
         {
             auto pixel = sf_image.getPixel(x, y);
-            image(x, y, 0) = pixel.r;
-            image(x, y, 1) = pixel.g;
-            image(x, y, 2) = pixel.b;
-            image(x, y, 3) = pixel.a;
+            image(y, x, 0) = pixel.r;
+            image(y, x, 1) = pixel.g;
+            image(y, x, 2) = pixel.b;
+            image(y, x, 3) = pixel.a;
         }
     return image;
 }
