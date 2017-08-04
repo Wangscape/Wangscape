@@ -18,6 +18,7 @@ target_link_libraries(wangscape-main noise)
 target_link_libraries(wangscape-main tilegen)
 target_link_libraries(wangscape-main double-conversion)
 target_link_libraries(wangscape-main spotify-json)
+target_link_libraries(wangscape-main armadillo)
 
 target_link_libraries(Wangscape wangscape-main)
 
