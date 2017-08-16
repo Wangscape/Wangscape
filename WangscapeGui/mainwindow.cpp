@@ -125,6 +125,7 @@ void MainWindow::clickOptionsDirectoryButton()
     {
         std::cout << "Chosen path: " << chosenPath.toLocal8Bit().constData() << std::endl;
         optionsFilePath = chosenPath;
+        ui->currentOptionsPath->setText(QString(chosenPath));
     }
 }
 
