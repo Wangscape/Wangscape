@@ -37,7 +37,7 @@ if(SFML_FOUND)
 endif()
 
 find_package(Armadillo REQUIRED)
-if(SFML_FOUND)
+if(ARMADILLO_FOUND)
     include_directories(${ARMADILLO_INCLUDE_DIR})
     target_link_libraries(Wangscape ${ARMADILLO_LIBRARIES})
 endif()
