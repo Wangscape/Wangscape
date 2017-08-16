@@ -1,6 +1,6 @@
 #include "Image.h"
 #include <vector>
-#include "logging/logging.h"
+#include "logging/Logging.h"
 
 ImageColour imageFromSFImage(const sf::Image & sf_image)
 {
