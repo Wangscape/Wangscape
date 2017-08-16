@@ -16,11 +16,6 @@
 #include "tilegen/partition/TilePartitionerNoise.h"
 
 
-std::string usage(std::string program_path)
-{
-    return "Usage: " + program_path + " rel/path/to/options.json\n";
-}
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -71,7 +66,7 @@ void MainWindow::clickGenerateButton()
             {
                 const sf::Color sfmlColor = outputImage.getPixel(x, y);
                 const QColor color{sfmlColor.r, sfmlColor.g, sfmlColor.b, sfmlColor.a};
-                previewImages.at(basename).second.setPixelColor(x, y, color);
+                previewImages.at(basename).second.setPixel(x, y, color.rgba());
             }
             const int progressValue = 100 * (static_cast<double>(y) / static_cast<double>(outputImageSize.y));
             ui->progressBar->setValue(progressValue);
@@ -140,7 +135,6 @@ void MainWindow::clickOptionsDirectoryButton()
                                                      QString("hello"));
     if (!chosenPath.isEmpty())
     {
-        std::cout << "Chosen path: " << chosenPath.toLocal8Bit().constData() << std::endl;
         optionsFilePath = chosenPath;
         ui->currentOptionsPath->setText(QString(chosenPath));
     }

@@ -7,6 +7,8 @@ set(CMAKE_AUTOMOC ON)
 # Find the QtWidgets library
 find_package(Qt5Widgets)
 
+include_directories(${Qt5Widgets_INCLUDE_DIR})
+
 qt5_wrap_ui(UIS_HDRS mainwindow.ui)
 
 # Tell CMake to create the helloworld executable
