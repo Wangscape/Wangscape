@@ -5,7 +5,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
 # Find the QtWidgets library
-find_package(Qt5Widgets)
+find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 include_directories(${Qt5Widgets_INCLUDE_DIR})
 

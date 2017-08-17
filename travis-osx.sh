@@ -1,10 +1,11 @@
 pwd
 git submodule update --init --recursive
-brew install sfml homebrew/science/armadillo
+
+brew install sfml homebrew/science/armadillo qt5
 
 mkdir build
 cd build
-cmake .. -DCMAKE_MODULE_PATH=/usr/local/opt/sfml/share/SFML/cmake/Modules
+cmake .. -DCMAKE_MODULE_PATH=/usr/local/opt/sfml/share/SFML/cmake/Modules -DCMAKE_PREFIX_PATH=$(brew --prefix qt5)
 make
 
 ./bin/WangscapeTest ../doc
