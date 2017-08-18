@@ -29,9 +29,9 @@ MainWindow::MainWindow(QWidget *parent_) :
     mUi->progressBar->setValue(0);
 
     connect(mUi->generateButton, SIGNAL(pressed()), this, SLOT(clickGenerateButton()));
-    connect(mUi->saveButton, SIGNAL(pressed()), this, SLOT(clickSaveButton()));
-    connect(mUi->optionsDirectoryButton, SIGNAL(pressed()), this, SLOT(clickOptionsDirectoryButton()));
     connect(mUi->comboBox, SIGNAL(activated(const QString&)), this, SLOT(displayTilesetPreview(const QString&)));
+    connect(mUi->actionLoadOptions, SIGNAL(triggered()), this, SLOT(clickOptionsDirectoryButton()));
+    connect(mUi->actionSaveOutput, SIGNAL(triggered()), this, SLOT(clickSaveButton()));
 }
 
 MainWindow::~MainWindow()
