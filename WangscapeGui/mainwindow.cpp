@@ -5,6 +5,8 @@
 #include <fstream>
 #include <memory>
 
+#include<boost/filesystem.hpp>
+
 #include <QMessageBox>
 #include <QFileDialog>
 
@@ -16,131 +18,148 @@
 #include "tilegen/partition/TilePartitionerNoise.h"
 
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent_) :
+    QMainWindow(parent_),
+    mUi(new Ui::MainWindow)
 {
-    scene = new QGraphicsScene(this);
-    ui->setupUi(this);
-    ui->progressBar->setRange(0, 100);
-    ui->progressBar->setValue(0);
-    connect(ui->pushButton, SIGNAL(pressed()), this, SLOT(clickGenerateButton()));
-    connect(ui->saveButton, SIGNAL(pressed()), this, SLOT(clickSaveButton()));
-    connect(ui->optionsDirectoryButton, SIGNAL(pressed()), this, SLOT(clickOptionsDirectoryButton()));
-    connect(ui->comboBox, SIGNAL(activated(const QString&)), this, SLOT(displayTilesetPreview(const QString&)));
+    mScene = new QGraphicsScene(this);
+
+    mUi->setupUi(this);
+    mUi->progressBar->setRange(0, 100);
+    mUi->progressBar->setValue(0);
+
+    connect(mUi->generateButton, SIGNAL(pressed()), this, SLOT(clickGenerateButton()));
+    connect(mUi->saveButton, SIGNAL(pressed()), this, SLOT(clickSaveButton()));
+    connect(mUi->optionsDirectoryButton, SIGNAL(pressed()), this, SLOT(clickOptionsDirectoryButton()));
+    connect(mUi->comboBox, SIGNAL(activated(const QString&)), this, SLOT(displayTilesetPreview(const QString&)));
+}
+
+MainWindow::~MainWindow()
+{
+    delete mUi;
 }
 
 void MainWindow::clickGenerateButton()
 {
-    ui->comboBox->clear();
-    previewImages.clear();
-    logging::addAppender(std::make_unique<logging::ConsoleAppender>("console", logging::Level::Debug));
-
-    if (optionsFilePath.isEmpty())
+    if (mTilesetGenerator == nullptr)
     {
-        QMessageBox errorMessage;
-        errorMessage.critical(this, "Error", QString("You have to select options file before clicking 'Generate...' button"));
+        QMessageBox error_message;
+        error_message.critical(this, "Error during tileset generation", QString("You have to select options file before clicking 'Generate...' button"));
         return;
     }
 
-    optionsManager = std::make_unique<OptionsManager>(optionsFilePath.toLocal8Bit().constData());
-    const Options& options = optionsManager->getOptions();
-
-    std::unique_ptr<tilegen::partition::TilePartitionerBase> tp =
-        std::make_unique<tilegen::partition::TilePartitionerNoise>(options);
-
-    tilesetGenerator = std::make_unique<tilegen::TilesetGenerator>(options, std::move(tp));
-
-    tilesetGenerator->generate([this](const sf::Texture& output, std::string filename)
+    mTilesetGenerator->generate([this](const sf::Texture& output, std::string filename)
     {
-        const sf::Image outputImage = output.copyToImage();
-        const sf::Vector2u outputImageSize = outputImage.getSize();
+        const sf::Image source_image = output.copyToImage();
 
         const auto basename = filename.substr(filename.rfind('/') + 1);
-        previewImages.emplace(std::make_pair(basename,
-                                             std::make_pair(filename, QImage(outputImageSize.x, outputImageSize.y, QImage::Format_RGB32))));
-
-        for (int y = 0; y < outputImageSize.y; ++y)
-        {
-            for (int x = 0; x < outputImageSize.x; ++x)
-            {
-                const sf::Color sfmlColor = outputImage.getPixel(x, y);
-                const QColor color{sfmlColor.r, sfmlColor.g, sfmlColor.b, sfmlColor.a};
-                previewImages.at(basename).second.setPixel(x, y, color.rgba());
-            }
-            const int progressValue = 100 * (static_cast<double>(y) / static_cast<double>(outputImageSize.y));
-            ui->progressBar->setValue(progressValue);
-        }
-        ui->progressBar->setValue(100);
+        const auto qimage = convertSfImageToQImage(source_image);
+        mPreviewImages.emplace(std::make_pair(basename,
+                                             std::make_pair(filename, std::move(qimage))));
     });
 
-    ui->comboBox->addItems([this]()
+    initializePreviewArea();
+    displayTilesetPreview();
+}
+
+void MainWindow::clickSaveButton()
+{
+    if (mPreviewImages.empty())
+    {
+        QMessageBox warning_message;
+        warning_message.warning(this, "Warning", QString("You have to generate tileset before saving it"));
+        return;
+    }
+
+    for (const auto& preview_image : mPreviewImages)
+    {
+        const std::string image_dir = boost::filesystem::path(preview_image.second.first).remove_filename().string();
+        boost::filesystem::create_directories(image_dir);
+        if (!preview_image.second.second.save(QString(preview_image.second.first.c_str())))
+        {
+            QMessageBox critical_error_message;
+            critical_error_message.critical(this, "Error during saving tilesets", QString("Couldn't save tileset image"));
+            return;
+        }
+    }
+
+    mTilesetGenerator->metaOutput.writeAll(mOptionsManager->getOptions());
+
+    QMessageBox success_message;
+    success_message.information(this, "Saved!", QString("Output has been saved successfully"));
+}
+
+void MainWindow::clickOptionsDirectoryButton()
+{
+    QString chosen_path = QFileDialog::getOpenFileName(this,
+                                                     tr("QFileDialog::getExistingDirectory()"),
+                                                     QString("hello"));
+    if (chosen_path.isEmpty())
+        return;
+
+    mUi->currentOptionsPath->setText(QString(chosen_path));
+
+    // TODO(hryniuk): make OptionsManager throw custom exception, catch it here
+    // and show QMessageBox with a proper error message
+    mOptionsManager = std::make_unique<OptionsManager>(chosen_path.toLocal8Bit().constData());
+    mOptions = mOptionsManager->getOptions();
+    resetTilesetGenerator();
+
+    mUi->comboBox->clear();
+    mPreviewImages.clear();
+}
+
+void MainWindow::displayTilesetPreview(const QString& name)
+{
+    const QImage preview_image = name.isEmpty() ? (mPreviewImages.begin())->second.second : mPreviewImages.at(name.toLocal8Bit().constData()).second;
+    const QPixmap pixmap = QPixmap::fromImage(preview_image);
+
+    mScene->clear();
+    mScene->addPixmap(pixmap);
+    mScene->setSceneRect(pixmap.rect());
+    mUi->tilesetPreview->setScene(mScene);
+
+}
+
+void MainWindow::initializePreviewArea()
+{
+    mUi->comboBox->addItems([this]()
     {
         QStringList list;
-        for (const auto name : previewImages)
+        for (const auto name : mPreviewImages)
         {
             list << QString(name.first.c_str());
         }
         return list;
     }());
-
-    const QPixmap pixmap = QPixmap::fromImage((*previewImages.begin()).second.second);
-
-    scene->clear();
-    scene->addPixmap(pixmap);
-    scene->setSceneRect(pixmap.rect());
-    ui->tilesetPreview->setScene(scene);
 }
 
-void MainWindow::clickSaveButton()
+QImage MainWindow::convertSfImageToQImage(const sf::Image& source_image)
 {
-    if (previewImages.empty())
+
+    const sf::Vector2u output_image_size = source_image.getSize();
+    QImage output_image(output_image_size.x, output_image_size.y, QImage::Format_RGB32);
+
+    for (int y = 0; y < output_image_size.y; ++y)
     {
-        QMessageBox warningMessage;
-        warningMessage.warning(this, "Error", QString("You have to generate tileset before saving it"));
-        return;
+        for (int x = 0; x < output_image_size.x; ++x)
+        {
+            const sf::Color sfml_color = source_image.getPixel(x, y);
+            const QColor color{sfml_color.r, sfml_color.g, sfml_color.b, sfml_color.a};
+            output_image.setPixel(x, y, color.rgba());
+        }
+        const int progress_value = 100 * (static_cast<double>(y) / static_cast<double>(output_image_size.y));
+        mUi->progressBar->setValue(progress_value);
     }
+    mUi->progressBar->setValue(100);
 
-    for (const auto& previewImage : previewImages)
-    {
-        const std::string image_dir = boost::filesystem::path(previewImage.second.first).remove_filename().string();
-        boost::filesystem::create_directories(image_dir);
-        if (!previewImage.second.second.save(QString(previewImage.second.first.c_str())))
-            throw std::runtime_error("Couldn't write image");
-    }
-
-    tilesetGenerator->metaOutput.writeAll(optionsManager->getOptions());
-
-    QMessageBox successMessage;
-    successMessage.information(this, "Saved!", QString("Output has been saved successfully"));
+    return output_image;
 }
 
-void MainWindow::displayTilesetPreview(const QString& name)
+void MainWindow::resetTilesetGenerator()
 {
-    const QPixmap pixmap = QPixmap::fromImage(previewImages[name.toLocal8Bit().constData()].second);
+    std::unique_ptr<tilegen::partition::TilePartitionerBase> tileset_partitioner =
+        std::make_unique<tilegen::partition::TilePartitionerNoise>(mOptions);
 
-    scene->clear();
-    scene->addPixmap(pixmap);
-    scene->setSceneRect(pixmap.rect());
-    ui->tilesetPreview->setScene(scene);
-
-}
-
-void MainWindow::clickOptionsDirectoryButton()
-{
-    QFileDialog::Options options;
-    options |= QFileDialog::DontResolveSymlinks;
-    QString chosenPath = QFileDialog::getOpenFileName(this,
-                                                     tr("QFileDialog::getExistingDirectory()"),
-                                                     QString("hello"));
-    if (!chosenPath.isEmpty())
-    {
-        optionsFilePath = chosenPath;
-        ui->currentOptionsPath->setText(QString(chosenPath));
-    }
-}
-
-MainWindow::~MainWindow()
-{
-    delete ui;
+    mTilesetGenerator = std::make_unique<tilegen::TilesetGenerator>(mOptions, std::move(tileset_partitioner));
 }
