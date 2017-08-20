@@ -43,6 +43,7 @@ public:
     virtual double GetValue(double x, double y, double z) const;
 private:
     double getPixel(size_t x, size_t y) const;
+    sf::Vector2<double> calculateOffset(double x, double y) const;
     std::string filePath(const std::string& filename) const;
     void updateMax();
 

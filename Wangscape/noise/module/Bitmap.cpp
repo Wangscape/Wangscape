@@ -96,17 +96,8 @@ double Bitmap::GetValue(double x, double y, double z) const
         logError() << "Tried to call Bitmap::GetValue with zero-pixel resolution";
         throw std::runtime_error("Invalid Bitmap module configuration");
     }
-    sf::Vector2<double> offset = {x, y};
 
-    offset.x -= mRegion.left;
-    offset.y -= mRegion.top;
-
-    offset.x /= mRegion.width;
-    offset.y /= mRegion.height;
-
-    offset.x *= mImage->n_cols;
-    offset.y *= mImage->n_rows;
-
+    const sf::Vector2<double> offset = calculateOffset(x, y);
     size_t x_image = static_cast<size_t>(offset.x);
     size_t y_image = static_cast<size_t>(offset.y);
 
@@ -124,6 +115,22 @@ double Bitmap::getPixel(size_t x, size_t y) const
         throw std::runtime_error("Bitmap not initialised");
     }
     return (*mImage)(y,x);
+}
+
+sf::Vector2<double> Bitmap::calculateOffset(double x, double y) const
+{
+    sf::Vector2<double> offset = {x, y};
+
+    offset.x -= mRegion.left;
+    offset.y -= mRegion.top;
+
+    offset.x /= mRegion.width;
+    offset.y /= mRegion.height;
+
+    offset.x *= mImage->n_cols;
+    offset.y *= mImage->n_rows;
+
+    return offset;
 }
 
 std::string Bitmap::filePath(const std::string& filename) const
