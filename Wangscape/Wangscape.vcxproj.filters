@@ -71,6 +71,15 @@
     <ClCompile Include="logging\FileAppender.cpp" />
     <ClCompile Include="logging\Logging.cpp" />
     <ClCompile Include="tilegen\DebugTilesetID.cpp" />
+    <ClCompile Include="logging\ConsoleAppender.cpp" />
+    <ClCompile Include="logging\FileAppender.cpp" />
+    <ClCompile Include="logging\Logging.cpp" />
+    <ClCompile Include="noise\module\Bitmap.cpp" />
+    <ClCompile Include="noise\module\codecs\DivideWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\LogarithmWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\ReciprocalWrapperCodec.cpp" />
+    <ClCompile Include="noise\module\codecs\BitmapWrapperCodec.cpp" />
+    <ClCompile Include="image\Image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codecs\OptionsCodec.h" />
@@ -100,6 +109,7 @@
     <ClInclude Include="noise\module\codecs\NoiseQualityCodec.h" />
     <ClInclude Include="noise\module\NoiseSources.h" />
     <ClInclude Include="noise\module\Pow.h" />
+    <ClInclude Include="noise\module\Reciprocal.h" />
     <ClInclude Include="noise\module\CornerCombinerBase.h" />
     <ClInclude Include="noise\module\Exp.h" />
     <ClInclude Include="noise\module\Gradient.h" />
@@ -144,6 +154,7 @@
     <ClInclude Include="noise\module\codecs\MinWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\MultiplyWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\PowerWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\ReciprocalWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\RidgedMultiWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\RotatePointWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\ScaleBiasWrapperCodec.h" />
@@ -185,6 +196,16 @@
     <ClInclude Include="logging\Level.h" />
     <ClInclude Include="logging\Logger.h" />
     <ClInclude Include="rogging\Logging.h" />
+    <ClInclude Include="noise\module\Reciprocal.h" />
+    <ClInclude Include="noise\module\Divide.h" />
+    <ClInclude Include="noise\module\Logarithm.h" />
+    <ClInclude Include="noise\module\Bitmap.h" />
+    <ClInclude Include="noise\module\codecs\DivideWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\LogarithmWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\ReciprocalWrapperCodec.h" />
+    <ClInclude Include="noise\module\codecs\BitmapWrapperCodec.h" />
+    <ClInclude Include="codecs\RectCodec.h" />
+    <ClInclude Include="image\Image.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

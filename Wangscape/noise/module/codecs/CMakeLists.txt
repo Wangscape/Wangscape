@@ -1,6 +1,7 @@
 set(noise-module-codecs-src
     ${CMAKE_CURRENT_SOURCE_DIR}/AbsWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/AddWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/BitmapWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/BillowWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/BlendWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CacheWrapperCodec.cpp
@@ -11,11 +12,13 @@ set(noise-module-codecs-src
     ${CMAKE_CURRENT_SOURCE_DIR}/CurveWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CylindersWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DisplaceWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DivideWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ExponentWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ExpWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ForwardWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/GradientWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/InvertWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/LogarithmWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MaxWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MinWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MultiplyWrapperCodec.cpp
@@ -24,6 +27,7 @@ set(noise-module-codecs-src
     ${CMAKE_CURRENT_SOURCE_DIR}/PowerWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/PowWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/QuadrantSelectorWrapperCodec.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ReciprocalWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RidgedMultiWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RotatePointWrapperCodec.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ScaleBiasWrapperCodec.cpp
@@ -39,4 +43,4 @@ set(noise-module-src
     ${noise-module-src}
     ${noise-module-codecs-src}
     PARENT_SCOPE
-)
+)

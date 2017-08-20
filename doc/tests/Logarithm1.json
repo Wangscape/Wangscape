@@ -1,0 +1,5 @@
+{
+  "type" : "Logarithm",
+  "SourceModule" : "mySourceModule",
+  "Base" : 3.3
+}

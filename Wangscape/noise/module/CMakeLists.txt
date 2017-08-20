@@ -1,4 +1,5 @@
 set(noise-module-src
+    ${CMAKE_CURRENT_SOURCE_DIR}/Bitmap.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CornerCombinerBase.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ModuleWithSources.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/NormLPQ.cpp

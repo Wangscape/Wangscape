@@ -6,3 +6,7 @@
 #include "NormLPQ.h"
 #include "Pow.h"
 #include "QuadrantSelector.h"
+#include "Reciprocal.h"
+#include "Divide.h"
+#include "Logarithm.h"
+#include "Bitmap.h"

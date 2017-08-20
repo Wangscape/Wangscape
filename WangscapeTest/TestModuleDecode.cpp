@@ -9,15 +9,17 @@
 #include <vector>
 #include <boost/filesystem.hpp>
 #include "DocumentationPath.h"
+#include "TestRequiringOptions.h"
 
 #include <noise/noise.h>
 #include <noise/module/codecs/ModuleCodecs.h>
 
 template<typename T>
-class TestModuleDecode : public ::testing::Test
+class TestModuleDecode : public TestRequiringOptions
 {
 public:
-    TestModuleDecode()
+    TestModuleDecode() :
+        TestRequiringOptions()
     {
         exampleModules.emplace_back();
         exampleSources.emplace_back();
@@ -44,6 +46,7 @@ public:
 template<> const std::string TestModuleDecode<noise::module::Abs>::type = "Abs";
 template<> const std::string TestModuleDecode<noise::module::Add>::type = "Add";
 template<> const std::string TestModuleDecode<noise::module::Billow>::type = "Billow";
+template<> const std::string TestModuleDecode<noise::module::Bitmap>::type = "Bitmap";
 template<> const std::string TestModuleDecode<noise::module::Blend>::type = "Blend";
 template<> const std::string TestModuleDecode<noise::module::Cache>::type = "Cache";
 template<> const std::string TestModuleDecode<noise::module::Checkerboard>::type = "Checkerboard";
@@ -53,6 +56,7 @@ template<> const std::string TestModuleDecode<noise::module::CornerCombinerBase>
 template<> const std::string TestModuleDecode<noise::module::Curve>::type = "Curve";
 template<> const std::string TestModuleDecode<noise::module::Cylinders>::type = "Cylinders";
 template<> const std::string TestModuleDecode<noise::module::Displace>::type = "Displace";
+template<> const std::string TestModuleDecode<noise::module::Divide>::type = "Divide";
 template<> const std::string TestModuleDecode<noise::module::Exp>::type = "Exp";
 template<> const std::string TestModuleDecode<noise::module::Exponent>::type = "Exponent";
 template<> const std::string TestModuleDecode<noise::module::Forward>::type = "Forward";
@@ -60,6 +64,7 @@ template<> const std::string TestModuleDecode<noise::module::GradientX>::type = 
 template<> const std::string TestModuleDecode<noise::module::GradientY>::type = "GradientY";
 template<> const std::string TestModuleDecode<noise::module::GradientZ>::type = "GradientZ";
 template<> const std::string TestModuleDecode<noise::module::Invert>::type = "Invert";
+template<> const std::string TestModuleDecode<noise::module::Logarithm>::type = "Logarithm";
 template<> const std::string TestModuleDecode<noise::module::Max>::type = "Max";
 template<> const std::string TestModuleDecode<noise::module::Min>::type = "Min";
 template<> const std::string TestModuleDecode<noise::module::Multiply>::type = "Multiply";
@@ -68,6 +73,7 @@ template<> const std::string TestModuleDecode<noise::module::Perlin>::type = "Pe
 template<> const std::string TestModuleDecode<noise::module::Pow>::type = "Pow";
 template<> const std::string TestModuleDecode<noise::module::Power>::type = "Power";
 template<> const std::string TestModuleDecode<noise::module::QuadrantSelector>::type = "QuadrantSelector";
+template<> const std::string TestModuleDecode<noise::module::Reciprocal>::type = "Reciprocal";
 template<> const std::string TestModuleDecode<noise::module::RidgedMulti>::type = "RidgedMulti";
 template<> const std::string TestModuleDecode<noise::module::RotatePoint>::type = "RotatePoint";
 template<> const std::string TestModuleDecode<noise::module::ScaleBias>::type = "ScaleBias";
@@ -94,7 +100,7 @@ TestModuleDecode<noise::module::Add>::TestModuleDecode()
     this->exampleSources.emplace_back();
     this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
         "mySourceModule",
-            "myOtherSourceModule"});
+        "myOtherSourceModule"});
 }
 
 template<>
@@ -107,6 +113,17 @@ TestModuleDecode<noise::module::Billow>::TestModuleDecode()
     this->exampleModules[0].module->SetLacunarity(1.8);
     this->exampleModules[0].module->SetOctaveCount(14);
     this->exampleModules[0].module->SetNoiseQuality(noise::QUALITY_BEST);
+    this->exampleSources.emplace_back();
+}
+
+template<>
+TestModuleDecode<noise::module::Bitmap>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetFilename("../../tests/bitmap.png");
+    this->exampleModules[0].module->SetDefaultValue(0.0);
+    this->exampleModules[0].module->SetRegion(sf::Rect<double>(1.,2.,3.,4.));
+    this->exampleModules[0].module->SetMaxScale(true);
     this->exampleSources.emplace_back();
 }
 
@@ -187,6 +204,16 @@ TestModuleDecode<noise::module::Displace>::TestModuleDecode()
 }
 
 template<>
+TestModuleDecode<noise::module::Divide>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
+        "mySourceModule",
+            "myOtherSourceModule"});
+}
+
+template<>
 TestModuleDecode<noise::module::Exponent>::TestModuleDecode()
 {
     this->exampleModules.emplace_back();
@@ -254,6 +281,14 @@ TestModuleDecode<noise::module::Power>::TestModuleDecode()
     this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
         "mySourceModule",
             "myOtherSourceModule" });
+}
+
+template<>
+TestModuleDecode<noise::module::Reciprocal>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{ "mySourceModule" });
 }
 
 template<>
@@ -401,6 +436,16 @@ TestModuleDecode<noise::module::Forward>::TestModuleDecode()
 }
 
 template<>
+TestModuleDecode<noise::module::Logarithm>::TestModuleDecode()
+{
+    this->exampleModules.emplace_back();
+    this->exampleModules[0].module->SetBase(3.3);
+    this->exampleSources.emplace_back();
+    this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
+        "mySourceModule"});
+}
+
+template<>
 TestModuleDecode<noise::module::NormLPQ>::TestModuleDecode()
 {
     this->exampleModules.emplace_back();
@@ -427,6 +472,16 @@ TestModuleDecode<noise::module::QuadrantSelector>::TestModuleDecode()
     this->exampleSources.emplace_back();
     this->exampleSources[0].sourceModules.emplace(std::initializer_list<std::string>{
         "mySourceModule"});
+}
+
+template<>
+void TestModuleDecode<noise::module::Bitmap>::compareModules(const noise::module::Bitmap& expected, const noise::module::Bitmap& actual)
+{
+    EXPECT_EQ(expected.GetFilename(), actual.GetFilename());
+    EXPECT_EQ(expected.GetDefaultValue(), actual.GetDefaultValue());
+    EXPECT_EQ(expected.GetRegion(), actual.GetRegion());
+    EXPECT_EQ(expected.GetMaxScale(), actual.GetMaxScale());
+
 }
 
 template<>
@@ -484,6 +539,12 @@ template<>
 void TestModuleDecode<noise::module::Exponent>::compareModules(const noise::module::Exponent& expected, const noise::module::Exponent& actual)
 {
     EXPECT_EQ(expected.GetExponent(), actual.GetExponent());
+}
+
+template<>
+void TestModuleDecode<noise::module::Logarithm>::compareModules(const noise::module::Logarithm& expected, const noise::module::Logarithm& actual)
+{
+    EXPECT_EQ(expected.GetBase(), actual.GetBase());
 }
 
 template<>
@@ -590,6 +651,7 @@ typedef ::testing::Types<
     noise::module::Abs,
     noise::module::Add,
     noise::module::Billow,
+    noise::module::Bitmap,
     noise::module::Blend,
     noise::module::Cache,
     noise::module::Checkerboard,
@@ -599,6 +661,7 @@ typedef ::testing::Types<
     noise::module::Curve,
     noise::module::Cylinders,
     noise::module::Displace,
+    noise::module::Divide,
     noise::module::Exp,
     noise::module::Exponent,
     noise::module::Forward,
@@ -606,6 +669,7 @@ typedef ::testing::Types<
     noise::module::GradientY,
     noise::module::GradientZ,
     noise::module::Invert,
+    noise::module::Logarithm,
     noise::module::Max,
     noise::module::Min,
     noise::module::Multiply,
@@ -614,6 +678,7 @@ typedef ::testing::Types<
     noise::module::Pow,
     noise::module::Power,
     noise::module::QuadrantSelector,
+    noise::module::Reciprocal,
     noise::module::RidgedMulti,
     noise::module::RotatePoint,
     noise::module::ScaleBias,
