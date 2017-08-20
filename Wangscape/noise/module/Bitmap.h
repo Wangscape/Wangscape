@@ -23,6 +23,7 @@ namespace module
 class Bitmap : public Module
 {
 public:
+    typedef std::shared_ptr<ImageGreyFloat> ImagePtr;
     Bitmap();
     virtual int GetSourceModuleCount() const
     {
@@ -42,6 +43,10 @@ public:
 
     virtual double GetValue(double x, double y, double z) const;
 private:
+    void setCurrentImage(const std::string& filename, ImagePtr image);
+    static sf::Image loadNewImage(const std::string& file_path);
+    static ImagePtr convertSfImageToImageGrey(const sf::Image& sf_bitmap);
+
     double getPixel(size_t x, size_t y) const;
     sf::Vector2<double> calculateOffset(double x, double y) const;
     std::string filePath(const std::string& filename) const;
@@ -52,8 +57,7 @@ private:
     double mDefaultValue;
     bool mMaxScale;
     double mMaxValue;
-    // Perhaps this should be an xview or xexpression
-    std::shared_ptr<ImageGreyFloat> mImage;
+    ImagePtr mImage;
 };
 
 } // namespace module

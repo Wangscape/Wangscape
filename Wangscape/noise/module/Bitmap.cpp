@@ -9,7 +9,7 @@ namespace module
 {
 
 namespace {
-static std::map<std::string, std::shared_ptr<ImageGreyFloat>> loadedImages;
+static std::map<std::string, Bitmap::ImagePtr> loadedImages;
 }
 
 
@@ -28,31 +28,18 @@ const std::string & Bitmap::GetFilename() const
 void Bitmap::SetFilename(const std::string & filename)
 {
     // Load and process file if not already done
-    auto it = loadedImages.find(filename);
+    const auto it = loadedImages.find(filename);
     if (it != loadedImages.cend())
     {
-        mFilename = filename;
-        mImage = it->second;
-        if (mMaxScale)
-            updateMax();
+        setCurrentImage(filename, it->second);
         return;
     }
-    auto file_path = filePath(filename);
-    sf::Image sf_bitmap;
-    logInfo() << "Loading image at " << file_path << "into Bitmap module";
-    if (!sf_bitmap.loadFromFile(file_path))
-    {
-        logError() << "Could not load image";
-        throw std::runtime_error("Invalid Bitmap filename");
-    }
-    auto bitmap = imageFromSFImage(sf_bitmap);
-    auto bitmap_gs = imageToGreyscale(bitmap);
-    auto bitmap_d = std::make_shared<ImageGreyFloat>(arma::conv_to<ImageGreyFloat>::from(bitmap_gs));
+
+    const sf::Image sf_bitmap = loadNewImage(filePath(filename));
+    const auto bitmap_d = convertSfImageToImageGrey(sf_bitmap);
+
     loadedImages.insert({filename, bitmap_d});
-    mImage = bitmap_d;
-    mFilename = filename;
-    if (mMaxScale)
-        updateMax();
+    setCurrentImage(filename, bitmap_d);
 }
 
 sf::Rect<double> Bitmap::GetRegion() const
@@ -105,6 +92,34 @@ double Bitmap::GetValue(double x, double y, double z) const
         return getPixel(x_image, y_image) / mMaxValue;
     else
         return getPixel(x_image, y_image);
+}
+
+void Bitmap::setCurrentImage(const std::string & filename, ImagePtr image)
+{
+    mFilename = filename;
+    mImage = image;
+    if (mMaxScale)
+        updateMax();
+}
+
+sf::Image Bitmap::loadNewImage(const std::string & file_path)
+{
+    sf::Image sf_bitmap;
+    logInfo() << "Loading image at " << file_path << "into Bitmap module";
+    if (!sf_bitmap.loadFromFile(file_path))
+    {
+        logError() << "Could not load image";
+        throw std::runtime_error("Invalid Bitmap filename");
+    }
+    return sf_bitmap;
+}
+
+Bitmap::ImagePtr Bitmap::convertSfImageToImageGrey(const sf::Image & sf_bitmap)
+{
+    auto bitmap = imageFromSFImage(sf_bitmap);
+    auto bitmap_gs = imageToGreyscale(bitmap);
+    auto bitmap_d = std::make_shared<ImageGreyFloat>(arma::conv_to<ImageGreyFloat>::from(bitmap_gs));
+    return bitmap_d;
 }
 
 double Bitmap::getPixel(size_t x, size_t y) const
