@@ -89,10 +89,6 @@ void Bitmap::SetMaxScale(bool max_scale)
 
 double Bitmap::GetValue(double x, double y, double z) const
 {
-    for (auto v : *mImage)
-    {
-        std::cout << int(v) << " ";
-    }
     if (!mRegion.contains(x, y))
         return mDefaultValue;
     if (mImage->n_rows == 0 || mImage->n_cols == 0)
