@@ -83,7 +83,7 @@ bool Bitmap::GetMaxScale() const
 void Bitmap::SetMaxScale(bool max_scale)
 {
     mMaxScale = max_scale;
-    if (mImage && max_scale)
+    if (mImage && mMaxScale)
         updateMax();
 }
 
