@@ -15,7 +15,7 @@ sf::Image TileRearrangement::rearrangeTexture(const sf::Image & base_texture) co
                 base_channel, dual_channel_stack.slice(c),
                 {0, 0},
                 allOffsets[c] - dualOffset,
-                sf::Vector2i(dualSize));
+                sf::Vector2i(baseSize));
             dual_channel_stack.slice(c) %= dualPartition.slice(c);
         }
     };
