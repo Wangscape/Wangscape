@@ -111,6 +111,59 @@ TEST_F(TestTileRearranger, TestBoxUnion)
     EXPECT_EQ(bbox_union, boxUnion(bbox_a, bbox_b));
 }
 
+TEST_F(TestTileRearranger, TestCopyRegion)
+{
+    ImageGrey zeros(2, 2, arma::fill::zeros);
+    ImageGrey ones(2, 2, arma::fill::ones);
+    {
+        ImageGrey image = zeros;
+        copyRegion(ones, image, {0, 0}, {0, 0}, {2, 2});
+        expectImagesEqual(ones, image, "incorrect 2x2 region copy");
+    }
+    {
+        ImageGrey image = zeros;
+        ImageGrey expected = {{0, 1}, {0, 0}};
+        copyRegion(ones, image, {0, 0}, {1, 0}, {1, 1});
+        expectImagesEqual(expected, image, "incorrect 1x1 region copy");
+    }
+    {
+        ImageGrey image = zeros;
+        ImageGrey expected = {{0, 0}, {1, 1}};
+        copyRegion(ones, image, {0, 0}, {0, 1}, {2, 1});
+        expectImagesEqual(expected, image, "incorrect 2x1 region copy");
+    }
+}
+
+TEST_F(TestTileRearranger, TestCopyRegionBounded)
+{
+    ImageGrey zeros(2, 2, arma::fill::zeros);
+    ImageGrey ones(2, 2, arma::fill::ones);
+    {
+        ImageGrey image = zeros;
+        ImageGrey expected = {{1, 0}, {0, 0}};
+        copyRegionBounded(ones, image, {0, 0}, {-1, -1}, {2, 2});
+        expectImagesEqual(expected, image, "incorrect top left bounded region copy");
+    }
+    {
+        ImageGrey image = zeros;
+        ImageGrey expected = {{0, 1}, {0, 0}};
+        copyRegionBounded(ones, image, {0, 0}, {1, -1}, {2, 2});
+        expectImagesEqual(expected, image, "incorrect top right bounded region copy");
+    }
+    {
+        ImageGrey image = zeros;
+        ImageGrey expected = {{0, 0}, {1, 0}};
+        copyRegionBounded(ones, image, {0, 0}, {-1, 1}, {2, 2});
+        expectImagesEqual(expected, image, "incorrect bottom left bounded region copy");
+    }
+    {
+        ImageGrey image = zeros;
+        ImageGrey expected = {{0, 0}, {0, 1}};
+        copyRegionBounded(ones, image, {0, 0}, {1, 1}, {2, 2});
+        expectImagesEqual(expected, image, "incorrect bottom right bounded region copy");
+    }
+}
+
 TEST_F(TestTileRearranger, TestTileRearrangerMinimal)
 {
     TileRearranger<4> tr;
