@@ -20,5 +20,6 @@ public:
     sf::Vector2u dualSize;
 
     sf::Image rearrangeTexture(const sf::Image& base_texture) const;
+    ImageStackGrey32 getCornerDistances(bool use_diagonals) const;
+    ImageStackGrey32 getEdgeDistances(bool use_diagonals) const;
 };
-

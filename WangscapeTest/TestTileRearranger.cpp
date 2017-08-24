@@ -21,6 +21,10 @@ protected:
     {
         imageBinaryToSFImage(image).saveToFile(filename);
     }
+    void saveImage(const ImageGrey& image, const std::string& filename)
+    {
+        imageToSFImage(imageGreyscaleToImage(image)).saveToFile(filename);
+    }
     sf::Image imageBinaryToSFImage(const ImageGrey& image)
     {
         return imageToSFImage(imageGreyscaleToImage(image * 255));
@@ -49,6 +53,38 @@ TEST_F(TestTileRearranger, TestIsConnected)
     EXPECT_FALSE(isConnected(disconnected));
     EXPECT_FALSE(isConnected(diagonally_connected, false));
     EXPECT_TRUE(isConnected(diagonally_connected, true));
+}
+
+TEST_F(TestTileRearranger, TestDistances)
+{
+    arma::u32 infinity = std::numeric_limits<arma::u32>::max();
+    ImageGrey traversable = {{1, 0, 1}, {1, 0, 1}, {1, 1, 1}};
+    ImageGrey targets = {{1, 0, 0}, {0, 0, 0}, {0, 0, 0}};
+    ImageGrey distance = {{0, 255, 6}, {1, 255, 5}, {2, 3, 4}};
+    ImageGrey distance_diagonal = {{0, 255, 4}, {1, 255, 3}, {2, 2, 3}};
+
+    ImageGrey32 computed_distance = distances(traversable, targets, false);
+    computed_distance.replace(infinity, 255);
+    ImageGrey32 computed_distance_diagonal = distances(traversable, targets, true);
+    computed_distance_diagonal.replace(infinity, 255);
+    expectImagesEqual(distance, arma::conv_to<ImageGrey>::from(computed_distance), "incorrect distance");
+    expectImagesEqual(distance_diagonal, arma::conv_to<ImageGrey>::from(computed_distance_diagonal), "incorrect distance (diagonal)");
+}
+
+TEST_F(TestTileRearranger, TestDistances2)
+{
+    arma::u32 infinity = std::numeric_limits<arma::u32>::max();
+    ImageGrey traversable = {{0, 0, 0, 0}, {0, 1, 1, 0}, {0, 1, 1, 0}, {0, 0, 0, 0}};
+    ImageGrey targets = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 1, 0}, {0, 0, 0, 0}};
+    ImageGrey distance = {{255, 255, 255, 255}, {255, 2, 1, 255}, {255, 1, 0, 255}, {255, 255, 255, 255}};
+    ImageGrey distance_diagonal = {{255, 255, 255, 255}, {255, 1, 1, 255}, {255, 1, 0, 255}, {255, 255, 255, 255}};
+
+    ImageGrey32 computed_distance = distances(traversable, targets, false);
+    computed_distance.replace(infinity, 255);
+    ImageGrey32 computed_distance_diagonal = distances(traversable, targets, true);
+    computed_distance_diagonal.replace(infinity, 255);
+    expectImagesEqual(distance, arma::conv_to<ImageGrey>::from(computed_distance), "incorrect distance");
+    expectImagesEqual(distance_diagonal, arma::conv_to<ImageGrey>::from(computed_distance_diagonal), "incorrect distance (diagonal)");
 }
 
 TEST_F(TestTileRearranger, TestIsNonzero)
@@ -222,7 +258,30 @@ TEST_F(TestTileRearranger, TestTileRearrangerMinimal)
                       rearrangement.dualCorners.slice(2) + rearrangement.dualCorners.slice(3), "incorrect dual edge");
     expectImagesEqual(rearrangement.dualEdges.slice(3),
                       rearrangement.dualCorners.slice(3) + rearrangement.dualCorners.slice(0), "incorrect dual edge");
+    const auto distance_corners = rearrangement.getCornerDistances(true);
+    for (unsigned int c = 0; c < 4; c++)
+    {
+        ImageGrey distance_this_corner_8 = arma::conv_to<ImageGrey>::from(
+            distance_corners.slice(c)).eval();
+        expectImagesEqual(
+            rearrangement.dualCorners.slice(c),
+            (1 - distance_this_corner_8).eval(),
+            "incorrect corner distance");
+        // Uncomment to get output in working directory.
+        // saveBinaryImage(distance_this_corner_8, "mdcorner" + std::to_string(c) + ".png");
+    }
+    const auto distance_edges = rearrangement.getEdgeDistances(true);
+    for (unsigned int e = 0; e < 4; e++)
+    {
+        ImageGrey distance_this_edge_8 = arma::conv_to<ImageGrey>::from(
+            distance_edges.slice(e)).eval();
+        expectImagesEqual(rearrangement.dualEdges.slice((e+2)%4),
+                          distance_this_edge_8,
+                          "incorrect edge distance");
+        // Uncomment to get output in working directory.
+        // saveBinaryImage(distance_this_edge_8, "mdedge" + std::to_string(e) + ".png");
 
+    }
 }
 
 TEST_F(TestTileRearranger, TestTileRearrangerComplex)
@@ -256,5 +315,31 @@ TEST_F(TestTileRearranger, TestTileRearrangerComplex)
                             "incorrect edge " + std::to_string(e));
         // Uncomment to get output in working directory.
         // saveBinaryImage(rearrangement.dualEdges.slice(e), "edge" + std::to_string(e) + ".png");
+    }
+    auto distance_corners_32 = rearrangement.getCornerDistances(false);
+    distance_corners_32.replace(std::numeric_limits<arma::u32>::max(), 0);
+    const auto distance_corners = arma::conv_to<ImageStackGrey>::from(distance_corners_32);
+    for (unsigned int c = 0; c < 4; c++)
+    {
+        sf::Image corner_distance;
+        corner_distance.loadFromFile((test_path / ("dcorner" + std::to_string(c) + ".png")).string());
+        expectSFImagesEqual(corner_distance,
+                            imageToSFImage(imageGreyscaleToImage(distance_corners.slice(c))),
+                            "incorrect corner distance " + std::to_string(c));
+        // Uncomment to get output in working directory.
+        //saveImage(distance_corners.slice(c), "dcorner" + std::to_string(c) + ".png");
+    }
+    auto distance_edges_32 = rearrangement.getEdgeDistances(false);
+    distance_edges_32.replace(std::numeric_limits<arma::u32>::max(), 0);
+    const auto distance_edges = arma::conv_to<ImageStackGrey>::from(distance_edges_32);
+    for (unsigned int c = 0; c < 4; c++)
+    {
+        sf::Image edge_distance;
+        edge_distance.loadFromFile((test_path / ("dedge" + std::to_string(c) + ".png")).string());
+        expectSFImagesEqual(edge_distance,
+                            imageToSFImage(imageGreyscaleToImage(distance_edges.slice(c))),
+                            "incorrect edge distance " + std::to_string(c));
+        // Uncomment to get output in working directory.
+        //saveImage(distance_edges.slice(c), "dedge" + std::to_string(c) + ".png");
     }
 }

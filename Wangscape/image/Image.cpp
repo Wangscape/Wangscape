@@ -1,7 +1,7 @@
 #include "Image.h"
 #include <vector>
 #include <set>
-#
+#include <queue>
 
 #include "logging/Logging.h"
 
@@ -239,4 +239,59 @@ sf::IntRect boxUnion(sf::IntRect a, sf::IntRect b)
     auto size_max = (end_max - origin_min + 1).eval();
     return sf::IntRect(origin_min(0), origin_min(1),
                        size_max(0), size_max(1));
+}
+
+ImageGrey32 distances(const ImageGrey & traversable, const ImageGrey & targets, bool use_diagonals)
+{
+    if (!isBinary(traversable))
+        throw std::runtime_error("distances() requires binary traversable mask");
+    if (!isBinary(targets))
+        throw std::runtime_error("distances() requires binary targets mask");
+    if(!isNonzero(traversable))
+        throw std::runtime_error("distances() requires nonzero traversable mask");
+    if (!isNonzero(targets))
+        throw std::runtime_error("distances() requires nonzero targets mask");
+    if(!isConnected(traversable))
+        throw std::runtime_error("distances() requires connected traversable mask");
+
+    ImageGrey32 distance_field(arma::size(traversable));
+    const arma::u32 infinity = std::numeric_limits<arma::u32>::max();
+    distance_field.fill(infinity);
+    const auto target_coordinates = arma::ind2sub(arma::size(targets), arma::find(targets)).eval();
+    std::queue<sf::Vector2i> border;
+    const auto& steps = use_diagonals ? orthodiagonal_steps : orthogonal_steps;
+    const auto in_bounds = [&traversable](sf::Vector2i point)
+    {
+        if (point.x < 0 || point.y < 0)
+            return false;
+        if ((unsigned int)point.x >= traversable.n_cols || (unsigned int)point.y >= traversable.n_rows)
+            return false;
+        return true;
+    };
+    for (unsigned int i = 0; i < target_coordinates.n_cols; i++)
+    {
+        sf::Vector2i target{int(target_coordinates(1, i)), int(target_coordinates(0, i))};
+        distance_field(target.y, target.x) = 0;
+        border.push(target);
+    }
+    while (!border.empty())
+    {
+        sf::Vector2i point = border.front();
+        border.pop();
+        arma::u32 distance = distance_field(point.y, point.x) + 1;
+        for (const auto step : steps)
+        {
+            sf::Vector2i new_point = point + step;
+            if (!in_bounds(new_point))
+                continue;
+            if (!traversable(new_point.y, new_point.x))
+                continue;
+            if (distance_field(new_point.y, new_point.x) == infinity)
+            {
+                border.push(new_point);
+                distance_field(new_point.y, new_point.x) = distance;
+            }
+        }
+    }
+    return distance_field;
 }

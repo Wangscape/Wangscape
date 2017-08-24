@@ -30,3 +30,23 @@ sf::Image TileRearrangement::rearrangeTexture(const sf::Image & base_texture) co
     dual.slice(3) = arma::sum(dual_a, 2).eval();
     return imageToSFImage(dual);
 }
+
+ImageStackGrey32 TileRearrangement::getCornerDistances(bool use_diagonals) const
+{
+    ImageStackGrey32 corner_distances(arma::size(dualPartition));
+    for (unsigned int c = 0; c < dualPartition.n_slices; c++)
+    {
+        corner_distances.slice(c) = distances(dual, dualCorners.slice(c), use_diagonals);
+    }
+    return corner_distances;
+}
+
+ImageStackGrey32 TileRearrangement::getEdgeDistances(bool use_diagonals) const
+{
+    ImageStackGrey32 edge_distances(arma::size(dualPartition));
+    for (unsigned int e = 0; e < dualPartition.n_slices; e++)
+    {
+        edge_distances.slice(e) = distances(dual, dualEdges.slice(e), use_diagonals);
+    }
+    return edge_distances;
+}

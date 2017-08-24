@@ -7,6 +7,8 @@ typedef arma::Mat<arma::u8> ImageGrey;
 typedef arma::Cube<arma::u8> ImageStackGrey;
 typedef arma::Cube<arma::u8> ImageColour;
 typedef arma::Mat<double> ImageGreyFloat;
+typedef arma::Mat<arma::u32> ImageGrey32;
+typedef arma::Cube<arma::u32> ImageStackGrey32;
 
 ImageColour imageFromSFImage(const sf::Image& image);
 ImageGrey imageToGreyscale(const ImageColour& image);
@@ -31,3 +33,4 @@ ImageGrey boundary(const ImageGrey& image, bool use_diagonals = true);
 ImageGrey neighbourhoodIntersection(const ImageGrey& image, const ImageGrey& neighbours, bool use_diagonals = true);
 sf::IntRect regionBox(const ImageGrey& image);
 sf::IntRect boxUnion(sf::IntRect a, sf::IntRect b);
+ImageGrey32 distances(const ImageGrey& traversable, const ImageGrey& targets, bool use_diagonals=true);
