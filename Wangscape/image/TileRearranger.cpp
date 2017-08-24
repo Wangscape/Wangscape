@@ -174,13 +174,15 @@ void TileRearranger<Corners>::findDualBoundaries(const ImageStackGrey& dual_tess
     for (unsigned int e = 0; e < Corners; e++)
     {
         mTileRearrangement.dualEdges.slice(e) = neighbourhoodIntersection(central_boundary,
-                                                                          dual_tessellation.slice(edge_codes[e]));
+                                                                          dual_tessellation.slice(edge_codes[e]),
+                                                                          false);
     }
     ImageStackGrey opposites(dual_tessellation.n_rows, dual_tessellation.n_cols, Corners);
     for (unsigned int c = 0; c < Corners; c++)
     {
         opposites.slice(c) = neighbourhoodIntersection(central_boundary,
-                                                       dual_tessellation.slice(corner_codes[c]));
+                                                       dual_tessellation.slice(corner_codes[c]),
+                                                       false);
     }
     mTileRearrangement.dualCorners.set_size(arma::size(mTileRearrangement.dualEdges));
     mTileRearrangement.dualCorners = mTileRearrangement.dualEdges;
