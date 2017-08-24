@@ -80,6 +80,8 @@
     <ClCompile Include="noise\module\codecs\ReciprocalWrapperCodec.cpp" />
     <ClCompile Include="noise\module\codecs\BitmapWrapperCodec.cpp" />
     <ClCompile Include="image\Image.cpp" />
+    <ClCompile Include="image\TileRearranger.cpp" />
+    <ClCompile Include="image\TileRearrangement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codecs\OptionsCodec.h" />
@@ -206,6 +208,8 @@
     <ClInclude Include="noise\module\codecs\BitmapWrapperCodec.h" />
     <ClInclude Include="codecs\RectCodec.h" />
     <ClInclude Include="image\Image.h" />
+    <ClInclude Include="image\TileRearranger.h" />
+    <ClInclude Include="image\TileRearrangement.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
