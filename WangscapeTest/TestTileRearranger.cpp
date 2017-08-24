@@ -224,3 +224,33 @@ TEST_F(TestTileRearranger, TestTileRearrangerMinimal)
                       rearrangement.dualCorners.slice(3) + rearrangement.dualCorners.slice(0), "incorrect dual edge");
 
 }
+
+TEST_F(TestTileRearranger, TestTileRearrangerComplex)
+{
+    const auto test_path = boost::filesystem::path(getDocumentationPath()) / "tests" / "rearranger";
+    sf::Image base;
+    base.loadFromFile((test_path / "base.png").string());
+    const auto rearrangement = TileRearranger<4>().rearrangeTile(base, {0, 80}, {80, 0});
+    sf::Image dual;
+    dual.loadFromFile((test_path / "dual.png").string());
+    sf::Image computed_dual = rearrangement.rearrangeTexture(base);
+    // Uncomment to get output in working directory.
+    // computed_dual.saveToFile("dual_complex.png");
+    expectSFImagesEqual(dual, computed_dual, "incorrect dual");
+    for (unsigned int c = 0; c < 4; c++)
+    {
+        sf::Image corner;
+        corner.loadFromFile((test_path / ("corner" + std::to_string(c) + ".png")).string());
+        expectSFImagesEqual(corner, 
+                            imageBinaryToSFImage(rearrangement.dualCorners.slice(c)),
+                            "incorrect corner " + std::to_string(c));
+    }
+    for (unsigned int e = 0; e < 4; e++)
+    {
+        sf::Image edge;
+        edge.loadFromFile((test_path / ("edge" + std::to_string(e) + ".png")).string());
+        expectSFImagesEqual(edge,
+                            imageBinaryToSFImage(rearrangement.dualEdges.slice(e)),
+                            "incorrect edge " + std::to_string(e));
+    }
+}
