@@ -164,11 +164,15 @@ ImageGrey padded(const ImageGrey & image)
 
 ImageGrey unpadded(const ImageGrey & image)
 {
-    ImageGrey result(arma::size(image) - 2);
-    copyRegion(image, result,
-               sf::Vector2i(1, 1), sf::Vector2i(0, 0),
-               sf::Vector2i(image.n_cols - 2, image.n_rows - 2));
-    return result;
+    return image.submat(arma::span(1, image.n_rows - 2),
+                        arma::span(1, image.n_cols - 2));
+}
+
+ImageStackGrey unpaddedStack(const ImageStackGrey & image_stack)
+{
+    return image_stack.subcube(arma::span(1,image_stack.n_rows-2),
+                               arma::span(1, image_stack.n_cols- 2),
+                               arma::span::all);
 }
 
 ImageGrey dilatedEroded(const ImageGrey & image, bool use_diagonals, arma::u8 edge_value, bool dilate)

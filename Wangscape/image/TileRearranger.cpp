@@ -33,6 +33,7 @@ const TileRearrangement TileRearranger<Corners>::rearrangeTile(const sf::Image &
     makeDual();
     const auto dual_tessellation = tessellated(mTileRearrangement.dual);
     validateTessellation(dual_tessellation);
+    findDualBoundaries(dual_tessellation);
     return mTileRearrangement;
 }
 
@@ -129,7 +130,7 @@ ImageStackGrey TileRearranger<Corners>::tessellated(const ImageGrey & image) con
         for (int x = 0; x < 3; x++)
         {
             copyRegionBounded(image_padded, tessellation.slice(3 * y + x),
-                              sf::Vector2i(0, 0), (x - 1)*mTileRearrangement.offsetA + (y - 1)*mTileRearrangement.offsetB,
+                              sf::Vector2i(0, 0), (x - 1)*mTileRearrangement.offsetB + (y - 1)*mTileRearrangement.offsetA,
                               sf::Vector2i(image_padded.n_cols, image_padded.n_rows));
         }
     }
@@ -164,9 +165,34 @@ void TileRearranger<Corners>::validateTessellation(const ImageStackGrey & tessel
 }
 
 template<unsigned int Corners>
-void TileRearranger<Corners>::findDualBoundaries()
+void TileRearranger<Corners>::findDualBoundaries(const ImageStackGrey& dual_tessellation)
 {
+    ImageGrey central_boundary = boundary(dual_tessellation.slice(4));
+    std::array<unsigned int, Corners> corner_codes{8, 6, 0, 2};
+    std::array<unsigned int, Corners> edge_codes{7, 3, 1, 5};
+    mTileRearrangement.dualEdges.set_size(dual_tessellation.n_rows, dual_tessellation.n_cols, Corners);
+    for (unsigned int e = 0; e < Corners; e++)
+    {
+        mTileRearrangement.dualEdges.slice(e) = neighbourhoodIntersection(central_boundary,
+                                                                          dual_tessellation.slice(edge_codes[e]));
+    }
+    ImageStackGrey opposites(dual_tessellation.n_rows, dual_tessellation.n_cols, Corners);
+    for (unsigned int c = 0; c < Corners; c++)
+    {
+        opposites.slice(c) = neighbourhoodIntersection(central_boundary,
+                                                       dual_tessellation.slice(corner_codes[c]));
+    }
+    mTileRearrangement.dualCorners.set_size(arma::size(mTileRearrangement.dualEdges));
+    mTileRearrangement.dualCorners = mTileRearrangement.dualEdges;
+    for (unsigned int c = 0; c < Corners; c++)
+    {
+        mTileRearrangement.dualCorners.slice(c) %= mTileRearrangement.dualEdges.slice((c + Corners - 1) % Corners);
+    }
+    mTileRearrangement.dualCorners += opposites;
+    mTileRearrangement.dualCorners.transform([](arma::u8 x) {return std::min(x, arma::u8(1)); });
 
+    mTileRearrangement.dualCorners = unpaddedStack(mTileRearrangement.dualCorners);
+    mTileRearrangement.dualEdges = unpaddedStack(mTileRearrangement.dualEdges);
 }
 
 template<unsigned int Corners>

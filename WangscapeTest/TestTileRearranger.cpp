@@ -1,4 +1,6 @@
 #include <gtest/gtest.h>
+#include "DocumentationPath.h"
+#include <boost/filesystem.hpp>
 #include <image/TileRearranger.h>
 
 class TestTileRearranger : public ::testing::Test
@@ -14,6 +16,27 @@ protected:
         EXPECT_TRUE(false) << message <<"\nFirst failure location: " <<
             "y " << fail_coords(0,0) << ", " <<
             "x " << fail_coords(1,0);
+    }
+    void saveBinaryImage(const ImageGrey& image, const std::string& filename)
+    {
+        imageBinaryToSFImage(image).saveToFile(filename);
+    }
+    sf::Image imageBinaryToSFImage(const ImageGrey& image)
+    {
+        return imageToSFImage(imageGreyscaleToImage(image * 255));
+    }
+    void expectSFImagesEqual(const sf::Image& expected, const sf::Image& actual, const std::string& message = "")
+    {
+        EXPECT_EQ(expected.getSize(), actual.getSize());
+        const auto shape = actual.getSize();
+        for (size_t y = 0; y < shape.y; y++)
+        {
+            for (size_t x = 0; x < shape.x; x++)
+            {
+                EXPECT_EQ(expected.getPixel(x, y), actual.getPixel(x, y)) << message << "\n" <<
+                    "at " << x << ", " << y;
+            }
+        }
     }
 };
 
@@ -186,4 +209,18 @@ TEST_F(TestTileRearranger, TestTileRearrangerMinimal)
     EXPECT_EQ(d.getPixel(0, 1), sf::Color::Green) << "Wrong pixel in dual tile";
     EXPECT_EQ(d.getPixel(0, 0), sf::Color::Blue) << "Wrong pixel in dual tile";
     EXPECT_EQ(d.getPixel(1, 0), sf::Color::Yellow) << "Wrong pixel in dual tile";
+
+    for (unsigned int c = 0; c < 4; c++)
+    {
+        expectImagesEqual(rearrangement.dualPartition.slice(c), rearrangement.dualCorners.slice(c), "incorrect dual corner");
+    }
+    expectImagesEqual(rearrangement.dualEdges.slice(0),
+                      rearrangement.dualCorners.slice(0) + rearrangement.dualCorners.slice(1), "incorrect dual edge");
+    expectImagesEqual(rearrangement.dualEdges.slice(1),
+                      rearrangement.dualCorners.slice(1) + rearrangement.dualCorners.slice(2), "incorrect dual edge");
+    expectImagesEqual(rearrangement.dualEdges.slice(2),
+                      rearrangement.dualCorners.slice(2) + rearrangement.dualCorners.slice(3), "incorrect dual edge");
+    expectImagesEqual(rearrangement.dualEdges.slice(3),
+                      rearrangement.dualCorners.slice(3) + rearrangement.dualCorners.slice(0), "incorrect dual edge");
+
 }

@@ -24,7 +24,7 @@ private:
     void validateColours() const;
     ImageStackGrey tessellated(const ImageGrey& image) const;
     static void validateTessellation(const ImageStackGrey& tessellation);
-    void findDualBoundaries();
+    void findDualBoundaries(const ImageStackGrey& dual_tessellation);
     void calculateRearrangementParameters();
     void makeDual();
     TileRearrangement mTileRearrangement;

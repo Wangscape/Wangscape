@@ -23,6 +23,7 @@ bool isNonzero(const ImageGrey& image);
 bool isBinary(const ImageGrey& image);
 ImageGrey padded(const ImageGrey& image);
 ImageGrey unpadded(const ImageGrey& image);
+ImageStackGrey unpaddedStack(const ImageStackGrey& image_stack);
 ImageGrey dilatedEroded(const ImageGrey& image, bool use_diagonals, arma::u8 edge_value, bool dilate);
 ImageGrey dilated(const ImageGrey& image, bool use_diagonals = true, arma::u8 edge_value = 0);
 ImageGrey eroded(const ImageGrey& image, bool use_diagonals = true, arma::u8 edge_value = 255);
