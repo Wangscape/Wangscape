@@ -188,6 +188,7 @@
     <ClCompile Include="TestTilePartitionerSquares.cpp" />
     <ClCompile Include="TestTileRearranger.cpp" />
     <ClCompile Include="TestTilesetGenerator.cpp" />
+    <ClCompile Include="TestVector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

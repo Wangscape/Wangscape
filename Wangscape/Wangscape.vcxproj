@@ -290,6 +290,7 @@
     <ClInclude Include="tilegen\TilesetGenerator.h" />
     <ClInclude Include="ipow.h" />
     <ClInclude Include="image\TileRearranger.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="image\Image.cpp" />
