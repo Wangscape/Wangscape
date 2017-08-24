@@ -244,6 +244,8 @@ TEST_F(TestTileRearranger, TestTileRearrangerComplex)
         expectSFImagesEqual(corner, 
                             imageBinaryToSFImage(rearrangement.dualCorners.slice(c)),
                             "incorrect corner " + std::to_string(c));
+        // Uncomment to get output in working directory.
+        // saveBinaryImage(rearrangement.dualCorners.slice(c), "corner" + std::to_string(c) + ".png");
     }
     for (unsigned int e = 0; e < 4; e++)
     {
@@ -252,5 +254,7 @@ TEST_F(TestTileRearranger, TestTileRearrangerComplex)
         expectSFImagesEqual(edge,
                             imageBinaryToSFImage(rearrangement.dualEdges.slice(e)),
                             "incorrect edge " + std::to_string(e));
+        // Uncomment to get output in working directory.
+        // saveBinaryImage(rearrangement.dualEdges.slice(e), "edge" + std::to_string(e) + ".png");
     }
 }
