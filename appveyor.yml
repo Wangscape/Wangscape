@@ -121,11 +121,11 @@ after_build:
     
     copy ..\..\lib\spotify-json\LICENSE licenses\LICENSE_spotify-json.txt
     
-    $webclient.DownloadFile("https://raw.githubusercontent.com/google/double-conversion/master/LICENSE", "licenses\LICENSE_double-conversion.txt")
+    Start-FileDownload "https://raw.githubusercontent.com/google/double-conversion/master/LICENSE" -FileName "licenses\LICENSE_double-conversion.txt"
     
-    $webclient.DownloadFile("https://raw.githubusercontent.com/conradsnicta/armadillo-code/unstable/LICENSE.txt", "licenses\LICENSE_Armadillo.txt")
+    Start-FileDownload "https://raw.githubusercontent.com/conradsnicta/armadillo-code/unstable/LICENSE.txt" -FileName "licenses\LICENSE_Armadillo.txt"
     
-    $webclient.DownloadFile("https://raw.githubusercontent.com/xianyi/OpenBLAS/develop/LICENSE", "licenses\LICENSE_OpenBLAS.txt")
+    Start-FileDownload "https://raw.githubusercontent.com/xianyi/OpenBLAS/develop/LICENSE" -FileName "licenses\LICENSE_OpenBLAS.txt"
     
     cd ..
     
