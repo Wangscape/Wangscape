@@ -232,7 +232,7 @@ TEST_F(TestTileRearranger, TestTileRearrangerMinimal)
     i.setPixel(1, 0, sf::Color::Green);
     i.setPixel(1, 1, sf::Color::Blue);
     i.setPixel(0, 1, sf::Color::Yellow);
-    const auto rearrangement = tr.rearrangeTile(i, {0, 2}, {2, 0});
+    const auto rearrangement = tr.rearrangeTile(i, {2, 0}, {0, 2});
     sf::Image d = rearrangement.rearrangeTexture(i);
     EXPECT_EQ(makeUVec(d.getSize()), UVec(2, 2)) << "Wrong size dual tile";
 
@@ -289,7 +289,7 @@ TEST_F(TestTileRearranger, TestTileRearrangerComplex)
     const auto test_path = boost::filesystem::path(getDocumentationPath()) / "tests" / "rearranger";
     sf::Image base;
     base.loadFromFile((test_path / "base.png").string());
-    const auto rearrangement = TileRearranger<4>().rearrangeTile(base, {0, 80}, {80, 0});
+    const auto rearrangement = TileRearranger<4>().rearrangeTile(base, {80, 0}, {0, 80});
     sf::Image dual;
     dual.loadFromFile((test_path / "dual.png").string());
     sf::Image computed_dual = rearrangement.rearrangeTexture(base);

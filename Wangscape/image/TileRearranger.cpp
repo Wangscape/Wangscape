@@ -195,7 +195,7 @@ void TileRearranger<Corners>::calculateRearrangementParameters()
         corner_bboxes[c] = regionBox(mTileRearrangement.basePartition.slice(c));
     }
     // Depends on Corners
-    mTileRearrangement.allOffsets = {{1, 1}, {1, 0}, {0, 0}, {0, 1}};
+    mTileRearrangement.allOffsets = {{1, 1}, {0, 1}, {0, 0}, {1, 0}};
     for (auto& offset : mTileRearrangement.allOffsets)
     {
         offset = offset.x() * mTileRearrangement.offsetA + offset.y() * mTileRearrangement.offsetB;
@@ -242,7 +242,7 @@ std::vector<IVec> TileRearranger<Corners>::makeTessellationOffsets() const
     {
         for (int x = 0; x < 3; x++)
         {
-            offsets.push_back((x - 1)*mTileRearrangement.offsetB + (y - 1)*mTileRearrangement.offsetA);
+            offsets.push_back((x - 1)*mTileRearrangement.offsetA + (y - 1)*mTileRearrangement.offsetB);
         }
     }
     return offsets;
