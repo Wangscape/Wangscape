@@ -35,3 +35,4 @@ ImageGrey neighbourhoodIntersection(const ImageGrey& image, const ImageGrey& nei
 sf::IntRect regionBox(const ImageGrey& image);
 sf::IntRect boxUnion(sf::IntRect a, sf::IntRect b);
 ImageGrey32 distances(const ImageGrey& traversable, const ImageGrey& targets, bool use_diagonals=true);
+ImageStackGrey tessellated(const ImageGrey& image, const std::vector<IVec>& offsets);

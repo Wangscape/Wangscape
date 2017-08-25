@@ -297,3 +297,17 @@ ImageGrey32 distances(const ImageGrey & traversable, const ImageGrey & targets, 
     }
     return distance_field;
 }
+
+ImageStackGrey tessellated(const ImageGrey & image, const std::vector<IVec>& offsets)
+{
+    const auto image_padded = padded(image);
+    ImageStackGrey tessellation(image_padded.n_rows, image_padded.n_cols, offsets.size(), arma::fill::zeros);
+    for (size_t i = 0; i < offsets.size(); i++)
+    {
+        copyRegionBounded(image_padded, tessellation.slice(i),
+                          IVec(0, 0), offsets[i],
+                          IVec(makeUVec(arma::size(image_padded))));
+
+    }
+    return tessellation;
+}

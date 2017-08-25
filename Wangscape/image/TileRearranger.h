@@ -22,11 +22,10 @@ private:
     void decomposeBaseTile(const sf::Image& base_tile);
     void validateBaseTile() const;
     void validateColours() const;
-    ImageStackGrey tessellated(const ImageGrey& image) const;
     static void validateTessellation(const ImageStackGrey& tessellation);
     void findDualBoundaries(const ImageStackGrey& dual_tessellation);
     void calculateRearrangementParameters();
     void makeDual();
+    std::vector<IVec> makeTessellationOffsets() const;
     TileRearrangement mTileRearrangement;
 };
-

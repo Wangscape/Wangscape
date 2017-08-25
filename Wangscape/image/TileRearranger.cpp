@@ -25,15 +25,22 @@ const TileRearrangement TileRearranger<Corners>::rearrangeTile(const sf::Image &
     mTileRearrangement.offsetB = offset_b;
     mTileRearrangement.baseSize = makeUVec(base_tile.getSize());
     validateColours();
+
     decomposeBaseTile(base_tile);
     validateBaseTile();
-    const auto base_tessellation = tessellated(mTileRearrangement.base);
+
+    const auto tessellation_offsets = makeTessellationOffsets();
+    const auto base_tessellation = tessellated(mTileRearrangement.base, tessellation_offsets);
     validateTessellation(base_tessellation);
+
     calculateRearrangementParameters();
     makeDual();
-    const auto dual_tessellation = tessellated(mTileRearrangement.dual);
+
+    const auto dual_tessellation = tessellated(mTileRearrangement.dual, tessellation_offsets);
     validateTessellation(dual_tessellation);
+
     findDualBoundaries(dual_tessellation);
+
     return mTileRearrangement;
 }
 
@@ -121,30 +128,12 @@ void TileRearranger<Corners>::validateColours() const
 }
 
 template<unsigned int Corners>
-ImageStackGrey TileRearranger<Corners>::tessellated(const ImageGrey & image) const
-{
-    const auto image_padded = padded(image);
-    ImageStackGrey tessellation(image_padded.n_rows, image_padded.n_cols, 9, arma::fill::zeros);
-    for (int y = 0; y < 3; y++)
-    {
-        for (int x = 0; x < 3; x++)
-        {
-            copyRegionBounded(image_padded, tessellation.slice(3 * y + x),
-                              IVec(0, 0), (x - 1)*mTileRearrangement.offsetB + (y - 1)*mTileRearrangement.offsetA,
-                              IVec(makeUVec(arma::size(image_padded))));
-        }
-    }
-    return tessellation;
-}
-
-template<unsigned int Corners>
 void TileRearranger<Corners>::validateTessellation(const ImageStackGrey & tessellation)
 {
     if (tessellation.max() > 1)
     {
         logError() << "Tessellation is not binary";
         throw std::runtime_error("Error creating tessellation");
-
     }
     if (!isBinary(arma::sum(tessellation, 2).eval()))
     {
@@ -243,6 +232,20 @@ void TileRearranger<Corners>::makeDual()
                           IVec(mTileRearrangement.baseSize));
     }
     mTileRearrangement.dual = arma::sum(mTileRearrangement.dualPartition, 2).eval();
+}
+
+template<unsigned int Corners>
+std::vector<IVec> TileRearranger<Corners>::makeTessellationOffsets() const
+{
+    std::vector<IVec> offsets;
+    for (int y = 0; y < 3; y++)
+    {
+        for (int x = 0; x < 3; x++)
+        {
+            offsets.push_back((x - 1)*mTileRearrangement.offsetB + (y - 1)*mTileRearrangement.offsetA);
+        }
+    }
+    return offsets;
 }
 
 // template class TileRearranger<3>;
