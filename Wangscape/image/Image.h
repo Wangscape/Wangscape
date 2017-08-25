@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <armadillo>
+#include "Vector.h"
 
 typedef arma::Mat<arma::u8> ImageGrey;
 typedef arma::Cube<arma::u8> ImageStackGrey;
@@ -16,9 +17,9 @@ ImageColour imageGreyscaleToImage(const ImageGrey& image);
 sf::Image imageToSFImage(const ImageColour& image);
 
 void copyRegion(const ImageGrey& source, ImageGrey& target,
-                sf::Vector2i source_origin, sf::Vector2i target_origin, sf::Vector2i size);
+                IVec source_origin, IVec target_origin, IVec size);
 void copyRegionBounded(const ImageGrey& source, ImageGrey& target,
-                       sf::Vector2i source_origin, sf::Vector2i target_origin, sf::Vector2i size);
+                       IVec source_origin, IVec target_origin, IVec size);
 
 bool isConnected(const ImageGrey& image, bool use_diagonals = false);
 bool isNonzero(const ImageGrey& image);

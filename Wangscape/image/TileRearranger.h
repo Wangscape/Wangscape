@@ -12,8 +12,8 @@ public:
     ~TileRearranger() = default;
 
     const TileRearrangement rearrangeTile(const sf::Image& base_tile,
-                                          sf::Vector2i offset_a,
-                                          sf::Vector2i offset_b);
+                                          IVec offset_a,
+                                          IVec offset_b);
 
     std::array<sf::Color, Corners> regionColours;
 

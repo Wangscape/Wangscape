@@ -2,21 +2,22 @@
 #include <vector>
 #include <set>
 #include <queue>
+#include "Vector.h"
 
 #include "logging/Logging.h"
 
-const static std::vector<sf::Vector2i> orthogonal_steps{
+const static std::vector<IVec> orthogonal_steps{
     {0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-const static std::vector<sf::Vector2i> orthodiagonal_steps{
+const static std::vector<IVec> orthodiagonal_steps{
     {0, 1}, {1, 0}, {0, -1}, {-1, 0},
     {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
 
 ImageColour imageFromSFImage(const sf::Image & sf_image)
 {
-    auto shape = sf_image.getSize();
-    ImageColour image(shape.y, shape.x, 4);
-    for(size_t y = 0; y < shape.y; y++)
-        for (size_t x = 0; x < shape.x; x++)
+    UVec shape = makeUVec(sf_image.getSize());
+    ImageColour image(shape.y(), shape.x(), 4);
+    for(size_t y = 0; y < shape.y(); y++)
+        for (size_t x = 0; x < shape.x(); x++)
         {
             auto pixel = sf_image.getPixel(x, y);
             image(y, x, 0) = pixel.r;
@@ -54,9 +55,9 @@ sf::Image imageToSFImage(const ImageColour & image)
 {
     sf::Image sf_image;
     sf_image.create(image.n_cols, image.n_rows);
-    auto shape = sf_image.getSize();
-    for (size_t y = 0; y < shape.y; y++)
-        for (size_t x = 0; x < shape.x; x++)
+    UVec shape = makeUVec(sf_image.getSize());
+    for (size_t y = 0; y < shape.y(); y++)
+        for (size_t x = 0; x < shape.x(); x++)
         {
             const auto pixel = image.tube(y, x);
             sf_image.setPixel(x, y, sf::Color(pixel(0), pixel(1), pixel(2), pixel(3)));
@@ -64,44 +65,44 @@ sf::Image imageToSFImage(const ImageColour & image)
     return sf_image;
 }
 
-void copyRegionBounded(const ImageGrey& source, ImageGrey & target, sf::Vector2i source_origin, sf::Vector2i target_origin, sf::Vector2i size)
+void copyRegionBounded(const ImageGrey& source, ImageGrey & target, IVec source_origin, IVec target_origin, IVec size)
 {
-    const auto source_shape = arma::size(source);
-    const auto target_shape = arma::size(target);
+    const auto source_shape = makeUVec(arma::size(source));
+    const auto target_shape = makeUVec(arma::size(target));
     // Cut off negative indices in source or target
-    sf::Vector2i origin_excess;
-    origin_excess.x = std::min({source_origin.x,
-                                target_origin.x,
+    IVec origin_excess;
+    origin_excess.x() = std::min({source_origin.x(),
+                                target_origin.x(),
                                 0});
-    origin_excess.y = std::min({source_origin.y,
-                                target_origin.y,
+    origin_excess.y() = std::min({source_origin.y(),
+                                target_origin.y(),
                                 0});
     source_origin -= origin_excess;
     target_origin -= origin_excess;
     size += origin_excess;
     // Cut off indices greater than shape in source or target
-    sf::Vector2i end_excess;
+    IVec end_excess;
     const auto source_end = source_origin + size;
     const auto target_end = target_origin + size;
-    end_excess.x = std::max({source_end.x - (int)source_shape.n_cols,
-                             target_end.x - (int)target_shape.n_cols,
+    end_excess.x() = std::max({source_end.x() - (int)source_shape.x(),
+                             target_end.x() - (int)target_shape.x(),
                              0});
-    end_excess.y = std::max({source_end.y - (int)source_shape.n_rows,
-                             target_end.y - (int)target_shape.n_rows,
+    end_excess.y() = std::max({source_end.y() - (int)source_shape.y(),
+                             target_end.y() - (int)target_shape.y(),
                              0});
     size -= end_excess;
     copyRegion(source, target, source_origin, target_origin, size);
 }
 
 void copyRegion(const ImageGrey& source, ImageGrey & target,
-                sf::Vector2i source_origin, sf::Vector2i target_origin, sf::Vector2i size)
+                IVec source_origin, IVec target_origin, IVec size)
 {
     const auto source_end = source_origin + size;
     const auto target_end = target_origin + size;
-    target.submat(arma::span(target_origin.y, target_end.y - 1),
-                  arma::span(target_origin.x, target_end.x - 1)) =
-        source.submat(arma::span(source_origin.y, source_end.y - 1),
-                      arma::span(source_origin.x, source_end.x - 1));
+    target.submat(arma::span(target_origin.y(), target_end.y() - 1),
+                  arma::span(target_origin.x(), target_end.x() - 1)) =
+        source.submat(arma::span(source_origin.y(), source_end.y() - 1),
+                      arma::span(source_origin.x(), source_end.x() - 1));
 }
 
 bool isConnected(const ImageGrey & image, bool use_diagonals)
@@ -111,16 +112,17 @@ bool isConnected(const ImageGrey & image, bool use_diagonals)
         return false;
     const auto start_index = image.index_max();
     const auto start = arma::ind2sub(size(image), start_index);
-    const auto less = [](sf::Vector2i a, sf::Vector2i b) {return std::tie(a.x, a.y) < std::tie(b.x, b.y); };
-    std::set<sf::Vector2i, decltype(less)> component(less);
-    std::set<sf::Vector2i, decltype(less)> border(less);
-    border.insert(sf::Vector2i(start(1), start(0)));
+    //const auto less = [](IVec a, IVec b) {return std::tie(a.x(), a.y()) < std::tie(b.x(), b.y()); };
+    std::set<IVec> component;// , decltype(less) > component(less);
+    std::set<IVec> border;// , decltype(less) > border(less);
+    border.insert(IVec(start(1), start(0)));
     const auto& steps = use_diagonals ? orthodiagonal_steps : orthogonal_steps;
-    const auto in_bounds = [&image](sf::Vector2i point)
+    const auto shape = makeUVec(arma::size(image));
+    const auto in_bounds = [&shape](IVec point)
     {
-        if (point.x < 0 || point.y < 0)
+        if (point.x() < 0 || point.y() < 0)
             return false;
-        if ((unsigned int)point.x >= image.n_cols || (unsigned int)point.y >= image.n_rows)
+        if ((unsigned int)point.x() >= shape.x() || (unsigned int)point.y() >= shape.y())
             return false;
         return true;
     };
@@ -136,7 +138,7 @@ bool isConnected(const ImageGrey & image, bool use_diagonals)
                 continue;
             if (component.find(new_point) != component.end())
                 continue;
-            if (image(new_point.y, new_point.x))
+            if (image(new_point.y(), new_point.x()))
                 border.insert(new_point);
         }
     }
@@ -157,8 +159,8 @@ ImageGrey padded(const ImageGrey & image)
 {
     ImageGrey result(arma::size(image) + 2, arma::fill::zeros);
     copyRegion(image, result,
-               sf::Vector2i(0, 0), sf::Vector2i(1, 1),
-               sf::Vector2i(image.n_cols, image.n_rows));
+               IVec(0, 0), IVec(1, 1),
+               IVec(makeUVec(arma::size(image))));
     return result;
 }
 
@@ -170,8 +172,8 @@ ImageGrey unpadded(const ImageGrey & image)
 
 ImageStackGrey unpaddedStack(const ImageStackGrey & image_stack)
 {
-    return image_stack.subcube(arma::span(1,image_stack.n_rows-2),
-                               arma::span(1, image_stack.n_cols- 2),
+    return image_stack.subcube(arma::span(1, image_stack.n_rows - 2),
+                               arma::span(1, image_stack.n_cols - 2),
                                arma::span::all);
 }
 
@@ -185,8 +187,8 @@ ImageGrey dilatedEroded(const ImageGrey & image, bool use_diagonals, arma::u8 ed
     for (unsigned int s = 0; s < n_steps; s++)
     {
         copyRegionBounded(image, displacements.slice(s + 1),
-                          sf::Vector2i(0, 0), steps[s],
-                          sf::Vector2i(image.n_cols, image.n_rows));
+                          IVec(0, 0), steps[s],
+                          IVec(makeUVec(arma::size(image))));
     }
     if (dilate)
         return arma::max(displacements, 2).eval();
@@ -253,43 +255,43 @@ ImageGrey32 distances(const ImageGrey & traversable, const ImageGrey & targets, 
         throw std::runtime_error("distances() requires nonzero targets mask");
     if(!isConnected(traversable))
         throw std::runtime_error("distances() requires connected traversable mask");
-
+    const auto shape = makeUVec(arma::size(traversable));
     ImageGrey32 distance_field(arma::size(traversable));
     const arma::u32 infinity = std::numeric_limits<arma::u32>::max();
     distance_field.fill(infinity);
     const auto target_coordinates = arma::ind2sub(arma::size(targets), arma::find(targets)).eval();
-    std::queue<sf::Vector2i> border;
+    std::queue<IVec> border;
     const auto& steps = use_diagonals ? orthodiagonal_steps : orthogonal_steps;
-    const auto in_bounds = [&traversable](sf::Vector2i point)
+    const auto in_bounds = [&shape](IVec point)
     {
-        if (point.x < 0 || point.y < 0)
+        if (point.x() < 0 || point.y() < 0)
             return false;
-        if ((unsigned int)point.x >= traversable.n_cols || (unsigned int)point.y >= traversable.n_rows)
+        if ((unsigned int)point.x() >= shape.x() || (unsigned int)point.y() >= shape.y())
             return false;
         return true;
     };
     for (unsigned int i = 0; i < target_coordinates.n_cols; i++)
     {
-        sf::Vector2i target{int(target_coordinates(1, i)), int(target_coordinates(0, i))};
-        distance_field(target.y, target.x) = 0;
+        IVec target{int(target_coordinates(1, i)), int(target_coordinates(0, i))};
+        distance_field(target.y(), target.x()) = 0;
         border.push(target);
     }
     while (!border.empty())
     {
-        sf::Vector2i point = border.front();
+        IVec point = border.front();
         border.pop();
-        arma::u32 distance = distance_field(point.y, point.x) + 1;
+        arma::u32 distance = distance_field(point.y(), point.x()) + 1;
         for (const auto step : steps)
         {
-            sf::Vector2i new_point = point + step;
+            IVec new_point = point + step;
             if (!in_bounds(new_point))
                 continue;
-            if (!traversable(new_point.y, new_point.x))
+            if (!traversable(new_point.y(), new_point.x()))
                 continue;
-            if (distance_field(new_point.y, new_point.x) == infinity)
+            if (distance_field(new_point.y(), new_point.x()) == infinity)
             {
                 border.push(new_point);
-                distance_field(new_point.y, new_point.x) = distance;
+                distance_field(new_point.y(), new_point.x()) = distance;
             }
         }
     }

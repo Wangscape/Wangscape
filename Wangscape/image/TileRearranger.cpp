@@ -18,12 +18,12 @@ TileRearranger<Corners>::TileRearranger()
 
 template<unsigned int Corners>
 const TileRearrangement TileRearranger<Corners>::rearrangeTile(const sf::Image & base_tile,
-                                                      sf::Vector2i offset_a,
-                                                      sf::Vector2i offset_b)
+                                                      IVec offset_a,
+                                                      IVec offset_b)
 {
     mTileRearrangement.offsetA = offset_a;
     mTileRearrangement.offsetB = offset_b;
-    mTileRearrangement.baseSize = base_tile.getSize();
+    mTileRearrangement.baseSize = makeUVec(base_tile.getSize());
     validateColours();
     decomposeBaseTile(base_tile);
     validateBaseTile();
@@ -130,8 +130,8 @@ ImageStackGrey TileRearranger<Corners>::tessellated(const ImageGrey & image) con
         for (int x = 0; x < 3; x++)
         {
             copyRegionBounded(image_padded, tessellation.slice(3 * y + x),
-                              sf::Vector2i(0, 0), (x - 1)*mTileRearrangement.offsetB + (y - 1)*mTileRearrangement.offsetA,
-                              sf::Vector2i(image_padded.n_cols, image_padded.n_rows));
+                              IVec(0, 0), (x - 1)*mTileRearrangement.offsetB + (y - 1)*mTileRearrangement.offsetA,
+                              IVec(makeUVec(arma::size(image_padded))));
         }
     }
     return tessellation;
@@ -209,14 +209,14 @@ void TileRearranger<Corners>::calculateRearrangementParameters()
     mTileRearrangement.allOffsets = {{1, 1}, {1, 0}, {0, 0}, {0, 1}};
     for (auto& offset : mTileRearrangement.allOffsets)
     {
-        offset = offset.x * mTileRearrangement.offsetA + offset.y * mTileRearrangement.offsetB;
+        offset = offset.x() * mTileRearrangement.offsetA + offset.y() * mTileRearrangement.offsetB;
     }
     std::array<sf::IntRect, Corners> dual_corner_bboxes;
     for (unsigned int c = 0; c < Corners; c++)
     {
         dual_corner_bboxes[c] = corner_bboxes[c];
-        dual_corner_bboxes[c].left += mTileRearrangement.allOffsets[c].x;
-        dual_corner_bboxes[c].top += mTileRearrangement.allOffsets[c].y;
+        dual_corner_bboxes[c].left += mTileRearrangement.allOffsets[c].x();
+        dual_corner_bboxes[c].top += mTileRearrangement.allOffsets[c].y();
     }
     auto dual_bbox = dual_corner_bboxes[0];
     for (unsigned int c = 1; c < Corners; c++)
@@ -230,8 +230,8 @@ void TileRearranger<Corners>::calculateRearrangementParameters()
 template<unsigned int Corners>
 void TileRearranger<Corners>::makeDual()
 {
-    mTileRearrangement.dualPartition.set_size(mTileRearrangement.dualSize.y,
-                                              mTileRearrangement.dualSize.x,
+    mTileRearrangement.dualPartition.set_size(mTileRearrangement.dualSize.y(),
+                                              mTileRearrangement.dualSize.x(),
                                               Corners);
     mTileRearrangement.dualPartition.fill(0);
     for (unsigned int c = 0; c < Corners; c++)
@@ -240,7 +240,7 @@ void TileRearranger<Corners>::makeDual()
                           mTileRearrangement.dualPartition.slice(c),
                           {0, 0},
                           mTileRearrangement.allOffsets[c] - mTileRearrangement.dualOffset,
-                          sf::Vector2i(mTileRearrangement.baseSize));
+                          IVec(mTileRearrangement.baseSize));
     }
     mTileRearrangement.dual = arma::sum(mTileRearrangement.dualPartition, 2).eval();
 }

@@ -12,12 +12,12 @@ public:
     ImageStackGrey dualPartition;
     ImageStackGrey dualEdges;
     ImageStackGrey dualCorners;
-    sf::Vector2u baseSize;
-    sf::Vector2i offsetA;
-    sf::Vector2i offsetB;
-    sf::Vector2i dualOffset;
-    std::vector<sf::Vector2i> allOffsets;
-    sf::Vector2u dualSize;
+    UVec baseSize;
+    IVec offsetA;
+    IVec offsetB;
+    IVec dualOffset;
+    std::vector<IVec> allOffsets;
+    UVec dualSize;
 
     sf::Image rearrangeTexture(const sf::Image& base_texture) const;
     ImageStackGrey32 getCornerDistances(bool use_diagonals) const;

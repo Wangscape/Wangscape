@@ -234,7 +234,7 @@ TEST_F(TestTileRearranger, TestTileRearrangerMinimal)
     i.setPixel(0, 1, sf::Color::Yellow);
     const auto rearrangement = tr.rearrangeTile(i, {0, 2}, {2, 0});
     sf::Image d = rearrangement.rearrangeTexture(i);
-    EXPECT_EQ(d.getSize(), sf::Vector2u(2, 2)) << "Wrong size dual tile";
+    EXPECT_EQ(makeUVec(d.getSize()), UVec(2, 2)) << "Wrong size dual tile";
 
     EXPECT_EQ(rearrangement.dualPartition(1, 1, 0), 1) << "Wrong dual partition";
     EXPECT_EQ(rearrangement.dualPartition(1, 0, 1), 1) << "Wrong dual partition";
