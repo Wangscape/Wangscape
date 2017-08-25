@@ -21,24 +21,35 @@ const TileRearrangement TileRearranger<Corners>::rearrangeTile(const sf::Image &
                                                       IVec offset_a,
                                                       IVec offset_b)
 {
+    // Initialise vectors
     mTileRearrangement.offsetA = offset_a;
     mTileRearrangement.offsetB = offset_b;
     mTileRearrangement.baseSize = makeUVec(base_tile.getSize());
-    validateColours();
 
+    // Check all region colours are unique
+    validateColours();
+    // Convert base tile image into stack of partition masks
     decomposeBaseTile(base_tile);
+    // Check base tile regions are nonempty and nonoverlapping
     validateBaseTile();
 
+    // Tessellate padded version of base tile in 3x3 grid 
     const auto tessellation_offsets = makeTessellationOffsets();
     const auto base_tessellation = tessellated(mTileRearrangement.base, tessellation_offsets);
+    // Check that tessellation has no holes or overlaps
     validateTessellation(base_tessellation);
 
+    // Find bounding box of dual tile in base tile coordinates
     calculateRearrangementParameters();
+    // Translate each region of the base tile partition into dual tile partition, and assemble them
     makeDual();
 
+    // Tessellate padded version of dual tile in 3x3 grid
     const auto dual_tessellation = tessellated(mTileRearrangement.dual, tessellation_offsets);
+    // Check that tessellation has no holes or overlaps
     validateTessellation(dual_tessellation);
 
+    // Use adjacency between dual tile mask and offset versions to find edges and corners of dual tile mask
     findDualBoundaries(dual_tessellation);
 
     return mTileRearrangement;
