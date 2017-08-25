@@ -70,10 +70,10 @@ void TileRearranger::decomposeBaseTile(const sf::Image & base_tile)
             (base_tile_cube == uniform_colour_cube).eval());
         // Armadillo doesn't have a product or general reducer function,
         // so we have to use sum instead.
-        const auto not = [](bool x) { return !x; };
-        channel_matches.transform(not);
+        const auto not_function = [](bool x) { return !x; };
+        channel_matches.transform(not_function);
         ImageGrey pixel_matches = arma::sum(channel_matches, 2);
-        pixel_matches.transform(not);
+        pixel_matches.transform(not_function);
         mTileRearrangement.basePartition.slice(c) = pixel_matches;
     }
     mTileRearrangement.base = arma::sum(mTileRearrangement.basePartition, 2);
