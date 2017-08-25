@@ -112,9 +112,8 @@ bool isConnected(const ImageGrey & image, bool use_diagonals)
         return false;
     const auto start_index = image.index_max();
     const auto start = arma::ind2sub(size(image), start_index);
-    //const auto less = [](IVec a, IVec b) {return std::tie(a.x(), a.y()) < std::tie(b.x(), b.y()); };
-    std::set<IVec> component;// , decltype(less) > component(less);
-    std::set<IVec> border;// , decltype(less) > border(less);
+    std::set<IVec> component;
+    std::set<IVec> border;
     border.insert(IVec(start(1), start(0)));
     const auto& steps = use_diagonals ? orthodiagonal_steps : orthogonal_steps;
     const auto shape = makeUVec(arma::size(image));
