@@ -117,6 +117,18 @@ after_build:
     
     copy ..\..\lib\vmmlib\LICENSE.txt licenses\LICENSE_vmmlib.txt
     
+    copy ..\..\lib\googletest\googletest\LICENSE licenses\LICENSE_googletest.txt
+    
+    copy ..\..\lib\libnoise\LICENSE licenses\LICENSE_libnoise.txt
+    
+    copy ..\..\lib\spotify-json\LICENSE licenses\LICENSE_spotify-json.txt
+    
+    Start-FileDownload "https://raw.githubusercontent.com/google/double-conversion/master/LICENSE" -FileName "licenses\LICENSE_double-conversion.txt"
+    
+    Start-FileDownload "https://raw.githubusercontent.com/conradsnicta/armadillo-code/unstable/LICENSE.txt" -FileName "licenses\LICENSE_Armadillo.txt"
+    
+    Start-FileDownload "https://raw.githubusercontent.com/xianyi/OpenBLAS/develop/LICENSE" -FileName "licenses\LICENSE_OpenBLAS.txt"
+    
     cd ..
     
     7z a Wangscape.zip Wangscape

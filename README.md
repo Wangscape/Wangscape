@@ -93,6 +93,8 @@ Wangscape depends on these libraries:
 * **SFML 2**
   - system
   - graphics
+* **Armadillo**
+  - **OpenBLAS**
 * **spotify-json** (submodule)
   - **double-conversion** (submodule)
 * **libnoise** (submodule)
