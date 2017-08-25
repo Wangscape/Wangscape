@@ -87,7 +87,7 @@ void TilesetGenerator::writeDebugTile(const DebugTilesetID& debugTilesetID, nois
 {
     if (mDebugTilesets.find(debugTilesetID) == mDebugTilesets.end())
     {
-        mDebugTilesets.emplace(std::make_pair(DebugTilesetID(debugTilesetID), std::move(getBlankImage(mResX, mResY)))).first;
+        mDebugTilesets.emplace(std::make_pair(DebugTilesetID(debugTilesetID), std::move(getBlankImage(mResX, mResY))));
     }
     sf::RenderTexture& tileset = *mDebugTilesets.at(debugTilesetID).get();
     // There are far more map lookups here than necessary.
