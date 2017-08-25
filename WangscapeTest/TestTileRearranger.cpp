@@ -37,8 +37,12 @@ protected:
         {
             for (size_t x = 0; x < shape.x; x++)
             {
-                EXPECT_EQ(expected.getPixel(x, y), actual.getPixel(x, y)) << message << "\n" <<
-                    "at " << x << ", " << y;
+                if (expected.getPixel(x, y) != actual.getPixel(x, y))
+                {
+                    EXPECT_EQ(expected.getPixel(x, y), actual.getPixel(x, y)) << message << "\n" <<
+                        "first disagreement at " << x << ", " << y;
+                    return;
+                }
             }
         }
     }
