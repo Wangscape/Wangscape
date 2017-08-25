@@ -113,6 +113,20 @@ after_build:
     
     xcopy /s /i ..\..\doc doc
     
+    mkdir licenses
+    
+    xcopy ..\..\lib\googletest\googletest\LICENSE licenses\LICENSE_googletest.txt
+    
+    xcopy ..\..\lib\libnoise\LICENSE licenses\LICENSE_libnoise.txt
+    
+    xcopy ..\..\lib\spotify-json\LICENSE licenses\LICENSE_spotify-json.txt
+    
+    $webclient.DownloadFile("https://raw.githubusercontent.com/google/double-conversion/master/LICENSE", "licenses\LICENSE_double-conversion.txt")
+    
+    $webclient.DownloadFile("https://raw.githubusercontent.com/conradsnicta/armadillo-code/unstable/LICENSE.txt", "licenses\LICENSE_Armadillo.txt")
+    
+    $webclient.DownloadFile("https://raw.githubusercontent.com/xianyi/OpenBLAS/develop/LICENSE", "licenses\LICENSE_OpenBLAS.txt")
+    
     cd ..
     
     7z a Wangscape.zip Wangscape
