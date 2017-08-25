@@ -4,7 +4,6 @@
 #include "Image.h"
 #include "TileRearrangement.h"
 
-template<unsigned int Corners>
 class TileRearranger
 {
 public:
@@ -15,10 +14,10 @@ public:
                                           IVec offset_a,
                                           IVec offset_b);
 
+    constexpr static unsigned int Corners = 4;
     std::array<sf::Color, Corners> regionColours;
 
 private:
-    static constexpr unsigned int dualCorners();
     void decomposeBaseTile(const sf::Image& base_tile);
     void validateBaseTile() const;
     void validateColours() const;
@@ -27,5 +26,6 @@ private:
     void calculateRearrangementParameters();
     void makeDual();
     std::vector<IVec> makeTessellationOffsets() const;
+
     TileRearrangement mTileRearrangement;
 };

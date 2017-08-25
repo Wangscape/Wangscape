@@ -225,7 +225,7 @@ TEST_F(TestTileRearranger, TestCopyRegionBounded)
 
 TEST_F(TestTileRearranger, TestTileRearrangerMinimal)
 {
-    TileRearranger<4> tr;
+    TileRearranger tr;
     sf::Image i;
     i.create(2, 2);
     i.setPixel(0, 0, sf::Color::Red);
@@ -289,7 +289,7 @@ TEST_F(TestTileRearranger, TestTileRearrangerComplex)
     const auto test_path = boost::filesystem::path(getDocumentationPath()) / "tests" / "rearranger";
     sf::Image base;
     base.loadFromFile((test_path / "base.png").string());
-    const auto rearrangement = TileRearranger<4>().rearrangeTile(base, {80, 0}, {0, 80});
+    const auto rearrangement = TileRearranger().rearrangeTile(base, {80, 0}, {0, 80});
     sf::Image dual;
     dual.loadFromFile((test_path / "dual.png").string());
     sf::Image computed_dual = rearrangement.rearrangeTexture(base);

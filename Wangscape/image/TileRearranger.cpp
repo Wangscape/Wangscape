@@ -9,15 +9,13 @@ const static std::array<sf::Color, 6> default_region_colours{
     sf::Color::Cyan,
     sf::Color::Magenta};
 
-template<unsigned int Corners>
-TileRearranger<Corners>::TileRearranger()
+TileRearranger::TileRearranger()
 {
     for (int i = 0; i < Corners; i++)
         regionColours[i] = default_region_colours[i];
 }
 
-template<unsigned int Corners>
-const TileRearrangement TileRearranger<Corners>::rearrangeTile(const sf::Image & base_tile,
+const TileRearrangement TileRearranger::rearrangeTile(const sf::Image & base_tile,
                                                       IVec offset_a,
                                                       IVec offset_b)
 {
@@ -55,17 +53,7 @@ const TileRearrangement TileRearranger<Corners>::rearrangeTile(const sf::Image &
     return mTileRearrangement;
 }
 
-template<unsigned int Corners>
-constexpr unsigned int TileRearranger<Corners>::dualCorners()
-{
-    return (Corners == 3) ? 6 :
-        (Corners == 4) ? 4 :
-        (Corners == 6) ? 3 :
-        0;
-}
-
-template<unsigned int Corners>
-void TileRearranger<Corners>::decomposeBaseTile(const sf::Image & base_tile)
+void TileRearranger::decomposeBaseTile(const sf::Image & base_tile)
 {
     const auto base_tile_cube = imageFromSFImage(base_tile);
     mTileRearrangement.basePartition.set_size(base_tile_cube.n_rows,
@@ -91,8 +79,7 @@ void TileRearranger<Corners>::decomposeBaseTile(const sf::Image & base_tile)
     mTileRearrangement.base = arma::sum(mTileRearrangement.basePartition, 2);
 }
 
-template<unsigned int Corners>
-void TileRearranger<Corners>::validateBaseTile() const
+void TileRearranger::validateBaseTile() const
 {
     if (!isNonzero(mTileRearrangement.base))
     {
@@ -124,8 +111,7 @@ void TileRearranger<Corners>::validateBaseTile() const
     }
 }
 
-template<unsigned int Corners>
-void TileRearranger<Corners>::validateColours() const
+void TileRearranger::validateColours() const
 {
     const auto less = [](sf::Color x, sf::Color y) {return x.toInteger() < y.toInteger(); };
     std::set <sf::Color, decltype(less)> colours_set(less);
@@ -138,8 +124,7 @@ void TileRearranger<Corners>::validateColours() const
     }
 }
 
-template<unsigned int Corners>
-void TileRearranger<Corners>::validateTessellation(const ImageStackGrey & tessellation)
+void TileRearranger::validateTessellation(const ImageStackGrey & tessellation)
 {
     if (tessellation.max() > 1)
     {
@@ -164,8 +149,7 @@ void TileRearranger<Corners>::validateTessellation(const ImageStackGrey & tessel
     }
 }
 
-template<unsigned int Corners>
-void TileRearranger<Corners>::findDualBoundaries(const ImageStackGrey& dual_tessellation)
+void TileRearranger::findDualBoundaries(const ImageStackGrey& dual_tessellation)
 {
     ImageGrey central_boundary = boundary(dual_tessellation.slice(4));
     std::array<unsigned int, Corners> corner_codes{8, 6, 0, 2};
@@ -197,8 +181,7 @@ void TileRearranger<Corners>::findDualBoundaries(const ImageStackGrey& dual_tess
     mTileRearrangement.dualEdges = unpaddedStack(mTileRearrangement.dualEdges);
 }
 
-template<unsigned int Corners>
-void TileRearranger<Corners>::calculateRearrangementParameters()
+void TileRearranger::calculateRearrangementParameters()
 {
     std::array<sf::IntRect, Corners> corner_bboxes;
     for (int c = 0; c < Corners; c++)
@@ -227,8 +210,7 @@ void TileRearranger<Corners>::calculateRearrangementParameters()
     mTileRearrangement.dualOffset = {dual_bbox.left, dual_bbox.top};
 }
 
-template<unsigned int Corners>
-void TileRearranger<Corners>::makeDual()
+void TileRearranger::makeDual()
 {
     mTileRearrangement.dualPartition.set_size(mTileRearrangement.dualSize.y(),
                                               mTileRearrangement.dualSize.x(),
@@ -245,8 +227,7 @@ void TileRearranger<Corners>::makeDual()
     mTileRearrangement.dual = arma::sum(mTileRearrangement.dualPartition, 2).eval();
 }
 
-template<unsigned int Corners>
-std::vector<IVec> TileRearranger<Corners>::makeTessellationOffsets() const
+std::vector<IVec> TileRearranger::makeTessellationOffsets() const
 {
     std::vector<IVec> offsets;
     for (int y = 0; y < 3; y++)
@@ -258,7 +239,3 @@ std::vector<IVec> TileRearranger<Corners>::makeTessellationOffsets() const
     }
     return offsets;
 }
-
-// template class TileRearranger<3>;
-template class TileRearranger<4>;
-// template class TileRearranger<6>;
