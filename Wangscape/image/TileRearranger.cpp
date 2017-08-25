@@ -1,6 +1,6 @@
 #include "TileRearranger.h"
 #include <set>
-#include "Logging/Logging.h"
+#include "logging/Logging.h"
 const static std::array<sf::Color, 6> default_region_colours{
     sf::Color::Red,
     sf::Color::Green,
