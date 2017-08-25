@@ -115,11 +115,11 @@ after_build:
     
     mkdir licenses
     
-    xcopy ..\..\lib\googletest\googletest\LICENSE licenses\LICENSE_googletest.txt
+    copy ..\..\lib\googletest\googletest\LICENSE licenses\LICENSE_googletest.txt
     
-    xcopy ..\..\lib\libnoise\LICENSE licenses\LICENSE_libnoise.txt
+    copy ..\..\lib\libnoise\LICENSE licenses\LICENSE_libnoise.txt
     
-    xcopy ..\..\lib\spotify-json\LICENSE licenses\LICENSE_spotify-json.txt
+    copy ..\..\lib\spotify-json\LICENSE licenses\LICENSE_spotify-json.txt
     
     $webclient.DownloadFile("https://raw.githubusercontent.com/google/double-conversion/master/LICENSE", "licenses\LICENSE_double-conversion.txt")
     
