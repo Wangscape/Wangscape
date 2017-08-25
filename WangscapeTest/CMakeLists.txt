@@ -19,7 +19,9 @@ set(tst-src
     TestReciprocal.cpp
     TestRequiringOptions.cpp
     TestTilePartitionerSquares.cpp
-    TestTilesetGenerator.cpp)
+    TestTileRearranger.cpp
+    TestTilesetGenerator.cpp
+    TestVector.cpp)
 
 add_executable(WangscapeTest ${tst-src})
 
