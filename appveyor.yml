@@ -113,6 +113,10 @@ after_build:
     
     xcopy /s /i ..\..\doc doc
     
+    mkdir licenses
+    
+    copy ..\..\lib\vmmlib\LICENSE.txt licenses\LICENSE_vmmlib.txt
+    
     cd ..
     
     7z a Wangscape.zip Wangscape
