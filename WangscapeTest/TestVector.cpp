@@ -52,3 +52,9 @@ TEST_F(TestVector, TestVectorScalarOps)
 
     EXPECT_EQ(DVec(2.5, 2.75), dv2 / 4);
 }
+
+TEST_F(TestVector, TestVectorConversions)
+{
+    EXPECT_EQ(IVec(2, 3), IVec(uv));
+    EXPECT_EQ(DVec(6, 7), DVec(iv2));
+}
