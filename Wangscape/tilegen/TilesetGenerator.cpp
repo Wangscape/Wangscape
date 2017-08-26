@@ -10,11 +10,12 @@
 namespace tilegen
 {
 
-TilesetGenerator::TilesetGenerator(const Options& options,
-                                   std::unique_ptr<partition::TilePartitionerBase> tile_partitioner) :
-    options(options),
-    mTilePartitioner(std::move(tile_partitioner)),
-    mDebugTileBuilder(mDebugTile, {0., 0., 1., 1.})
+TilesetGenerator::TilesetGenerator(const Options& options_,
+                                   std::unique_ptr<partition::TilePartitionerBase> tile_partitioner_) :
+    options(options_),
+    mTilePartitioner(std::move(tile_partitioner_)),
+    mDebugTileBuilder(mDebugTile, {0., 0., 1., 1.}),
+    images(options_.tileFormat.resolution)
     // TODO (Serin) this sf::Rect is repeated in TilePartitionerNoise, factor it out
 {
     if (options.debugOutput)

@@ -18,8 +18,8 @@ class TilesetGenerator
 {
 public:
     typedef CartesianPower<Options::Clique::const_iterator> CornersGenerator;
-    TilesetGenerator(const Options& options,
-                     std::unique_ptr<partition::TilePartitionerBase> tile_partitioner);
+    TilesetGenerator(const Options& options_,
+                     std::unique_ptr<partition::TilePartitionerBase> tile_partitioner_);
     virtual ~TilesetGenerator() = default;
     void generate(std::function<void(const sf::Texture&, std::string)> callback);
     void generateClique(const Options::Clique& clique, sf::RenderTexture& image, std::string filename);
