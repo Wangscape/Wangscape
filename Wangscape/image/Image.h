@@ -39,8 +39,6 @@ ImageGrey padded(const ImageGrey& image);
 ImageGrey unpadded(const ImageGrey& image);
 // Undoes padding of a stack by stripping the first and last rows and columns. Every slice is preserved.
 ImageStackGrey unpaddedStack(const ImageStackGrey& image_stack);
-// Generic function implementing both dilation and erosion.
-ImageGrey dilatedEroded(const ImageGrey& image, bool use_diagonals, arma::u8 edge_value, bool dilate);
 // Returns an image in which every pixel's value is the maximum value within its neighbourhood in the input image.
 ImageGrey dilated(const ImageGrey& image, bool use_diagonals = true, arma::u8 edge_value = 0);
 // Returns an image in which every pixel's value is the minimum value within its neighbourhood in the input image.

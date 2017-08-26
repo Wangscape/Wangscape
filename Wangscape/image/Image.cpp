@@ -6,11 +6,34 @@
 
 #include "logging/Logging.h"
 
-const static std::vector<IVec> orthogonal_steps{
+namespace
+{
+const static std::vector<IVec> ORTHOGONAL_STEPS{
     {0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-const static std::vector<IVec> orthodiagonal_steps{
+const static std::vector<IVec> ORTHODIAGONAL_STEPS{
     {0, 1}, {1, 0}, {0, -1}, {-1, 0},
     {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
+
+ImageGrey dilatedEroded(const ImageGrey & image, bool use_diagonals, arma::u8 edge_value, bool dilate)
+{
+    const auto& steps = use_diagonals ? ORTHODIAGONAL_STEPS : ORTHOGONAL_STEPS;
+    const auto n_steps = steps.size();
+    ImageStackGrey displacements(image.n_rows, image.n_cols, n_steps + 1);
+    displacements.fill(edge_value);
+    displacements.slice(0) = image;
+    for (unsigned int s = 0; s < n_steps; s++)
+    {
+        copyRegionBounded(image, displacements.slice(s + 1),
+                          IVec(0, 0), steps[s],
+                          IVec(makeUVec(arma::size(image))));
+    }
+    if (dilate)
+        return arma::max(displacements, 2).eval();
+    else
+        return arma::min(displacements, 2).eval();
+}
+
+} // anonymous namespace
 
 ImageColour imageFromSFImage(const sf::Image & sf_image)
 {
@@ -115,7 +138,7 @@ bool isConnected(const ImageGrey & image, bool use_diagonals)
     std::set<IVec> component;
     std::set<IVec> border;
     border.insert(IVec(start(1), start(0)));
-    const auto& steps = use_diagonals ? orthodiagonal_steps : orthogonal_steps;
+    const auto& steps = use_diagonals ? ORTHODIAGONAL_STEPS : ORTHOGONAL_STEPS;
     const auto shape = makeUVec(arma::size(image));
     const auto in_bounds = [&shape](IVec point)
     {
@@ -174,25 +197,6 @@ ImageStackGrey unpaddedStack(const ImageStackGrey & image_stack)
     return image_stack.subcube(arma::span(1, image_stack.n_rows - 2),
                                arma::span(1, image_stack.n_cols - 2),
                                arma::span::all);
-}
-
-ImageGrey dilatedEroded(const ImageGrey & image, bool use_diagonals, arma::u8 edge_value, bool dilate)
-{
-    const auto& steps = use_diagonals ? orthodiagonal_steps : orthogonal_steps;
-    const auto n_steps = steps.size();
-    ImageStackGrey displacements(image.n_rows, image.n_cols, n_steps + 1);
-    displacements.fill(edge_value);
-    displacements.slice(0) = image;
-    for (unsigned int s = 0; s < n_steps; s++)
-    {
-        copyRegionBounded(image, displacements.slice(s + 1),
-                          IVec(0, 0), steps[s],
-                          IVec(makeUVec(arma::size(image))));
-    }
-    if (dilate)
-        return arma::max(displacements, 2).eval();
-    else
-        return arma::min(displacements, 2).eval();
 }
 
 ImageGrey eroded(const ImageGrey & image, bool use_diagonals, arma::u8 edge_value)
@@ -260,7 +264,7 @@ ImageGrey32 distances(const ImageGrey & traversable, const ImageGrey & targets, 
     distance_field.fill(infinity);
     const auto target_coordinates = arma::ind2sub(arma::size(targets), arma::find(targets)).eval();
     std::queue<IVec> border;
-    const auto& steps = use_diagonals ? orthodiagonal_steps : orthogonal_steps;
+    const auto& steps = use_diagonals ? ORTHODIAGONAL_STEPS : ORTHOGONAL_STEPS;
     const auto in_bounds = [&shape](IVec point)
     {
         if (point.x() < 0 || point.y() < 0)
