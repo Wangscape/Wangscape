@@ -159,6 +159,23 @@ TEST_F(TestTileRearranger, TestNeighbourhoodIntersection)
     expectImagesEqual(neighbourhood_intersection_diagonal, neighbourhoodIntersection(mask, neighbours, true));
 }
 
+TEST_F(TestTileRearranger, TestTessellated)
+{
+    ImageGrey image = {{0, 1}, {2, 3}};
+    std::vector<IVec> offsets = {{2, 0}, {0, 2}, {-2, 0}, {0, -2}};
+    ImageStackGrey image_tessellated(4, 4, 4);
+    image_tessellated.slice(0) = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 2}, {0, 0, 0, 0}};
+    image_tessellated.slice(1) = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 1, 0}};
+    image_tessellated.slice(2) = {{0, 0, 0, 0}, {1, 0, 0, 0}, {3, 0, 0, 0}, {0, 0, 0, 0}};
+    image_tessellated.slice(3) = {{0, 2, 3, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
+    ImageStackGrey computed_tessellation = tessellated(image, offsets);
+    EXPECT_EQ(arma::SizeCube(4, 4, 4), arma::size(computed_tessellation));
+    for (unsigned int s = 0; s < 4; s++)
+    {
+        expectImagesEqual(image_tessellated.slice(s), computed_tessellation.slice(s));
+    }
+}
+
 TEST_F(TestTileRearranger, TestRegionBox)
 {
     ImageGrey image = {{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 1, 1, 0}, {0, 0, 0, 0}};
