@@ -29,3 +29,5 @@ private:
 
     TileRearrangement mTileRearrangement;
 };
+
+TileRearrangement rectangularRearrangement(UVec size);

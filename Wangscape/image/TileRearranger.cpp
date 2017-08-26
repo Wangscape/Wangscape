@@ -239,3 +239,25 @@ std::vector<IVec> TileRearranger::makeTessellationOffsets() const
     }
     return offsets;
 }
+
+TileRearrangement rectangularRearrangement(UVec size)
+{
+    ImageColour base_tile_array(size.y(), size.x(), 4);
+    const UVec middle = size / 2;
+
+    const auto set_rectangle = [&base_tile_array](sf::Color colour, arma::span x_span, arma::span y_span)
+    {
+        base_tile_array.slice(0).submat(y_span, x_span).fill(arma::u8(colour.r));
+        base_tile_array.slice(1).submat(y_span, x_span).fill(arma::u8(colour.g));
+        base_tile_array.slice(2).submat(y_span, x_span).fill(arma::u8(colour.b));
+        base_tile_array.slice(3).submat(y_span, x_span).fill(arma::u8(colour.a));
+    };
+    set_rectangle(sf::Color::Red, arma::span(0, middle.x() - 1), arma::span(0, middle.y() - 1));
+    set_rectangle(sf::Color::Green, arma::span(middle.x(), size.x() - 1), arma::span(0, middle.y() - 1));
+    set_rectangle(sf::Color::Blue, arma::span(middle.x(), size.x() - 1), arma::span(middle.y(), size.y() - 1));
+    set_rectangle(sf::Color::Yellow, arma::span(0, middle.x() - 1), arma::span(middle.y(), size.y() - 1));
+
+    sf::Image base_tile = imageToSFImage(base_tile_array);
+
+    return TileRearranger().rearrangeTile(base_tile, IVec(size.x(), 0), IVec(0, size.y()));
+}

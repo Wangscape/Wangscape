@@ -364,3 +364,17 @@ TEST_F(TestTileRearranger, TestTileRearrangerComplex)
         //saveImage(distance_edges.slice(c), "dedge" + std::to_string(c) + ".png");
     }
 }
+
+TEST_F(TestTileRearranger, TestDefaultRectangle)
+{
+    TileRearrangement rearrangement = rectangularRearrangement(UVec(3, 3));
+    ImageStackGrey dual_partition(3, 3, 4);
+    dual_partition.slice(0) = {{0, 0, 0}, {0, 0, 0}, {0, 0, 1}};
+    dual_partition.slice(1) = {{0, 0, 0}, {0, 0, 0}, {1, 1, 0}};
+    dual_partition.slice(2) = {{1, 1, 0}, {1, 1, 0}, {0, 0, 0}};
+    dual_partition.slice(3) = {{0, 0, 1}, {0, 0, 1}, {0, 0, 0}};
+    for (unsigned int c = 0; c < 4; c++)
+    {
+        expectImagesEqual(dual_partition.slice(c), rearrangement.dualPartition.slice(c));
+    }
+}
