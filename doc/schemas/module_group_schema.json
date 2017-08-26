@@ -490,12 +490,12 @@
         },
         "YDisplaceModule": {
           "type": "string",
-          "title": "Module XDisplaceModule schema",
+          "title": "Module YDisplaceModule schema",
           "description": "Specifies which of the keys in this module group contains the module that should be used as this module's Y displacement module."
         },
         "ZDisplaceModule": {
           "type": "string",
-          "title": "Module XDisplaceModule schema",
+          "title": "Module ZDisplaceModule schema",
           "description": "Specifies which of the keys in this module group contains the module that should be used as this module's Z displacement module."
         }
       },
