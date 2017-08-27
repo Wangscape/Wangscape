@@ -55,14 +55,14 @@ void MainWindow::generate()
     mUi->comboBox->clear();
     mPreviewImages.clear();
 
-    mTilesetGenerator->generate([this](const sf::Texture& output, std::string filename)
+    mTilesetGenerator->generate([this](const sf::Texture& output, std::string filepath)
     {
         const sf::Image source_image = output.copyToImage();
 
-        const auto basename = filename.substr(filename.rfind('/') + 1);
+        const auto filename = boost::filesystem::path(filepath).filename().string();
         const auto qimage = convertSfImageToQImage(source_image);
-        mPreviewImages.emplace(std::make_pair(basename,
-                                             std::make_pair(filename, std::move(qimage))));
+        mPreviewImages.emplace(std::make_pair(filename,
+                                             std::make_pair(filepath, std::move(qimage))));
     });
 
     initializePreviewArea();
