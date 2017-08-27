@@ -1,6 +1,8 @@
 #ifndef OPTIONSEDITOR_H
 #define OPTIONSEDITOR_H
 
+#include <memory>
+
 #include <QDockWidget>
 
 #include <Options.h>
@@ -17,7 +19,7 @@ public:
     explicit OptionsEditor(QWidget *parent_ = 0);
     ~OptionsEditor();
     bool useDefaultOuputDir() const;
-    void setOptions(Options* options);
+    void setOptions(std::shared_ptr<Options> options);
 
 private slots:
     void setAlphaCalculatorMode(const QString &mode_name);
@@ -26,7 +28,7 @@ private slots:
 private:
     void setAlphaCalculatorModeComboBox();
     Ui::OptionsEditor *mUi;
-    Options* mOptions;
+    std::shared_ptr<Options> mOptions;
     bool mUseDefaultOutputDir;
 };
 

@@ -73,12 +73,12 @@ void MainWindow::saveOutput()
 {
     if (mOptionsEditor->useDefaultOuputDir())
     {
-        mOptions.relativeOutputDirectory = mOriginalOptions.relativeOutputDirectory;
+        mOptions->relativeOutputDirectory = mOriginalOptions.relativeOutputDirectory;
     }
     else
     {
         QString chosen_path = QFileDialog::getExistingDirectory(this, tr("Select output directory"));
-        mOptions.relativeOutputDirectory = chosen_path.toLocal8Bit().constData();
+        mOptions->relativeOutputDirectory = chosen_path.toLocal8Bit().constData();
     }
 
     if (mPreviewImages.empty())
@@ -91,7 +91,7 @@ void MainWindow::saveOutput()
     // set to mOptions.relativeOutputDirectory not part of preview_image filepath,
     // cause it is is used to generate that filepath and it makes
     // modifying output dir for the whole output a lot easier
-    const std::string image_dir = mOptions.relativeOutputDirectory;
+    const std::string image_dir = mOptions->relativeOutputDirectory;
     boost::filesystem::create_directories(image_dir);
     boost::filesystem::path p(image_dir);
     for (const auto& preview_image : mPreviewImages)
@@ -106,7 +106,7 @@ void MainWindow::saveOutput()
         p.remove_filename();
     }
 
-    mTilesetGenerator->metaOutput.writeAll(mOptions);
+    mTilesetGenerator->metaOutput.writeAll(*mOptions);
 
     QMessageBox success_message;
     success_message.information(this, "Saved!", QString("Output has been saved successfully"));
@@ -114,8 +114,8 @@ void MainWindow::saveOutput()
 
 void MainWindow::resetOptions()
 {
-    mOptions = mOriginalOptions;
-    mOptionsEditor->setOptions(&mOptions);
+    mOptions = std::make_shared<Options>(mOriginalOptions);
+    mOptionsEditor->setOptions(mOptions);
 }
 
 void MainWindow::loadOptionsFromFile()
@@ -196,7 +196,7 @@ QImage MainWindow::convertSfImageToQImage(const sf::Image& source_image)
 void MainWindow::resetTilesetGenerator()
 {
     std::unique_ptr<tilegen::partition::TilePartitionerBase> tileset_partitioner =
-        std::make_unique<tilegen::partition::TilePartitionerNoise>(mOptions);
+        std::make_unique<tilegen::partition::TilePartitionerNoise>(*mOptions);
 
-    mTilesetGenerator = std::make_unique<tilegen::TilesetGenerator>(mOptions, std::move(tileset_partitioner));
+    mTilesetGenerator = std::make_unique<tilegen::TilesetGenerator>(*mOptions, std::move(tileset_partitioner));
 }

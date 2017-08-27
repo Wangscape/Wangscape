@@ -44,7 +44,7 @@ private:
     QString mOptionsFilePath;
     std::unique_ptr<OptionsManager> mOptionsManager;
     Options mOriginalOptions;
-    Options mOptions;
+    std::shared_ptr<Options> mOptions;
     OptionsEditor* mOptionsEditor;
     std::unique_ptr<tilegen::TilesetGenerator> mTilesetGenerator;
 };

@@ -35,7 +35,7 @@ bool OptionsEditor::useDefaultOuputDir() const
     return mUseDefaultOutputDir;
 }
 
-void OptionsEditor::setOptions(Options *options)
+void OptionsEditor::setOptions(std::shared_ptr<Options> options)
 {
     mOptions = options;
     setAlphaCalculatorModeComboBox();
