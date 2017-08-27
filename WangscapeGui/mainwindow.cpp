@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <iostream>
-#include <fstream>
 #include <memory>
 
 #include<boost/filesystem.hpp>
@@ -20,7 +18,8 @@
 
 MainWindow::MainWindow(QWidget *parent_) :
     QMainWindow(parent_),
-    mUi(new Ui::MainWindow)
+    mUi(new Ui::MainWindow),
+    mOptionsEditor(new OptionsEditor(this))
 {
     mScene = new QGraphicsScene(this);
 
@@ -28,10 +27,13 @@ MainWindow::MainWindow(QWidget *parent_) :
     mUi->progressBar->setRange(0, 100);
     mUi->progressBar->setValue(0);
 
+    openOptionsEditor();
+
     connect(mUi->generateButton, SIGNAL(pressed()), this, SLOT(clickGenerateButton()));
     connect(mUi->comboBox, SIGNAL(activated(const QString&)), this, SLOT(displayTilesetPreview(const QString&)));
     connect(mUi->actionLoadOptions, SIGNAL(triggered()), this, SLOT(clickOptionsDirectoryButton()));
     connect(mUi->actionSaveOutput, SIGNAL(triggered()), this, SLOT(clickSaveButton()));
+    connect(mUi->actionOpenOptionsEditor, SIGNAL(triggered()), this, SLOT(openOptionsEditor()));
 }
 
 MainWindow::~MainWindow()
@@ -47,6 +49,11 @@ void MainWindow::clickGenerateButton()
         error_message.critical(this, "Error during tileset generation", QString("You have to select options file before clicking 'Generate...' button"));
         return;
     }
+
+    resetTilesetGenerator();
+
+    mUi->comboBox->clear();
+    mPreviewImages.clear();
 
     mTilesetGenerator->generate([this](const sf::Texture& output, std::string filename)
     {
@@ -64,6 +71,16 @@ void MainWindow::clickGenerateButton()
 
 void MainWindow::clickSaveButton()
 {
+    if (mOptionsEditor->useDefaultOuputDir())
+    {
+        mOptions.relativeOutputDirectory = mOriginalOptions.relativeOutputDirectory;
+    }
+    else
+    {
+        QString chosen_path = QFileDialog::getExistingDirectory(this, tr("Select output dir"));
+        mOptions.relativeOutputDirectory = chosen_path.toLocal8Bit().constData();
+    }
+
     if (mPreviewImages.empty())
     {
         QMessageBox warning_message;
@@ -71,29 +88,40 @@ void MainWindow::clickSaveButton()
         return;
     }
 
+    // set to mOptions.relativeOutputDirectory not part of preview_image filepath,
+    // cause it is is used to generate that filepath and it makes
+    // modifying output dir for the whole output a lot easier
+    const std::string image_dir = mOptions.relativeOutputDirectory;
+    boost::filesystem::create_directories(image_dir);
+    boost::filesystem::path p(image_dir);
     for (const auto& preview_image : mPreviewImages)
     {
-        const std::string image_dir = boost::filesystem::path(preview_image.second.first).remove_filename().string();
-        boost::filesystem::create_directories(image_dir);
-        if (!preview_image.second.second.save(QString(preview_image.second.first.c_str())))
+        p.append(preview_image.first);
+        if (!preview_image.second.second.save(QString(p.string().c_str())))
         {
             QMessageBox critical_error_message;
             critical_error_message.critical(this, "Error during saving tilesets", QString("Couldn't save tileset image"));
             return;
         }
+        p.remove_filename();
     }
 
-    mTilesetGenerator->metaOutput.writeAll(mOptionsManager->getOptions());
+    mTilesetGenerator->metaOutput.writeAll(mOptions);
 
     QMessageBox success_message;
     success_message.information(this, "Saved!", QString("Output has been saved successfully"));
 }
 
+void MainWindow::resetOptions()
+{
+    mOptions = mOriginalOptions;
+    mOptionsEditor->setOptions(&mOptions);
+}
+
 void MainWindow::clickOptionsDirectoryButton()
 {
     QString chosen_path = QFileDialog::getOpenFileName(this,
-                                                     tr("QFileDialog::getExistingDirectory()"),
-                                                     QString("hello"));
+                                                     tr("Select options file"));
     if (chosen_path.isEmpty())
         return;
 
@@ -102,11 +130,15 @@ void MainWindow::clickOptionsDirectoryButton()
     // TODO(hryniuk): make OptionsManager throw custom exception, catch it here
     // and show QMessageBox with a proper error message
     mOptionsManager = std::make_unique<OptionsManager>(chosen_path.toLocal8Bit().constData());
-    mOptions = mOptionsManager->getOptions();
+    mOriginalOptions = mOptionsManager->getOptions();
+
+    resetOptions();
+
     resetTilesetGenerator();
 
     mUi->comboBox->clear();
     mPreviewImages.clear();
+    mScene->clear();
 }
 
 void MainWindow::displayTilesetPreview(const QString& name)
@@ -118,7 +150,12 @@ void MainWindow::displayTilesetPreview(const QString& name)
     mScene->addPixmap(pixmap);
     mScene->setSceneRect(pixmap.rect());
     mUi->tilesetPreview->setScene(mScene);
+}
 
+void MainWindow::openOptionsEditor()
+{
+    mOptionsEditor->show();
+    addDockWidget(Qt::RightDockWidgetArea, mOptionsEditor);
 }
 
 void MainWindow::initializePreviewArea()

@@ -9,10 +9,10 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 include_directories(${Qt5Widgets_INCLUDE_DIR})
 
-qt5_wrap_ui(UIS_HDRS mainwindow.ui)
+qt5_wrap_ui(UIS_HDRS mainwindow.ui optionseditor.ui)
 
 # Tell CMake to create the helloworld executable
-add_executable(WangscapeGui WIN32 main.cpp mainwindow.cpp ${UIS_HDRS})
+add_executable(WangscapeGui WIN32 main.cpp mainwindow.cpp optionseditor.cpp ${UIS_HDRS})
 
 # Use the Widgets module from Qt 5.
 target_link_libraries(WangscapeGui wangscape-main)

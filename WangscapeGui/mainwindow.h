@@ -10,6 +10,7 @@
 #include <tilegen/TilesetGenerator.h>
 #include <Options.h>
 
+#include "optionseditor.h"
 
 namespace Ui {
 class MainWindow;
@@ -28,6 +29,8 @@ private slots:
     void clickSaveButton();
     void clickOptionsDirectoryButton();
     void displayTilesetPreview(const QString& name=QString());
+    void openOptionsEditor();
+    void resetOptions();
 
 private:
     void initializePreviewArea();
@@ -40,7 +43,9 @@ private:
     std::map<std::string, std::pair<std::string, QImage>> mPreviewImages;
     QString mOptionsFilePath;
     std::unique_ptr<OptionsManager> mOptionsManager;
+    Options mOriginalOptions;
     Options mOptions;
+    OptionsEditor* mOptionsEditor;
     std::unique_ptr<tilegen::TilesetGenerator> mTilesetGenerator;
 };
 
