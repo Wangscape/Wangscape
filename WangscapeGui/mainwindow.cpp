@@ -29,10 +29,10 @@ MainWindow::MainWindow(QWidget *parent_) :
 
     openOptionsEditor();
 
-    connect(mUi->generateButton, SIGNAL(pressed()), this, SLOT(clickGenerateButton()));
+    connect(mUi->generateButton, SIGNAL(pressed()), this, SLOT(generate()));
     connect(mUi->comboBox, SIGNAL(activated(const QString&)), this, SLOT(displayTilesetPreview(const QString&)));
-    connect(mUi->actionLoadOptions, SIGNAL(triggered()), this, SLOT(clickOptionsDirectoryButton()));
-    connect(mUi->actionSaveOutput, SIGNAL(triggered()), this, SLOT(clickSaveButton()));
+    connect(mUi->actionLoadOptions, SIGNAL(triggered()), this, SLOT(loadOptionsFromFile()));
+    connect(mUi->actionSaveOutput, SIGNAL(triggered()), this, SLOT(saveOutput()));
     connect(mUi->actionOpenOptionsEditor, SIGNAL(triggered()), this, SLOT(openOptionsEditor()));
 }
 
@@ -41,7 +41,7 @@ MainWindow::~MainWindow()
     delete mUi;
 }
 
-void MainWindow::clickGenerateButton()
+void MainWindow::generate()
 {
     if (mTilesetGenerator == nullptr)
     {
@@ -69,7 +69,7 @@ void MainWindow::clickGenerateButton()
     displayTilesetPreview();
 }
 
-void MainWindow::clickSaveButton()
+void MainWindow::saveOutput()
 {
     if (mOptionsEditor->useDefaultOuputDir())
     {
@@ -118,7 +118,7 @@ void MainWindow::resetOptions()
     mOptionsEditor->setOptions(&mOptions);
 }
 
-void MainWindow::clickOptionsDirectoryButton()
+void MainWindow::loadOptionsFromFile()
 {
     QString chosen_path = QFileDialog::getOpenFileName(this,
                                                      tr("Select options file"));

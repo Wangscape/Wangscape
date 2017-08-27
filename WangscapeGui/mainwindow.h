@@ -25,9 +25,9 @@ public:
     ~MainWindow();
 
 private slots:
-    void clickGenerateButton();
-    void clickSaveButton();
-    void clickOptionsDirectoryButton();
+    void generate();
+    void saveOutput();
+    void loadOptionsFromFile();
     void displayTilesetPreview(const QString& name=QString());
     void openOptionsEditor();
     void resetOptions();
