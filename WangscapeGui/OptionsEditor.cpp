@@ -1,5 +1,5 @@
-#include "optionseditor.h"
-#include "ui_optionseditor.h"
+#include "OptionsEditor.h"
+#include "ui_OptionsEditor.h"
 
 #include <tilegen/alpha/CalculatorMode.h>
 

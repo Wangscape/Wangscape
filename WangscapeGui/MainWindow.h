@@ -10,7 +10,7 @@
 #include <tilegen/TilesetGenerator.h>
 #include <Options.h>
 
-#include "optionseditor.h"
+#include "OptionsEditor.h"
 
 namespace Ui {
 class MainWindow;
