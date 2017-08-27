@@ -1,6 +1,7 @@
 #pragma once
 
-#include <unordered_map>
+#include <map>
+#include <string>
 
 namespace tilegen
 {
@@ -15,7 +16,7 @@ enum class CalculatorMode
     Dither
 };
 
-extern const std::unordered_map<std::string, CalculatorMode> calculatorModeByName;
+extern const std::map<std::string, CalculatorMode> calculatorModeByName;
 
 } // namespace alpha
 } // namespace tilegen
