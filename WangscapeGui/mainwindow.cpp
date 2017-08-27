@@ -129,8 +129,9 @@ void MainWindow::loadOptionsFromFile()
 
     // TODO(hryniuk): make OptionsManager throw custom exception, catch it here
     // and show QMessageBox with a proper error message
-    mOptionsManager = std::make_unique<OptionsManager>(chosen_path.toLocal8Bit().constData());
-    mOriginalOptions = mOptionsManager->getOptions();
+    auto& options_manager = getOptionsManager();
+    options_manager.loadOptions(chosen_path.toLocal8Bit().constData());
+    mOriginalOptions = options_manager.getOptions();
 
     resetOptions();
 

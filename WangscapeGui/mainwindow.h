@@ -42,7 +42,6 @@ private:
     // TODO(hryniuk): create a struct for this map's elements
     std::map<std::string, std::pair<std::string, QImage>> mPreviewImages;
     QString mOptionsFilePath;
-    std::unique_ptr<OptionsManager> mOptionsManager;
     Options mOriginalOptions;
     std::shared_ptr<Options> mOptions;
     OptionsEditor* mOptionsEditor;
