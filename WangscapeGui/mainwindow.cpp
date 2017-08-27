@@ -46,7 +46,7 @@ void MainWindow::generate()
     if (mTilesetGenerator == nullptr)
     {
         QMessageBox error_message;
-        error_message.critical(this, "Error during tileset generation", QString("You have to select options file before clicking 'Generate...' button"));
+        error_message.critical(this, "Error during tileset generation", QString("You must select an options file before clicking the 'Generate...' button"));
         return;
     }
 
@@ -77,14 +77,14 @@ void MainWindow::saveOutput()
     }
     else
     {
-        QString chosen_path = QFileDialog::getExistingDirectory(this, tr("Select output dir"));
+        QString chosen_path = QFileDialog::getExistingDirectory(this, tr("Select output directory"));
         mOptions.relativeOutputDirectory = chosen_path.toLocal8Bit().constData();
     }
 
     if (mPreviewImages.empty())
     {
         QMessageBox warning_message;
-        warning_message.warning(this, "Warning", QString("You have to generate tileset before saving it"));
+        warning_message.warning(this, "Warning", QString("You must generate a tileset before saving it"));
         return;
     }
 
