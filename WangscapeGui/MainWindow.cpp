@@ -178,9 +178,9 @@ QImage MainWindow::convertSfImageToQImage(const sf::Image& source_image)
     const sf::Vector2u output_image_size = source_image.getSize();
     QImage output_image(output_image_size.x, output_image_size.y, QImage::Format_RGB32);
 
-    for (int y = 0; y < output_image_size.y; ++y)
+    for (unsigned int y = 0u; y < output_image_size.y; ++y)
     {
-        for (int x = 0; x < output_image_size.x; ++x)
+        for (unsigned int x = 0u; x < output_image_size.x; ++x)
         {
             const sf::Color sfml_color = source_image.getPixel(x, y);
             const QColor color{sfml_color.r, sfml_color.g, sfml_color.b, sfml_color.a};
