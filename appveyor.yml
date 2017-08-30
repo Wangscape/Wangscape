@@ -5,6 +5,8 @@ platform: x86
 cache: packages
 nuget:
   project_feed: true
+init:
+- ps: $env:Path += ";C:\Qt\5.9.1\msvc2015\bin"
 before_build:
 - cmd: >-
     del "C:\Program Files (x86)\MSBuild\14.0\Microsoft.Common.targets\ImportAfter\Xamarin.Common.targets"

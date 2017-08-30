@@ -95,6 +95,7 @@ Wangscape depends on these libraries:
   - graphics
 * **Armadillo**
   - **OpenBLAS**
+* **Qt5**
 * **spotify-json** (submodule)
   - **double-conversion** (submodule)
 * **libnoise** (submodule)
@@ -127,7 +128,8 @@ First, install necessary packages with `apt`:
 
 ```shell
 apt install cmake g++ libsfml-dev libboost-system-dev \
-    libboost-filesystem-dev libboost-program-options-dev
+    libboost-filesystem-dev libboost-program-options-dev \
+    qt5-default
 ```
 
 ### Compilation
@@ -173,7 +175,7 @@ make
 First, install necessary packages with `Homebrew`:
 
 ```shell
-brew install boost sfml cmake
+brew install boost sfml cmake qt5
 ```
 
 #### Note

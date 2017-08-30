@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <LibraryPath>C:\Qt\5.9.1\msvc2015\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Qt\5.9.1\msvc2015\include;C:\Qt\5.9.1\msvc2015\include\QtWidgets;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile />
+    <Link>
+      <AdditionalDependencies>Qt5Widgets.lib;Qt5Core.lib;Qt5Gui.lib;qtmain.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "C:\Qt\5.9.1\msvc2015\bin\Qt5Widgetsd.dll" "$(TargetDir)"
+xcopy /y /d "C:\Qt\5.9.1\msvc2015\bin\Qt5Core.dll" "$(TargetDir)"
+xcopy /y /d "C:\Qt\5.9.1\msvc2015\bin\Qt5Gui.dll" "$(TargetDir)"
+xcopy /y /d "C:\Qt\5.9.1\msvc2015\plugins\platforms\qwindows.dll" "$(TargetDir)\plugins\"</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copy Qt5 dlls to output dir</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>
