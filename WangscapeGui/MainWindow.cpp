@@ -78,6 +78,10 @@ void MainWindow::saveOutput()
     else
     {
         QString chosen_path = QFileDialog::getExistingDirectory(this, tr("Select output directory"));
+        if (chosen_path.isEmpty())
+        {
+            return;
+        }
         mOptions->relativeOutputDirectory = chosen_path.toLocal8Bit().constData();
     }
 
