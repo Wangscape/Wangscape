@@ -82,6 +82,7 @@
     <ClCompile Include="image\Image.cpp" />
     <ClCompile Include="image\TileRearranger.cpp" />
     <ClCompile Include="image\TileRearrangement.cpp" />
+    <ClCompile Include="tilegen\alpha\CalculatorMode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codecs\OptionsCodec.h" />
