@@ -224,3 +224,10 @@ Wangview/.ipynb_checkpoints/
 Wangview/Untitled*
 
 *.orig
+
+#############
+## Qt
+#############
+
+ui_*.h
+moc_*.cpp

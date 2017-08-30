@@ -80,6 +80,7 @@
     <ClCompile Include="noise\module\codecs\ReciprocalWrapperCodec.cpp" />
     <ClCompile Include="noise\module\codecs\BitmapWrapperCodec.cpp" />
     <ClCompile Include="image\Image.cpp" />
+    <ClCompile Include="tilegen\alpha\CalculatorMode.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codecs\OptionsCodec.h" />
