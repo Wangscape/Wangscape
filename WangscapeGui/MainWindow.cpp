@@ -73,7 +73,7 @@ void MainWindow::saveOutput()
 {
     if (mOptionsEditor->useDefaultOuputDir())
     {
-        mOptions->relativeOutputDirectory = mOriginalOptions.relativeOutputDirectory;
+        mOptions->relativeOutputDirectory = (*mOriginalOptions).relativeOutputDirectory;
     }
     else
     {
@@ -118,8 +118,11 @@ void MainWindow::saveOutput()
 
 void MainWindow::resetOptions()
 {
-    mOptions = std::make_shared<Options>(mOriginalOptions);
-    mOptionsEditor->setOptions(mOptions);
+    if (mOriginalOptions)
+    {
+        mOptions = std::make_shared<Options>(*mOriginalOptions);
+        mOptionsEditor->setOptions(mOptions);
+    }
 }
 
 void MainWindow::loadOptionsFromFile()
@@ -135,7 +138,7 @@ void MainWindow::loadOptionsFromFile()
     // and show QMessageBox with a proper error message
     auto& options_manager = getOptionsManager();
     options_manager.loadOptions(chosen_path.toLocal8Bit().constData());
-    mOriginalOptions = options_manager.getOptions();
+    mOriginalOptions = boost::make_optional(options_manager.getOptions());
 
     resetOptions();
 

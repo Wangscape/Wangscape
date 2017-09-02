@@ -42,7 +42,7 @@ private:
     // TODO(hryniuk): create a struct for this map's elements
     std::map<std::string, std::pair<std::string, QImage>> mPreviewImages;
     QString mOptionsFilePath;
-    Options mOriginalOptions;
+    boost::optional<Options> mOriginalOptions;
     std::shared_ptr<Options> mOptions;
     OptionsEditor* mOptionsEditor;
     std::unique_ptr<tilegen::TilesetGenerator> mTilesetGenerator;
