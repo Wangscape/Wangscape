@@ -230,11 +230,11 @@ void TileRearranger::makeDual()
 std::vector<IVec> TileRearranger::makeTessellationOffsets() const
 {
     std::vector<IVec> offsets;
-    for (int y = 0; y < 3; y++)
+    for (int y = -1; y <= 1; y++)
     {
-        for (int x = 0; x < 3; x++)
+        for (int x = -1; x <= 1; x++)
         {
-            offsets.push_back((x - 1)*mTileRearrangement.offsetA + (y - 1)*mTileRearrangement.offsetB);
+            offsets.push_back(x*mTileRearrangement.offsetA + y*mTileRearrangement.offsetB);
         }
     }
     return offsets;
