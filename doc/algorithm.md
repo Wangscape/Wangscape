@@ -113,11 +113,11 @@ Despite only supporting rectangular tile generation, the tile mask rearrangement
     1. Check there are no holes in the tessellation. This check also ensures that there are no holes in the base tile itself:
         1. Find the boundary of the central tile. This is the set of pixels in the mask which are adjacent to a pixel not in the mask:
 
-    ![isometric-boundary.png](./images/isometric-boundary.png)
+            ![isometric-boundary.png](./images/isometric-boundary.png)
     
         1. Add together all the other tiles in the tessellation, and check that every pixel in the boundary is adjacent to at least one of the pixels in the surrounding tiles: 
 
-    ![isometric-tessellation-check.png](./images/isometric-tessellation-check.png)
+            ![isometric-tessellation-check.png](./images/isometric-tessellation-check.png)
     
 1. Find the size of the dual tile and its position relative to the base tile mask:
     1. Find the bounding box of each of the four regions:
@@ -152,7 +152,7 @@ The above algorithm is sufficient to make the dual tile's mask and partition, bu
 
 1. Take the padded dual mask tessellation:
 
-    ![isometric-tessellated.png](./images/isometric-tessellated.png)
+    ![isometric-mask-tessellated.png](./images/isometric-mask-tessellated.png)
     
 1. Find the boundary of the central mask:
 
