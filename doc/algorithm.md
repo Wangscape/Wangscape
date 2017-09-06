@@ -63,13 +63,13 @@ So, to correctly display output tiles, they should be translated left and up by 
 
 ### Rearranging non-rectangular tiles
 
-In the future, Wangscape is intended to support non-rectangular plane tilings, including rhombic, parallelogrammic, hexagonal, and triangular. Because Wangscape produces pixel art, it's not possible to produce true rhombi or triangles. Instead the tiling shapes must be approximated by a pixel mask:
+In the future, Wangscape is intended to support non-rectangular plane tilings, including rhombic, parallelogrammic, hexagonal, and triangular. Because Wangscape produces pixel art, it's not possible to use true rhombi or triangles. Instead the tiling shapes must be approximated by a pixel mask:
 
 ![isometric-large-mask.png](./images/isometric-large-mask.png)
 
-Rearrangement must still be performed, but in cases like this is not as simple as copying rectangular regions. To correctly rearrange the rhombicc tile above, it should be divided into four rhombi, rearranged as follows:
+Rearrangement must still be performed, but in cases like this is not as simple as copying rectangular regions. To correctly rearrange the rhombic tile above, it should be divided into four rhombi, rearranged as follows:
 
-![isometric-large.png](./images/isometric-large-mask.png)
+![isometric-large.png](./images/isometric-large.png)
 ![isometric-large-dual.png](./images/isometric-large-dual.png)
 
 Non-rectangular tile shapes used in games vary widely, so tile masks will need to be provided by the user when this feature is complete. Wangscape will not automatically divide tile masks into regions for rearrangement, so the tile partition must also be specified by the user as a colour-coded image file. Wangscape cannot determine the tessellation offset vectors from the tile image, so they must also be user-specified. For this tile, a valid pair of vectors would be (128, 64) and (-128, 64).
@@ -140,7 +140,7 @@ Despite only supporting rectangular tile generation, the tile mask rearrangement
 
     ![isometric-mask.png](./images/isometric-mask.png)
     
-1. Pad the dual tile mask, tessellate it, and validate the dual tessellation in the same way as the base tile tessellation (5., 6.).
+1. Pad the dual tile mask, tessellate it, and validate the dual tessellation in the same way as the base tile tessellation (steps 5. and 6.).
 
 Now any texture with the same resolution as the base tile can be correctly rearranged using the same process as in step 8. above, using the region masks to prevent the translated copies of the base region from overlapping:
 
@@ -148,7 +148,7 @@ Now any texture with the same resolution as the base tile can be correctly rearr
 
 ### Finding the dual tile edges and corners
 
-The above algorithm is sufficient to make the dual tile's mask and partition, but to fully support nonrectangular Wangscape tiles, more work is needed. In the [example](./algorithm.md#example) of noise value generation below, modules 5, 7, and 10 generate values based on a mathematical formula which is only correct in the case of rectangular tiles. To support other geometries, alternative modules must be provided which take the tile's bitmap geometry into account. The basis of these modules will be distance from corners and edges, which must be identified during the tile rearrangement process.
+The above algorithm is sufficient to make the dual tile's mask and partition, but to fully support nonrectangular Wangscape tiles, more work is needed. In the [example](./algorithm.md#example) of noise value generation below, modules 5, 7, and 10 generate values based on mathematical formulae which are only correct in the case of rectangular tiles. To support other geometries, alternative modules must be provided which take the tile's bitmap geometry into account. The basis of these modules will be distance from corners and edges, which must be identified during the tile rearrangement process.
 
 1. Take the padded dual mask tessellation:
 
@@ -177,7 +177,7 @@ The above algorithm is sufficient to make the dual tile's mask and partition, bu
 
     ![isometric-corners.png](./images/isometric-edges-corners-unpadded.png)
 
-1. Treat the dual tile mask as a lattice graph (with or without diagonal connections), and use breadth-first search to find each pixel's distance from the corners and edges:
+1. Treat the dual tile mask as a lattice graph (with or without diagonal connections), and use breadth-first search to find each pixel's distance from the corner and edge sets:
 
     ![isometric-edges-corners-distance.png](./images/isometric-edges-corners-distance.png)
 
