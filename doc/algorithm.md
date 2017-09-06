@@ -74,7 +74,7 @@ Rearrangement must still be performed, but in cases like this is not as simple a
 
 Non-rectangular tile shapes used in games vary widely, so tile masks will need to be provided by the user when this feature is complete. Wangscape will not automatically divide tile masks into regions for rearrangement, so the tile partition must also be specified by the user as a colour-coded image file. Wangscape cannot determine the tessellation offset vectors from the tile image, so they must also be user-specified. For this tile, a valid pair of vectors would be (128, 64) and (-128, 64).
 
-Wangscape will not constrain user-specified tile masks to be close approximations of parallelograms, hexagons, or triangles. This will mean that strange, jigsaw-like tile masks are also accepted, and the rearranged tile may have a different shape and bounding box, as seen below. The rearranged tile is called the *dual* tile, and has a dual mask and partition. Some tiles, such as rectangles and the rhombus above, are *self-dual*. This one is *non-self-dual*:
+Wangscape will not constrain user-specified tile masks to be close approximations of parallelograms, hexagons, or triangles. This will mean that strange, jigsaw-like tile masks are also accepted, and the rearranged tile may have a different shape and bounding box, as seen below. The rearranged tile is called the **dual** tile, and has a dual mask and partition. Some tiles, such as rectangles and the rhombus above, are **self-dual**. This one is **non-self-dual**:
 
 ![irregular.png](./images/irregular.png)
 ![irregular-dual.png](./images/irregular-dual.png)
