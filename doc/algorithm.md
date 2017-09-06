@@ -105,7 +105,7 @@ Despite only supporting rectangular tile generation, the tile mask rearrangement
     1. The four regions must not overlap.
 1. Make a padded copy of the base tile mask (one extra pixel on each side). Make a 3x3 tessellation of the padded base mask, with each translated copy in a different mask. The padding ensures that none of the pixels in the base mask are adjacent to the edge of the image.
 
-    ![isometric-tessellated.png](./images/isometric-tessellated.png)
+    ![isometric-mask-tessellated.png](./images/isometric-mask-tessellated.png)
     
 1. Check that the tessellation is valid:
     1. Each mask must be strictly binary.
@@ -144,7 +144,7 @@ Despite only supporting rectangular tile generation, the tile mask rearrangement
 
 Now any texture with the same resolution as the base tile can be correctly rearranged using the same process as in step 8. above, using the region masks to prevent the translated copies of the base region from overlapping:
 
-    ![isometric-dual.png](./images/isometric-dual.png)
+![isometric-dual.png](./images/isometric-dual.png)
 
 ### Finding the dual tile edges and corners
 
