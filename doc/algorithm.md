@@ -54,12 +54,128 @@ In order to have the purple circles correctly centred in the final display,
 the output tilesets must have the circles centred at the corners of the tiles (![void-corners.png](./images/void-corners.png)).
 To do this, each input terrain tile must be cut into quarters and rearranged as follows:
 ```
-12 -> 43
-34    21
+12 -> 34
+43    21
 ```
 When the resolution is an odd number in the x or y dimension,
 the pixel at `(0,0)` is translated right and down by `(floor(rx/2), floor(ry/2))`.
 So, to correctly display output tiles, they should be translated left and up by the same amount.
+
+### Rearranging non-rectangular tiles
+
+In the future, Wangscape is intended to support non-rectangular plane tilings, including rhombic, parallelogrammic, hexagonal, and triangular. Because Wangscape produces pixel art, it's not possible to produce true rhombi or triangles. Instead the tiling shapes must be approximated by a pixel mask:
+
+![isometric-large-mask.png](./isometric-large-mask.png)
+
+Rearrangement must still be performed, but in cases like this is not as simple as copying rectangular regions. To correctly rearrange the rhombicc tile above, it should be divided into four rhombi, rearranged as follows:
+
+![isometric-large.png](./isometric-large-mask.png)
+![isometric-large-dual.png](./isometric-large-dual.png)
+
+Non-rectangular tile shapes used in games vary widely, so tile masks will need to be provided by the user when this feature is complete. Wangscape will not automatically divide tile masks into regions for rearrangement, so the tile partition must also be specified by the user as a colour-coded image file. Wangscape cannot determine the tessellation offset vectors from the tile image, so they must also be user-specified. For this tile, a valid pair of vectors would be (128, 64) and (-128, 64).
+
+Wangscape will not constrain user-specified tile masks to be close approximations of parallelograms, hexagons, or triangles. This will mean that strange, jigsaw-like tile masks are also accepted, and the rearranged tile may have a different shape and bounding box, as seen below. The rearranged tile is called the *dual* tile, and has a dual mask and partition. Some tiles, such as rectangles and the rhombus above, are *self-dual*. This one is *non-self-dual*:
+
+![irregular.png](./irregular.png)
+![irregular-dual.png](./irregular-dual.png)
+
+Hexagonal and triangular tile masks are also non-self-dual. As seen in the image below (by [R. A. Nonenmacher](https://commons.wikimedia.org/wiki/User:Nonenmac)), the dual tiles for a hexagonal mask would be two different triangular masks, and vice versa. A true regular hexagon would have as its dual a single triangle, drawn in two different orientations, but Wangscape's permissive specification of tile shapes requires two different triangles in the general case.
+
+[![Deltoidal trihexagonal tiling](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Tiling_Dual_Semiregular_V3-4-6-4_Deltoidal_Trihexagonal.svg/400px-Tiling_Dual_Semiregular_V3-4-6-4_Deltoidal_Trihexagonal.svg.png)](https://en.wikipedia.org/wiki/File:Tiling_Dual_Semiregular_V3-4-6-4_Deltoidal_Trihexagonal.svg)
+
+### Rearrangement process for four-cornered nonrectangular tiles
+
+Despite only supporting rectangular tile generation, the tile mask rearrangement algorithm for four-cornered nonrectangular tiles is already implemented and works as follows:
+
+1. Load the partition image.
+
+    ![isometric.png](./isometric.png)
+    
+1. Split the partition image into four binary masks. Each mask describes one of the partition regions, and the regions must be numbered clockwise.
+
+    ![isometric-split.png](./isometric-split.png)
+    
+1. Make the base tile mask by adding all four region masks.
+
+    ![isometric-mask.png](./isometric-mask.png)
+    
+1. Check that the base tile mask and partition is valid:
+    1. The base tile must have at least one pixel. The same applies to all four regions.
+    1. The base tile must be connected. It may not be split into two or more separate pieces. The same applies to all four regions.
+    1. The four regions must not overlap.
+1. Make a padded copy of the base tile mask (one extra pixel on each side). Make a 3x3 tessellation of the padded base mask, with each translated copy in a different mask. The padding ensures that none of the pixels in the base mask are adjacent to the edge of the image.
+
+    ![isometric-tessellated.png](./isometric-tessellated.png)
+    
+1. Check that the tessellation is valid:
+    1. Each mask must be strictly binary.
+    1. The 9 masks may not overlap at any point.
+    1. Check there are no holes in the tessellation. This check also ensures that there are no holes in the base tile itself:
+        1. Find the boundary of the central tile. This is the set of pixels in the mask which are adjacent to a pixel not in the mask:
+
+    ![isometric-boundary.png](./isometric-boundary.png)
+    
+        1. Add together all the other tiles in the tessellation, and check that every pixel in the boundary is adjacent to at least one of the pixels in the surrounding tiles: 
+
+    ![isometric-tessellation-check.png](./isometric-tessellation-check.png)
+    
+1. Find the size of the dual tile and its position relative to the base tile mask:
+    1. Find the bounding box of each of the four regions:
+    
+        ![isometric-bbox.png](./isometric-bbox.png)
+        
+    1. Translate the region bounding boxes to their positions in the dual tile. The translation vectors are found by combining the tessellation offset vectors:
+    
+        ![isometric-bbox-dual.png](./isometric-bbox-dual.png)
+        
+    1. The dual tile's bounding box is the smallest bounding box containing the four regions' translated bounding boxes:
+    
+        ![isometric-bbox-union.png](./isometric-bbox-union.png)
+        
+1. Now that the size of the dual tile is known, make four empty masks to hold the dual regions. Copy the base regions into them, translated by the region offset vectors minus the top left of the dual tile's bounding box:
+
+    ![isometric-dual-split.png](./isometric-dual-split.png)
+
+1. Add them all up to get the dual tile mask:
+
+    ![isometric-mask.png](./isometric-mask.png)
+    
+1. Pad the dual tile mask, tessellate it, and validate the dual tessellation in the same way as the base tile tessellation (5., 6.).
+
+### Finding the dual tile edges and corners
+
+The above algorithm is sufficient to make the dual tile's mask and partition, but to fully support nonrectangular Wangscape tiles, more work is needed. In the [example](./algorithm.md#example) of noise value generation below, modules 5, 7, and 10 generate values based on a mathematical formula which is only correct in the case of rectangular tiles. To support other geometries, alternative modules must be provided which take the tile's bitmap geometry into account. The basis of these modules will be distance from corners and edges, which must be identified during the tile rearrangement process.
+
+1. Take the padded dual mask tessellation:
+
+    ![isometric-tessellated.png](./isometric-tessellated.png)
+    
+1. Find the boundary of the central mask:
+
+    ![isometric-boundary.png](./isometric-boundary.png)
+    
+1. For each of the 8 surrounding tiles in the tessellation, restrict the central boundary to the pixels adjacent to that tile:
+
+    ![isometric-tessellation-boundaries.png](./isometric-tessellation-boundaries.png)
+    
+1. The dual tile's edge masks are the boundary masks which correspond to tiles orthogonally adjacent to the central mask:
+
+    ![isometric-edges.png](./isometric-edges.png)
+    
+1. The dual tile's corner masks consist of pixels which satisfy either of these conditions:
+    1. The pixel is in a boundary mask which corresponds to a tile diagonally adjacent to the central mask.
+    1. The pixel is in the edge preceding this corner, and adjacent to a pixel in the edge following this corner.
+    1. The pixel is in the edge following this corner, and adjacent to a pixel in the edge preceding this corner.
+
+    ![isometric-corners.png](./isometric-corners.png)
+    
+1. The dual tile edge and corner masks are still padded from the tessellation, so crop one pixel from each side to get the final edge and corner masks:
+
+    ![isometric-corners.png](./isometric-edges-corners-unpadded.png)
+
+1. Treat the dual tile mask as a lattice graph (with or without diagonal connections), and use breadth-first search to find each pixel's distance from the corners and edges:
+
+    ![isometric-edges-corners-distance.png](./isometric-edges-corners-distance.png)
 
 ## Terrain hypergraph
 
