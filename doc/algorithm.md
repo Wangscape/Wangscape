@@ -65,19 +65,19 @@ So, to correctly display output tiles, they should be translated left and up by 
 
 In the future, Wangscape is intended to support non-rectangular plane tilings, including rhombic, parallelogrammic, hexagonal, and triangular. Because Wangscape produces pixel art, it's not possible to produce true rhombi or triangles. Instead the tiling shapes must be approximated by a pixel mask:
 
-![isometric-large-mask.png](./isometric-large-mask.png)
+![isometric-large-mask.png](./images/isometric-large-mask.png)
 
 Rearrangement must still be performed, but in cases like this is not as simple as copying rectangular regions. To correctly rearrange the rhombicc tile above, it should be divided into four rhombi, rearranged as follows:
 
-![isometric-large.png](./isometric-large-mask.png)
-![isometric-large-dual.png](./isometric-large-dual.png)
+![isometric-large.png](./images/isometric-large-mask.png)
+![isometric-large-dual.png](./images/isometric-large-dual.png)
 
 Non-rectangular tile shapes used in games vary widely, so tile masks will need to be provided by the user when this feature is complete. Wangscape will not automatically divide tile masks into regions for rearrangement, so the tile partition must also be specified by the user as a colour-coded image file. Wangscape cannot determine the tessellation offset vectors from the tile image, so they must also be user-specified. For this tile, a valid pair of vectors would be (128, 64) and (-128, 64).
 
 Wangscape will not constrain user-specified tile masks to be close approximations of parallelograms, hexagons, or triangles. This will mean that strange, jigsaw-like tile masks are also accepted, and the rearranged tile may have a different shape and bounding box, as seen below. The rearranged tile is called the *dual* tile, and has a dual mask and partition. Some tiles, such as rectangles and the rhombus above, are *self-dual*. This one is *non-self-dual*:
 
-![irregular.png](./irregular.png)
-![irregular-dual.png](./irregular-dual.png)
+![irregular.png](./images/irregular.png)
+![irregular-dual.png](./images/irregular-dual.png)
 
 Hexagonal and triangular tile masks are also non-self-dual. As seen in the image below (by [R. A. Nonenmacher](https://commons.wikimedia.org/wiki/User:Nonenmac)), the dual tiles for a hexagonal mask would be two different triangular masks, and vice versa. A true regular hexagon would have as its dual a single triangle, drawn in two different orientations, but Wangscape's permissive specification of tile shapes requires two different triangles in the general case.
 
