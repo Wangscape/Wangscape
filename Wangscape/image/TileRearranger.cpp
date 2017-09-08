@@ -1,6 +1,7 @@
 #include "TileRearranger.h"
 #include <set>
 #include "logging/Logging.h"
+
 const static std::array<sf::Color, 6> default_region_colours{
     sf::Color::Red,
     sf::Color::Green,
@@ -11,8 +12,7 @@ const static std::array<sf::Color, 6> default_region_colours{
 
 TileRearranger::TileRearranger()
 {
-    for (int i = 0; i < Corners; i++)
-        regionColours[i] = default_region_colours[i];
+    std::copy(default_region_colours.cbegin(), default_region_colours.cbegin() + Corners, regionColours.begin());
 }
 
 const TileRearrangement TileRearranger::rearrangeTile(const sf::Image & base_tile,
@@ -22,7 +22,7 @@ const TileRearrangement TileRearranger::rearrangeTile(const sf::Image & base_til
     // Initialise vectors
     mTileRearrangement.offsetA = offset_a;
     mTileRearrangement.offsetB = offset_b;
-    mTileRearrangement.baseSize = makeUVec(base_tile.getSize());
+    mTileRearrangement.baseSize = makeVector(base_tile.getSize());
 
     // Check all region colours are unique
     validateColours();
@@ -69,8 +69,8 @@ void TileRearranger::decomposeBaseTile(const sf::Image & base_tile)
         ImageStackGrey channel_matches = arma::conv_to<ImageStackGrey>::from(
             (base_tile_cube == uniform_colour_cube).eval());
         // Armadillo doesn't have a product or general reducer function,
-        // so we have to use sum instead.
-        const auto not_function = [](bool x) { return !x; };
+        // so we have to use sum instead (by De Morgan's law).
+        const auto not_function = std::logical_not<arma::u8>();
         channel_matches.transform(not_function);
         ImageGrey pixel_matches = arma::sum(channel_matches, 2);
         pixel_matches.transform(not_function);
@@ -218,11 +218,12 @@ void TileRearranger::makeDual()
     mTileRearrangement.dualPartition.fill(0);
     for (unsigned int c = 0; c < Corners; c++)
     {
-        copyRegionBounded(mTileRearrangement.basePartition.slice(c),
-                          mTileRearrangement.dualPartition.slice(c),
-                          {0, 0},
-                          mTileRearrangement.allOffsets[c] - mTileRearrangement.dualOffset,
-                          IVec(mTileRearrangement.baseSize));
+        copyRegionBounded(
+            mTileRearrangement.basePartition.slice(c),
+            mTileRearrangement.dualPartition.slice(c),
+            {{0, 0},
+             mTileRearrangement.allOffsets[c] - mTileRearrangement.dualOffset,
+             IVec(mTileRearrangement.baseSize)});
     }
     mTileRearrangement.dual = arma::sum(mTileRearrangement.dualPartition, 2).eval();
 }

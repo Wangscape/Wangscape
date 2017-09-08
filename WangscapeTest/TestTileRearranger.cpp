@@ -197,19 +197,19 @@ TEST_F(TestTileRearranger, TestCopyRegion)
     ImageGrey ones(2, 2, arma::fill::ones);
     {
         ImageGrey image = zeros;
-        copyRegion(ones, image, {0, 0}, {0, 0}, {2, 2});
+        copyRegion(ones, image, {{0, 0}, {0, 0}, {2, 2}});
         expectImagesEqual(ones, image, "incorrect 2x2 region copy");
     }
     {
         ImageGrey image = zeros;
         ImageGrey expected = {{0, 1}, {0, 0}};
-        copyRegion(ones, image, {0, 0}, {1, 0}, {1, 1});
+        copyRegion(ones, image, {{0, 0}, {1, 0}, {1, 1}});
         expectImagesEqual(expected, image, "incorrect 1x1 region copy");
     }
     {
         ImageGrey image = zeros;
         ImageGrey expected = {{0, 0}, {1, 1}};
-        copyRegion(ones, image, {0, 0}, {0, 1}, {2, 1});
+        copyRegion(ones, image, {{0, 0}, {0, 1}, {2, 1}});
         expectImagesEqual(expected, image, "incorrect 2x1 region copy");
     }
 }
@@ -221,25 +221,25 @@ TEST_F(TestTileRearranger, TestCopyRegionBounded)
     {
         ImageGrey image = zeros;
         ImageGrey expected = {{1, 0}, {0, 0}};
-        copyRegionBounded(ones, image, {0, 0}, {-1, -1}, {2, 2});
+        copyRegionBounded(ones, image, {{0, 0}, {-1, -1}, {2, 2}});
         expectImagesEqual(expected, image, "incorrect top left bounded region copy");
     }
     {
         ImageGrey image = zeros;
         ImageGrey expected = {{0, 1}, {0, 0}};
-        copyRegionBounded(ones, image, {0, 0}, {1, -1}, {2, 2});
+        copyRegionBounded(ones, image, {{0, 0}, {1, -1}, {2, 2}});
         expectImagesEqual(expected, image, "incorrect top right bounded region copy");
     }
     {
         ImageGrey image = zeros;
         ImageGrey expected = {{0, 0}, {1, 0}};
-        copyRegionBounded(ones, image, {0, 0}, {-1, 1}, {2, 2});
+        copyRegionBounded(ones, image, {{0, 0}, {-1, 1}, {2, 2}});
         expectImagesEqual(expected, image, "incorrect bottom left bounded region copy");
     }
     {
         ImageGrey image = zeros;
         ImageGrey expected = {{0, 0}, {0, 1}};
-        copyRegionBounded(ones, image, {0, 0}, {1, 1}, {2, 2});
+        copyRegionBounded(ones, image, {{0, 0}, {1, 1}, {2, 2}});
         expectImagesEqual(expected, image, "incorrect bottom right bounded region copy");
     }
 }
@@ -255,7 +255,7 @@ TEST_F(TestTileRearranger, TestTileRearrangerMinimal)
     i.setPixel(0, 1, sf::Color::Yellow);
     const auto rearrangement = tr.rearrangeTile(i, {2, 0}, {0, 2});
     sf::Image d = rearrangement.rearrangeTexture(i);
-    EXPECT_EQ(makeUVec(d.getSize()), UVec(2, 2)) << "Wrong size dual tile";
+    EXPECT_EQ(makeVector(d.getSize()), UVec(2, 2)) << "Wrong size dual tile";
 
     EXPECT_EQ(rearrangement.dualPartition(1, 1, 0), 1) << "Wrong dual partition";
     EXPECT_EQ(rearrangement.dualPartition(1, 0, 1), 1) << "Wrong dual partition";

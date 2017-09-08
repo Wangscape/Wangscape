@@ -13,9 +13,9 @@ sf::Image TileRearrangement::rearrangeTexture(const sf::Image & base_texture) co
         {
             copyRegionBounded(
                 base_channel, dual_channel_stack.slice(c),
-                {0, 0},
+                {{0, 0},
                 allOffsets[c] - dualOffset,
-                IVec(baseSize));
+                IVec(baseSize)});
             dual_channel_stack.slice(c) %= dualPartition.slice(c);
         }
     };

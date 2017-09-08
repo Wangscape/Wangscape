@@ -24,8 +24,7 @@ ImageGrey dilatedEroded(const ImageGrey & image, bool use_diagonals, arma::u8 ed
     for (unsigned int s = 0; s < n_steps; s++)
     {
         copyRegionBounded(image, displacements.slice(s + 1),
-                          IVec(0, 0), steps[s],
-                          IVec(makeUVec(arma::size(image))));
+        {IVec(0, 0), steps[s], IVec(makeUVec(arma::size(image)))});
     }
     if (dilate)
         return arma::max(displacements, 2).eval();
@@ -37,7 +36,7 @@ ImageGrey dilatedEroded(const ImageGrey & image, bool use_diagonals, arma::u8 ed
 
 ImageColour imageFromSFImage(const sf::Image & sf_image)
 {
-    UVec shape = makeUVec(sf_image.getSize());
+    UVec shape = makeVector(sf_image.getSize());
     ImageColour image(shape.y(), shape.x(), 4);
     for(size_t y = 0; y < shape.y(); y++)
         for (size_t x = 0; x < shape.x(); x++)
@@ -78,7 +77,7 @@ sf::Image imageToSFImage(const ImageColour & image)
 {
     sf::Image sf_image;
     sf_image.create(image.n_cols, image.n_rows);
-    UVec shape = makeUVec(sf_image.getSize());
+    UVec shape = makeVector(sf_image.getSize());
     for (size_t y = 0; y < shape.y(); y++)
         for (size_t x = 0; x < shape.x(); x++)
         {
@@ -88,49 +87,26 @@ sf::Image imageToSFImage(const ImageColour & image)
     return sf_image;
 }
 
-void copyRegionBounded(const ImageGrey& source, ImageGrey & target, IVec source_origin, IVec target_origin, IVec size)
+void copyRegionBounded(const ImageGrey& source, ImageGrey & target, CopyRegionParameters parameters)
 {
     const auto source_shape = makeUVec(arma::size(source));
     const auto target_shape = makeUVec(arma::size(target));
-    // Cut off negative indices in source or target
-    IVec origin_excess;
-    origin_excess.x() = std::min({source_origin.x(),
-                                target_origin.x(),
-                                0});
-    origin_excess.y() = std::min({source_origin.y(),
-                                target_origin.y(),
-                                0});
-    source_origin -= origin_excess;
-    target_origin -= origin_excess;
-    size += origin_excess;
-    // Cut off indices greater than shape in source or target
-    IVec end_excess;
-    const auto source_end = source_origin + size;
-    const auto target_end = target_origin + size;
-    end_excess.x() = std::max({source_end.x() - (int)source_shape.x(),
-                             target_end.x() - (int)target_shape.x(),
-                             0});
-    end_excess.y() = std::max({source_end.y() - (int)source_shape.y(),
-                             target_end.y() - (int)target_shape.y(),
-                             0});
-    size -= end_excess;
-    copyRegion(source, target, source_origin, target_origin, size);
+    copyRegion(source, target, parameters.trim(source_shape, target_shape));
 }
 
-void copyRegion(const ImageGrey& source, ImageGrey & target,
-                IVec source_origin, IVec target_origin, IVec size)
+void copyRegion(const ImageGrey& source, ImageGrey & target, CopyRegionParameters parameters)
 {
-    const auto source_end = source_origin + size;
-    const auto target_end = target_origin + size;
-    target.submat(arma::span(target_origin.y(), target_end.y() - 1),
-                  arma::span(target_origin.x(), target_end.x() - 1)) =
-        source.submat(arma::span(source_origin.y(), source_end.y() - 1),
-                      arma::span(source_origin.x(), source_end.x() - 1));
+    const auto source_end = parameters.sourceOrigin + parameters.size;
+    const auto target_end = parameters.targetOrigin + parameters.size;
+    target.submat(arma::span(parameters.targetOrigin.y(), target_end.y() - 1),
+                  arma::span(parameters.targetOrigin.x(), target_end.x() - 1)) =
+        source.submat(arma::span(parameters.sourceOrigin.y(), source_end.y() - 1),
+                      arma::span(parameters.sourceOrigin.x(), source_end.x() - 1));
 }
 
 bool isConnected(const ImageGrey & image, bool use_diagonals)
 {
-    unsigned int n_ones = arma::nonzeros(image).eval().size();
+    const unsigned int n_ones = arma::nonzeros(image).eval().size();
     if (n_ones == 0)
         return false;
     const auto start_index = image.index_max();
@@ -181,8 +157,7 @@ ImageGrey padded(const ImageGrey & image)
 {
     ImageGrey result(arma::size(image) + 2, arma::fill::zeros);
     copyRegion(image, result,
-               IVec(0, 0), IVec(1, 1),
-               IVec(makeUVec(arma::size(image))));
+    {IVec(0, 0), IVec(1, 1),  makeIVec(arma::size(image))});
     return result;
 }
 
@@ -258,13 +233,18 @@ ImageGrey32 distances(const ImageGrey & traversable, const ImageGrey & targets, 
         throw std::runtime_error("distances() requires nonzero targets mask");
     if(!isConnected(traversable))
         throw std::runtime_error("distances() requires connected traversable mask");
-    const auto shape = makeUVec(arma::size(traversable));
+
     ImageGrey32 distance_field(arma::size(traversable));
     const arma::u32 infinity = std::numeric_limits<arma::u32>::max();
     distance_field.fill(infinity);
+
     const auto target_coordinates = arma::ind2sub(arma::size(targets), arma::find(targets)).eval();
+
     std::queue<IVec> border;
     const auto& steps = use_diagonals ? ORTHODIAGONAL_STEPS : ORTHOGONAL_STEPS;
+
+    const auto shape = makeUVec(arma::size(traversable));
+
     const auto in_bounds = [&shape](IVec point)
     {
         if (point.x() < 0 || point.y() < 0)
@@ -273,12 +253,14 @@ ImageGrey32 distances(const ImageGrey & traversable, const ImageGrey & targets, 
             return false;
         return true;
     };
+
     for (unsigned int i = 0; i < target_coordinates.n_cols; i++)
     {
         IVec target{int(target_coordinates(1, i)), int(target_coordinates(0, i))};
         distance_field(target.y(), target.x()) = 0;
         border.push(target);
     }
+
     while (!border.empty())
     {
         IVec point = border.front();
@@ -307,10 +289,9 @@ ImageStackGrey tessellated(const ImageGrey & image, const std::vector<IVec>& off
     ImageStackGrey tessellation(image_padded.n_rows, image_padded.n_cols, offsets.size(), arma::fill::zeros);
     for (size_t i = 0; i < offsets.size(); i++)
     {
-        copyRegionBounded(image_padded, tessellation.slice(i),
-                          IVec(0, 0), offsets[i],
-                          IVec(makeUVec(arma::size(image_padded))));
-
+        copyRegionBounded(
+            image_padded, tessellation.slice(i),
+            {IVec(0, 0), offsets[i], makeUVec(arma::size(image_padded))});
     }
     return tessellation;
 }

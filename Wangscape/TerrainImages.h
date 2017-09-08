@@ -13,7 +13,7 @@ public:
     void addTerrain(TerrainID tid, std::string image_filename, std::string json_filename,
                     size_t offset_x, size_t offset_y, sf::Vector2u resolution);
 private:
-    std::map<std::string, sf::Image> source_images;
+    std::map<std::string, sf::Image> mSourceImages;
     TileRearrangement mTileRearrangement;
 };
 
