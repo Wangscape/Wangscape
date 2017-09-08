@@ -166,7 +166,7 @@ The above algorithm is sufficient to make the dual tile's mask and partition, bu
 
     ![isometric-edges.png](./images/isometric-edges.png)
     
-1. The dual tile's corner masks consist of pixels which satisfy either of these conditions:
+1. The dual tile's corner masks consist of pixels which satisfy any of these conditions:
     1. The pixel is in a boundary mask which corresponds to a tile diagonally adjacent to the central mask.
     1. The pixel is in the edge preceding this corner, and adjacent to a pixel in the edge following this corner.
     1. The pixel is in the edge following this corner, and adjacent to a pixel in the edge preceding this corner.
@@ -290,7 +290,7 @@ The exact format of Wangscape module groups is specified in the [module group sc
 The output noise module is evaluated at regularly spaced points in the square `[0,1]x[0,1]`.
 
 The generation of noise values is quite delicate, mostly because of the border constraints.
-In order to satisfy them while maintaining fully customisability,
+In order to satisfy them while maintaining full customisability,
 four module groups are combined in order to generate noise values for a corner mask:
 1. A horizontal border module group.
 1. A vertical border module group.
