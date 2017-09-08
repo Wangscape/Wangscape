@@ -105,7 +105,7 @@ void Bitmap::setCurrentImage(const std::string & filename, ImagePtr image)
 sf::Image Bitmap::loadNewImage(const std::string & file_path)
 {
     sf::Image sf_bitmap;
-    logInfo() << "Loading image at " << file_path << "into Bitmap module";
+    logInfo() << "Loading image at " << file_path << " into Bitmap module";
     if (!sf_bitmap.loadFromFile(file_path))
     {
         logError() << "Could not load image";
