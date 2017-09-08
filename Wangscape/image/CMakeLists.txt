@@ -1,4 +1,5 @@
 set(image-src
+    CopyRegionParameters.cpp
     Image.cpp
     TileRearrangement.cpp
     TileRearranger.cpp

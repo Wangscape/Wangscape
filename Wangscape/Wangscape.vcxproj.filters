@@ -83,6 +83,7 @@
     <ClCompile Include="image\TileRearranger.cpp" />
     <ClCompile Include="image\TileRearrangement.cpp" />
     <ClCompile Include="tilegen\alpha\CalculatorMode.cpp" />
+    <ClCompile Include="image\CopyRegionParameters.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codecs\OptionsCodec.h" />
@@ -212,6 +213,7 @@
     <ClInclude Include="image\TileRearranger.h" />
     <ClInclude Include="image\TileRearrangement.h" />
     <ClInclude Include="Vector.h" />
+    <ClInclude Include="image\CopyRegionParameters.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
