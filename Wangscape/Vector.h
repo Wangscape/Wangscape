@@ -10,22 +10,18 @@ typedef Vector<int> IVec;
 typedef Vector<unsigned int> UVec;
 typedef Vector<double> DVec;
 
-inline IVec makeIVec(sf::Vector2i v)
+template<typename T>
+inline Vector<T> makeVector(sf::Vector2<T> v)
 {
-    return IVec(v.x, v.y);
-}
-
-inline UVec makeUVec(sf::Vector2u v)
-{
-    return UVec(v.x, v.y);
-}
-
-inline DVec makeDVec(sf::Vector2<double> v)
-{
-    return DVec(v.x, v.y);
+    return Vector<T>{v.x, v.y};
 }
 
 inline UVec makeUVec(arma::SizeMat v)
 {
     return UVec(v.n_cols, v.n_rows);
+}
+
+inline IVec makeIVec(arma::SizeMat v)
+{
+    return IVec(makeUVec(v));
 }
