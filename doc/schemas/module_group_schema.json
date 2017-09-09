@@ -230,6 +230,11 @@
           "title": "Bitmap module Filename schema",
           "description": "Specifies the filename of the image used in this Bitmap module."
         },
+        "MaxScale":{
+          "type": "boolean",
+          "title": "Bitmap module MaxScale schema",
+          "description": "Specifies the value of MaxScale used in this Bitmap module."
+        },
         "Region":{
           "type":"array",
           "title": "Bitmap module Region schema",
@@ -253,7 +258,7 @@
       },
       "required": [
         "type",
-        "SourceModule"
+        "Filename"
       ]
     },
     "blend": {
@@ -1516,8 +1521,7 @@
         }
       },
       "required": [
-        "type",
-        "SourceModule"
+        "type"
       ]
     }
   }
