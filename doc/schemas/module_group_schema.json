@@ -1078,14 +1078,10 @@
           "title": "RidgedMulti module Seed schema",
           "description": "Specifies the value of Seed used in this RidgedMulti module.",
           "multipleOf": 1
-        },
-        "SourceModule": {
-          "$ref": "#/definitions/source_module_1"
         }
       },
       "required": [
-        "type",
-        "SourceModule"
+        "type"
       ]
     },
     "rotate_point": {
