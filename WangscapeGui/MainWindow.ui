@@ -64,6 +64,9 @@
       </property>
       <item>
        <widget class="QComboBox" name="comboBox">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>2</horstretch>
@@ -74,6 +77,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="generateButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
           <horstretch>1</horstretch>
@@ -81,7 +87,31 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Generate tileset</string>
+         <string>Generate</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="saveButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Save</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="optionsButton">
+        <property name="text">
+         <string>Options editor</string>
         </property>
        </widget>
       </item>
@@ -111,26 +141,6 @@
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>711</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="menuWangscape_GUI">
-    <property name="title">
-     <string>File</string>
-    </property>
-    <addaction name="actionLoadOptions"/>
-    <addaction name="actionOpenOptionsEditor"/>
-    <addaction name="separator"/>
-    <addaction name="actionSaveOutput"/>
-   </widget>
-   <addaction name="menuWangscape_GUI"/>
   </widget>
   <action name="actionLoadOptions">
    <property name="text">
