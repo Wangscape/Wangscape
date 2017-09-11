@@ -27,6 +27,7 @@ private slots:
 
 private:
     void setAlphaCalculatorModeComboBox();
+    void activate();
     Ui::OptionsEditor *mUi;
     std::shared_ptr<Options> mOptions;
     bool mUseDefaultOutputDir;
