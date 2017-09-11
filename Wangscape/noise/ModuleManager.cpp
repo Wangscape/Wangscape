@@ -18,19 +18,19 @@ ModuleManager::ModuleManager(const Options & options) :
 
     boost::filesystem::path p(options.paths.directory);
 
-    mCombiner = loadModuleGroup((p / options.combinerModuleGroup).string());
+    mCombiner = loadModuleGroup((p / options.combinerModuleGroup).string(), mRNG());
 
     for (auto it : options.centralModuleGroups)
     {
-        mCentres.addSpecificModuleGroup(it.terrain, (p / it.filename).string());
+        mCentres.addSpecificModuleGroup(it.terrain, (p / it.filename).string(), mRNG());
     }
     for (auto it : options.leftBorderModuleGroups)
     {
-        mLeftBorders.addSpecificModuleGroup(it.terrains, (p / it.filename).string());
+        mLeftBorders.addSpecificModuleGroup(it.terrains, (p / it.filename).string(), mRNG());
     }
     for (auto it : options.topBorderModuleGroups)
     {
-        mTopBorders.addSpecificModuleGroup(it.terrains, (p / it.filename).string());
+        mTopBorders.addSpecificModuleGroup(it.terrains, (p / it.filename).string(), mRNG());
     }
     boost::optional<std::string> default_module_filename;
     if (options.defaultModuleGroup)
@@ -39,7 +39,7 @@ ModuleManager::ModuleManager(const Options & options) :
     }
     for (const auto& terrain : options.terrains)
     {
-        mCentres.tryAddDefaultModuleGroup(terrain.first, default_module_filename);
+        mCentres.tryAddDefaultModuleGroup(terrain.first, default_module_filename, mRNG());
     }
     for (const auto& clique : options.cliques)
     {
@@ -49,8 +49,8 @@ ModuleManager::ModuleManager(const Options & options) :
             {
                 TerrainIDPair tp{t1, t2};
 
-                mLeftBorders.tryAddDefaultModuleGroup(tp, default_module_filename);
-                mTopBorders.tryAddDefaultModuleGroup(tp, default_module_filename);
+                mLeftBorders.tryAddDefaultModuleGroup(tp, default_module_filename, mRNG());
+                mTopBorders.tryAddDefaultModuleGroup(tp, default_module_filename, mRNG());
             }
     }
     
