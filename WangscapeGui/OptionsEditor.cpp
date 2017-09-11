@@ -25,6 +25,7 @@ OptionsEditor::OptionsEditor(QWidget *parent_) :
 
     connect(mUi->alphaCalculatorModeComboBox, SIGNAL(activated(const QString&)), this, SLOT(setAlphaCalculatorMode(const QString&)));
     connect(mUi->restoreOptionsButton, SIGNAL(pressed()), this->parent(), SLOT(resetOptions()));
+    connect(mUi->loadOptionsButton, SIGNAL(pressed()), this->parent(), SLOT(loadOptionsFromFile()));
     connect(mUi->defaultOuputDirCheckBox, SIGNAL(stateChanged(int)), this, SLOT(switchDefaultOutputDirFlag(int)));
 }
 

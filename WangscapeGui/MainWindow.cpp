@@ -31,9 +31,8 @@ MainWindow::MainWindow(QWidget *parent_) :
 
     connect(mUi->generateButton, SIGNAL(pressed()), this, SLOT(generate()));
     connect(mUi->comboBox, SIGNAL(activated(const QString&)), this, SLOT(displayTilesetPreview(const QString&)));
-    connect(mUi->actionLoadOptions, SIGNAL(triggered()), this, SLOT(loadOptionsFromFile()));
-    connect(mUi->actionSaveOutput, SIGNAL(triggered()), this, SLOT(saveOutput()));
-    connect(mUi->actionOpenOptionsEditor, SIGNAL(triggered()), this, SLOT(openOptionsEditor()));
+    connect(mUi->saveButton, SIGNAL(pressed()), this, SLOT(saveOutput()));
+    connect(mUi->optionsButton, SIGNAL(pressed()), this, SLOT(openOptionsEditor()));
 }
 
 MainWindow::~MainWindow()
@@ -67,6 +66,9 @@ void MainWindow::generate()
 
     initializePreviewArea();
     displayTilesetPreview();
+
+    mUi->comboBox->setEnabled(true);
+    mUi->saveButton->setEnabled(true);
 }
 
 void MainWindow::saveOutput()
@@ -143,6 +145,9 @@ void MainWindow::loadOptionsFromFile()
     resetOptions();
 
     resetTilesetGenerator();
+
+    mUi->generateButton->setEnabled(true);
+    mUi->saveButton->setEnabled(false);
 
     mUi->comboBox->clear();
     mPreviewImages.clear();
