@@ -123,6 +123,11 @@
         }
       ]
     },
+    "comment":{
+      "type": "string",
+      "title": "Module comment schema",
+      "description": "Specifies a comment in a module for documentation purposes."
+    },
     "abs": {
       "type": "object",
       "title": "Abs module schema",
@@ -137,6 +142,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -158,6 +166,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_2"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -207,6 +218,9 @@
           "title": "Billow module Seed schema",
           "description": "Specifies the value of Seed used in this Billow module.",
           "multipleOf": 1
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -254,6 +268,9 @@
           "type":"number",
           "title": "Bitmap module DefaultValue schema",
           "description": "Specifies the value returned by the Bitmap module when the requested coordinates are outside the image region"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -280,6 +297,9 @@
           "type": "string",
           "title": "Blend Module ControlModule schema",
           "description": "Specifies which of the keys in this module group contains the module that should be used as this module's control module."
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -302,6 +322,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -320,6 +343,9 @@
           "title": "Module type schema",
           "description": "Specifies that this module is of type Checkerboard.",
           "pattern": "^Checkerboard$"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -350,6 +376,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -373,6 +402,9 @@
           "type":"number",
           "title": "Const module ConstValue schema",
           "description": "Specifies the value of ConstValue used in this Const module."
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -395,6 +427,9 @@
           "type":"number",
           "title": "CornerCombinerBase module Power schema",
           "description": "Specifies the value of Power used in this CornerCombinerBase module."
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -432,6 +467,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -455,6 +493,9 @@
           "type":"number",
           "title": "Cylinders module Frequency schema",
           "description": "Specifies the value of Frequency used in this Cylinders module."
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -502,6 +543,9 @@
           "type": "string",
           "title": "Module ZDisplaceModule schema",
           "description": "Specifies which of the keys in this module group contains the module that should be used as this module's Z displacement module."
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "allOf": [
@@ -545,6 +589,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_2"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -571,6 +618,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -597,6 +647,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -618,6 +671,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -635,6 +691,9 @@
           "title": "Module type schema",
           "description": "Specifies that this module is of type GradientX.",
           "pattern": "^GradientX$"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -652,6 +711,9 @@
           "title": "Module type schema",
           "description": "Specifies that this module is of type GradientY.",
           "pattern": "^GradientY$"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -669,6 +731,9 @@
           "title": "Module type schema",
           "description": "Specifies that this module is of type GradientZ.",
           "pattern": "^GradientZ$"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -689,6 +754,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -715,6 +783,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -736,6 +807,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_2"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -757,6 +831,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -778,6 +855,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_2"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -806,6 +886,9 @@
           "type":"number",
           "title": "NormLPQ module Q schema",
           "description": "Specifies the value of Q used in this NormLPQ module."
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -854,6 +937,9 @@
           "title": "Perlin module Seed schema",
           "description": "Specifies the value of Seed used in this Perlin module.",
           "multipleOf": 1
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -874,6 +960,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_2"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -900,6 +989,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -971,6 +1063,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "allOf": [
@@ -1034,6 +1129,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -1078,6 +1176,9 @@
           "title": "RidgedMulti module Seed schema",
           "description": "Specifies the value of Seed used in this RidgedMulti module.",
           "multipleOf": 1
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -1123,6 +1224,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "allOf": [
@@ -1176,6 +1280,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -1231,6 +1338,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "allOf": [
@@ -1294,6 +1404,9 @@
           "type": "string",
           "title": "Blend Module ControlModule schema",
           "description": "Specifies which of the keys in this module group contains the module that should be used as this module's control module."
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -1318,6 +1431,9 @@
           "type":"number",
           "title": "Spheres module Frequency schema",
           "description": "Specifies the value of Frequency used in this Spheres module."
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -1352,6 +1468,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -1407,6 +1526,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "allOf": [
@@ -1472,6 +1594,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
@@ -1514,6 +1639,9 @@
         },
         "SourceModule": {
           "$ref": "#/definitions/source_module_1"
+        },
+        "comment": { 
+          "$ref": "#/definitions/comment"
         }
       },
       "required": [
