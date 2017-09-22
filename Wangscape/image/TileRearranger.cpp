@@ -83,30 +83,35 @@ void TileRearranger::validateBaseTile() const
 {
     if (!isNonzero(mTileRearrangement.base))
     {
-        logError() << "Base tile empty";
-        throw std::runtime_error("Base tile empty");
+        const std::string s = "Base tile empty";
+        logError() <<s;
+        throw std::runtime_error(s);
     }
     if (!isBinary(mTileRearrangement.base))
     {
-        logError() << "Base tile has overlapping regions";
-        throw std::runtime_error("Base tile not correctly partitioned");
+        const std::string s = "Base tile not correctly partitioned; has overlapping regions";
+        logError() << s;
+        throw std::runtime_error(s);
     }
     if (!isConnected(mTileRearrangement.base))
     {
-        logError() << "Base tile not connected";
-        throw std::runtime_error("Base tile not connected");
+        const std::string s = "Base tile not connected";
+        logError() << s;
+        throw std::runtime_error(s);
     }
     for (unsigned int c = 0; c < Corners; c++)
     {
         if (!isNonzero(mTileRearrangement.basePartition.slice(c)))
         {
-            logError() << "Base tile region " << c << " empty";
-            throw std::runtime_error("Base tile region empty");
+            const std::string s = "Base tile region " + std::to_string(c) + " empty";
+            logError() << s;
+            throw std::runtime_error(s);
         }
         if (!isConnected(mTileRearrangement.basePartition.slice(c)))
         {
-            logError() << "Base tile " << c << " not connected";
-            throw std::runtime_error("Base tile region not connected");
+            const std::string s = "Base tile " + std::to_string(c) + " not connected";
+            logError() << s;
+            throw std::runtime_error(s);
         }
     }
 }
@@ -119,8 +124,9 @@ void TileRearranger::validateColours() const
         colours_set.insert(c);
     if (regionColours.size() != colours_set.size())
     {
-        logError() << "Can't rearrange base tile; region colours not distinct";
-        throw std::runtime_error("Region colours not distinct");
+        const std::string s = "Can't rearrange base tile; region colours not distinct";
+        logError() << s;
+        throw std::runtime_error(s);
     }
 }
 
@@ -128,13 +134,15 @@ void TileRearranger::validateTessellation(const ImageStackGrey & tessellation)
 {
     if (tessellation.max() > 1)
     {
-        logError() << "Tessellation is not binary";
-        throw std::runtime_error("Error creating tessellation");
+        const std::string s = "Tessellation error: output is not binary";
+        logError() << s;
+        throw std::runtime_error(s);
     }
     if (!isBinary(arma::sum(tessellation, 2).eval()))
     {
-        logError() << "Base tile causes overlap when tessellated";
-        throw std::runtime_error("Can't tessellate base tile");
+        const std::string s = "Can't tessellate tile; overlap detected";
+        logError() << s;
+        throw std::runtime_error(s);
     }
     const auto central_boundary = boundary(tessellation.slice(4));
     ImageStackGrey surround(tessellation);
@@ -144,8 +152,9 @@ void TileRearranger::validateTessellation(const ImageStackGrey & tessellation)
         (neighbourhoodIntersection(central_boundary, surround_sum) != central_boundary).eval()).eval();
     if (hole_neighbours.max() != 0)
     {
-        logError() << "Base tile leaves a hole when tessellated";
-        throw std::runtime_error("Can't tessellate base tile");
+        const std::string s = "Can't tessellate tile; hole detected";
+        logError() << s;
+        throw std::runtime_error(s);
     }
 }
 

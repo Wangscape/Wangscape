@@ -199,8 +199,9 @@ sf::IntRect regionBox(const ImageGrey & image)
     const auto nonzero_indices = arma::find(image).eval();
     if (nonzero_indices.size() == 0)
     {
-        logError() << "Tried to get bounding box of all-zero mask";
-        throw std::runtime_error("Couldn't find bounding box");
+        const std::string s = "Tried to get bounding box of all-zero mask";
+        logError() << s;
+        throw std::runtime_error(s);
     }
     const auto nonzero_coords = arma::ind2sub(arma::size(image), nonzero_indices).eval();
     const auto nz_min = arma::min(nonzero_coords, 1).eval();
@@ -224,15 +225,35 @@ sf::IntRect boxUnion(sf::IntRect a, sf::IntRect b)
 ImageGrey32 distances(const ImageGrey & traversable, const ImageGrey & targets, bool use_diagonals)
 {
     if (!isBinary(traversable))
-        throw std::runtime_error("distances() requires binary traversable mask");
+    {
+        const std::string s = "distances() requires binary traversable mask";
+        logError() << s;
+        throw std::runtime_error(s);
+    }
     if (!isBinary(targets))
-        throw std::runtime_error("distances() requires binary targets mask");
+    {
+        const std::string s = "distances() requires binary targets mask";
+        logError() << s;
+        throw std::runtime_error(s);
+    }
     if(!isNonzero(traversable))
-        throw std::runtime_error("distances() requires nonzero traversable mask");
+    {
+        const std::string s = "distances() requires nonzero traversable mask";
+        logError() << s;
+        throw std::runtime_error(s);
+    }
     if (!isNonzero(targets))
-        throw std::runtime_error("distances() requires nonzero targets mask");
+    {
+        const std::string s = "distances() requires nonzero targets mask";
+        logError() << s;
+        throw std::runtime_error(s);
+    }
     if(!isConnected(traversable))
-        throw std::runtime_error("distances() requires connected traversable mask");
+    {
+        const std::string s = "distances() requires connected traversable mask";
+        logError() << s;
+        throw std::runtime_error(s);
+    }
 
     ImageGrey32 distance_field(arma::size(traversable));
     const arma::u32 infinity = std::numeric_limits<arma::u32>::max();
