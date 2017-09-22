@@ -10,6 +10,12 @@
 namespace
 {
 
+std::function<bool(IVec)> boundsChecker(IVec size, IVec origin = {0, 0})
+{
+    sf::IntRect rectangle(origin.x(), origin.y(), size.x(), size.y());
+    return [rectangle](IVec p) {return rectangle.contains(p.x(), p.y()); };
+}
+
 ImageGrey dilatedEroded(const ImageGrey & image, bool use_diagonals, arma::u8 edge_value, bool dilate)
 {
     const auto& steps = use_diagonals ? ORTHODIAGONAL_STEPS : ORTHOGONAL_STEPS;
@@ -26,6 +32,45 @@ ImageGrey dilatedEroded(const ImageGrey & image, bool use_diagonals, arma::u8 ed
         return arma::max(displacements, 2).eval();
     else
         return arma::min(displacements, 2).eval();
+}
+
+template<typename T>
+void breadthFirstSearch(const ImageGrey& traversable, const std::vector<IVec>& sources,
+                        std::function<void(IVec)> init, std::function<bool(IVec)> visitable,
+                        std::function<T(IVec)> get, std::function<void(IVec, T)> set,
+                        bool use_diagonals)
+{
+    const auto& steps = use_diagonals ? ORTHODIAGONAL_STEPS : ORTHOGONAL_STEPS;
+
+    const auto shape = makeUVec(arma::size(traversable));
+    const auto in_bounds = boundsChecker(shape);
+
+    std::queue<IVec> border;
+    for (const auto source : sources)
+    {
+        init(source);
+        border.push(source);
+    }
+
+    while (!border.empty())
+    {
+        IVec point = border.front();
+        border.pop();
+        T value = get(point);
+        for (const auto step : steps)
+        {
+            IVec new_point = point + step;
+            if (!in_bounds(new_point))
+                continue;
+            if (!traversable(new_point.y(), new_point.x()))
+                continue;
+            if (visitable(new_point))
+            {
+                border.push(new_point);
+                set(new_point, value);
+            }
+        }
+    }
 }
 
 } // anonymous namespace
@@ -98,45 +143,6 @@ void copyRegion(const ImageGrey& source, ImageGrey & target, CopyRegionParameter
                   arma::span(parameters.targetOrigin.x(), target_end.x() - 1)) =
         source.submat(arma::span(parameters.sourceOrigin.y(), source_end.y() - 1),
                       arma::span(parameters.sourceOrigin.x(), source_end.x() - 1));
-}
-
-bool isConnected(const ImageGrey & image, bool use_diagonals)
-{
-    const unsigned int n_ones = arma::nonzeros(image).eval().size();
-    if (n_ones == 0)
-        return false;
-    const auto start_index = image.index_max();
-    const auto start = arma::ind2sub(size(image), start_index);
-    std::set<IVec> component;
-    std::set<IVec> border;
-    border.insert(IVec(start(1), start(0)));
-    const auto& steps = use_diagonals ? ORTHODIAGONAL_STEPS : ORTHOGONAL_STEPS;
-    const auto shape = makeUVec(arma::size(image));
-    const auto in_bounds = [&shape](IVec point)
-    {
-        if (point.x() < 0 || point.y() < 0)
-            return false;
-        if ((unsigned int)point.x() >= shape.x() || (unsigned int)point.y() >= shape.y())
-            return false;
-        return true;
-    };
-    while (!border.empty())
-    {
-        const auto point = *border.begin();
-        border.erase(border.begin());
-        component.insert(point);
-        for (const auto& step : steps)
-        {
-            const auto new_point = point + step;
-            if (!in_bounds(new_point))
-                continue;
-            if (component.find(new_point) != component.end())
-                continue;
-            if (image(new_point.y(), new_point.x()))
-                border.insert(new_point);
-        }
-    }
-    return component.size() == n_ones;
 }
 
 bool isNonzero(const ImageGrey & image)
@@ -218,7 +224,26 @@ sf::IntRect boxUnion(sf::IntRect a, sf::IntRect b)
                        size_max(0), size_max(1));
 }
 
-ImageGrey32 distances(const ImageGrey & traversable, const ImageGrey & targets, bool use_diagonals)
+bool isConnected(const ImageGrey & mask, bool use_diagonals)
+{
+    const unsigned int n_ones = arma::nonzeros(mask).eval().size();
+    if (n_ones == 0)
+        return false;
+
+    std::set<IVec> visited;
+    const auto init = [&visited](IVec point) { visited.insert(point); };
+    const auto visitable = [&visited](IVec point) -> bool { return visited.find(point) == visited.cend(); };
+    const auto get = [&visited](IVec point) -> bool { return visited.find(point) != visited.cend(); };
+    const auto set = [&visited](IVec point, bool) { visited.insert(point); };
+
+    const auto start = arma::ind2sub(arma::size(mask), mask.index_max());
+    const std::vector<IVec> sources{IVec(start(1), start(0))};
+
+    breadthFirstSearch<bool>(mask, sources, init, visitable, get, set, use_diagonals);
+    return visited.size() == n_ones;
+}
+
+ImageGrey32 distances(const ImageGrey & traversable, const ImageGrey & sources, bool use_diagonals)
 {
     if (!isBinary(traversable))
     {
@@ -226,27 +251,27 @@ ImageGrey32 distances(const ImageGrey & traversable, const ImageGrey & targets, 
         logError() << s;
         throw std::runtime_error(s);
     }
-    if (!isBinary(targets))
+    if (!isBinary(sources))
     {
-        const std::string s = "distances() requires binary targets mask";
+        const std::string s = "distances() requires binary sources mask";
         logError() << s;
         throw std::runtime_error(s);
     }
-    if(!isNonzero(traversable))
+    if (!isNonzero(traversable))
     {
         const std::string s = "distances() requires nonzero traversable mask";
         logError() << s;
         throw std::runtime_error(s);
     }
-    if (!isNonzero(targets))
+    if (!isNonzero(sources))
     {
-        const std::string s = "distances() requires nonzero targets mask";
+        const std::string s = "distances() requires nonzero sources mask";
         logError() << s;
         throw std::runtime_error(s);
     }
-    if(!isConnected(traversable))
+    if (!isConnected(traversable))
     {
-        const std::string s = "distances() requires connected traversable mask";
+        const std::string s = "distances() requires connected traversability mask";
         logError() << s;
         throw std::runtime_error(s);
     }
@@ -255,48 +280,19 @@ ImageGrey32 distances(const ImageGrey & traversable, const ImageGrey & targets, 
     const arma::u32 infinity = std::numeric_limits<arma::u32>::max();
     distance_field.fill(infinity);
 
-    const auto target_coordinates = arma::ind2sub(arma::size(targets), arma::find(targets)).eval();
-
-    std::queue<IVec> border;
-    const auto& steps = use_diagonals ? ORTHODIAGONAL_STEPS : ORTHOGONAL_STEPS;
-
-    const auto shape = makeUVec(arma::size(traversable));
-
-    const auto in_bounds = [&shape](IVec point)
+    const auto source_coordinates = arma::ind2sub(arma::size(sources), arma::find(sources)).eval();
+    std::vector<IVec> sources_vector;
+    for (unsigned int i = 0; i < source_coordinates.n_cols; i++)
     {
-        if (point.x() < 0 || point.y() < 0)
-            return false;
-        if ((unsigned int)point.x() >= shape.x() || (unsigned int)point.y() >= shape.y())
-            return false;
-        return true;
-    };
-
-    for (unsigned int i = 0; i < target_coordinates.n_cols; i++)
-    {
-        IVec target{int(target_coordinates(1, i)), int(target_coordinates(0, i))};
-        distance_field(target.y(), target.x()) = 0;
-        border.push(target);
+        sources_vector.push_back({int(source_coordinates(1, i)), int(source_coordinates(0, i))});
     }
 
-    while (!border.empty())
-    {
-        IVec point = border.front();
-        border.pop();
-        arma::u32 distance = distance_field(point.y(), point.x()) + 1;
-        for (const auto step : steps)
-        {
-            IVec new_point = point + step;
-            if (!in_bounds(new_point))
-                continue;
-            if (!traversable(new_point.y(), new_point.x()))
-                continue;
-            if (distance_field(new_point.y(), new_point.x()) == infinity)
-            {
-                border.push(new_point);
-                distance_field(new_point.y(), new_point.x()) = distance;
-            }
-        }
-    }
+    const auto init = [&distance_field](IVec point) { distance_field(point.y(), point.x()) = 0; };
+    const auto visitable = [&distance_field, infinity](IVec point) -> bool { return distance_field(point.y(), point.x()) == infinity; };
+    const auto get = [&distance_field](IVec point) -> arma::u32 { return distance_field(point.y(), point.x()) + 1; };
+    const auto set = [&distance_field](IVec point, arma::u32 value) {  distance_field(point.y(), point.x()) = value; };
+
+    breadthFirstSearch<arma::u32>(traversable, sources_vector, init, visitable, get, set, use_diagonals);
     return distance_field;
 }
 
