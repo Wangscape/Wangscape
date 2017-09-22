@@ -3,16 +3,12 @@
 #include <set>
 #include <queue>
 #include "Vector.h"
+#include "Steps.h"
 
 #include "logging/Logging.h"
 
 namespace
 {
-const static std::vector<IVec> ORTHOGONAL_STEPS{
-    {0, 1}, {1, 0}, {0, -1}, {-1, 0}};
-const static std::vector<IVec> ORTHODIAGONAL_STEPS{
-    {0, 1}, {1, 0}, {0, -1}, {-1, 0},
-    {1, 1}, {1, -1}, {-1, 1}, {-1, -1}};
 
 ImageGrey dilatedEroded(const ImageGrey & image, bool use_diagonals, arma::u8 edge_value, bool dilate)
 {

@@ -168,6 +168,7 @@
   <ItemGroup>
     <ClInclude Include="codecs\RectCodec.h" />
     <ClInclude Include="image\CopyRegionParameters.h" />
+    <ClInclude Include="image\Steps.h" />
     <ClInclude Include="image\TileRearrangement.h" />
     <ClInclude Include="image\Image.h" />
     <ClInclude Include="noise\module\codecs\BitmapWrapperCodec.h" />

@@ -214,6 +214,7 @@
     <ClInclude Include="image\TileRearrangement.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="image\CopyRegionParameters.h" />
+    <ClInclude Include="image\Steps.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
