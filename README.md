@@ -213,7 +213,7 @@ To check how it works for provided examples, call it with the path to one of JSO
 under `Wangscape` dir, e.g. (in `build` directory):
 
 ```shell
-./bin/Wangscape ../Wangscape/example/example_options.json
+./bin/Wangscape ../doc/examples/example2/example_options.json
 ```
 
 After that the result image can be found in the `output` directory under
