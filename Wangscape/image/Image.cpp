@@ -16,22 +16,20 @@ std::function<bool(IVec)> boundsChecker(IVec size, IVec origin = {0, 0})
     return [rectangle](IVec p) {return rectangle.contains(p.x(), p.y()); };
 }
 
-ImageGrey dilatedEroded(const ImageGrey & image, bool use_diagonals, arma::u8 edge_value, bool dilate)
+ImageStackGrey generateDisplacements(const ImageGrey & image, const std::vector<IVec>& offsets, bool include_centre, arma::u8 edge_value = 0)
 {
-    const auto& steps = use_diagonals ? ORTHODIAGONAL_STEPS : ORTHOGONAL_STEPS;
-    const auto n_steps = steps.size();
-    ImageStackGrey displacements(image.n_rows, image.n_cols, n_steps + 1);
+    unsigned int c = include_centre;
+    ImageStackGrey displacements(image.n_rows, image.n_cols, offsets.size() + c);
     displacements.fill(edge_value);
-    displacements.slice(0) = image;
-    for (unsigned int s = 0; s < n_steps; s++)
+    if (include_centre)
+        displacements.slice(0) = image;
+    for (unsigned int s = 0; s < offsets.size(); s++)
     {
-        copyRegionBounded(image, displacements.slice(s + 1),
-        {IVec(0, 0), steps[s], IVec(makeUVec(arma::size(image)))});
+        copyRegionBounded(
+            image, displacements.slice(s + c),
+            {IVec(0, 0), offsets[s], makeIVec(arma::size(image))});
     }
-    if (dilate)
-        return arma::max(displacements, 2).eval();
-    else
-        return arma::min(displacements, 2).eval();
+    return displacements;
 }
 
 template<typename T>
@@ -178,7 +176,9 @@ ImageStackGrey unpaddedStack(const ImageStackGrey & image_stack)
 
 ImageGrey eroded(const ImageGrey & image, bool use_diagonals, arma::u8 edge_value)
 {
-    return dilatedEroded(image, use_diagonals, edge_value, false);
+    const auto& steps = use_diagonals ? ORTHODIAGONAL_STEPS : ORTHOGONAL_STEPS;
+    ImageStackGrey displacements = generateDisplacements(image, steps, true, edge_value);
+    return arma::min(displacements, 2).eval();
 }
 
 ImageGrey boundary(const ImageGrey & image, bool use_diagonals)
@@ -193,7 +193,9 @@ ImageGrey neighbourhoodIntersection(const ImageGrey & image, const ImageGrey & n
 
 ImageGrey dilated(const ImageGrey & image, bool use_diagonals, arma::u8 edge_value)
 {
-    return dilatedEroded(image, use_diagonals, edge_value, true);
+    const auto& steps = use_diagonals ? ORTHODIAGONAL_STEPS : ORTHOGONAL_STEPS;
+    ImageStackGrey displacements = generateDisplacements(image, steps, true, edge_value);
+    return arma::max(displacements, 2).eval();
 }
 
 sf::IntRect regionBox(const ImageGrey & image)
@@ -299,12 +301,5 @@ ImageGrey32 distances(const ImageGrey & traversable, const ImageGrey & sources, 
 ImageStackGrey tessellated(const ImageGrey & image, const std::vector<IVec>& offsets)
 {
     const auto image_padded = padded(image);
-    ImageStackGrey tessellation(image_padded.n_rows, image_padded.n_cols, offsets.size(), arma::fill::zeros);
-    for (size_t i = 0; i < offsets.size(); i++)
-    {
-        copyRegionBounded(
-            image_padded, tessellation.slice(i),
-            {IVec(0, 0), offsets[i], makeUVec(arma::size(image_padded))});
-    }
-    return tessellation;
+    return generateDisplacements(image,offsets,false);
 }
