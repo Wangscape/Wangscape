@@ -129,7 +129,7 @@ First, install necessary packages with `apt`:
 ```shell
 apt install cmake g++ libsfml-dev libboost-system-dev \
     libboost-filesystem-dev libboost-program-options-dev \
-    qt5-default
+    qt5-default libarmadillo-dev
 ```
 
 ### Compilation
