@@ -18,7 +18,7 @@ std::function<bool(IVec)> boundsChecker(IVec size, IVec origin = {0, 0})
 
 ImageStackGrey generateDisplacements(const ImageGrey & image, const std::vector<IVec>& offsets, bool include_centre, arma::u8 edge_value = 0)
 {
-    unsigned int c = include_centre;
+    const unsigned int c = include_centre ? 1 : 0;
     ImageStackGrey displacements(image.n_rows, image.n_cols, offsets.size() + c);
     displacements.fill(edge_value);
     if (include_centre)
@@ -301,5 +301,5 @@ ImageGrey32 distances(const ImageGrey & traversable, const ImageGrey & sources, 
 ImageStackGrey tessellated(const ImageGrey & image, const std::vector<IVec>& offsets)
 {
     const auto image_padded = padded(image);
-    return generateDisplacements(image,offsets,false);
+    return generateDisplacements(image_padded,offsets,false);
 }
