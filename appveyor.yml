@@ -85,7 +85,7 @@ after_build:
     
     Set-Item Env:PYTHON "C:\Python36"
     
-    C:package.bat
+    & .\package.ps1
     
     cd ..
     
