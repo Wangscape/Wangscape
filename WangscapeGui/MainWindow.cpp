@@ -149,6 +149,8 @@ void MainWindow::loadOptionsFromFile()
     mUi->generateButton->setEnabled(true);
     mUi->saveButton->setEnabled(false);
 
+    mUi->tilesetPreview->setDragMode(QGraphicsView::ScrollHandDrag);
+
     mUi->comboBox->clear();
     mPreviewImages.clear();
     mScene->clear();
