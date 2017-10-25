@@ -118,7 +118,7 @@
      </layout>
     </item>
     <item>
-     <widget class="QGraphicsView" name="tilesetPreview"/>
+     <widget class="CustomGraphicsView" name="tilesetPreview"/>
     </item>
     <item>
      <widget class="QProgressBar" name="progressBar">
@@ -164,6 +164,13 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>CustomGraphicsView</class>
+   <extends>QGraphicsView</extends>
+   <header>CustomGraphicsView.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
