@@ -2,8 +2,10 @@ set(tst-src
     main.cpp
     removeWhitespace.cpp
     DocumentationPath.cpp
+    TestBitmap.cpp
     TestCalculatorMax.cpp
     TestCalculatorDither.cpp
+    TestCalculatorLinear.cpp
     TestCalculatorTopTwo.cpp
     TestCartesianPower.cpp
     TestCoordinatePacker.cpp
@@ -16,6 +18,8 @@ set(tst-src
     TestModuleDecode.cpp
     TestNormLPQ.cpp
     TestOptions.cpp
+    TestRasterImage.cpp
+    TestRasterValues.cpp
     TestReciprocal.cpp
     TestRequiringOptions.cpp
     TestTilePartitionerSquares.cpp
