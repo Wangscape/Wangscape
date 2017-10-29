@@ -1,7 +1,6 @@
 pwd
 git submodule update --init --recursive
-
-brew install sfml homebrew/science/armadillo qt5
+brew install sfml armadillo qt5
 
 mkdir build
 cd build

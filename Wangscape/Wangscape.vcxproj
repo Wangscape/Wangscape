@@ -61,6 +61,8 @@
     <Import Project="spotify-json.props" />
     <Import Project="double-conversion.props" />
     <Import Project="cpp_utils.props" />
+    <Import Project="armadillo_cxx11.props" />
+    <Import Project="vmmlib.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -68,6 +70,8 @@
     <Import Project="spotify-json.props" />
     <Import Project="double-conversion.props" />
     <Import Project="cpp_utils.props" />
+    <Import Project="armadillo_cxx11.props" />
+    <Import Project="vmmlib.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -75,6 +79,8 @@
     <Import Project="spotify-json.props" />
     <Import Project="double-conversion.props" />
     <Import Project="cpp_utils.props" />
+    <Import Project="armadillo_cxx11.props" />
+    <Import Project="vmmlib.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -82,6 +88,8 @@
     <Import Project="spotify-json.props" />
     <Import Project="double-conversion.props" />
     <Import Project="cpp_utils.props" />
+    <Import Project="armadillo_cxx11.props" />
+    <Import Project="vmmlib.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
@@ -91,6 +99,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <PostBuildEvent>
       <Command>lib /NOLOGO /OUT:"$(TargetPath).lib" "$(ProjectDir)\$(Configuration)\*.obj"</Command>
@@ -105,6 +114,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <PostBuildEvent>
       <Command>lib /NOLOGO /OUT:"$(TargetPath).lib" "$(ProjectDir)\$(Configuration)\*.obj"</Command>
@@ -119,6 +129,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -138,6 +149,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -155,6 +167,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="codecs\RectCodec.h" />
+    <ClInclude Include="image\CopyRegionParameters.h" />
+    <ClInclude Include="image\Steps.h" />
+    <ClInclude Include="image\TileRearrangement.h" />
     <ClInclude Include="image\Image.h" />
     <ClInclude Include="noise\module\codecs\BitmapWrapperCodec.h" />
     <ClInclude Include="noise\module\codecs\LogarithmWrapperCodec.h" />
@@ -276,9 +291,13 @@
     <ClInclude Include="tilegen\TileGenerator.h" />
     <ClInclude Include="tilegen\TilesetGenerator.h" />
     <ClInclude Include="ipow.h" />
+    <ClInclude Include="image\TileRearranger.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="image\CopyRegionParameters.cpp" />
     <ClCompile Include="image\Image.cpp" />
+    <ClCompile Include="image\TileRearrangement.cpp" />
     <ClCompile Include="noise\module\codecs\BitmapWrapperCodec.cpp" />
     <ClCompile Include="noise\module\codecs\LogarithmWrapperCodec.cpp" />
     <ClCompile Include="noise\module\Bitmap.cpp" />
@@ -355,6 +374,7 @@
     <ClCompile Include="tilegen\partition\TilePartitionerSquares.cpp" />
     <ClCompile Include="tilegen\TileGenerator.cpp" />
     <ClCompile Include="tilegen\TilesetGenerator.cpp" />
+    <ClCompile Include="image\TileRearranger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="noise\module\codecs\ConstWrapperCodec.h" />

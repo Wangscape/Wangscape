@@ -10,6 +10,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include_directories(${CMAKE_SOURCE_DIR}/lib/cpp_utils)
+include_directories(${CMAKE_SOURCE_DIR}/lib/vmmlib)
 
 add_subdirectory(lib)
 add_subdirectory(Wangscape)

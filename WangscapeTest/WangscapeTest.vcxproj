@@ -61,6 +61,8 @@
     <Import Project="..\Wangscape\spotify-json.props" />
     <Import Project="..\Wangscape\double-conversion.props" />
     <Import Project="..\Wangscape\cpp_utils.props" />
+    <Import Project="..\Wangscape\armadillo_cxx11.props" />
+    <Import Project="..\Wangscape\vmmlib.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -68,6 +70,8 @@
     <Import Project="..\Wangscape\spotify-json.props" />
     <Import Project="..\Wangscape\double-conversion.props" />
     <Import Project="..\Wangscape\cpp_utils.props" />
+    <Import Project="..\Wangscape\armadillo_cxx11.props" />
+    <Import Project="..\Wangscape\vmmlib.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -75,6 +79,8 @@
     <Import Project="..\Wangscape\spotify-json.props" />
     <Import Project="..\Wangscape\double-conversion.props" />
     <Import Project="..\Wangscape\cpp_utils.props" />
+    <Import Project="..\Wangscape\armadillo_cxx11.props" />
+    <Import Project="..\Wangscape\vmmlib.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -82,6 +88,8 @@
     <Import Project="..\Wangscape\spotify-json.props" />
     <Import Project="..\Wangscape\double-conversion.props" />
     <Import Project="..\Wangscape\cpp_utils.props" />
+    <Import Project="..\Wangscape\armadillo_cxx11.props" />
+    <Import Project="..\Wangscape\vmmlib.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -178,7 +186,9 @@
     <ClCompile Include="TestReciprocal.cpp" />
     <ClCompile Include="TestRequiringOptions.cpp" />
     <ClCompile Include="TestTilePartitionerSquares.cpp" />
+    <ClCompile Include="TestTileRearranger.cpp" />
     <ClCompile Include="TestTilesetGenerator.cpp" />
+    <ClCompile Include="TestVector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
